@@ -1,1 +1,7 @@
 Server/emissor/src/backup/
+*.dbg
+*.exe
+Exemplos/Cripto/scr/backup/
+Exemplos/Cripto/scr/lib/x86_64-win64/
+Server/emissor/Temp/
+*.bak

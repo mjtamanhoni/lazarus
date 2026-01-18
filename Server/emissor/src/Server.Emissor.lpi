@@ -24,10 +24,30 @@
     <RunParams>
       <FormatVersion Value="2"/>
     </RunParams>
+    <RequiredPackages>
+      <Item>
+        <PackageName Value="HashLib4PascalPackage"/>
+      </Item>
+    </RequiredPackages>
     <Units>
       <Unit>
         <Filename Value="Server.Emissor.lpr"/>
         <IsPartOfProject Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="ubase.router.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uBase.Router"/>
+      </Unit>
+      <Unit>
+        <Filename Value="uusuario.service.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uUsuario.Service"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\..\..\Global\ucripto_descrito.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uCripto_Descrito"/>
       </Unit>
     </Units>
   </ProjectOptions>
@@ -39,8 +59,20 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
+      <OtherUnitFiles Value="C:\lazarus\components\Horse\horse\src\;C:\lazarus\components\Horse\horse-jwt\src\;C:\lazarus\components\Horse\LazJWT\src\;C:\lazarus\components\dc4dl\DataSetConverter4Delphi\src\;C:\lazarus\components\j4dl\json4delphi\src\;..\..\..\Global"/>
       <UnitOutputDirectory Value="..\Temp\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
+    <Parsing>
+      <SyntaxOptions>
+        <SyntaxMode Value="Delphi"/>
+      </SyntaxOptions>
+    </Parsing>
+    <Linking>
+      <Debugging>
+        <DebugInfoType Value="dsDwarf3"/>
+        <UseExternalDbgSyms Value="True"/>
+      </Debugging>
+    </Linking>
   </CompilerOptions>
   <Debugging>
     <Exceptions>

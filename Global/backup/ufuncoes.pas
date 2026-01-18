@@ -56,6 +56,9 @@ procedure Log(const Msg: string; const UnitName: string = ''; Line: Integer = 0)
 
 function GerarTokenSimples(const CNPJ: string; const ChaveSecreta: string): string;
 
+function SubstituirString(const S: string; ProbabilidadeTroca: Byte = 60): string;
+function Embaralhar(const S: string): string;
+
 implementation
 
 function RemoverMascara(const S: string): string;

@@ -1,0 +1,53 @@
+object frmCripto: TfrmCripto
+  Left = 262
+  Height = 456
+  Top = 250
+  Width = 874
+  Caption = 'Criptogra/Descriptografa'
+  ClientHeight = 456
+  ClientWidth = 874
+  Position = poScreenCenter
+  LCLVersion = '4.4.0.0'
+  object edSenha: TEdit
+    Left = 8
+    Height = 23
+    Top = 8
+    Width = 408
+    TabOrder = 0
+    TextHint = 'Digite a senha desejada'
+  end
+  object edSenhaCriptografada: TEdit
+    Left = 8
+    Height = 23
+    Top = 136
+    Width = 664
+    TabOrder = 1
+    TextHint = 'Senha criptografada'
+  end
+  object edSenhaDescriptografada: TEdit
+    Left = 8
+    Height = 23
+    Top = 168
+    Width = 664
+    TabOrder = 2
+    TextHint = 'Senha descriptografada'
+  end
+  object btCriptografa: TButton
+    Left = 424
+    Height = 25
+    Top = 8
+    Width = 120
+    Caption = 'Criptografa'
+    TabOrder = 3
+    OnClick = btCriptografaClick
+  end
+  object btDescriptografa: TButton
+    Left = 688
+    Height = 25
+    Top = 136
+    Width = 120
+    Caption = 'Descriptografa'
+    TabOrder = 4
+    OnClick = btDescriptografaClick
+  end
+end
