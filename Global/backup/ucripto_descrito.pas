@@ -172,7 +172,15 @@ end;
 
 function Descriptografar(const aTexto: string): string;
 begin
-  Result := RemoverInicioEFim(DecodeStringBase64(aTexto),19,19);
+  try
+    if aTexto.IsEmpty then
+      Raise Exception.Create('Não foi informado o conteúdo');
+
+    Result := RemoverInicioEFim(DecodeStringBase64(aTexto),19,19);
+  except
+    On E:Exception do
+      Raise Exception.Create(E.Message);
+  end;
 end;
 
 

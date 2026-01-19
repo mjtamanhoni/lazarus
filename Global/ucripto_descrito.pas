@@ -8,12 +8,14 @@ uses
   Classes, SysUtils, Math, DateUtils, base64;
 
 const
-  LetrasMinusculas   = 'abcdefghijklmnopqrstuvwxyz';
-  LetrasMaiusculas   = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  Numeros            = '0123456789';
-  Especiais          = '~!@#$%^&*()_+-=[]{}|;:''",./<>?';
-  AcentosMinus       = 'áàãâéêíóôõúç';
-  AcentosMaius       = 'ÁÀÃÂÉÊÍÓÔÕÚÇ';
+  LetrasMinusculas = 'abcdefghijklmnopqrstuvwxyz';
+  LetrasMaiusculas = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  Numeros = '0123456789';
+  Especiais = '~!@#$%^&*()_+-=[]{}|;:''",./<>?';
+  AcentosMinus = 'áàãâéêíóôõúç';
+  AcentosMaius = 'ÁÀÃÂÉÊÍÓÔÕÚÇ';
+
+  C_SECRET_JWT = 'S3cr3t!JWT#2026@HorseFramework';
 
 function Criptografar(const aTexto: string): string;
 function Descriptografar(const aTexto: string): string;

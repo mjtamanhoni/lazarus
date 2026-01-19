@@ -8,8 +8,7 @@
       <Unit>
         <Filename Value="Server.Emissor.lpr"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
-        <CursorPos X="27" Y="4"/>
+        <CursorPos X="44" Y="30"/>
         <UsageCount Value="116"/>
         <Loaded Value="True"/>
       </Unit>
@@ -18,6 +17,7 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="uBase.Router"/>
         <EditorIndex Value="2"/>
+        <TopLine Value="16"/>
         <CursorPos X="35" Y="27"/>
         <UsageCount Value="116"/>
         <Loaded Value="True"/>
@@ -26,10 +26,21 @@
         <Filename Value="uusuario.service.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uUsuario.Service"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
+        <TopLine Value="58"/>
+        <CursorPos X="53" Y="73"/>
         <UsageCount Value="116"/>
         <Loaded Value="True"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\..\..\Global\ucripto_descrito.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uCripto_Descrito"/>
+        <EditorIndex Value="1"/>
+        <CursorPos X="3" Y="18"/>
+        <UsageCount Value="69"/>
+        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="..\..\..\Global\ufuncoes.pas"/>
@@ -43,29 +54,12 @@
       <Unit>
         <Filename Value="..\..\..\Global\ucriptografiasenha.pas"/>
         <EditorIndex Value="-1"/>
-        <CursorPos X="24"/>
-        <UsageCount Value="28"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit>
-      <Unit>
-        <Filename Value="..\..\..\Global\ucriptografiasenha.pas"/>
-        <EditorIndex Value="-1"/>
         <CursorPos X="28" Y="5"/>
         <UsageCount Value="13"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
-      <Unit>
-        <Filename Value="..\..\..\Global\ucripto_descrito.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="uCripto_Descrito"/>
-        <EditorIndex Value="1"/>
-        <CursorPos X="57" Y="8"/>
-        <UsageCount Value="69"/>
-        <Loaded Value="True"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit>
     </Units>
-    <JumpHistory HistoryIndex="11">
+    <JumpHistory HistoryIndex="12">
       <Position>
         <Filename Value="Server.Emissor.lpr"/>
         <Caret Line="13" Column="57"/>
@@ -112,7 +106,11 @@
       </Position>
       <Position>
         <Filename Value="Server.Emissor.lpr"/>
-        <Caret Line="10" Column="21"/>
+        <Caret Line="10"/>
+      </Position>
+      <Position>
+        <Filename Value="ubase.router.pas"/>
+        <Caret Line="27" Column="35" TopLine="16"/>
       </Position>
     </JumpHistory>
     <RunParams>

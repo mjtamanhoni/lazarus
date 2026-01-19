@@ -54,6 +54,7 @@ end;
 function TUsuarioService.Login(aJSonString: String): String;
 var
   FJSonobject :TJSONObject;
+  FCNPJ :String; //Cnpj/Cpf
   FUsuario :String;
   FPassword :String;
 begin
@@ -63,11 +64,14 @@ begin
 
     FJSonobject := TJSONObject(GetJSON(aJSonString));
 
+    if (FJSonobject.Find('cnpj') = Nil) then
+      Raise Exception.Create('CNPJ não encontrado');
     if (FJSonobject.Find('usuario') = Nil) then
       Raise Exception.Create('Usuário/Senha não encontrado');
     if (FJSonobject.Find('password') = Nil) then
       Raise Exception.Create('Usuário/Senha não encontrado');
 
+    FCNPJ := FJSonobject['cnpj'].AsString;
     FUsuario := FJSonobject['usuario'].AsString;
     FPassword := FJSonobject['password'].AsString;
 
@@ -76,6 +80,7 @@ begin
     Result := TLazJWT.New
       .SecretJWT('Horse_2026')
       .Exp(DateTimeToUnix(IncHour(Now,1)))
+      .AddClaim('cnpj',FCNPJ)
       .AddClaim('usuario',FUsuario)
       .AddClaim('password',FPassword)
       .Token;

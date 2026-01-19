@@ -7,9 +7,6 @@ uses
   Horse,
   Horse.JWT, uBase.Router, uUsuario.Service, uCripto_Descrito;
 
-const
-  C_SECRET_JWT = 'S3cr3t!JWT#2026@HorseFramework';
-
 procedure OnListen();
 begin
   WriteLn(Format('Server active on port: %d',[THorse.Port]));
@@ -23,7 +20,7 @@ end;
 begin
   //Depois mudar a senha 'Horse_2026', por algo mais complexo (CNPJ do cliente)
   //Validador de Token
-  THorse.Use(HorseJWT('Horse_2026',THorseJWTConfig.New.SkipRoutes(['/','/login'])));
+  THorse.Use(HorseJWT(C_SECRET_JWT,THorseJWTConfig.New.SkipRoutes(['/','/login'])));
 
   //Lendo as rotas..
   TBaseRoute.Load();

@@ -22,7 +22,7 @@
         <UnitName Value="uCripto"/>
         <IsVisibleTab Value="True"/>
         <TopLine Value="19"/>
-        <CursorPos Y="40"/>
+        <CursorPos X="26" Y="31"/>
         <UsageCount Value="65"/>
         <Bookmarks Count="1">
           <Item0 Y="40" Left="1" Top="18" ID="1"/>
