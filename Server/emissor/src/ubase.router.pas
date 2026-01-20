@@ -5,7 +5,7 @@ unit uBase.Router;
 interface
 
 uses
-  Classes, SysUtils, Horse;
+  Classes, SysUtils, Horse, fpjson;
 
 type
 
@@ -23,46 +23,59 @@ implementation
 uses
   uUsuario.Service;
 
-procedure OnStatus(aReq:THorseRequest; aRes:THorseResponse);
+procedure OnStatus(Req:THorseRequest; Res:THorseResponse);
 begin
-  aRes.ContentType('text/html')
+  Res.ContentType('text/html')
     .Send(Format('<h1>Server on-line - Horse version <i>%s</i></h1>',[THorse.Version]));
 end;
 
-procedure OnTeste(aReq:THorseRequest; aRes:THorseResponse);
+procedure OnTeste(Req:THorseRequest; Res:THorseResponse);
 begin
-  aRes.ContentType('text/html')
+  Res.ContentType('text/html')
     .Send('Endpoint teste');
 end;
 
-procedure OnLogin(aReq:THorseRequest; aRes:THorseResponse);
+procedure OnLogin(Req:THorseRequest; Res:THorseResponse);
 begin
-  aRes.ContentType('text/html')
-    .Send(TUsuarioService.New.Login(aReq.Body));
+  Res.ContentType('text/html')
+    .Send(TUsuarioService.New.Login(Req.Body));
 end;
 
-procedure OnUsuarioGet(aReq:THorseRequest; aRes:THorseResponse);
+procedure OnUsuarioGet(Req:THorseRequest; Res:THorseResponse);
 var
   FId :Integer;
   FLogin :String;
   FNome :String;
   FStatus :Integer;
 begin
+  FId := StrToIntDef(Req.Query['id'],0);
+  FLogin := Req.Query['login'];
+  FNome := Req.Query['nome'];
+  FStatus := StrToIntDef(Req.Query['status'],1);
 
-  FId := StrToIntDef(aReq.Query['id'],0);
-  FLogin := aReq.Query['login'];
-  FNome := aReq.Query['nome'];
-  FStatus := StrToIntDef(aReq.Query['status'],1);
+  Res.ContentType('application/json')
+      .Send(TUsuarioService.New.UsuarioGet(FId,FLogin,FNome,FStatus));
+end;
 
-  aRes.ContentType('application/json')
-    .Send(TUsuarioService.New.UsuarioGet(FId,FLogin,FNome,FStatus));
+procedure OnUsuarioPost(Req:THorseRequest; Res:THorseResponse);
+begin
+  Res.ContentType('application/json')
+      .Send(TUsuarioService.New.UsuarioPost(Req.Body));
+end;
 
-  {
-  aRes.ContentType('application/json')
-    .Send(TUsuarioService.New.UsuarioGet(StrToIntDef(aReq.Params['id'],0),
-                                         aReq.Params['login'],
-                                         aReq.Params['nome']));
-  }
+procedure OnUsuarioPut(Req:THorseRequest; Res:THorseResponse);
+begin
+  Res.ContentType('application/json')
+      .Send(TUsuarioService.New.UsuarioPut(Req.Body));
+end;
+
+procedure OnUsuarioDel(Req:THorseRequest; Res:THorseResponse);
+var
+  FId :Integer;
+begin
+  FId := StrToIntDef(Req.Query['id'],0);
+  Res.ContentType('application/json')
+      .Send(TUsuarioService.New.UsuarioDelete(FId));
 end;
 
 class procedure TBaseRoute.Load();
@@ -71,8 +84,10 @@ begin
   THorse.Get('/teste', OnTeste);
 
   THorse.Post('/login',OnLogin);
-  THorse
-    .Get('/usuario',OnUsuarioGet);
+  THorse.Get('/usuario',OnUsuarioGet)
+        .Post('/usuario',OnUsuarioPost)
+        .Put('/usuario',OnUsuarioPut)
+        .Delete('/usuario',OnUsuarioDel);
 end;
 
 end.

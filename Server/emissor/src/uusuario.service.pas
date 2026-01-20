@@ -10,6 +10,7 @@ uses
   jsonparser,
   ezthreads, //Realiza um parse de uma string para um objeto Json
   ZDataset,
+  DataSet.Serialize, TypInfo,
   uCripto_Descrito, uDM, uBase.Functions;
 
 
@@ -22,6 +23,12 @@ type
              const ALogin:String;
              const ANome:String;
              const AStatus:Integer):String;
+    function UsuarioPost(
+    	     const AJSon :String):String;
+    function UsuarioPut(
+    	     const AJSon :String):String;
+    function UsuarioDelete(
+    	     const AId:Integer):String;
   end;
 
 
@@ -41,6 +48,12 @@ type
              const ALogin:String;
              const ANome:String;
              const AStatus:Integer):String;
+    function UsuarioPost(
+    	     const AJSon :String):String;
+    function UsuarioPut(
+    	     const AJSon :String):String;
+    function UsuarioDelete(
+    	     const AId:Integer):String;
 
   end;
 
@@ -122,7 +135,6 @@ begin
       FQuery := FDM.GetQuery;
 
       FJSonobject := TJSONObject.Create;
-      FJSonobject.Add('success',True);
 
       FQuery.SQL.Add('select ');
       FQuery.SQL.Add('  u.* ');
@@ -140,16 +152,24 @@ begin
       end;
       if not ANome.IsEmpty then
       begin
-        FQuery.SQL.Add('  and u.nome = :nome');
-        FQuery.ParamByName('nome').AsString := ANome;
+        FQuery.SQL.Add('  and u.nome like :nome');
+        FQuery.ParamByName('nome').AsString := '%'+ANome+'%';
       end;
       if AStatus in [0,1] then
       begin
         FQuery.SQL.Add('  and u.ativo = :ativo');
         FQuery.ParamByName('ativo').AsInteger := AStatus;
       end;
+      FQuery.Open;
 
-      //FJSonobject.Add('data',FJsonTexto);
+      if FQuery.IsEmpty then
+        raise Exception.Create('Usuário não localizado')
+      else
+      begin
+        FJSonobject.Add('success',True);
+        FJSonobject.Add('data',FQuery.ToJSONArray);
+      end;
+
       Result := FJSonobject.AsJSON;
 
     except
@@ -172,49 +192,139 @@ begin
 
 end;
 
-end.
-
-
-
-
-(*
-function TUsuarioService.UsuarioGet(
-         const AId: Integer;
-         const ALogin:String;
-         const ANome:String):String;
+function TUsuarioService.UsuarioPost(const AJSon: String): String;
 var
-  FJSonobject :TJSONObject;
-  FJsonTexto :TJSONObject;
-  FDM :TDM;
+  FJson :TJSONObject;
+  FDm :TDM;
+  FQuery :TZQuery;
 begin
   try
     try
-      FJSonobject := TJSONObject.Create;
-      {
-      FJSonobject.Add('success',True);
+      FDm := TDM.Create(Nil);
+      FQuery := FDm.GetQuery;
 
-      FJsonTexto := TJSONObject.Create;
-      FJsonTexto.Add('Id',AId);
-      FJsonTexto.Add('Login',ALogin);
-      FJsonTexto.Add('Nome',ANome);
+      if AJSon.IsEmpty and not AJSon.StartsWith('{') and not AJSon.EndsWith('}') then
+        Raise Exception.Create('JSon Inválido!');
 
-      FJSonobject.Add('data',FJsonTexto);
-      Result := FJSonobject.AsJSON;
-      }
+      FJson := TJSONObject(GetJSON(AJSon));
+
+      FQuery.SQL.Add('insert into public.usuarios ( ');
+      FQuery.SQL.Add('  login ');
+      FQuery.SQL.Add('  ,senha ');
+      FQuery.SQL.Add('  ,nome ');
+      FQuery.SQL.Add('  ,email ');
+      if not FJson['id_perfil'].IsNull then
+        FQuery.SQL.Add('  ,id_perfil ');
+      FQuery.SQL.Add(') values( ');
+      FQuery.SQL.Add('  :login ');
+      FQuery.SQL.Add('  ,:senha ');
+      FQuery.SQL.Add('  ,:nome ');
+      FQuery.SQL.Add('  ,:email ');
+      if not FJson['id_perfil'].IsNull then
+        FQuery.SQL.Add('  ,:id_perfil ');
+      FQuery.SQL.Add('); ');
+      FQuery.ParamByName('login').AsString := FJson['login'].AsString;
+      FQuery.ParamByName('senha').AsString := FJson['senha'].AsString;
+      FQuery.ParamByName('nome').AsString := FJson['nome'].AsString;
+      FQuery.ParamByName('email').AsString := FJson['email'].AsString;
+      if not FJson['id_perfil'].IsNull then
+        FQuery.ParamByName('id_perfil').AsInteger := FJson['id_perfil'].AsInteger;
+      FQuery.ExecSQL;
+
+      Result :='{"success":true,"message":"Usuário inserido com sucesso"}';
     except
-      on E :Exception do
+      on E:Exception do
       begin
-        FJSonobject.Add('success',False);
-        FJSonobject.Add('message',E.Message);
-        Result := FJSonobject.AsJSON;
         SaveLog(E.Message);
+        Result :='{"success":false,"message":"'+E.Message+'"}';
       end;
     end;
   finally
-    FreeAndNil(FJSonobject);
-    //FreeAndNil(FJsonTexto);
+    FreeAndNil(FDm);
+    FreeAndNil(FQuery);
   end;
-
 end;
 
-*)
+function TUsuarioService.UsuarioPut(const AJSon: String): String;
+var
+  FJson :TJSONObject;
+  FDm :TDM;
+  FQuery :TZQuery;
+begin
+  try
+    try
+      FDm := TDM.Create(Nil);
+      FQuery := FDm.GetQuery;
+
+      if AJSon.IsEmpty and not AJSon.StartsWith('{') and not AJSon.EndsWith('}') then
+        Raise Exception.Create('JSon Inválido!');
+
+      FJson := TJSONObject(GetJSON(AJSon));
+
+      FQuery.SQL.Add('update public.usuarios set ');
+      FQuery.SQL.Add('  login = :login ');
+      FQuery.SQL.Add('  ,senha = :senha ');
+      FQuery.SQL.Add('  ,nome = :nome ');
+      FQuery.SQL.Add('  ,email = :email ');
+      FQuery.SQL.Add('  ,ativo = :ativo ');
+      if not FJson['id_perfil'].IsNull then
+        FQuery.SQL.Add('  ,id_perfil = :id_perfil ');
+      FQuery.SQL.Add('where id_usuario = :id_usuario; ');
+      FQuery.ParamByName('login').AsString := FJson['login'].AsString;
+      FQuery.ParamByName('senha').AsString := FJson['senha'].AsString;
+      FQuery.ParamByName('nome').AsString := FJson['nome'].AsString;
+      FQuery.ParamByName('email').AsString := FJson['email'].AsString;
+      FQuery.ParamByName('ativo').AsInteger := FJson['ativo'].AsInteger;
+      if not FJson['id_perfil'].IsNull then
+        FQuery.ParamByName('id_perfil').AsInteger := FJson['id_perfil'].AsInteger;
+      FQuery.ExecSQL;
+
+      Result :='{"success":true,"message":"Usuário alterado com sucesso"}';
+    except
+      on E:Exception do
+      begin
+        SaveLog(E.Message);
+        Result :='{"success":false,"message":"'+E.Message+'"}';
+      end;
+    end;
+  finally
+    FreeAndNil(FDm);
+    FreeAndNil(FQuery);
+  end;
+end;
+
+function TUsuarioService.UsuarioDelete(const AId: Integer): String;
+var
+  FJson :TJSONObject;
+  FDm :TDM;
+  FQuery :TZQuery;
+begin
+  try
+    try
+      FDm := TDM.Create(Nil);
+      FQuery := FDm.GetQuery;
+
+      if AId = 0 then
+        raise Exception.Create('Não foi informado o ID do usuário');
+
+      FQuery.SQL.Add('delete from public.usuarios where id_usuario = :id_usuario;');
+      FQuery.ParamByName('id').AsInteger := AId;
+      FQuery.ExecSQL;
+
+      Result :='{"success":true,"message":"Usuário excluído com sucesso"}';
+
+    except
+      on E:Exception do
+      begin
+        SaveLog(E.Message);
+        Result :='{"success":false,"message":"'+E.Message+'"}';
+      end;
+    end;
+  finally
+    FreeAndNil(FDm);
+    FreeAndNil(FQuery);
+  end;
+end;
+
+end.
+

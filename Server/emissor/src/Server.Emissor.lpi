@@ -62,7 +62,7 @@
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="C:\lazarus\components\Horse\horse\src\;C:\lazarus\components\Horse\horse-jwt\src\;C:\lazarus\components\Horse\LazJWT\src\;C:\lazarus\components\dc4dl\DataSetConverter4Delphi\src\;C:\lazarus\components\j4dl\json4delphi\src\;C:\lazarus\components\RestRequest4Delphi\RESTRequest4Delphi\src\;C:\lazarus\components\EZThreads\src\;C:\lazarus\components\Horse\jhonson-1.2.1\src\;C:\lazarus\components\fpjson\src\;..\..\..\Global"/>
+            <OtherUnitFiles Value="C:\lazarus\components\Horse\horse\src\;C:\lazarus\components\Horse\horse-jwt\src\;C:\lazarus\components\Horse\LazJWT\src\;C:\lazarus\components\dc4dl\DataSetConverter4Delphi\src\;C:\lazarus\components\j4dl\json4delphi\src\;C:\lazarus\components\RestRequest4Delphi\RESTRequest4Delphi\src\;C:\lazarus\components\EZThreads\src\;C:\lazarus\components\Horse\jhonson-1.2.1\src\;C:\lazarus\components\fpjson\src\;C:\lazarus\components\DataSet-Serealize\dataset-serialize\src\;..\..\..\Global"/>
             <UnitOutputDirectory Value="..\Temp\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <Parsing>

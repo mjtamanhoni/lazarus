@@ -8,8 +8,8 @@
       <Unit>
         <Filename Value="Server.Emissor.lpr"/>
         <IsPartOfProject Value="True"/>
-        <CursorPos Y="35"/>
-        <UsageCount Value="179"/>
+        <CursorPos X="88" Y="28"/>
+        <UsageCount Value="189"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
@@ -18,9 +18,9 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="uBase.Router"/>
         <EditorIndex Value="3"/>
-        <TopLine Value="31"/>
-        <CursorPos X="66" Y="56"/>
-        <UsageCount Value="179"/>
+        <TopLine Value="47"/>
+        <CursorPos X="55" Y="69"/>
+        <UsageCount Value="189"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
@@ -30,11 +30,11 @@
         <UnitName Value="uUsuario.Service"/>
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="4"/>
-        <TopLine Value="145"/>
-        <CursorPos X="12" Y="166"/>
-        <UsageCount Value="179"/>
+        <TopLine Value="92"/>
+        <CursorPos Y="330"/>
+        <UsageCount Value="189"/>
         <Bookmarks Count="1">
-          <Item0 X="54" Y="74" Left="1" Top="64" ID="1"/>
+          <Item0 X="54" Y="87" Left="1" Top="77" ID="1"/>
         </Bookmarks>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
@@ -46,7 +46,7 @@
         <EditorIndex Value="1"/>
         <TopLine Value="34"/>
         <CursorPos X="22"/>
-        <UsageCount Value="132"/>
+        <UsageCount Value="142"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
@@ -59,7 +59,7 @@
         <UnitName Value="uDM"/>
         <EditorIndex Value="5"/>
         <CursorPos X="14" Y="9"/>
-        <UsageCount Value="58"/>
+        <UsageCount Value="68"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
@@ -71,7 +71,7 @@
         <EditorIndex Value="2"/>
         <TopLine Value="10"/>
         <CursorPos X="38" Y="46"/>
-        <UsageCount Value="58"/>
+        <UsageCount Value="68"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
@@ -95,7 +95,7 @@
         <Filename Value="C:\lazarus\fpc\3.2.2\source\packages\fcl-json\src\fpjson.pp"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="77" Y="20"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit>
       <Unit>
         <Filename Value="C:\lazarus\components\dc4dl\DataSetConverter4Delphi\src\DataSetConverter4D.pas"/>
@@ -114,101 +114,6 @@
       </Unit>
     </Units>
     <JumpHistory HistoryIndex="29">
-      <Position>
-        <Filename Value="ubase.router.pas"/>
-        <Caret Line="47" Column="59" TopLine="24"/>
-      </Position>
-      <Position>
-        <Filename Value="ubase.router.pas"/>
-        <Caret Line="54" Column="62" TopLine="24"/>
-      </Position>
-      <Position>
-        <Filename Value="ubase.router.pas"/>
-        <Caret Line="55" Column="53" TopLine="33"/>
-      </Position>
-      <Position>
-        <Filename Value="ubase.router.pas"/>
-        <Caret Line="54" Column="64" TopLine="33"/>
-      </Position>
-      <Position>
-        <Filename Value="uusuario.service.pas"/>
-        <Caret Line="126" Column="9" TopLine="92"/>
-      </Position>
-      <Position>
-        <Filename Value="ubase.router.pas"/>
-        <Caret Line="60" Column="21" TopLine="31"/>
-      </Position>
-      <Position>
-        <Filename Value="uusuario.service.pas"/>
-        <Caret Line="126" Column="9" TopLine="92"/>
-      </Position>
-      <Position>
-        <Filename Value="ubase.router.pas"/>
-        <Caret Line="49" Column="32" TopLine="19"/>
-      </Position>
-      <Position>
-        <Filename Value="ubase.router.pas"/>
-        <Caret Line="56" Column="58" TopLine="31"/>
-      </Position>
-      <Position>
-        <Filename Value="uusuario.service.pas"/>
-        <Caret Line="103" Column="27" TopLine="96"/>
-      </Position>
-      <Position>
-        <Filename Value="uusuario.service.pas"/>
-        <Caret Line="146" Column="37" TopLine="114"/>
-      </Position>
-      <Position>
-        <Filename Value="uusuario.service.pas"/>
-        <Caret Line="125" Column="63" TopLine="114"/>
-      </Position>
-      <Position>
-        <Filename Value="uusuario.service.pas"/>
-        <Caret Line="131" Column="27" TopLine="113"/>
-      </Position>
-      <Position>
-        <Filename Value="uusuario.service.pas"/>
-        <Caret Line="119" Column="33" TopLine="113"/>
-      </Position>
-      <Position>
-        <Filename Value="uusuario.service.pas"/>
-      </Position>
-      <Position>
-        <Filename Value="uusuario.service.pas"/>
-        <Caret Line="138" Column="49" TopLine="117"/>
-      </Position>
-      <Position>
-        <Filename Value="uusuario.service.pas"/>
-        <Caret Line="12" Column="34"/>
-      </Position>
-      <Position>
-        <Filename Value="..\..\..\Global\ubase.functions.pas"/>
-        <Caret Line="14" Column="56"/>
-      </Position>
-      <Position>
-        <Filename Value="uusuario.service.pas"/>
-        <Caret Line="131" Column="34" TopLine="117"/>
-      </Position>
-      <Position>
-        <Filename Value="uusuario.service.pas"/>
-        <Caret Line="130" Column="22" TopLine="113"/>
-      </Position>
-      <Position>
-        <Filename Value="uusuario.service.pas"/>
-        <Caret Line="149" Column="7" TopLine="119"/>
-      </Position>
-      <Position>
-        <Filename Value="udm.pas"/>
-        <Caret Line="15" Column="11" TopLine="20"/>
-      </Position>
-      <Position>
-        <Filename Value="uusuario.service.pas"/>
-        <Caret Line="129" Column="26" TopLine="97"/>
-      </Position>
-      <Position>
-        <Filename Value="uusuario.service.pas"/>
-        <Caret Line="100" Column="39" TopLine="96"/>
-      </Position>
       <Position>
         <Filename Value="udm.pas"/>
         <Caret Line="83" Column="38" TopLine="69"/>
@@ -232,6 +137,102 @@
       <Position>
         <Filename Value="uusuario.service.pas"/>
         <Caret Line="152" Column="9" TopLine="134"/>
+      </Position>
+      <Position>
+        <Filename Value="uusuario.service.pas"/>
+        <Caret Line="166" Column="44" TopLine="145"/>
+      </Position>
+      <Position>
+        <Filename Value="uusuario.service.pas"/>
+        <Caret Line="13" Column="30"/>
+      </Position>
+      <Position>
+        <Filename Value="uusuario.service.pas"/>
+        <Caret Line="116" Column="55" TopLine="94"/>
+      </Position>
+      <Position>
+        <Filename Value="uusuario.service.pas"/>
+        <Caret Line="40" Column="19" TopLine="28"/>
+      </Position>
+      <Position>
+        <Filename Value="uusuario.service.pas"/>
+        <Caret Line="114" Column="45" TopLine="95"/>
+      </Position>
+      <Position>
+        <Filename Value="uusuario.service.pas"/>
+        <Caret Line="54" TopLine="37"/>
+      </Position>
+      <Position>
+        <Filename Value="ubase.router.pas"/>
+        <Caret Line="77" Column="6" TopLine="42"/>
+      </Position>
+      <Position>
+        <Filename Value="ubase.router.pas"/>
+        <Caret Line="78" Column="42" TopLine="44"/>
+      </Position>
+      <Position>
+        <Filename Value="ubase.router.pas"/>
+        <Caret Line="69" Column="53" TopLine="43"/>
+      </Position>
+      <Position>
+        <Filename Value="ubase.router.pas"/>
+        <Caret Line="63" Column="54" TopLine="47"/>
+      </Position>
+      <Position>
+        <Filename Value="ubase.router.pas"/>
+        <Caret Line="47" Column="26" TopLine="40"/>
+      </Position>
+      <Position>
+        <Filename Value="ubase.router.pas"/>
+        <Caret Line="66" Column="52" TopLine="40"/>
+      </Position>
+      <Position>
+        <Filename Value="ubase.router.pas"/>
+        <Caret Line="26" Column="24" TopLine="9"/>
+      </Position>
+      <Position>
+        <Filename Value="ubase.router.pas"/>
+        <Caret Line="71" Column="51" TopLine="51"/>
+      </Position>
+      <Position>
+        <Filename Value="ubase.router.pas"/>
+        <Caret Line="26" Column="43"/>
+      </Position>
+      <Position>
+        <Filename Value="ubase.router.pas"/>
+        <Caret Line="24" Column="46"/>
+      </Position>
+      <Position>
+        <Filename Value="ubase.router.pas"/>
+        <Caret Line="21" Column="29" TopLine="12"/>
+      </Position>
+      <Position>
+        <Filename Value="ubase.router.pas"/>
+        <Caret Line="74" Column="54" TopLine="52"/>
+      </Position>
+      <Position>
+        <Filename Value="uusuario.service.pas"/>
+        <Caret Line="200" Column="56" TopLine="174"/>
+      </Position>
+      <Position>
+        <Filename Value="uusuario.service.pas"/>
+        <Caret Line="196" Column="6" TopLine="183"/>
+      </Position>
+      <Position>
+        <Filename Value="uusuario.service.pas"/>
+        <Caret Line="45" Column="19" TopLine="33"/>
+      </Position>
+      <Position>
+        <Filename Value="uusuario.service.pas"/>
+        <Caret Line="205" Column="44" TopLine="183"/>
+      </Position>
+      <Position>
+        <Filename Value="uusuario.service.pas"/>
+        <Caret Line="202" Column="37" TopLine="186"/>
+      </Position>
+      <Position>
+        <Filename Value="uusuario.service.pas"/>
+        <Caret Line="226" Column="21" TopLine="205"/>
       </Position>
     </JumpHistory>
     <RunParams>
