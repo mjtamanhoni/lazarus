@@ -1,6 +1,6 @@
 unit uBase.Router;
 
-{$mode Delphi}
+{$mode Delphi}{$H+}
 
 interface
 
@@ -41,12 +41,36 @@ begin
     .Send(TUsuarioService.New.Login(aReq.Body));
 end;
 
+procedure OnUsuarioGet(aReq:THorseRequest; aRes:THorseResponse);
+var
+  FId :Integer;
+  FLogin :String;
+  FNome :String;
+begin
+
+  FId := StrToIntDef(aReq.Query['id'],0);
+  FLogin := aReq.Query['login'];
+  FNome := aReq.Query['nome'];
+
+  aRes.ContentType('application/json')
+    .Send(TUsuarioService.New.UsuarioGet(FId,FLogin,FNome));
+
+  {
+  aRes.ContentType('application/json')
+    .Send(TUsuarioService.New.UsuarioGet(StrToIntDef(aReq.Params['id'],0),
+                                         aReq.Params['login'],
+                                         aReq.Params['nome']));
+  }
+end;
+
 class procedure TBaseRoute.Load();
 begin
   THorse.Get('/', OnStatus);
   THorse.Get('/teste', OnTeste);
 
   THorse.Post('/login',OnLogin);
+  THorse
+    .Get('/usuario',OnUsuarioGet);
 end;
 
 end.

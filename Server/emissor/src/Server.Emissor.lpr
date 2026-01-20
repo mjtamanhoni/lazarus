@@ -4,8 +4,9 @@ program Server.Emissor;
 
 uses
   Classes, SysUtils,
-  Horse,
-  Horse.JWT, uBase.Router, uUsuario.Service, uCripto_Descrito;
+  Horse, Horse.JWT, Horse.Core, Horse.Jhonson,
+  zcomponent,
+  uBase.Router, uUsuario.Service, uCripto_Descrito, uDM, uBase.Functions;
 
 procedure OnListen();
 begin
@@ -15,12 +16,16 @@ begin
   WriteLn(Format('E-Mail: %s',['mjtamanhoni@gmail.com']));
   WriteLn(Format('Mobile phone (WhatsApp): %s',['(27) 98833-7323']));
   WriteLn(Format('Server started on: %s',[FormatDateTime('dd/mm/yyy hh:nn:ss',Now)]));
+
+  SaveLog(sLineBreak + '============================================================================',False);
+  SaveLog(Format('Server started on: %s, on port %d',[FormatDateTime('dd/mm/yyy "at" hh:nn:ss',Now),THorse.Port]));
+  SaveLog('----------------------------------------------------------------------------',False)
 end;
 
 begin
   //Depois mudar a senha 'Horse_2026', por algo mais complexo (CNPJ do cliente)
   //Validador de Token
-  THorse.Use(HorseJWT(C_SECRET_JWT,THorseJWTConfig.New.SkipRoutes(['/','/login'])));
+  THorse.Use(HorseJWT(C_SECRET_JWT,THorseJWTConfig.New.SkipRoutes(['/','/login','/usuario'])));
 
   //Lendo as rotas..
   TBaseRoute.Load();

@@ -1,6 +1,6 @@
 unit uCripto_Descrito;
 
-{$mode Delphi}
+{$mode Delphi}{$H+}
 
 interface
 
