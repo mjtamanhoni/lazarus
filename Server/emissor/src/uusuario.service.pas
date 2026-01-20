@@ -9,6 +9,7 @@ uses
   fpjson,  //Trabalhar com Json
   jsonparser,
   ezthreads, //Realiza um parse de uma string para um objeto Json
+  ZDataset,
   uCripto_Descrito, uDM, uBase.Functions;
 
 
@@ -19,7 +20,8 @@ type
     function UsuarioGet(
     	     const AId:Integer;
              const ALogin:String;
-             const ANome:String):String;
+             const ANome:String;
+             const AStatus:Integer):String;
   end;
 
 
@@ -37,7 +39,8 @@ type
     function UsuarioGet(
     	     const AId:Integer;
              const ALogin:String;
-             const ANome:String):String;
+             const ANome:String;
+             const AStatus:Integer):String;
 
   end;
 
@@ -106,14 +109,88 @@ end;
 function TUsuarioService.UsuarioGet(
          const AId: Integer;
          const ALogin:String;
+         const ANome:String;
+         const AStatus:Integer):String;
+var
+  FJSonobject :TJSONObject;
+  FDM :TDM;
+  FQuery :TZQuery;
+begin
+  try
+    try
+      FDM := TDM.Create(Nil);
+      FQuery := FDM.GetQuery;
+
+      FJSonobject := TJSONObject.Create;
+      FJSonobject.Add('success',True);
+
+      FQuery.SQL.Add('select ');
+      FQuery.SQL.Add('  u.* ');
+      FQuery.SQL.Add('from public.usuarios u ');
+      FQuery.SQL.Add('where 1=1 ');
+      if AId > 0 then
+      begin
+        FQuery.SQL.Add('  and u.id_usuario = :id_usuario');
+        FQuery.ParamByName('id_usuario').AsInteger := AId;
+      end;
+      if not ALogin.IsEmpty then
+      begin
+        FQuery.SQL.Add('  and u.login = :login');
+        FQuery.ParamByName('login').AsString := ALogin;
+      end;
+      if not ANome.IsEmpty then
+      begin
+        FQuery.SQL.Add('  and u.nome = :nome');
+        FQuery.ParamByName('nome').AsString := ANome;
+      end;
+      if AStatus in [0,1] then
+      begin
+        FQuery.SQL.Add('  and u.ativo = :ativo');
+        FQuery.ParamByName('ativo').AsInteger := AStatus;
+      end;
+
+      //FJSonobject.Add('data',FJsonTexto);
+      Result := FJSonobject.AsJSON;
+
+    except
+      on E :Exception do
+      begin
+        FJSonobject.Add('success',False);
+        FJSonobject.Add('message',E.Message);
+        Result := FJSonobject.AsJSON;
+        SaveLog(E.Message);
+      end;
+    end;
+  finally
+    FreeAndNil(FJSonobject);
+    FreeAndNil(FQuery);
+    FreeAndNil(FDM);
+
+    //É destruído assim junto FJsonobject
+    //FreeAndNil(FJsonTexto);
+  end;
+
+end;
+
+end.
+
+
+
+
+(*
+function TUsuarioService.UsuarioGet(
+         const AId: Integer;
+         const ALogin:String;
          const ANome:String):String;
 var
   FJSonobject :TJSONObject;
   FJsonTexto :TJSONObject;
+  FDM :TDM;
 begin
   try
     try
       FJSonobject := TJSONObject.Create;
+      {
       FJSonobject.Add('success',True);
 
       FJsonTexto := TJSONObject.Create;
@@ -122,10 +199,8 @@ begin
       FJsonTexto.Add('Nome',ANome);
 
       FJSonobject.Add('data',FJsonTexto);
-
-
       Result := FJSonobject.AsJSON;
-
+      }
     except
       on E :Exception do
       begin
@@ -142,5 +217,4 @@ begin
 
 end;
 
-end.
-
+*)

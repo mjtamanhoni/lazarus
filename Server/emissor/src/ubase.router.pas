@@ -46,14 +46,16 @@ var
   FId :Integer;
   FLogin :String;
   FNome :String;
+  FStatus :Integer;
 begin
 
   FId := StrToIntDef(aReq.Query['id'],0);
   FLogin := aReq.Query['login'];
   FNome := aReq.Query['nome'];
+  FStatus := StrToIntDef(aReq.Query['status'],1);
 
   aRes.ContentType('application/json')
-    .Send(TUsuarioService.New.UsuarioGet(FId,FLogin,FNome));
+    .Send(TUsuarioService.New.UsuarioGet(FId,FLogin,FNome,FStatus));
 
   {
   aRes.ContentType('application/json')
