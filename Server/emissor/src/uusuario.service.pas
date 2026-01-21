@@ -160,6 +160,8 @@ begin
         FQuery.SQL.Add('  and u.ativo = :ativo');
         FQuery.ParamByName('ativo').AsInteger := AStatus;
       end;
+      FQuery.SQL.Add('order by ');
+      FQuery.SQL.Add('  u.id_usuario; ');
       FQuery.Open;
 
       if FQuery.IsEmpty then
@@ -207,6 +209,11 @@ begin
         Raise Exception.Create('JSon Inválido!');
 
       FJson := TJSONObject(GetJSON(AJSon));
+
+      if Trim(FJson['login'].AsString) = '' then
+        raise Exception.Create('Login não informado: este campo é obrigatório.');
+      if Trim(FJson['senha'].AsString) = '' then
+        raise Exception.Create('Login não informada: este campo é obrigatório.');
 
       FQuery.SQL.Add('insert into public.usuarios ( ');
       FQuery.SQL.Add('  login ');
@@ -308,7 +315,7 @@ begin
         raise Exception.Create('Não foi informado o ID do usuário');
 
       FQuery.SQL.Add('delete from public.usuarios where id_usuario = :id_usuario;');
-      FQuery.ParamByName('id').AsInteger := AId;
+      FQuery.ParamByName('id_usuario').AsInteger := AId;
       FQuery.ExecSQL;
 
       Result :='{"success":true,"message":"Usuário excluído com sucesso"}';

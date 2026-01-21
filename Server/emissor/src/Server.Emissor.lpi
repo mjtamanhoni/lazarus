@@ -138,6 +138,11 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="uBase.Functions"/>
       </Unit>
+      <Unit>
+        <Filename Value="uempresa.service.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uEmpresa.Service"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

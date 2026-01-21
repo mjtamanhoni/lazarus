@@ -6,7 +6,8 @@ uses
   Classes, SysUtils,
   Horse, Horse.JWT, Horse.Core, Horse.Jhonson,
   zcomponent,
-  uBase.Router, uUsuario.Service, uCripto_Descrito, uDM, uBase.Functions;
+  uBase.Router, uUsuario.Service, uCripto_Descrito, uDM, uBase.Functions,
+uEmpresa.Service;
 
 procedure OnListen();
 begin
@@ -25,7 +26,12 @@ end;
 begin
   //Depois mudar a senha 'Horse_2026', por algo mais complexo (CNPJ do cliente)
   //Validador de Token
-  THorse.Use(HorseJWT(C_SECRET_JWT,THorseJWTConfig.New.SkipRoutes(['/','/login','/usuario'])));
+  THorse.Use(HorseJWT(C_SECRET_JWT,THorseJWTConfig.New.SkipRoutes([
+             '/'
+  	     ,'/login'
+             ,'/usuario'
+             ,'/empresa']
+  )));
 
   //Lendo as rotas..
   TBaseRoute.Load();
