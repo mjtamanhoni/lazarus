@@ -1,0 +1,24 @@
+object frmPrincipal: TfrmPrincipal
+  Left = 262
+  Height = 240
+  Top = 250
+  Width = 608
+  Caption = 'frmPrincipal'
+  Menu = MainMenu1
+  Position = poScreenCenter
+  LCLVersion = '4.4.0.0'
+  WindowState = wsMaximized
+  object MainMenu1: TMainMenu
+    Left = 176
+    Top = 72
+    object miCadastro: TMenuItem
+      Caption = 'Cadastro'
+      object miCad_Usuarios: TMenuItem
+        Caption = 'Usuários'
+      end
+      object miEmpresa: TMenuItem
+        Caption = 'Empresa'
+      end
+    end
+  end
+end

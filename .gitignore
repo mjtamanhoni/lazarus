@@ -7,3 +7,8 @@ Server/emissor/Temp/
 *.bak
 *.LOG
 *.INI
+Emissor/src/backup/
+Emissor/src/lib/x86_64-win64/Debug/
+Emissor/src/lib/x86_64-win64/Release/
+Emissor/src/lib/x86_64-win64Debug/
+Emissor/src/Web/log/
