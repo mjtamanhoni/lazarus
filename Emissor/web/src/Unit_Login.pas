@@ -39,7 +39,7 @@ Function Form_Login: TForm_Login;
 implementation
 
 Uses
-   EmissorWebApp, Unit1;
+   EmissorWebApp, Unit1, uPrincipal;
 
 Function Form_Login: TForm_Login;
 begin
@@ -57,10 +57,11 @@ begin
  //***EXAMPLE***
  if (Edit_UserName.Text = 'admin') and (Edit_Password.Text = 'admin') then
  begin
-  if Form1 = nil then
-   TForm1.CreateInstance;
-  Form1.Show;
- end else
+  if frmPrincipal = nil then
+   TfrmPrincipal.CreateInstance;
+  frmPrincipal.Show;
+ end
+ else
  begin
   if IsD2BridgeContext then
   begin

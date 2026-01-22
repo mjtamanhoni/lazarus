@@ -22,7 +22,7 @@
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="C:/lazarus/components/D2Bridge/d2bridgeframework/Stable/D2Bridge Framework/;C:/lazarus/components/D2Bridge/d2bridgeframework/Stable/D2Bridge Framework/Prism/;C:/lazarus/components/D2Bridge/d2bridgeframework/Stable/D2Bridge Framework/OthersLCL/"/>
+            <OtherUnitFiles Value="C:/lazarus/components/D2Bridge/d2bridgeframework/Stable/D2Bridge Framework/;C:/lazarus/components/D2Bridge/d2bridgeframework/Stable/D2Bridge Framework/Prism/;C:/lazarus/components/fpjson/src/;C:/lazarus/components/DataSet-Serealize/dataset-serialize/src/"/>
             <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)/Release/Web"/>
           </SearchPaths>
           <CodeGeneration>
@@ -49,77 +49,6 @@
               <CompileReasons Build="False"/>
             </ExecuteBefore>
           </Other>
-        </CompilerOptions>
-      </Item>
-      <Item Name="Debug">
-        <CompilerOptions>
-          <Version Value="11"/>
-          <Target>
-            <Filename Value="Emissor"/>
-          </Target>
-          <SearchPaths>
-            <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="C:/lazarus/components/D2Bridge/d2bridgeframework/Stable/D2Bridge Framework/;C:/lazarus/components/D2Bridge/d2bridgeframework/Stable/D2Bridge Framework/Prism/;C:/lazarus/components/D2Bridge/d2bridgeframework/Stable/D2Bridge Framework/OthersLCL/"/>
-            <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)Debug"/>
-          </SearchPaths>
-          <Parsing>
-            <SyntaxOptions>
-              <IncludeAssertionCode Value="True"/>
-            </SyntaxOptions>
-          </Parsing>
-          <CodeGeneration>
-            <Checks>
-              <IOChecks Value="True"/>
-              <RangeChecks Value="True"/>
-              <OverflowChecks Value="True"/>
-              <StackChecks Value="True"/>
-            </Checks>
-            <VerifyObjMethodCallValidity Value="True"/>
-          </CodeGeneration>
-          <Linking>
-            <Debugging>
-              <DebugInfoType Value="dsDwarf3"/>
-              <UseHeaptrc Value="True"/>
-              <TrashVariables Value="True"/>
-              <UseExternalDbgSyms Value="True"/>
-            </Debugging>
-            <Options>
-              <Win32>
-                <GraphicApplication Value="True"/>
-              </Win32>
-            </Options>
-          </Linking>
-        </CompilerOptions>
-      </Item>
-      <Item Name="Release">
-        <CompilerOptions>
-          <Version Value="11"/>
-          <Target>
-            <Filename Value="Emissor"/>
-          </Target>
-          <SearchPaths>
-            <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="C:/lazarus/components/D2Bridge/d2bridgeframework/Stable/D2Bridge Framework/;C:/lazarus/components/D2Bridge/d2bridgeframework/Stable/D2Bridge Framework/Prism/;C:/lazarus/components/D2Bridge/d2bridgeframework/Stable/D2Bridge Framework/OthersLCL/"/>
-            <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)/Release"/>
-          </SearchPaths>
-          <CodeGeneration>
-            <SmartLinkUnit Value="True"/>
-            <Optimizations>
-              <OptimizationLevel Value="3"/>
-            </Optimizations>
-          </CodeGeneration>
-          <Linking>
-            <Debugging>
-              <GenerateDebugInfo Value="False"/>
-              <RunWithoutDebug Value="True"/>
-            </Debugging>
-            <LinkSmart Value="True"/>
-            <Options>
-              <Win32>
-                <GraphicApplication Value="True"/>
-              </Win32>
-            </Options>
-          </Linking>
         </CompilerOptions>
       </Item>
     </BuildModes>
@@ -185,17 +114,26 @@
       <Unit>
         <Filename Value="Unit_Login.pas"/>
         <IsPartOfProject Value="True"/>
+        <ComponentName Value="Form_Login"/>
         <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
       </Unit>
       <Unit>
-        <Filename Value="../../../../lazarus/components/D2Bridge/d2bridgeframework/Stable/D2Bridge Framework/D2Bridge.ServerControllerBase.pas"/>
+        <Filename Value="../../../../../lazarus/components/D2Bridge/d2bridgeframework/Stable/D2Bridge Framework/D2Bridge.ServerControllerBase.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="D2BridgeServerControllerBase"/>
         <ResourceBaseClass Value="DataModule"/>
       </Unit>
       <Unit>
-        <Filename Value="../../../../lazarus/components/D2Bridge/d2bridgeframework/Stable/D2Bridge Framework/Prism/Prism.Session.pas"/>
+        <Filename Value="../../../../../lazarus/components/D2Bridge/d2bridgeframework/Stable/D2Bridge Framework/Prism/Prism.Session.pas"/>
         <IsPartOfProject Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="uprincipal.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmPrincipal"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="uPrincipal"/>
       </Unit>
     </Units>
   </ProjectOptions>
@@ -206,7 +144,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="C:/lazarus/components/D2Bridge/d2bridgeframework/Stable/D2Bridge Framework/;C:/lazarus/components/D2Bridge/d2bridgeframework/Stable/D2Bridge Framework/Prism/;C:/lazarus/components/D2Bridge/d2bridgeframework/Stable/D2Bridge Framework/OthersLCL/"/>
+      <OtherUnitFiles Value="C:/lazarus/components/D2Bridge/d2bridgeframework/Stable/D2Bridge Framework/;C:/lazarus/components/D2Bridge/d2bridgeframework/Stable/D2Bridge Framework/Prism/;C:/lazarus/components/fpjson/src/;C:/lazarus/components/DataSet-Serealize/dataset-serialize/src/"/>
       <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)/Debug/Web"/>
     </SearchPaths>
     <Parsing>
@@ -215,6 +153,7 @@
       </SyntaxOptions>
     </Parsing>
     <CodeGeneration>
+      <SmartLinkUnit Value="True"/>
       <Checks>
         <IOChecks Value="True"/>
         <RangeChecks Value="True"/>

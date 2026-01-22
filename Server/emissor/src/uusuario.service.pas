@@ -82,40 +82,83 @@ end;
 function TUsuarioService.Login(aJSonString: String): String;
 var
   FJSonobject :TJSONObject;
+  FJSon :TJSONObject;
+  FJSonRetorno :TJSONObject;
   FCNPJ :String; //Cnpj/Cpf
   FUsuario :String;
   FPassword :String;
+  FDM :TDM;
+  FQuery :TZQuery;
+  FToken :String;
 begin
-
   try
-    if aJSonString.IsEmpty and not aJSonString.StartsWith('{') and not aJSonString.EndsWith('}') then
-      Raise Exception.Create('JSon Inválido!');
+    try
+      FDM := TDM.Create(Nil);
+      FQuery := FDM.GetQuery;
 
-    FJSonobject := TJSONObject(GetJSON(aJSonString));
+      FJSonRetorno := TJSONObject.Create;
+      FJSon := TJSONObject.Create;
 
-    if (FJSonobject.Find('cnpj') = Nil) then
-      Raise Exception.Create('CNPJ não encontrado');
-    if (FJSonobject.Find('usuario') = Nil) then
-      Raise Exception.Create('Usuário/Senha não encontrado');
-    if (FJSonobject.Find('password') = Nil) then
-      Raise Exception.Create('Usuário/Senha não encontrado');
+      if aJSonString.IsEmpty and not aJSonString.StartsWith('{') and not aJSonString.EndsWith('}') then
+        Raise Exception.Create('JSon Inválido!');
 
-    FCNPJ := FJSonobject['cnpj'].AsString;
-    FUsuario := FJSonobject['usuario'].AsString;
-    FPassword := FJSonobject['password'].AsString;
+      FJSonobject := TJSONObject(GetJSON(aJSonString));
 
-    //Validar Usuário e PassWord no banco de dados...
+      if (FJSonobject.Find('cnpj') = Nil) then
+        Raise Exception.Create('CNPJ não encontrado');
+      if (FJSonobject.Find('usuario') = Nil) then
+        Raise Exception.Create('Usuário/Senha não encontrado');
+      if (FJSonobject.Find('password') = Nil) then
+        Raise Exception.Create('Usuário/Senha não encontrado');
 
-    Result := TLazJWT.New
-      .SecretJWT(C_SECRET_JWT)
-      .Exp(DateTimeToUnix(IncHour(Now,1)))
-      .AddClaim('cnpj',FCNPJ)
-      .AddClaim('usuario',FUsuario)
-      .AddClaim('password',FPassword)
-      .Token;
-  except
-    on E:Exception do
-      Result := E.Message;
+      FCNPJ := FJSonobject['cnpj'].AsString;
+      FUsuario := FJSonobject['usuario'].AsString;
+      FPassword := FJSonobject['password'].AsString;
+
+      //Validar Usuário e PassWord no banco de dados...
+      FQuery.SQL.Add('select ');
+      FQuery.SQL.Add('  u.* ');
+      FQuery.SQL.Add('from public.usuarios u ');
+      FQuery.SQL.Add('where  u.login = :login; ');
+      FQuery.ParamByName('login').AsString := FUsuario;
+      FQuery.Open;
+      if FQuery.IsEmpty then
+        raise Exception.Create('Usuário não localizado.');
+
+      //Valida senha depois
+      if Descriptografar(FPassword) <> Descriptografar(FQuery.FieldByName('senha').AsString) then
+        raise Exception.Create('Senha não confere.');
+
+      FJSon := FQuery.ToJSONObject;
+
+      FToken := TLazJWT.New
+        .SecretJWT(C_SECRET_JWT)
+        .Exp(DateTimeToUnix(IncHour(Now,1)))
+        .AddClaim('cnpj',FCNPJ)
+        .AddClaim('login',FUsuario)
+        .AddClaim('password',FPassword)
+        .AddClaim('nome',FQuery.FieldByName('nome').AsString)
+        .AddClaim('ativo',FQuery.FieldByName('ativo').AsInteger)
+        .Token;
+
+      FJSon.Add('token',FToken);
+
+      FJSonRetorno.Add('success',True);
+      FJSonRetorno.Add('data',FJSon);
+
+      Result := FJSonRetorno.AsJSON;
+
+    except
+      on E:Exception do
+      begin
+        SaveLog(E.Message);
+        Result := '{"success":false,"message":"'+E.Message+'"}';
+      end;
+    end;
+  finally
+    FreeAndNil(FQuery);
+    FreeAndNil(FDM);
+    FreeAndNil(FJSonRetorno);
   end;
 end;
 
@@ -133,7 +176,6 @@ begin
     try
       FDM := TDM.Create(Nil);
       FQuery := FDM.GetQuery;
-
       FJSonobject := TJSONObject.Create;
 
       FQuery.SQL.Add('select ');

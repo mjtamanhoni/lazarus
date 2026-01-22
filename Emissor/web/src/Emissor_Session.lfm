@@ -1,4 +1,6 @@
 inherited EmissorSession: TEmissorSession
   Height = 606
+  HorizontalOffset = 817
+  VerticalOffset = 338
   Width = 697
 end

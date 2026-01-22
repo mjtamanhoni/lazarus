@@ -1,0 +1,34 @@
+object frmPrincipal: TfrmPrincipal
+  Left = 262
+  Height = 372
+  Top = 250
+  Width = 599
+  Caption = 'Menu Principal'
+  Menu = MainMenu1
+  LCLVersion = '4.4.0.0'
+  object MainMenu1: TMainMenu
+    Left = 168
+    Top = 112
+    object menuCadastro: TMenuItem
+      Caption = 'Cadastro'
+      object menuCad_Empresa: TMenuItem
+        Caption = 'Empresa'
+      end
+      object menuCadUsuario: TMenuItem
+        Caption = 'Usuário'
+        object menuCad_Usu_Usuario: TMenuItem
+          Caption = 'Usuário'
+        end
+        object menuCad_Usu_Perfil: TMenuItem
+          Caption = 'Perfil'
+        end
+        object menuCad_Usu_PermissaoAcao: TMenuItem
+          Caption = 'Permissões de Ação'
+        end
+        object menuCad_Usu_PermissaoTela: TMenuItem
+          Caption = 'Permissões de Telas'
+        end
+      end
+    end
+  end
+end

@@ -12,3 +12,6 @@ Emissor/src/lib/x86_64-win64/Debug/
 Emissor/src/lib/x86_64-win64/Release/
 Emissor/src/lib/x86_64-win64Debug/
 Emissor/src/Web/log/
+Emissor/web/src/backup/
+Emissor/web/src/lib/x86_64-win64/
+Emissor/web/src/Web/log/

@@ -15,7 +15,9 @@ function LogFile:String;
 {$EndRegion}
 
 {$Region 'Procedures'}
-procedure SaveLog(const aMessage:String;const ADataHora:Boolean=True);
+procedure SaveLog(
+  const aMessage:String;
+  const ADataHora:Boolean=True);
 {$EndRegion}
 
 implementation
@@ -43,7 +45,9 @@ begin
   Result := EndPath + NameEXE + '.LOG';
 end;
 
-procedure SaveLog(const aMessage: String; const ADataHora:Boolean=True);
+procedure SaveLog(
+  const aMessage: String;
+  const ADataHora:Boolean=True);
 var
   F: TextFile;
 begin

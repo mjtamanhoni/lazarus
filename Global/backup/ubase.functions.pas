@@ -1,6 +1,6 @@
 unit uBase.Functions;
 
-{$mode Delphi}
+{$mode Delphi}{$H+}
 
 interface
 

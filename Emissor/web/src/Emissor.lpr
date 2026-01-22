@@ -1,4 +1,4 @@
-program D2BridgeWebAppWithLCL;
+program D2BridgeWebAppLCL;
 
 {$mode delphi}{$H+}
 
@@ -15,7 +15,6 @@ uses
   {$ENDIF}
   Interfaces, // this includes the LCL widgetset
   Forms,   
-	D2Bridge.Instance, D2Bridge.ServerControllerBase, Prism.Session,
   D2BridgeFormTemplate,	
   Emissor_Session,
   EmissorWebApp,
@@ -23,27 +22,16 @@ uses
 Unit_D2Bridge_Server_Console in 'Unit_D2Bridge_Server_Console.pas',
 
   
-  unit1
+  unit1, D2Bridge.ServerControllerBase, Prism.Session, uPrincipal
   { you can add units after this };
 
 {$R *.res}
 
-{$IFNDEF D2BRIDGE}
-var
-  Unit_Login: TForm_Login;
-{$ENDIF}
-
 begin
   RequireDerivedFormResource:=True;
-  Application.Scaled:=True;
+  Application.Scaled := True;
   Application.Initialize;
-  {$IFNDEF D2BRIDGE}
-  Application.CreateForm(TForm_Login, Unit_Login);
-  D2BridgeInstance.AddInstace(Unit_Login);
-  Application.Run;
-  {$ELSE}	
   TD2BridgeServerConsole.Run
   
-  {$ENDIF}	
 end.
 

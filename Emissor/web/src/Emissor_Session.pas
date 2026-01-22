@@ -7,12 +7,37 @@ uses
   Prism.SessionBase;
 
 type
+
+  { TEmissorSession }
+
   TEmissorSession = class(TPrismSessionBase)
   private
+    fCNPJ_Empresa: String;
+    fID_Usuario: String;
+    fLogin_Usuario: String;
+    fNome_Usuario: String;
+    fToken_Server: String;
 
   public
    constructor Create(APrismSession: TPrismSession); override;  //OnNewSession
    destructor Destroy; override; //OnCloseSession
+
+   //Propriedades utilizadas no sistema...
+   {$Region 'Acesso ao Sistema'}
+     property CNPJ_Empresa :String read fCNPJ_Empresa write fCNPJ_Empresa;
+     property ID_Usuario :String read fID_Usuario write fID_Usuario;
+     property Nome_Usuario :String read fNome_Usuario write fNome_Usuario;
+     property Login_Usuario :String read fLogin_Usuario write fLogin_Usuario;
+     property Token_Server :String read fToken_Server write fToken_Server;
+   {$EndRegion 'Acesso ao Sistema'}
+
+
+
+
+
+
+
+
   end;
 
 
