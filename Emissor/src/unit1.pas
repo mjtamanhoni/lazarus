@@ -5,7 +5,7 @@ unit Unit1;
 interface
 
 uses
-  Classes, SysUtils, Controls, Graphics, Dialogs, Menus, StdCtrls,
+  Classes, SysUtils, Controls, Graphics, Dialogs, Menus, StdCtrls, DBGrids,
   D2Bridge.Forms; //Declare D2Bridge.Forms always in the last unit
 
 type
@@ -14,9 +14,11 @@ type
 
   TForm1 = class(TD2BridgeForm)
     AppModule21: TMenuItem;
+    Button1: TButton;
     CoreModule11: TMenuItem;
     CoreModule21: TMenuItem;
     CoreModules1: TMenuItem;
+    DBGrid1: TDBGrid;
     Label1: TLabel;
     Label2: TLabel;
     Label3: TLabel;
