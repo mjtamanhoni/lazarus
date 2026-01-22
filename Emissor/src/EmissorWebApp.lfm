@@ -1,4 +1,0 @@
-inherited EmissorWebAppGlobal: TEmissorWebAppGlobal
-  Height = 623
-  Width = 600
-end
