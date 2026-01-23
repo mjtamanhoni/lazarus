@@ -171,6 +171,7 @@
         <Filename Value="udm.acbr.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="DM_Acbr"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="uDM.ACBr"/>
       </Unit>
@@ -178,6 +179,7 @@
         <Filename Value="ucad.empresa.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmCadEmpresa"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uCad.Empresa"/>
       </Unit>
@@ -185,6 +187,7 @@
         <Filename Value="uempresa.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmEmpresa"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uEmpresa"/>
       </Unit>

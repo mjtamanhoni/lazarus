@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, DB, memds, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls,
-  DBGrids, ZDataset, D2Bridge.Forms;
+  DBGrids, EditBtn, Menus, ZDataset, D2Bridge.Forms;
 
 type
 
@@ -15,17 +15,23 @@ type
   TfrmEmpresa = class(TD2BridgeForm)
     btNovo: TButton;
     btFechar: TButton;
+    BtPrint: TButton;
     DataSource: TDataSource;
     DBGrid: TDBGrid;
-    edFiltro: TEdit;
-    lbFiltro: TLabel;
+    edPesquisar: TEditButton;
     MemDataset: TMemDataset;
+    miCNPJ_CPF: TMenuItem;
+    miNomeFantasia: TMenuItem;
+    miRazaoSocial: TMenuItem;
+    miId: TMenuItem;
     pnHeader: TPanel;
     pnDetail: TPanel;
     pnFooter: TPanel;
     pnFiltro: TPanel;
     pnTipoFiltro2: TPanel;
+    pMenu_Filtro: TPopupMenu;
     procedure FormCreate(Sender: TObject);
+    procedure miRazaoSocialClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -78,6 +84,20 @@ begin
   MemDatasetNome.AsString := 'NICOLAS';
   MemDataset.Post;
   *)
+end;
+
+procedure TfrmEmpresa.miRazaoSocialClick(Sender: TObject);
+begin
+  edPesquisar.Tag := TMenuItem(Sender).Tag;
+  case TMenuItem(Sender).Tag of
+    0:edPesquisar.TextHint := 'Pesquisar pelo ID da Empresa';
+    1:edPesquisar.TextHint := 'Pesquisar pela Razão Social da Empresa';
+    2:edPesquisar.TextHint := 'Pesquisar pelo Nome Fantasia da Empresa';
+    3:edPesquisar.TextHint := 'Pesquisar pela Região do Município';
+    4:edPesquisar.TextHint := 'Pesquisar pela sigla da UF do Município';
+  end;
+  Pesquisar;
+
 end;
 
 procedure TfrmEmpresa.ExportD2Bridge;
