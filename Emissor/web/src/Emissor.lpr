@@ -14,7 +14,7 @@ uses
   athreads,
   {$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms,   
+  Forms, uBase.Functions, uCripto_Descrito,   
   D2BridgeFormTemplate,	
   Emissor_Session,
   EmissorWebApp,

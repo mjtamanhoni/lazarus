@@ -58,6 +58,7 @@ begin
 
   Res.ContentType('application/json')
       .Send(TUsuarioService.New.UsuarioGet(FId,FLogin,FNome,FStatus));
+
 end;
 
 procedure OnUsuarioPost(Req:THorseRequest; Res:THorseResponse);

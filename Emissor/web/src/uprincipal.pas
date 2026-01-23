@@ -13,6 +13,12 @@ type
   { TfrmPrincipal }
 
   TfrmPrincipal = class(TD2BridgeForm)
+    lbToken: TLabel;
+    lbCNPJ: TLabel;
+    lbId: TLabel;
+    lbLogin: TLabel;
+    lbNome: TLabel;
+    lbAtivo: TLabel;
     MainMenu1: TMainMenu;
     menuCadastro: TMenuItem;
     menuCad_Empresa: TMenuItem;
@@ -21,6 +27,7 @@ type
     menuCad_Usu_Perfil: TMenuItem;
     menuCad_Usu_PermissaoAcao: TMenuItem;
     menuCad_Usu_PermissaoTela: TMenuItem;
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
   public
@@ -46,6 +53,17 @@ begin
   result := (TfrmPrincipal.GetInstance as TfrmPrincipal);
 end;
 
+procedure TfrmPrincipal.FormShow(Sender: TObject);
+begin
+  lbCNPJ.Caption := 'CNPJ: ' + Emissor.CNPJ_Empresa;
+  lbId.Caption := 'Id: ' + Emissor.ID_Usuario.ToString;
+  lbLogin.Caption := 'Login: ' + Emissor.Login_Usuario;
+  lbNome.Caption := 'Nome: ' + Emissor.Nome_Usuario;
+  lbAtivo.Caption := 'Ativo: ' + Emissor.Usuario_Ativo.ToString;
+  lbToken.Caption := 'Token: ' + Emissor.Token_Server;
+
+end;
+
 procedure TfrmPrincipal.ExportD2Bridge;
 begin
   inherited;
@@ -60,6 +78,12 @@ begin
   begin
     {Yours Controls}
     SideMenu(MainMenu1);
+    LCLObj(lbCNPJ);
+    LCLObj(lbId);
+    LCLObj(lbLogin);
+    LCLObj(lbNome);
+    LCLObj(lbAtivo);
+    LCLObj(lbToken);
   end;
 
 end;

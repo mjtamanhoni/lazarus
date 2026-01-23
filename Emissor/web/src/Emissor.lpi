@@ -22,7 +22,7 @@
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="C:/lazarus/components/D2Bridge/d2bridgeframework/Stable/D2Bridge Framework/;C:/lazarus/components/D2Bridge/d2bridgeframework/Stable/D2Bridge Framework/Prism/;C:/lazarus/components/fpjson/src/;C:/lazarus/components/DataSet-Serealize/dataset-serialize/src/"/>
+            <OtherUnitFiles Value="C:/lazarus/components/D2Bridge/d2bridgeframework/Stable/D2Bridge Framework/;C:/lazarus/components/D2Bridge/d2bridgeframework/Stable/D2Bridge Framework/Prism/;C:/lazarus/components/fpjson/src/;C:/lazarus/components/DataSet-Serealize/dataset-serialize/src/;C:/lazarus/components/RestRequest4Delphi/RESTRequest4Delphi/src/;../../../Global"/>
             <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)/Release/Web"/>
           </SearchPaths>
           <CodeGeneration>
@@ -80,6 +80,7 @@
       <Unit>
         <Filename Value="Emissor.lpr"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="D2BridgeWebAppLCL"/>
       </Unit>
       <Unit>
         <Filename Value="unit1.pas"/>
@@ -122,6 +123,7 @@
         <Filename Value="../../../../../lazarus/components/D2Bridge/d2bridgeframework/Stable/D2Bridge Framework/D2Bridge.ServerControllerBase.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="D2BridgeServerControllerBase"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
       </Unit>
       <Unit>
@@ -135,6 +137,16 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uPrincipal"/>
       </Unit>
+      <Unit>
+        <Filename Value="../../../Global/ubase.functions.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uBase.Functions"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../../Global/ucripto_descrito.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uCripto_Descrito"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -144,7 +156,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="C:/lazarus/components/D2Bridge/d2bridgeframework/Stable/D2Bridge Framework/;C:/lazarus/components/D2Bridge/d2bridgeframework/Stable/D2Bridge Framework/Prism/;C:/lazarus/components/fpjson/src/;C:/lazarus/components/DataSet-Serealize/dataset-serialize/src/"/>
+      <OtherUnitFiles Value="C:/lazarus/components/D2Bridge/d2bridgeframework/Stable/D2Bridge Framework/;C:/lazarus/components/D2Bridge/d2bridgeframework/Stable/D2Bridge Framework/Prism/;C:/lazarus/components/fpjson/src/;C:/lazarus/components/DataSet-Serealize/dataset-serialize/src/;C:/lazarus/components/DataSet-Serealize/dataset-serialize/samples/lazarus/basic/src/;C:/lazarus/components/RestRequest4Delphi/RESTRequest4Delphi/src/;../../../Global"/>
       <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)/Debug/Web"/>
     </SearchPaths>
     <Parsing>

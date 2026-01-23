@@ -166,9 +166,9 @@ object Form_Login: TForm_Login
     object Edit_UserName: TEdit
       Left = 18
       Height = 23
-      Top = 167
+      Top = 184
       Width = 197
-      TabOrder = 0
+      TabOrder = 1
       TextHint = 'Username'
     end
     object Edit_Password: TEdit
@@ -178,7 +178,7 @@ object Form_Login: TForm_Login
       Width = 158
       EchoMode = emPassword
       PasswordChar = '*'
-      TabOrder = 1
+      TabOrder = 2
       TextHint = 'Password'
     end
     object Button_Login: TButton
@@ -187,8 +187,16 @@ object Form_Login: TForm_Login
       Top = 265
       Width = 75
       Caption = 'Login'
-      TabOrder = 2
+      TabOrder = 3
       OnClick = Button_LoginClick
+    end
+    object edCNPJ: TEdit
+      Left = 18
+      Height = 23
+      Top = 152
+      Width = 197
+      TabOrder = 0
+      TextHint = 'CNPJ / CPF'
     end
   end
   object Button_ShowPass: TButton
