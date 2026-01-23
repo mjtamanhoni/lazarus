@@ -14,7 +14,7 @@ uses
   athreads,
   {$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, uBase.Functions, uCripto_Descrito,   
+  Forms, zcomponent, uBase.Functions, uCripto_Descrito,   
   D2BridgeFormTemplate,	
   Emissor_Session,
   EmissorWebApp,
@@ -22,7 +22,8 @@ uses
 Unit_D2Bridge_Server_Console in 'Unit_D2Bridge_Server_Console.pas',
 
   
-  unit1, D2Bridge.ServerControllerBase, Prism.Session, uPrincipal
+  unit1, D2Bridge.ServerControllerBase, Prism.Session, uPrincipal,
+uBase.Validation, uDM.ACBr, uCad.Empresa, uEmpresa
   { you can add units after this };
 
 {$R *.res}

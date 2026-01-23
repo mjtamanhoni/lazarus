@@ -61,7 +61,6 @@ begin
   lbNome.Caption := 'Nome: ' + Emissor.Nome_Usuario;
   lbAtivo.Caption := 'Ativo: ' + Emissor.Usuario_Ativo.ToString;
   lbToken.Caption := 'Token: ' + Emissor.Token_Server;
-
 end;
 
 procedure TfrmPrincipal.ExportD2Bridge;

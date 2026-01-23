@@ -25,6 +25,11 @@
             <OtherUnitFiles Value="C:/lazarus/components/D2Bridge/d2bridgeframework/Stable/D2Bridge Framework/;C:/lazarus/components/D2Bridge/d2bridgeframework/Stable/D2Bridge Framework/Prism/;C:/lazarus/components/fpjson/src/;C:/lazarus/components/DataSet-Serealize/dataset-serialize/src/;C:/lazarus/components/RestRequest4Delphi/RESTRequest4Delphi/src/;../../../Global"/>
             <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)/Release/Web"/>
           </SearchPaths>
+          <Parsing>
+            <SyntaxOptions>
+              <SyntaxMode Value="Delphi"/>
+            </SyntaxOptions>
+          </Parsing>
           <CodeGeneration>
             <Optimizations>
               <OptimizationLevel Value="3"/>
@@ -60,6 +65,15 @@
       <FormatVersion Value="2"/>
     </RunParams>
     <RequiredPackages>
+      <Item>
+        <PackageName Value="zcomponentdesign"/>
+      </Item>
+      <Item>
+        <PackageName Value="zcomponent"/>
+      </Item>
+      <Item>
+        <PackageName Value="ACBrDiversos"/>
+      </Item>
       <Item>
         <PackageName Value="FCL"/>
       </Item>
@@ -134,6 +148,7 @@
         <Filename Value="uprincipal.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmPrincipal"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uPrincipal"/>
       </Unit>
@@ -146,6 +161,32 @@
         <Filename Value="../../../Global/ucripto_descrito.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uCripto_Descrito"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../../Global/ubase.validation.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uBase.Validation"/>
+      </Unit>
+      <Unit>
+        <Filename Value="udm.acbr.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="DM_Acbr"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="uDM.ACBr"/>
+      </Unit>
+      <Unit>
+        <Filename Value="ucad.empresa.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmCadEmpresa"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="uCad.Empresa"/>
+      </Unit>
+      <Unit>
+        <Filename Value="uempresa.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmEmpresa"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="uEmpresa"/>
       </Unit>
     </Units>
   </ProjectOptions>

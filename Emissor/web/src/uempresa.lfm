@@ -1,0 +1,275 @@
+object frmEmpresa: TfrmEmpresa
+  Left = 262
+  Height = 500
+  Top = 250
+  Width = 800
+  Caption = 'Empresas'
+  ClientHeight = 500
+  ClientWidth = 800
+  LCLVersion = '4.4.0.0'
+  OnCreate = FormCreate
+  object pnHeader: TPanel
+    Left = 0
+    Height = 42
+    Top = 0
+    Width = 800
+    Align = alTop
+    BevelOuter = bvNone
+    ClientHeight = 42
+    ClientWidth = 800
+    TabOrder = 0
+    object pnFiltro: TPanel
+      Left = 0
+      Height = 42
+      Top = 0
+      Width = 669
+      Align = alClient
+      BevelOuter = bvNone
+      BorderWidth = 2
+      ClientHeight = 42
+      ClientWidth = 669
+      TabOrder = 0
+      object lbFiltro: TLabel
+        Left = 2
+        Height = 15
+        Top = 2
+        Width = 665
+        Align = alTop
+        Caption = 'Tipo da Pesquisa'
+      end
+      object edFiltro: TEdit
+        Left = 2
+        Height = 23
+        Top = 17
+        Width = 665
+        Align = alClient
+        TabOrder = 0
+        TextHint = 'Informe o contúdo do filtro'
+      end
+    end
+    object pnTipoFiltro2: TPanel
+      Left = 669
+      Height = 42
+      Top = 0
+      Width = 131
+      Align = alRight
+      BevelOuter = bvNone
+      BorderWidth = 2
+      ClientHeight = 42
+      ClientWidth = 131
+      TabOrder = 1
+      object btNovo: TButton
+        Left = 53
+        Height = 38
+        Top = 2
+        Width = 38
+        Align = alRight
+        Caption = '+'
+        TabOrder = 0
+      end
+      object btFechar: TButton
+        Left = 91
+        Height = 38
+        Top = 2
+        Width = 38
+        Align = alRight
+        Caption = '->'
+        TabOrder = 1
+      end
+    end
+  end
+  object pnDetail: TPanel
+    Left = 0
+    Height = 408
+    Top = 42
+    Width = 800
+    Align = alClient
+    BevelOuter = bvNone
+    BorderWidth = 2
+    ClientHeight = 408
+    ClientWidth = 800
+    TabOrder = 1
+    object DBGrid: TDBGrid
+      Left = 2
+      Height = 404
+      Top = 2
+      Width = 796
+      Align = alClient
+      Color = clWindow
+      Columns = <      
+        item
+          Title.Alignment = taCenter
+          Title.MultiLine = True
+          Title.Caption = 'ID'
+          FieldName = 'id_empresa'
+        end      
+        item
+          Title.Alignment = taCenter
+          Title.MultiLine = True
+          Title.Caption = 'Razão Social'
+          Width = 300
+          FieldName = 'razao_social'
+        end      
+        item
+          Title.Alignment = taCenter
+          Title.MultiLine = True
+          Title.Caption = 'Nome Fantasia'
+          Width = 300
+          FieldName = 'nome_fantasia'
+        end      
+        item
+          Title.Alignment = taCenter
+          Title.MultiLine = True
+          Title.Caption = 'CNPJ'
+          Width = 100
+          FieldName = 'cnpj'
+        end      
+        item
+          Title.Alignment = taCenter
+          Title.MultiLine = True
+          Title.Caption = 'Inscrição Estadual'
+          Width = 100
+          FieldName = 'inscricao_estadual'
+        end      
+        item
+          Title.Alignment = taCenter
+          Title.MultiLine = True
+          Title.Caption = 'Inscrição Municipal'
+          Width = 100
+          FieldName = 'inscricao_municipal'
+        end      
+        item
+          Title.Alignment = taCenter
+          Title.MultiLine = True
+          Title.Caption = 'Regime Tributário'
+          Width = 120
+          FieldName = 'regime_tributario'
+        end      
+        item
+          Title.Alignment = taCenter
+          Title.MultiLine = True
+          Title.Caption = 'CRT'
+          Width = 30
+          FieldName = 'crt'
+        end      
+        item
+          Title.Alignment = taCenter
+          Title.MultiLine = True
+          Title.Caption = 'E-Mail'
+          Width = 300
+          FieldName = 'email'
+        end      
+        item
+          Title.Alignment = taCenter
+          Title.MultiLine = True
+          Title.Caption = 'Telefone'
+          Width = 120
+          FieldName = 'telefone'
+        end      
+        item
+          Title.Alignment = taCenter
+          Title.MultiLine = True
+          Title.Caption = 'Site'
+          Width = 300
+          FieldName = 'site'
+        end      
+        item
+          Title.Alignment = taCenter
+          Title.MultiLine = True
+          Title.Caption = 'Cadastro'
+          FieldName = 'data_cadastro'
+        end      
+        item
+          Title.Alignment = taCenter
+          Title.MultiLine = True
+          Title.Caption = 'Ativo'
+          Width = 50
+          FieldName = 'ativo'
+        end>
+      DataSource = DataSource
+      TabOrder = 0
+    end
+  end
+  object pnFooter: TPanel
+    Left = 0
+    Height = 50
+    Top = 450
+    Width = 800
+    Align = alBottom
+    BevelOuter = bvNone
+    TabOrder = 2
+  end
+  object DataSource: TDataSource
+    DataSet = MemDataset
+    Left = 304
+    Top = 184
+  end
+  object MemDataset: TMemDataset
+    Active = True
+    FieldDefs = <    
+      item
+        Name = 'id_empresa'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'razao_social'
+        DataType = ftString
+        Size = 255
+      end    
+      item
+        Name = 'nome_fantasia'
+        DataType = ftString
+        Size = 255
+      end    
+      item
+        Name = 'cnpj'
+        DataType = ftString
+        Size = 14
+      end    
+      item
+        Name = 'inscricao_estadual'
+        DataType = ftString
+        Size = 20
+      end    
+      item
+        Name = 'inscricao_municipal'
+        DataType = ftString
+        Size = 20
+      end    
+      item
+        Name = 'regime_tributario'
+        DataType = ftString
+        Size = 50
+      end    
+      item
+        Name = 'crt'
+        DataType = ftString
+        Size = 1
+      end    
+      item
+        Name = 'email'
+        DataType = ftString
+        Size = 255
+      end    
+      item
+        Name = 'telefone'
+        DataType = ftString
+        Size = 20
+      end    
+      item
+        Name = 'site'
+        DataType = ftString
+        Size = 255
+      end    
+      item
+        Name = 'data_cadastro'
+        DataType = ftDateTime
+      end    
+      item
+        Name = 'ativo'
+        DataType = ftInteger
+      end>
+    Left = 304
+    Top = 240
+  end
+end

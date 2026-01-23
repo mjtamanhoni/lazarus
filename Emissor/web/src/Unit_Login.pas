@@ -5,10 +5,10 @@ unit Unit_Login;
 interface
 
 uses
-  SysUtils, Variants, Classes, Graphics, Controls, Dialogs, ComCtrls,Menus, ExtCtrls, StdCtrls, IniFiles,
-  D2Bridge.Forms,
-  fpjson, DataSet.Serialize, RESTRequest4D, jsonparser,
-  uBase.Functions, uCripto_Descrito; //Declare D2Bridge.Forms always in the last unit
+  SysUtils, Variants, Classes, Graphics, Controls, Dialogs, ComCtrls, Menus,
+  ExtCtrls, StdCtrls, ACBrValidador, IniFiles, D2Bridge.Forms, fpjson,
+  DataSet.Serialize, RESTRequest4D, jsonparser, uBase.Functions,
+  uCripto_Descrito, uDM.ACBr; //Declare D2Bridge.Forms always in the last unit
 
 type
 
@@ -16,6 +16,8 @@ type
 
   TForm_Login = class(TD2BridgeForm)
    Button_ShowPass: TButton;
+   btCadEmpresa: TButton;
+   btCadUsuario: TButton;
    edCNPJ: TEdit;
     Panel1: TPanel;
     Image_Logo: TImage;
@@ -24,9 +26,15 @@ type
     Edit_Password: TEdit;
     Button_Login: TButton;
     Image_BackGround: TImage;
+    procedure btCadEmpresaClick(Sender: TObject);
+    procedure btCadUsuarioClick(Sender: TObject);
     procedure Button_LoginClick(Sender: TObject);
     procedure Button_ShowPassClick(Sender: TObject);
+    procedure edCNPJExit(Sender: TObject);
+    procedure edCNPJKeyPress(Sender: TObject; var Key: char);
+    procedure Edit_UserNameKeyPress(Sender: TObject; var Key: char);
   private
+    fDM_ACBr :TDM_Acbr;
 
   public
 
@@ -41,7 +49,7 @@ Function Form_Login: TForm_Login;
 implementation
 
 Uses
-   EmissorWebApp, Unit1, uPrincipal;
+   EmissorWebApp, uPrincipal, uEmpresa;
 
 Function Form_Login: TForm_Login;
 begin
@@ -113,23 +121,18 @@ begin
     FreeAndNil(FJSon);
     FreeAndNil(FIniFile);
   end;
-  (*
-  {
-      "success": true,
-      "data": {
-          "idUsuario": 1,
-          "login": "mjtamanhoni@gmail.com",
-          "senha": "iTo6MMPDdi5iODIyIDQyV3tXgzE5NzSJOjoww8N2LmI4MTIgNDJXe1eD",
-          "nome": "MARCOS JOSÉ TAMANHONI",
-          "email": "mjtamanhoni@gmail.com",
-          "ativo": 1,
-          "dataCadastro": "2026-01-20T17:30:16.598Z",
-          "ultimoAcesso": null,
-          "idPerfil": null,
-          "token": "eyJhbGciOiAiSFMyNTYiLCAidHlwIjogIkpXVCJ9.eyAiZXhwIiA6IDE3NjkxMDYyMjYsICJjbnBqIiA6ICI1NTEzNDY4ODAwMDE1NyIsICJsb2dpbiIgOiAibWp0YW1hbmhvbmlAZ21haWwuY29tIiwgInBhc3N3b3JkIiA6ICJNR3cwUjhNeU5ER3R3ejh5TVRKNk1rWlVMekU1TnpReWJEUkh3ekkxTnEzRFB6STBNM294UmxRdiIsICJub21lIiA6ICJNQVJDT1MgSk9Tw4kgVEFNQU5IT05JIiwgImF0aXZvIiA6IDEgfQ.sVp6Aow5RJ8puxzhfTT48zv_6ls36p21fPoeYIV5p-8"
-      }
-  }
-  *)
+end;
+
+procedure TForm_Login.btCadEmpresaClick(Sender: TObject);
+begin
+  if frmEmpresa = nil then
+    TfrmEmpresa.CreateInstance;
+  frmEmpresa.Show;
+end;
+
+procedure TForm_Login.btCadUsuarioClick(Sender: TObject);
+begin
+  MessageDlg('Cadastro usuário',TMsgDlgType.mtInformation,[mbOK],0);
 end;
 
 procedure TForm_Login.Button_ShowPassClick(Sender: TObject);
@@ -149,12 +152,60 @@ begin
  end;
 end;
 
+procedure TForm_Login.edCNPJExit(Sender: TObject);
+var
+  fDocumento :String;
+begin
+  try
+    try
+      fDM_ACBr := TDM_Acbr.Create(Nil);
+
+      if Trim(edCNPJ.Text) = '' then
+        Exit;
+
+      fDocumento := '';
+      fDocumento := RemoverMascara(edCNPJ.Text);
+
+      case Length(fDocumento) of
+        11:fDM_ACBr.ACBrValidador.TipoDocto := docCPF;
+        14:fDM_ACBr.ACBrValidador.TipoDocto := docCNPJ;
+        else
+	  raise Exception.Create('Documento inválido');
+      end;
+
+      fDM_ACBr.ACBrValidador.Documento := edCNPJ.Text;
+      if fDM_ACBr.ACBrValidador.Validar then
+        edCNPJ.Text := fDM_ACBr.ACBrValidador.Formatar
+      else
+        raise Exception.Create('Documento inválido');
+
+    finally
+      FreeAndNil(fDM_ACBr);
+    end;
+  except
+    on E :Exception do
+      MessageDlg(E.Message,TMsgDlgType.mtWarning,[mbOK],0);
+  end;
+end;
+
+procedure TForm_Login.edCNPJKeyPress(Sender: TObject; var Key: char);
+begin
+  if Key = #13 then
+     Edit_UserName.SetFocus;;
+end;
+
+procedure TForm_Login.Edit_UserNameKeyPress(Sender: TObject; var Key: char);
+begin
+  if Key = #13 then
+     Edit_Password.SetFocus;;
+end;
+
 procedure TForm_Login.ExportD2Bridge;
 begin
  inherited;
 
- Title:= 'My D2Bridge Web Application';
- SubTitle:= 'My WebApp';
+ Title:= 'Emissor';
+ SubTitle:= 'Acessar o Sistema';
 
  //Background color
  D2Bridge.HTML.Render.BodyStyle:= 'background-color: #f0f0f0;';
@@ -178,20 +229,34 @@ begin
    with BodyItems.Add do
    begin
     with Row.Items.Add do
-     Col.Add.VCLObj(Label_Login);
+     Col.Add.LCLObj(Label_Login);
 
     with Row.Items.Add do
-     Col.Add.VCLObj(edCNPJ, 'ValidationLogin', true);
+    begin
+     with Col.Items.Add do
+     begin
+       LCLObj(edCNPJ, 'ValidationLogin', true);
+       LCLObj(btCadEmpresa, CSSClass.Button.add);
+     end;
+    end;
 
     with Row.Items.Add do
-     Col.Add.VCLObj(Edit_UserName, 'ValidationLogin', true);
+    begin
+     with Col.Items.Add() do
+     begin
+       LCLObj(Edit_UserName, 'ValidationLogin', true);
+       LCLObj(btCadUsuario, CSSClass.Button.add);
+     end;
+    end;
 
     with Row.Items.Add do
+    begin
      with Col.Items.add do //Example Edit + Button same row and col
      begin
-      VCLObj(Edit_Password, 'ValidationLogin', true);
-      VCLObj(Button_ShowPass, CSSClass.Button.view);
+      LCLObj(Edit_Password, 'ValidationLogin', true);
+      LCLObj(Button_ShowPass, CSSClass.Button.view);
      end;
+    end;
 
     with Row.Items.Add do
      Col.Add.VCLObj(Button_Login, 'ValidationLogin', false, CSSClass.Col.colsize12);

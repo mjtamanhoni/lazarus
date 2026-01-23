@@ -12,10 +12,15 @@ function EndPath:String;
 function NameEXE(aSemExtensao:Boolean=True):String;
 function ConfigFile:String;
 function LogFile:String;
+function PreencherEsquerda(const Texto: string; Tamanho: Integer; Caractere: Char = ' '): string;
+function PreencherDireita(const Texto: string; Tamanho: Integer; Caractere: Char = ' '): string;
+function PreencherCentro(const Texto: string; Tamanho: Integer; Caractere: Char = ' '): string;
 {$EndRegion}
 
 {$Region 'Procedures'}
-procedure SaveLog(const aMessage:String;const ADataHora:Boolean=True);
+procedure SaveLog(
+  const aMessage:String;
+  const ADataHora:Boolean=True);
 {$EndRegion}
 
 implementation
@@ -43,7 +48,39 @@ begin
   Result := EndPath + NameEXE + '.LOG';
 end;
 
-procedure SaveLog(const aMessage: String; const ADataHora:Boolean=True);
+function PreencherEsquerda(const Texto: string; Tamanho: Integer; Caractere: Char): string;
+begin
+  if Length(Texto) >= Tamanho then
+    Result := Copy(Texto, 1, Tamanho)
+  else
+    Result := StringOfChar(Caractere, Tamanho - Length(Texto)) + Texto;
+end;
+
+function PreencherDireita(const Texto: string; Tamanho: Integer; Caractere: Char): string;
+begin
+  if Length(Texto) >= Tamanho then
+    Result := Copy(Texto, 1, Tamanho)
+  else
+    Result := Texto + StringOfChar(Caractere, Tamanho - Length(Texto));
+end;
+
+function PreencherCentro(const Texto: string; Tamanho: Integer; Caractere: Char): string;
+var
+  EspacosEsq, EspacosDir: Integer;
+begin
+  if Length(Texto) >= Tamanho then
+    Result := Copy(Texto, 1, Tamanho)
+  else
+  begin
+    EspacosEsq := (Tamanho - Length(Texto)) div 2;
+    EspacosDir := Tamanho - Length(Texto) - EspacosEsq;
+    Result := StringOfChar(Caractere, EspacosEsq) + Texto + StringOfChar(Caractere, EspacosDir);
+  end;
+end;
+
+procedure SaveLog(
+  const aMessage: String;
+  const ADataHora:Boolean=True);
 var
   F: TextFile;
 begin

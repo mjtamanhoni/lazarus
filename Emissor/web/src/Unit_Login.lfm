@@ -1,11 +1,11 @@
 object Form_Login: TForm_Login
   Left = 950
-  Height = 360
+  Height = 367
   Top = 258
   Width = 299
   BorderIcons = [biSystemMenu]
   Caption = 'Form Login'
-  ClientHeight = 360
+  ClientHeight = 367
   ClientWidth = 299
   Color = clBtnFace
   Font.Color = clWindowText
@@ -15,7 +15,7 @@ object Form_Login: TForm_Login
   LCLVersion = '4.4.0.0'
   object Image_BackGround: TImage
     Left = 0
-    Height = 360
+    Height = 367
     Top = 0
     Width = 299
     Align = alClient
@@ -23,10 +23,10 @@ object Form_Login: TForm_Login
   end
   object Panel1: TPanel
     Left = 29
-    Height = 310
+    Height = 313
     Top = 23
     Width = 239
-    ClientHeight = 310
+    ClientHeight = 313
     ClientWidth = 239
     Color = clWhite
     ParentBackground = False
@@ -167,9 +167,10 @@ object Form_Login: TForm_Login
       Left = 18
       Height = 23
       Top = 184
-      Width = 197
+      Width = 158
       TabOrder = 1
       TextHint = 'Username'
+      OnKeyPress = Edit_UserNameKeyPress
     end
     object Edit_Password: TEdit
       Left = 18
@@ -182,9 +183,10 @@ object Form_Login: TForm_Login
       TextHint = 'Password'
     end
     object Button_Login: TButton
-      Left = 79
+      Cursor = crHandPoint
+      Left = 64
       Height = 25
-      Top = 265
+      Top = 248
       Width = 75
       Caption = 'Login'
       TabOrder = 3
@@ -194,17 +196,38 @@ object Form_Login: TForm_Login
       Left = 18
       Height = 23
       Top = 152
-      Width = 197
+      Width = 158
       TabOrder = 0
       TextHint = 'CNPJ / CPF'
+      OnExit = edCNPJExit
+      OnKeyPress = edCNPJKeyPress
+    end
+    object btCadUsuario: TButton
+      Cursor = crHandPoint
+      Left = 179
+      Height = 25
+      Top = 183
+      Width = 35
+      TabOrder = 4
+      OnClick = btCadUsuarioClick
     end
   end
   object Button_ShowPass: TButton
+    Cursor = crHandPoint
     Left = 208
     Height = 25
     Top = 236
     Width = 35
     TabOrder = 1
     OnClick = Button_ShowPassClick
+  end
+  object btCadEmpresa: TButton
+    Cursor = crHandPoint
+    Left = 208
+    Height = 25
+    Top = 174
+    Width = 35
+    TabOrder = 2
+    OnClick = btCadEmpresaClick
   end
 end
