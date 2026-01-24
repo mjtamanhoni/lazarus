@@ -4,53 +4,8 @@ object frmPrincipal: TfrmPrincipal
   Top = 250
   Width = 599
   Caption = 'Menu Principal'
-  ClientHeight = 372
-  ClientWidth = 599
   Menu = MainMenu1
   LCLVersion = '4.4.0.0'
-  OnShow = FormShow
-  object lbCNPJ: TLabel
-    Left = 16
-    Height = 15
-    Top = 8
-    Width = 27
-    Caption = 'CNPJ'
-  end
-  object lbId: TLabel
-    Left = 16
-    Height = 15
-    Top = 24
-    Width = 11
-    Caption = 'ID'
-  end
-  object lbLogin: TLabel
-    Left = 16
-    Height = 15
-    Top = 40
-    Width = 30
-    Caption = 'Login'
-  end
-  object lbNome: TLabel
-    Left = 16
-    Height = 15
-    Top = 56
-    Width = 33
-    Caption = 'Nome'
-  end
-  object lbAtivo: TLabel
-    Left = 16
-    Height = 15
-    Top = 72
-    Width = 28
-    Caption = 'Ativo'
-  end
-  object lbToken: TLabel
-    Left = 15
-    Height = 15
-    Top = 88
-    Width = 31
-    Caption = 'Token'
-  end
   object MainMenu1: TMainMenu
     Left = 168
     Top = 112

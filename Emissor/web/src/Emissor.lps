@@ -10,8 +10,8 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="D2BridgeWebAppLCL"/>
         <EditorIndex Value="8"/>
-        <CursorPos Y="37"/>
-        <UsageCount Value="69"/>
+        <CursorPos X="38" Y="28"/>
+        <UsageCount Value="77"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -23,7 +23,7 @@
         <UnitName Value="Unit1"/>
         <TopLine Value="61"/>
         <CursorPos X="24" Y="78"/>
-        <UsageCount Value="69"/>
+        <UsageCount Value="77"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
@@ -35,7 +35,7 @@
         <ResourceBaseClass Value="DataModule"/>
         <EditorIndex Value="1"/>
         <CursorPos X="16" Y="16"/>
-        <UsageCount Value="69"/>
+        <UsageCount Value="77"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
@@ -48,19 +48,19 @@
         <EditorIndex Value="2"/>
         <TopLine Value="31"/>
         <CursorPos X="35" Y="13"/>
-        <UsageCount Value="69"/>
+        <UsageCount Value="77"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="Unit_D2Bridge_Server_Console.pas"/>
         <IsPartOfProject Value="True"/>
-        <UsageCount Value="69"/>
+        <UsageCount Value="77"/>
       </Unit>
       <Unit>
         <Filename Value="D2BridgeFormTemplate.pas"/>
         <IsPartOfProject Value="True"/>
-        <UsageCount Value="69"/>
+        <UsageCount Value="77"/>
       </Unit>
       <Unit>
         <Filename Value="Unit_Login.pas"/>
@@ -69,13 +69,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="4"/>
-        <TopLine Value="125"/>
-        <CursorPos X="19" Y="130"/>
-        <UsageCount Value="69"/>
-        <Bookmarks Count="2">
-          <Item0 Y="202" Left="1" Top="143" ID="2"/>
-          <Item1 Y="185" Left="1" Top="140" ID="1"/>
-        </Bookmarks>
+        <TopLine Value="85"/>
+        <CursorPos X="41" Y="71"/>
+        <UsageCount Value="77"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
@@ -88,7 +84,7 @@
         <EditorIndex Value="12"/>
         <TopLine Value="563"/>
         <CursorPos X="15" Y="581"/>
-        <UsageCount Value="69"/>
+        <UsageCount Value="77"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
@@ -99,7 +95,7 @@
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="69"/>
+        <UsageCount Value="77"/>
       </Unit>
       <Unit>
         <Filename Value="uprincipal.pas"/>
@@ -109,9 +105,9 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uPrincipal"/>
         <EditorIndex Value="3"/>
-        <TopLine Value="41"/>
-        <CursorPos X="9" Y="61"/>
-        <UsageCount Value="69"/>
+        <TopLine Value="45"/>
+        <CursorPos X="53" Y="59"/>
+        <UsageCount Value="77"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
@@ -120,8 +116,9 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="uBase.Functions"/>
         <EditorIndex Value="9"/>
-        <CursorPos X="10" Y="18"/>
-        <UsageCount Value="54"/>
+        <TopLine Value="267"/>
+        <CursorPos Y="277"/>
+        <UsageCount Value="62"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -132,7 +129,7 @@
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="49"/>
+        <UsageCount Value="57"/>
       </Unit>
       <Unit>
         <Filename Value="..\..\..\Global\ubase.validation.pas"/>
@@ -141,7 +138,7 @@
         <EditorIndex Value="10"/>
         <TopLine Value="109"/>
         <CursorPos X="33" Y="125"/>
-        <UsageCount Value="48"/>
+        <UsageCount Value="56"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -151,9 +148,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="uDM.ACBr"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="6"/>
         <CursorPos X="6"/>
-        <UsageCount Value="43"/>
+        <UsageCount Value="51"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
@@ -166,7 +163,7 @@
         <UnitName Value="uCad.Empresa"/>
         <EditorIndex Value="5"/>
         <CursorPos X="57" Y="12"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="42"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
@@ -178,10 +175,14 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uEmpresa"/>
         <IsVisibleTab Value="True"/>
-        <EditorIndex Value="6"/>
-        <TopLine Value="89"/>
-        <CursorPos X="66" Y="109"/>
-        <UsageCount Value="34"/>
+        <EditorIndex Value="7"/>
+        <TopLine Value="312"/>
+        <CursorPos X="22" Y="323"/>
+        <UsageCount Value="42"/>
+        <Bookmarks Count="2">
+          <Item0 X="35" Y="237" Left="1" Top="236" ID="2"/>
+          <Item1 X="92" Y="391" Left="1" Top="367" ID="1"/>
+        </Bookmarks>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
@@ -190,14 +191,14 @@
         <ComponentName Value="PrismSessionBase"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
-        <UsageCount Value="15"/>
+        <UsageCount Value="14"/>
       </Unit>
       <Unit>
         <Filename Value="C:\lazarus\components\D2Bridge\d2bridgeframework\Stable\D2Bridge Framework\Prism\Prism.Card.Model.pas"/>
         <EditorIndex Value="13"/>
         <TopLine Value="42"/>
         <CursorPos X="12" Y="56"/>
-        <UsageCount Value="32"/>
+        <UsageCount Value="37"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -206,137 +207,144 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="1377"/>
         <CursorPos Y="1396"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="6"/>
       </Unit>
       <Unit>
         <Filename Value="C:\lazarus\components\D2Bridge\d2bridgeframework\Stable\D2Bridge Framework\Prism\Prism.Util.pas"/>
         <EditorIndex Value="11"/>
         <TopLine Value="23"/>
         <CursorPos X="18" Y="40"/>
-        <UsageCount Value="24"/>
+        <UsageCount Value="29"/>
         <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="C:\lazarus\fpc\3.2.2\source\packages\fcl-json\src\fpjson.pp"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="630"/>
+        <CursorPos X="79" Y="480"/>
+        <UsageCount Value="9"/>
       </Unit>
     </Units>
     <JumpHistory HistoryIndex="29">
       <Position>
         <Filename Value="uempresa.pas"/>
-        <Caret Line="68" Column="54" TopLine="51"/>
+        <Caret Line="325" TopLine="312"/>
       </Position>
       <Position>
         <Filename Value="uempresa.pas"/>
-        <Caret Line="67" Column="54" TopLine="50"/>
+        <Caret Line="326" TopLine="312"/>
       </Position>
       <Position>
         <Filename Value="uempresa.pas"/>
-        <Caret Line="66" Column="54" TopLine="49"/>
+        <Caret Line="327" TopLine="312"/>
       </Position>
       <Position>
         <Filename Value="uempresa.pas"/>
-        <Caret Line="65" Column="54" TopLine="48"/>
+        <Caret Line="330" TopLine="312"/>
       </Position>
       <Position>
         <Filename Value="uempresa.pas"/>
-        <Caret Line="66" Column="54" TopLine="49"/>
+        <Caret Line="332" TopLine="312"/>
       </Position>
       <Position>
         <Filename Value="uempresa.pas"/>
-        <Caret Line="65" Column="54" TopLine="48"/>
+        <Caret Line="335" TopLine="312"/>
       </Position>
       <Position>
         <Filename Value="uempresa.pas"/>
-        <Caret Line="64" Column="54" TopLine="47"/>
+        <Caret Line="337" TopLine="312"/>
       </Position>
       <Position>
         <Filename Value="uempresa.pas"/>
-        <Caret Line="63" Column="54" TopLine="46"/>
+        <Caret Line="341" TopLine="318"/>
       </Position>
       <Position>
         <Filename Value="uempresa.pas"/>
-        <Caret Line="72" Column="54" TopLine="55"/>
+        <Caret Line="343" TopLine="318"/>
       </Position>
       <Position>
         <Filename Value="uempresa.pas"/>
-        <Caret Line="71" Column="54" TopLine="54"/>
+        <Caret Line="347" TopLine="318"/>
       </Position>
       <Position>
         <Filename Value="uempresa.pas"/>
-        <Caret Line="70" Column="54" TopLine="53"/>
+        <Caret Line="349" TopLine="320"/>
       </Position>
       <Position>
         <Filename Value="uempresa.pas"/>
-        <Caret Line="69" Column="54" TopLine="52"/>
+        <Caret Line="315" Column="48" TopLine="286"/>
       </Position>
       <Position>
         <Filename Value="uempresa.pas"/>
-        <Caret Line="68" Column="54" TopLine="51"/>
+        <Caret Line="62" Column="46" TopLine="49"/>
       </Position>
       <Position>
         <Filename Value="uempresa.pas"/>
-        <Caret Line="67" Column="54" TopLine="50"/>
+        <Caret Line="255" Column="46" TopLine="235"/>
       </Position>
       <Position>
         <Filename Value="uempresa.pas"/>
-        <Caret Line="66" Column="54" TopLine="49"/>
+        <Caret Line="335" Column="29" TopLine="316"/>
       </Position>
       <Position>
         <Filename Value="uempresa.pas"/>
-        <Caret Line="65" Column="54" TopLine="48"/>
+        <Caret Line="71" Column="17" TopLine="51"/>
       </Position>
       <Position>
         <Filename Value="uempresa.pas"/>
-        <Caret Line="64" Column="54" TopLine="47"/>
+        <Caret Line="390" TopLine="363"/>
       </Position>
       <Position>
         <Filename Value="uempresa.pas"/>
-        <Caret Line="63" Column="54" TopLine="46"/>
+        <Caret Line="392" Column="20" TopLine="363"/>
       </Position>
       <Position>
         <Filename Value="uempresa.pas"/>
-        <Caret Line="48" Column="11" TopLine="46"/>
+        <Caret Line="69" Column="15" TopLine="54"/>
       </Position>
       <Position>
         <Filename Value="uempresa.pas"/>
-        <Caret Line="49" Column="11" TopLine="47"/>
+        <Caret Line="329" Column="42" TopLine="316"/>
       </Position>
       <Position>
         <Filename Value="uempresa.pas"/>
-        <Caret Line="48" Column="11" TopLine="46"/>
+        <Caret Line="71" Column="15" TopLine="51"/>
       </Position>
       <Position>
         <Filename Value="uempresa.pas"/>
-        <Caret Line="49" Column="11" TopLine="47"/>
+        <Caret Line="386" Column="35" TopLine="373"/>
       </Position>
       <Position>
         <Filename Value="uempresa.pas"/>
-        <Caret Line="48" Column="11" TopLine="46"/>
+        <Caret Line="62" Column="16" TopLine="37"/>
       </Position>
       <Position>
         <Filename Value="uempresa.pas"/>
-        <Caret Line="49" Column="11" TopLine="47"/>
+        <Caret Line="237" Column="35" TopLine="236"/>
       </Position>
       <Position>
         <Filename Value="uempresa.pas"/>
-        <Caret Line="48" Column="11" TopLine="46"/>
+        <Caret Line="390" Column="20" TopLine="368"/>
       </Position>
       <Position>
         <Filename Value="uempresa.pas"/>
-        <Caret Line="49" Column="11" TopLine="47"/>
+        <Caret Line="242" Column="38" TopLine="220"/>
       </Position>
       <Position>
         <Filename Value="uempresa.pas"/>
-        <Caret Line="50" Column="11" TopLine="48"/>
+        <Caret Line="392" Column="90" TopLine="367"/>
       </Position>
       <Position>
         <Filename Value="uempresa.pas"/>
-        <Caret Line="51" Column="11" TopLine="49"/>
+        <Caret Line="247" Column="23" TopLine="219"/>
       </Position>
       <Position>
         <Filename Value="uempresa.pas"/>
-        <Caret Line="52" Column="11" TopLine="50"/>
+        <Caret Line="388" Column="14" TopLine="363"/>
       </Position>
       <Position>
         <Filename Value="uempresa.pas"/>
-        <Caret Line="54" Column="11" TopLine="52"/>
+        <Caret Line="241" Column="43" TopLine="220"/>
       </Position>
     </JumpHistory>
     <RunParams>

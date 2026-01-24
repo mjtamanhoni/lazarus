@@ -6,8 +6,12 @@ interface
 
 uses
   SysUtils, Variants, Classes, Graphics, Controls, Dialogs, ComCtrls, Menus,
-  ExtCtrls, StdCtrls, ACBrValidador, IniFiles, D2Bridge.Forms, fpjson,
-  DataSet.Serialize, RESTRequest4D, jsonparser, uBase.Functions,
+  ExtCtrls, StdCtrls, ACBrValidador, IniFiles, D2Bridge.Forms,
+  fpjson,
+  DataSet.Serialize,
+  RESTRequest4D,
+  jsonparser,
+  uBase.Functions,
   uCripto_Descrito, uDM.ACBr; //Declare D2Bridge.Forms always in the last unit
 
 type
