@@ -12,7 +12,7 @@ uses
   RESTRequest4D,
   jsonparser,
   uBase.Functions, uDM.ACBr,
-  uPrincipal;
+  uPrincipal, uCad.Empresa;
 
 type
 
@@ -48,6 +48,7 @@ type
     pnFiltro: TPanel;
     pnTipoFiltro2: TPanel;
     pMenu_Filtro: TPopupMenu;
+    procedure btNovoClick(Sender: TObject);
     procedure edPesquisarKeyPress(Sender: TObject; var Key: char);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure FormCreate(Sender: TObject);
@@ -55,6 +56,8 @@ type
     procedure miRazaoSocialClick(Sender: TObject);
   private
     { Private declarations }
+    FfrmCadEmpresa :TfrmCadEmpresa;
+
     FHost :String;
     FIniFile :TIniFile;
 
@@ -146,6 +149,11 @@ procedure TfrmEmpresa.edPesquisarKeyPress(Sender: TObject; var Key: char);
 begin
   if Key = #13 then
     Pesquisar;
+end;
+
+procedure TfrmEmpresa.btNovoClick(Sender: TObject);
+begin
+  ShowPopupModal('Popup' + FfrmCadEmpresa.Name);
 end;
 
 procedure TfrmEmpresa.miRazaoSocialClick(Sender: TObject);
@@ -260,8 +268,8 @@ begin
   D2Bridge.FrameworkExportType.TemplatePageHTMLFile := '';
 
   //Formulário de cadastro de empresas....
-  //FfrmMunicipios_Cad := TfrmMunicipios_Cad.Create(Self);
-  //D2Bridge.AddNested(FfrmMunicipios_Cad);
+  FfrmCadEmpresa := TfrmCadEmpresa.Create(Self);
+  D2Bridge.AddNested(FfrmCadEmpresa);
 
   with D2Bridge.Items.add do
   begin
@@ -271,7 +279,7 @@ begin
       begin
         with Row(CSSClass.Space.margim_bottom3).Items.Add do
         begin
-          With FormGroup('',CSSClass.Col.col).Items.Add do
+          With FormGroup('',CSSClass.Col.colsize12).Items.Add do
           begin
             LCLObj(edPesquisar);
             LCLObj(btSelPesquisa, PopupMenu, CSSClass.Button.search);
@@ -279,7 +287,7 @@ begin
         end;
       end;
 
-      with HTMLDIV(CSSClass.Col.col).Items.Add do
+      with HTMLDIV(CSSClass.Col.colsize2).Items.Add do
       begin
         with Row(CSSClass.Space.margim_bottom3 + ' ' + CSSClass.Space.margim_top1).Items.Add do
         begin
@@ -301,8 +309,8 @@ begin
       end;
     end;
 
-    //with Popup('Popup' + FfrmMunicipios_Cad.Name,'Cadastro de Municípios',True,CSSClass.Popup.ExtraLarge).Items.Add do
-    //  Nested(FfrmMunicipios_Cad);
+    with Popup('Popup' + FfrmCadEmpresa.Name,'Cadastro de Empresas',True,CSSClass.Popup.ExtraLarge).Items.Add do
+      Nested(FfrmCadEmpresa);
   end;
 
 end;

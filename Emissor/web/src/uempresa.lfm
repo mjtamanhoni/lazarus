@@ -68,6 +68,7 @@ inherited frmEmpresa: TfrmEmpresa
         Align = alRight
         Caption = 'Novo'
         TabOrder = 0
+        OnClick = btNovoClick
       end
     end
   end

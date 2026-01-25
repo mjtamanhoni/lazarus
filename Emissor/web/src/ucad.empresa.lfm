@@ -1,8 +1,506 @@
 object frmCadEmpresa: TfrmCadEmpresa
   Left = 262
-  Height = 500
+  Height = 544
   Top = 250
-  Width = 800
+  Width = 870
   Caption = 'Cadastro de Empresa'
+  ClientHeight = 544
+  ClientWidth = 870
+  DesignTimePPI = 120
   LCLVersion = '4.4.0.0'
+  object pnDetail: TPanel
+    Left = 0
+    Height = 497
+    Top = 0
+    Width = 870
+    Align = alClient
+    BevelOuter = bvNone
+    ClientHeight = 497
+    ClientWidth = 870
+    TabOrder = 0
+    object pcPrincipal: TPageControl
+      Left = 0
+      Height = 497
+      Top = 0
+      Width = 870
+      ActivePage = tsEmpresa
+      Align = alClient
+      TabIndex = 0
+      TabOrder = 0
+      object tsEmpresa: TTabSheet
+        Caption = 'Empresa'
+        ClientHeight = 464
+        ClientWidth = 862
+        object pnRow001: TPanel
+          Left = 0
+          Height = 54
+          Top = 0
+          Width = 862
+          Align = alTop
+          BevelOuter = bvNone
+          ClientHeight = 54
+          ClientWidth = 862
+          TabOrder = 0
+          object pnid_empresa: TPanel
+            Left = 0
+            Height = 54
+            Top = 0
+            Width = 100
+            Align = alLeft
+            BevelOuter = bvNone
+            BorderWidth = 3
+            ClientHeight = 54
+            ClientWidth = 100
+            TabOrder = 0
+            object lbid_empresa: TLabel
+              Left = 3
+              Height = 20
+              Top = 3
+              Width = 94
+              Align = alTop
+              Caption = 'Id'
+            end
+            object edid_empresa: TEdit
+              Left = 3
+              Height = 28
+              Top = 23
+              Width = 94
+              Align = alClient
+              Alignment = taRightJustify
+              NumbersOnly = True
+              TabOrder = 0
+            end
+          end
+          object pncnpj: TPanel
+            Left = 100
+            Height = 54
+            Top = 0
+            Width = 155
+            Align = alLeft
+            BevelOuter = bvNone
+            BorderWidth = 3
+            ClientHeight = 54
+            ClientWidth = 155
+            TabOrder = 1
+            object lbcnpj: TLabel
+              Left = 3
+              Height = 20
+              Top = 3
+              Width = 149
+              Align = alTop
+              Caption = 'Documento'
+            end
+            object edcnpj: TEdit
+              Left = 3
+              Height = 28
+              Top = 23
+              Width = 149
+              Align = alClient
+              NumbersOnly = True
+              TabOrder = 0
+            end
+          end
+          object pninscricao_estadual: TPanel
+            Left = 255
+            Height = 54
+            Top = 0
+            Width = 155
+            Align = alLeft
+            BevelOuter = bvNone
+            BorderWidth = 3
+            ClientHeight = 54
+            ClientWidth = 155
+            TabOrder = 2
+            object lbinscricao_estadual: TLabel
+              Left = 3
+              Height = 20
+              Top = 3
+              Width = 149
+              Align = alTop
+              Caption = 'Insc. Estadual'
+            end
+            object edinscricao_estadual: TEdit
+              Left = 3
+              Height = 28
+              Top = 23
+              Width = 149
+              Align = alClient
+              NumbersOnly = True
+              TabOrder = 0
+            end
+          end
+          object pninscricao_municipal: TPanel
+            Left = 410
+            Height = 54
+            Top = 0
+            Width = 155
+            Align = alLeft
+            BevelOuter = bvNone
+            BorderWidth = 3
+            ClientHeight = 54
+            ClientWidth = 155
+            TabOrder = 3
+            object lbinscricao_municipal: TLabel
+              Left = 3
+              Height = 20
+              Top = 3
+              Width = 149
+              Align = alTop
+              Caption = 'Insc. Municipal'
+            end
+            object edinscricao_municipal: TEdit
+              Left = 3
+              Height = 28
+              Top = 23
+              Width = 149
+              Align = alClient
+              NumbersOnly = True
+              TabOrder = 0
+            end
+          end
+          object pnativo: TPanel
+            Left = 707
+            Height = 54
+            Top = 0
+            Width = 155
+            Align = alRight
+            BevelOuter = bvNone
+            BorderWidth = 3
+            ClientHeight = 54
+            ClientWidth = 155
+            TabOrder = 4
+            object lbativo: TLabel
+              Left = 3
+              Height = 20
+              Top = 3
+              Width = 149
+              Align = alTop
+              Caption = 'Status'
+            end
+            object cbativo: TComboBox
+              Left = 3
+              Height = 28
+              Top = 23
+              Width = 149
+              Align = alClient
+              ItemHeight = 20
+              Items.Strings = (
+                'INATIVO'
+                'ATIVO'
+              )
+              TabOrder = 0
+            end
+          end
+        end
+        object pnRow002: TPanel
+          Left = 0
+          Height = 54
+          Top = 54
+          Width = 862
+          Align = alTop
+          BevelOuter = bvNone
+          ClientHeight = 54
+          ClientWidth = 862
+          TabOrder = 1
+          object pnrazao_social: TPanel
+            Left = 0
+            Height = 54
+            Top = 0
+            Width = 862
+            Align = alClient
+            BevelOuter = bvNone
+            BorderWidth = 3
+            ClientHeight = 54
+            ClientWidth = 862
+            TabOrder = 0
+            object lbrazao_social: TLabel
+              Left = 3
+              Height = 20
+              Top = 3
+              Width = 856
+              Align = alTop
+              Caption = 'Razão Social'
+            end
+            object edrazao_social: TEdit
+              Left = 3
+              Height = 28
+              Top = 23
+              Width = 856
+              Align = alClient
+              NumbersOnly = True
+              TabOrder = 0
+            end
+          end
+        end
+        object pnRow003: TPanel
+          Left = 0
+          Height = 54
+          Top = 108
+          Width = 862
+          Align = alTop
+          BevelOuter = bvNone
+          ClientHeight = 54
+          ClientWidth = 862
+          TabOrder = 2
+          object pnnome_fantasia: TPanel
+            Left = 0
+            Height = 54
+            Top = 0
+            Width = 862
+            Align = alClient
+            BevelOuter = bvNone
+            BorderWidth = 3
+            ClientHeight = 54
+            ClientWidth = 862
+            TabOrder = 0
+            object lbnome_fantasia: TLabel
+              Left = 3
+              Height = 20
+              Top = 3
+              Width = 856
+              Align = alTop
+              Caption = 'Nome Fantasia'
+            end
+            object ednome_fantasia: TEdit
+              Left = 3
+              Height = 28
+              Top = 23
+              Width = 856
+              Align = alClient
+              NumbersOnly = True
+              TabOrder = 0
+            end
+          end
+        end
+        object pnRow004: TPanel
+          Left = 0
+          Height = 54
+          Top = 162
+          Width = 862
+          Align = alTop
+          BevelOuter = bvNone
+          ClientHeight = 54
+          ClientWidth = 862
+          TabOrder = 3
+          object pnregime_tributario: TPanel
+            Left = 0
+            Height = 54
+            Top = 0
+            Width = 420
+            Align = alLeft
+            BevelOuter = bvNone
+            BorderWidth = 3
+            ClientHeight = 54
+            ClientWidth = 420
+            TabOrder = 0
+            object lbregime_tributario: TLabel
+              Left = 3
+              Height = 20
+              Top = 3
+              Width = 414
+              Align = alTop
+              Caption = 'Regime Tributário'
+            end
+            object edregime_tributario: TComboBox
+              Left = 3
+              Height = 28
+              Top = 23
+              Width = 414
+              Align = alClient
+              ItemHeight = 20
+              Items.Strings = (
+                'Simples Nacional'
+                'Simples Nacional - excesso de sublimite'
+                'Lucro Presumido'
+                'Lucro Real'
+                'MEI (Microempreendedor Individual)'
+              )
+              TabOrder = 0
+            end
+          end
+          object pncrt: TPanel
+            Left = 420
+            Height = 54
+            Top = 0
+            Width = 100
+            Align = alLeft
+            BevelOuter = bvNone
+            BorderWidth = 3
+            ClientHeight = 54
+            ClientWidth = 100
+            TabOrder = 1
+            object lbcrt: TLabel
+              Left = 3
+              Height = 20
+              Top = 3
+              Width = 94
+              Align = alTop
+              Caption = 'CRT'
+            end
+            object edcrt: TEdit
+              Left = 3
+              Height = 28
+              Top = 23
+              Width = 94
+              Align = alClient
+              NumbersOnly = True
+              ReadOnly = True
+              TabOrder = 0
+            end
+          end
+        end
+        object pnRow005: TPanel
+          Left = 0
+          Height = 54
+          Top = 216
+          Width = 862
+          Align = alTop
+          BevelOuter = bvNone
+          ClientHeight = 54
+          ClientWidth = 862
+          TabOrder = 4
+          object pnemail: TPanel
+            Left = 0
+            Height = 54
+            Top = 0
+            Width = 707
+            Align = alClient
+            BevelOuter = bvNone
+            BorderWidth = 3
+            ClientHeight = 54
+            ClientWidth = 707
+            TabOrder = 0
+            object lbemail: TLabel
+              Left = 3
+              Height = 20
+              Top = 3
+              Width = 701
+              Align = alTop
+              Caption = 'E-Mail'
+            end
+            object edemail: TEdit
+              Left = 3
+              Height = 28
+              Top = 23
+              Width = 701
+              Align = alClient
+              NumbersOnly = True
+              TabOrder = 0
+            end
+          end
+          object pntelefone: TPanel
+            Left = 707
+            Height = 54
+            Top = 0
+            Width = 155
+            Align = alRight
+            BevelOuter = bvNone
+            BorderWidth = 3
+            ClientHeight = 54
+            ClientWidth = 155
+            TabOrder = 1
+            object lbtelefone: TLabel
+              Left = 3
+              Height = 20
+              Top = 3
+              Width = 149
+              Align = alTop
+              Caption = 'Telefone'
+            end
+            object edtelefone: TEdit
+              Left = 3
+              Height = 28
+              Top = 23
+              Width = 149
+              Align = alClient
+              NumbersOnly = True
+              TabOrder = 0
+            end
+          end
+        end
+        object pnRow006: TPanel
+          Left = 0
+          Height = 54
+          Top = 270
+          Width = 862
+          Align = alTop
+          BevelOuter = bvNone
+          ClientHeight = 54
+          ClientWidth = 862
+          TabOrder = 5
+          object pnsite: TPanel
+            Left = 0
+            Height = 54
+            Top = 0
+            Width = 862
+            Align = alClient
+            BevelOuter = bvNone
+            BorderWidth = 3
+            ClientHeight = 54
+            ClientWidth = 862
+            TabOrder = 0
+            object lbsite: TLabel
+              Left = 3
+              Height = 20
+              Top = 3
+              Width = 856
+              Align = alTop
+              Caption = 'Site'
+            end
+            object edsite: TEdit
+              Left = 3
+              Height = 28
+              Top = 23
+              Width = 856
+              Align = alClient
+              NumbersOnly = True
+              TabOrder = 0
+            end
+          end
+        end
+      end
+      object tsEndereco: TTabSheet
+        Caption = 'Endereço'
+      end
+      object tsDadosBancarios: TTabSheet
+        Caption = 'Dados Bancários'
+      end
+      object tsCertificadoDigital: TTabSheet
+        Caption = 'Certificado Digital'
+      end
+    end
+  end
+  object pnFooter: TPanel
+    Left = 0
+    Height = 47
+    Top = 497
+    Width = 870
+    Align = alBottom
+    BevelOuter = bvNone
+    ClientHeight = 47
+    ClientWidth = 870
+    TabOrder = 1
+    object btCancelar: TButton
+      Cursor = crHandPoint
+      Left = 776
+      Height = 47
+      Top = 0
+      Width = 94
+      Align = alRight
+      Caption = 'Cancelar'
+      TabOrder = 0
+      OnClick = btCancelarClick
+    end
+    object btConfirmar: TButton
+      Cursor = crHandPoint
+      Left = 682
+      Height = 47
+      Top = 0
+      Width = 94
+      Align = alRight
+      Caption = 'Confirmar'
+      TabOrder = 1
+      OnClick = btConfirmarClick
+    end
+  end
 end
