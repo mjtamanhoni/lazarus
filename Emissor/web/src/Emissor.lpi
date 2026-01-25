@@ -66,6 +66,9 @@
     </RunParams>
     <RequiredPackages>
       <Item>
+        <PackageName Value="DateTimeCtrlsDsgn"/>
+      </Item>
+      <Item>
         <PackageName Value="zcomponentdesign"/>
       </Item>
       <Item>
@@ -190,6 +193,21 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uEmpresa"/>
+      </Unit>
+      <Unit>
+        <Filename Value="ucad.empresa.endereco.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmCad_Empresa_Endereco"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="uCad.Empresa.Endereco"/>
+      </Unit>
+      <Unit>
+        <Filename Value="ucad.empresa.dadosbancarios.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmCad_Empresa_DadosBancarios"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="ucad.empresa.DadosBancarios"/>
       </Unit>
     </Units>
   </ProjectOptions>

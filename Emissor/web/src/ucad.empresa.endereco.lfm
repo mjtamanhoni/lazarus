@@ -1,0 +1,476 @@
+object frmCad_Empresa_Endereco: TfrmCad_Empresa_Endereco
+  Left = 262
+  Height = 303
+  Top = 250
+  Width = 710
+  Caption = 'Cadastro de Endereço da Empresa'
+  ClientHeight = 303
+  ClientWidth = 710
+  LCLVersion = '4.4.0.0'
+  object pnFooter: TPanel
+    Left = 0
+    Height = 38
+    Top = 265
+    Width = 710
+    Align = alBottom
+    BevelOuter = bvNone
+    ClientHeight = 38
+    ClientWidth = 710
+    TabOrder = 0
+    object btCancelar: TButton
+      Cursor = crHandPoint
+      Left = 635
+      Height = 38
+      Top = 0
+      Width = 75
+      Align = alRight
+      Caption = 'Cancelar'
+      TabOrder = 0
+      OnClick = btCancelarClick
+    end
+    object btConfirmar: TButton
+      Cursor = crHandPoint
+      Left = 560
+      Height = 38
+      Top = 0
+      Width = 75
+      Align = alRight
+      Caption = 'Confirmar'
+      TabOrder = 1
+      OnClick = btConfirmarClick
+    end
+  end
+  object pnDetail: TPanel
+    Left = 0
+    Height = 265
+    Top = 0
+    Width = 710
+    Align = alClient
+    BevelOuter = bvNone
+    ClientHeight = 265
+    ClientWidth = 710
+    TabOrder = 1
+    object pnEndRow1: TPanel
+      Left = 0
+      Height = 43
+      Top = 0
+      Width = 710
+      Align = alTop
+      BevelOuter = bvNone
+      ClientHeight = 43
+      ClientWidth = 710
+      TabOrder = 0
+      object pnid_endereco: TPanel
+        Left = 0
+        Height = 43
+        Top = 0
+        Width = 80
+        Align = alLeft
+        BevelOuter = bvNone
+        BorderWidth = 3
+        ClientHeight = 43
+        ClientWidth = 80
+        TabOrder = 0
+        object lbid_endereco: TLabel
+          Left = 3
+          Height = 15
+          Top = 3
+          Width = 74
+          Align = alTop
+          Caption = 'Id'
+        end
+        object edid_endereco: TEdit
+          Left = 3
+          Height = 22
+          Top = 18
+          Width = 74
+          Align = alClient
+          Alignment = taRightJustify
+          NumbersOnly = True
+          TabOrder = 0
+        end
+      end
+      object pntipo_endereco: TPanel
+        Left = 80
+        Height = 43
+        Top = 0
+        Width = 300
+        Align = alLeft
+        BevelOuter = bvNone
+        BorderWidth = 3
+        ClientHeight = 43
+        ClientWidth = 300
+        TabOrder = 1
+        object lbtipo_endereco: TLabel
+          Left = 3
+          Height = 15
+          Top = 3
+          Width = 294
+          Align = alTop
+          Caption = 'Tipo do Endereço'
+        end
+        object cbtipo_endereco: TComboBox
+          Left = 3
+          Height = 23
+          Top = 18
+          Width = 294
+          Align = alClient
+          ItemHeight = 15
+          Items.Strings = (
+            'Comercial;'
+            'Residencial;'
+            'Entrega (Shipping);'
+            'Cobrança/Faturamento;'
+            'Correspondência;'
+            'Endereço de Instalação (quando envolve serviços técnicos), endereço rural;'
+            'Endereço Rural (para produtores);'
+            'Endereço Temporário (Eventos, obras).'
+          )
+          TabOrder = 0
+        end
+      end
+      object pncep: TPanel
+        Left = 570
+        Height = 43
+        Top = 0
+        Width = 140
+        Align = alRight
+        BevelOuter = bvNone
+        BorderWidth = 3
+        ClientHeight = 43
+        ClientWidth = 140
+        TabOrder = 2
+        object lbcep: TLabel
+          Left = 3
+          Height = 15
+          Top = 3
+          Width = 134
+          Align = alTop
+          Caption = 'Cep'
+        end
+        object edcep: TEdit
+          Left = 3
+          Height = 22
+          Top = 18
+          Width = 104
+          Align = alClient
+          NumbersOnly = True
+          TabOrder = 0
+        end
+        object btCep: TButton
+          Left = 107
+          Height = 22
+          Top = 18
+          Width = 30
+          Align = alRight
+          TabOrder = 1
+        end
+      end
+    end
+    object pnEndRow2: TPanel
+      Left = 0
+      Height = 43
+      Top = 43
+      Width = 710
+      Align = alTop
+      BevelOuter = bvNone
+      ClientHeight = 43
+      ClientWidth = 710
+      TabOrder = 1
+      object pnlogradouro: TPanel
+        Left = 0
+        Height = 43
+        Top = 0
+        Width = 610
+        Align = alClient
+        BevelOuter = bvNone
+        BorderWidth = 3
+        ClientHeight = 43
+        ClientWidth = 610
+        TabOrder = 0
+        object lblogradouro: TLabel
+          Left = 3
+          Height = 15
+          Top = 3
+          Width = 604
+          Align = alTop
+          Caption = 'Logradouro'
+        end
+        object edlogradouro: TEdit
+          Left = 3
+          Height = 22
+          Top = 18
+          Width = 604
+          Align = alClient
+          NumbersOnly = True
+          TabOrder = 0
+        end
+      end
+      object pnnumero: TPanel
+        Left = 610
+        Height = 43
+        Top = 0
+        Width = 100
+        Align = alRight
+        BevelOuter = bvNone
+        BorderWidth = 3
+        ClientHeight = 43
+        ClientWidth = 100
+        TabOrder = 1
+        object lbnumero: TLabel
+          Left = 3
+          Height = 15
+          Top = 3
+          Width = 94
+          Align = alTop
+          Caption = 'Número'
+        end
+        object ednumero: TEdit
+          Left = 3
+          Height = 22
+          Top = 18
+          Width = 94
+          Align = alClient
+          NumbersOnly = True
+          TabOrder = 0
+        end
+      end
+    end
+    object pnEndRow3: TPanel
+      Left = 0
+      Height = 43
+      Top = 86
+      Width = 710
+      Align = alTop
+      BevelOuter = bvNone
+      ClientHeight = 43
+      ClientWidth = 710
+      TabOrder = 2
+      object pncomplemento: TPanel
+        Left = 0
+        Height = 43
+        Top = 0
+        Width = 710
+        Align = alClient
+        BevelOuter = bvNone
+        BorderWidth = 3
+        ClientHeight = 43
+        ClientWidth = 710
+        TabOrder = 0
+        object lbcomplemento: TLabel
+          Left = 3
+          Height = 15
+          Top = 3
+          Width = 704
+          Align = alTop
+          Caption = 'Complemento'
+        end
+        object edcomplemento: TEdit
+          Left = 3
+          Height = 22
+          Top = 18
+          Width = 704
+          Align = alClient
+          NumbersOnly = True
+          TabOrder = 0
+        end
+      end
+    end
+    object pnEndRow4: TPanel
+      Left = 0
+      Height = 43
+      Top = 129
+      Width = 710
+      Align = alTop
+      BevelOuter = bvNone
+      ClientHeight = 43
+      ClientWidth = 710
+      TabOrder = 3
+      object pnbairro: TPanel
+        Left = 0
+        Height = 43
+        Top = 0
+        Width = 300
+        Align = alClient
+        BevelOuter = bvNone
+        BorderWidth = 3
+        ClientHeight = 43
+        ClientWidth = 300
+        TabOrder = 0
+        object lbbairro: TLabel
+          Left = 3
+          Height = 15
+          Top = 3
+          Width = 294
+          Align = alTop
+          Caption = 'Complemento'
+        end
+        object edbairro: TEdit
+          Left = 3
+          Height = 22
+          Top = 18
+          Width = 294
+          Align = alClient
+          NumbersOnly = True
+          TabOrder = 0
+        end
+      end
+      object pnmunicipio: TPanel
+        Left = 300
+        Height = 43
+        Top = 0
+        Width = 280
+        Align = alRight
+        BevelOuter = bvNone
+        BorderWidth = 3
+        ClientHeight = 43
+        ClientWidth = 280
+        TabOrder = 1
+        object lbmunicipio: TLabel
+          Left = 3
+          Height = 15
+          Top = 3
+          Width = 274
+          Align = alTop
+          Caption = 'Município'
+        end
+        object edmunicipio: TEdit
+          Left = 3
+          Height = 22
+          Top = 18
+          Width = 274
+          Align = alClient
+          NumbersOnly = True
+          TabOrder = 0
+        end
+      end
+      object pncodigo_municipio_ibge: TPanel
+        Left = 580
+        Height = 43
+        Top = 0
+        Width = 80
+        Align = alRight
+        BevelOuter = bvNone
+        BorderWidth = 3
+        ClientHeight = 43
+        ClientWidth = 80
+        TabOrder = 2
+        object lbcodigo_municipio_ibge: TLabel
+          Left = 3
+          Height = 15
+          Top = 3
+          Width = 74
+          Align = alTop
+          Caption = 'IBGE'
+        end
+        object edcodigo_municipio_ibge: TEdit
+          Left = 3
+          Height = 22
+          Top = 18
+          Width = 74
+          Align = alClient
+          NumbersOnly = True
+          TabOrder = 0
+        end
+      end
+      object pnuf: TPanel
+        Left = 660
+        Height = 43
+        Top = 0
+        Width = 50
+        Align = alRight
+        BevelOuter = bvNone
+        BorderWidth = 3
+        ClientHeight = 43
+        ClientWidth = 50
+        TabOrder = 3
+        object lbuf: TLabel
+          Left = 3
+          Height = 15
+          Top = 3
+          Width = 44
+          Align = alTop
+          Caption = 'UF'
+        end
+        object eduf: TEdit
+          Left = 3
+          Height = 22
+          Top = 18
+          Width = 44
+          Align = alClient
+          NumbersOnly = True
+          TabOrder = 0
+        end
+      end
+    end
+    object pnEndRow5: TPanel
+      Left = 0
+      Height = 43
+      Top = 172
+      Width = 710
+      Align = alTop
+      BevelOuter = bvNone
+      ClientHeight = 43
+      ClientWidth = 710
+      TabOrder = 4
+      object pnpais: TPanel
+        Left = 0
+        Height = 43
+        Top = 0
+        Width = 630
+        Align = alClient
+        BevelOuter = bvNone
+        BorderWidth = 3
+        ClientHeight = 43
+        ClientWidth = 630
+        TabOrder = 0
+        object lbpais: TLabel
+          Left = 3
+          Height = 15
+          Top = 3
+          Width = 624
+          Align = alTop
+          Caption = 'Pais'
+        end
+        object edpais: TEdit
+          Left = 3
+          Height = 22
+          Top = 18
+          Width = 624
+          Align = alClient
+          NumbersOnly = True
+          TabOrder = 0
+        end
+      end
+      object pncodigo_pais_ibge: TPanel
+        Left = 630
+        Height = 43
+        Top = 0
+        Width = 80
+        Align = alRight
+        BevelOuter = bvNone
+        BorderWidth = 3
+        ClientHeight = 43
+        ClientWidth = 80
+        TabOrder = 1
+        object lbcodigo_pais_ibge: TLabel
+          Left = 3
+          Height = 15
+          Top = 3
+          Width = 74
+          Align = alTop
+          Caption = 'IBGE (Pais)'
+        end
+        object edcodigo_pais_ibge: TEdit
+          Left = 3
+          Height = 22
+          Top = 18
+          Width = 74
+          Align = alClient
+          NumbersOnly = True
+          TabOrder = 0
+        end
+      end
+    end
+  end
+end

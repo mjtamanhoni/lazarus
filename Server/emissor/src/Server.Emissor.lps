@@ -53,7 +53,7 @@
         <UnitName Value="uDM"/>
         <EditorIndex Value="6"/>
         <CursorPos X="14" Y="9"/>
-        <UsageCount Value="155"/>
+        <UsageCount Value="156"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
@@ -64,10 +64,9 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <TopLine Value="33"/>
-        <CursorPos X="67" Y="51"/>
-        <UsageCount Value="155"/>
+        <CursorPos X="40" Y="49"/>
+        <UsageCount Value="156"/>
         <Loaded Value="True"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
         <Filename Value="uempresa.service.pas"/>
@@ -75,7 +74,7 @@
         <UnitName Value="uEmpresa.Service"/>
         <EditorIndex Value="5"/>
         <CursorPos X="43" Y="21"/>
-        <UsageCount Value="107"/>
+        <UsageCount Value="108"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>

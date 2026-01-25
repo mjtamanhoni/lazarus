@@ -1,70 +1,70 @@
 object frmCadEmpresa: TfrmCadEmpresa
   Left = 262
-  Height = 544
+  Height = 435
   Top = 250
-  Width = 870
+  Width = 696
   Caption = 'Cadastro de Empresa'
-  ClientHeight = 544
-  ClientWidth = 870
-  DesignTimePPI = 120
+  ClientHeight = 435
+  ClientWidth = 696
   LCLVersion = '4.4.0.0'
+  OnShow = FormShow
   object pnDetail: TPanel
     Left = 0
-    Height = 497
+    Height = 397
     Top = 0
-    Width = 870
+    Width = 696
     Align = alClient
     BevelOuter = bvNone
-    ClientHeight = 497
-    ClientWidth = 870
+    ClientHeight = 397
+    ClientWidth = 696
     TabOrder = 0
     object pcPrincipal: TPageControl
       Left = 0
-      Height = 497
+      Height = 397
       Top = 0
-      Width = 870
-      ActivePage = tsEmpresa
+      Width = 696
+      ActivePage = tsCertificadoDigital
       Align = alClient
-      TabIndex = 0
+      TabIndex = 3
       TabOrder = 0
       object tsEmpresa: TTabSheet
         Caption = 'Empresa'
-        ClientHeight = 464
-        ClientWidth = 862
+        ClientHeight = 369
+        ClientWidth = 688
         object pnRow001: TPanel
           Left = 0
-          Height = 54
+          Height = 43
           Top = 0
-          Width = 862
+          Width = 688
           Align = alTop
           BevelOuter = bvNone
-          ClientHeight = 54
-          ClientWidth = 862
+          ClientHeight = 43
+          ClientWidth = 688
           TabOrder = 0
           object pnid_empresa: TPanel
             Left = 0
-            Height = 54
+            Height = 43
             Top = 0
-            Width = 100
+            Width = 80
             Align = alLeft
             BevelOuter = bvNone
             BorderWidth = 3
-            ClientHeight = 54
-            ClientWidth = 100
+            ClientHeight = 43
+            ClientWidth = 80
             TabOrder = 0
             object lbid_empresa: TLabel
               Left = 3
-              Height = 20
+              Height = 15
               Top = 3
-              Width = 94
+              Width = 74
               Align = alTop
               Caption = 'Id'
             end
             object edid_empresa: TEdit
               Left = 3
-              Height = 28
-              Top = 23
-              Width = 94
+              Height = 22
+              Top = 18
+              Width = 74
               Align = alClient
               Alignment = taRightJustify
               NumbersOnly = True
@@ -72,118 +72,118 @@ object frmCadEmpresa: TfrmCadEmpresa
             end
           end
           object pncnpj: TPanel
-            Left = 100
-            Height = 54
+            Left = 80
+            Height = 43
             Top = 0
-            Width = 155
+            Width = 124
             Align = alLeft
             BevelOuter = bvNone
             BorderWidth = 3
-            ClientHeight = 54
-            ClientWidth = 155
+            ClientHeight = 43
+            ClientWidth = 124
             TabOrder = 1
             object lbcnpj: TLabel
               Left = 3
-              Height = 20
+              Height = 15
               Top = 3
-              Width = 149
+              Width = 118
               Align = alTop
               Caption = 'Documento'
             end
             object edcnpj: TEdit
               Left = 3
-              Height = 28
-              Top = 23
-              Width = 149
+              Height = 22
+              Top = 18
+              Width = 118
               Align = alClient
               NumbersOnly = True
               TabOrder = 0
             end
           end
           object pninscricao_estadual: TPanel
-            Left = 255
-            Height = 54
+            Left = 204
+            Height = 43
             Top = 0
-            Width = 155
+            Width = 124
             Align = alLeft
             BevelOuter = bvNone
             BorderWidth = 3
-            ClientHeight = 54
-            ClientWidth = 155
+            ClientHeight = 43
+            ClientWidth = 124
             TabOrder = 2
             object lbinscricao_estadual: TLabel
               Left = 3
-              Height = 20
+              Height = 15
               Top = 3
-              Width = 149
+              Width = 118
               Align = alTop
               Caption = 'Insc. Estadual'
             end
             object edinscricao_estadual: TEdit
               Left = 3
-              Height = 28
-              Top = 23
-              Width = 149
+              Height = 22
+              Top = 18
+              Width = 118
               Align = alClient
               NumbersOnly = True
               TabOrder = 0
             end
           end
           object pninscricao_municipal: TPanel
-            Left = 410
-            Height = 54
+            Left = 328
+            Height = 43
             Top = 0
-            Width = 155
+            Width = 124
             Align = alLeft
             BevelOuter = bvNone
             BorderWidth = 3
-            ClientHeight = 54
-            ClientWidth = 155
+            ClientHeight = 43
+            ClientWidth = 124
             TabOrder = 3
             object lbinscricao_municipal: TLabel
               Left = 3
-              Height = 20
+              Height = 15
               Top = 3
-              Width = 149
+              Width = 118
               Align = alTop
               Caption = 'Insc. Municipal'
             end
             object edinscricao_municipal: TEdit
               Left = 3
-              Height = 28
-              Top = 23
-              Width = 149
+              Height = 22
+              Top = 18
+              Width = 118
               Align = alClient
               NumbersOnly = True
               TabOrder = 0
             end
           end
           object pnativo: TPanel
-            Left = 707
-            Height = 54
+            Left = 564
+            Height = 43
             Top = 0
-            Width = 155
+            Width = 124
             Align = alRight
             BevelOuter = bvNone
             BorderWidth = 3
-            ClientHeight = 54
-            ClientWidth = 155
+            ClientHeight = 43
+            ClientWidth = 124
             TabOrder = 4
             object lbativo: TLabel
               Left = 3
-              Height = 20
+              Height = 15
               Top = 3
-              Width = 149
+              Width = 118
               Align = alTop
               Caption = 'Status'
             end
             object cbativo: TComboBox
               Left = 3
-              Height = 28
-              Top = 23
-              Width = 149
+              Height = 23
+              Top = 18
+              Width = 118
               Align = alClient
-              ItemHeight = 20
+              ItemHeight = 15
               Items.Strings = (
                 'INATIVO'
                 'ATIVO'
@@ -194,38 +194,38 @@ object frmCadEmpresa: TfrmCadEmpresa
         end
         object pnRow002: TPanel
           Left = 0
-          Height = 54
-          Top = 54
-          Width = 862
+          Height = 43
+          Top = 43
+          Width = 688
           Align = alTop
           BevelOuter = bvNone
-          ClientHeight = 54
-          ClientWidth = 862
+          ClientHeight = 43
+          ClientWidth = 688
           TabOrder = 1
           object pnrazao_social: TPanel
             Left = 0
-            Height = 54
+            Height = 43
             Top = 0
-            Width = 862
+            Width = 688
             Align = alClient
             BevelOuter = bvNone
             BorderWidth = 3
-            ClientHeight = 54
-            ClientWidth = 862
+            ClientHeight = 43
+            ClientWidth = 688
             TabOrder = 0
             object lbrazao_social: TLabel
               Left = 3
-              Height = 20
+              Height = 15
               Top = 3
-              Width = 856
+              Width = 682
               Align = alTop
               Caption = 'Razão Social'
             end
             object edrazao_social: TEdit
               Left = 3
-              Height = 28
-              Top = 23
-              Width = 856
+              Height = 22
+              Top = 18
+              Width = 682
               Align = alClient
               NumbersOnly = True
               TabOrder = 0
@@ -234,38 +234,38 @@ object frmCadEmpresa: TfrmCadEmpresa
         end
         object pnRow003: TPanel
           Left = 0
-          Height = 54
-          Top = 108
-          Width = 862
+          Height = 43
+          Top = 86
+          Width = 688
           Align = alTop
           BevelOuter = bvNone
-          ClientHeight = 54
-          ClientWidth = 862
+          ClientHeight = 43
+          ClientWidth = 688
           TabOrder = 2
           object pnnome_fantasia: TPanel
             Left = 0
-            Height = 54
+            Height = 43
             Top = 0
-            Width = 862
+            Width = 688
             Align = alClient
             BevelOuter = bvNone
             BorderWidth = 3
-            ClientHeight = 54
-            ClientWidth = 862
+            ClientHeight = 43
+            ClientWidth = 688
             TabOrder = 0
             object lbnome_fantasia: TLabel
               Left = 3
-              Height = 20
+              Height = 15
               Top = 3
-              Width = 856
+              Width = 682
               Align = alTop
               Caption = 'Nome Fantasia'
             end
             object ednome_fantasia: TEdit
               Left = 3
-              Height = 28
-              Top = 23
-              Width = 856
+              Height = 22
+              Top = 18
+              Width = 682
               Align = alClient
               NumbersOnly = True
               TabOrder = 0
@@ -274,40 +274,40 @@ object frmCadEmpresa: TfrmCadEmpresa
         end
         object pnRow004: TPanel
           Left = 0
-          Height = 54
-          Top = 162
-          Width = 862
+          Height = 43
+          Top = 129
+          Width = 688
           Align = alTop
           BevelOuter = bvNone
-          ClientHeight = 54
-          ClientWidth = 862
+          ClientHeight = 43
+          ClientWidth = 688
           TabOrder = 3
           object pnregime_tributario: TPanel
             Left = 0
-            Height = 54
+            Height = 43
             Top = 0
-            Width = 420
+            Width = 336
             Align = alLeft
             BevelOuter = bvNone
             BorderWidth = 3
-            ClientHeight = 54
-            ClientWidth = 420
+            ClientHeight = 43
+            ClientWidth = 336
             TabOrder = 0
             object lbregime_tributario: TLabel
               Left = 3
-              Height = 20
+              Height = 15
               Top = 3
-              Width = 414
+              Width = 330
               Align = alTop
               Caption = 'Regime Tributário'
             end
             object edregime_tributario: TComboBox
               Left = 3
-              Height = 28
-              Top = 23
-              Width = 414
+              Height = 23
+              Top = 18
+              Width = 330
               Align = alClient
-              ItemHeight = 20
+              ItemHeight = 15
               Items.Strings = (
                 'Simples Nacional'
                 'Simples Nacional - excesso de sublimite'
@@ -319,29 +319,29 @@ object frmCadEmpresa: TfrmCadEmpresa
             end
           end
           object pncrt: TPanel
-            Left = 420
-            Height = 54
+            Left = 336
+            Height = 43
             Top = 0
-            Width = 100
+            Width = 80
             Align = alLeft
             BevelOuter = bvNone
             BorderWidth = 3
-            ClientHeight = 54
-            ClientWidth = 100
+            ClientHeight = 43
+            ClientWidth = 80
             TabOrder = 1
             object lbcrt: TLabel
               Left = 3
-              Height = 20
+              Height = 15
               Top = 3
-              Width = 94
+              Width = 74
               Align = alTop
               Caption = 'CRT'
             end
             object edcrt: TEdit
               Left = 3
-              Height = 28
-              Top = 23
-              Width = 94
+              Height = 22
+              Top = 18
+              Width = 74
               Align = alClient
               NumbersOnly = True
               ReadOnly = True
@@ -351,67 +351,67 @@ object frmCadEmpresa: TfrmCadEmpresa
         end
         object pnRow005: TPanel
           Left = 0
-          Height = 54
-          Top = 216
-          Width = 862
+          Height = 43
+          Top = 172
+          Width = 688
           Align = alTop
           BevelOuter = bvNone
-          ClientHeight = 54
-          ClientWidth = 862
+          ClientHeight = 43
+          ClientWidth = 688
           TabOrder = 4
           object pnemail: TPanel
             Left = 0
-            Height = 54
+            Height = 43
             Top = 0
-            Width = 707
+            Width = 564
             Align = alClient
             BevelOuter = bvNone
             BorderWidth = 3
-            ClientHeight = 54
-            ClientWidth = 707
+            ClientHeight = 43
+            ClientWidth = 564
             TabOrder = 0
             object lbemail: TLabel
               Left = 3
-              Height = 20
+              Height = 15
               Top = 3
-              Width = 701
+              Width = 558
               Align = alTop
               Caption = 'E-Mail'
             end
             object edemail: TEdit
               Left = 3
-              Height = 28
-              Top = 23
-              Width = 701
+              Height = 22
+              Top = 18
+              Width = 558
               Align = alClient
               NumbersOnly = True
               TabOrder = 0
             end
           end
           object pntelefone: TPanel
-            Left = 707
-            Height = 54
+            Left = 564
+            Height = 43
             Top = 0
-            Width = 155
+            Width = 124
             Align = alRight
             BevelOuter = bvNone
             BorderWidth = 3
-            ClientHeight = 54
-            ClientWidth = 155
+            ClientHeight = 43
+            ClientWidth = 124
             TabOrder = 1
             object lbtelefone: TLabel
               Left = 3
-              Height = 20
+              Height = 15
               Top = 3
-              Width = 149
+              Width = 118
               Align = alTop
               Caption = 'Telefone'
             end
             object edtelefone: TEdit
               Left = 3
-              Height = 28
-              Top = 23
-              Width = 149
+              Height = 22
+              Top = 18
+              Width = 118
               Align = alClient
               NumbersOnly = True
               TabOrder = 0
@@ -420,38 +420,38 @@ object frmCadEmpresa: TfrmCadEmpresa
         end
         object pnRow006: TPanel
           Left = 0
-          Height = 54
-          Top = 270
-          Width = 862
+          Height = 43
+          Top = 215
+          Width = 688
           Align = alTop
           BevelOuter = bvNone
-          ClientHeight = 54
-          ClientWidth = 862
+          ClientHeight = 43
+          ClientWidth = 688
           TabOrder = 5
           object pnsite: TPanel
             Left = 0
-            Height = 54
+            Height = 43
             Top = 0
-            Width = 862
+            Width = 688
             Align = alClient
             BevelOuter = bvNone
             BorderWidth = 3
-            ClientHeight = 54
-            ClientWidth = 862
+            ClientHeight = 43
+            ClientWidth = 688
             TabOrder = 0
             object lbsite: TLabel
               Left = 3
-              Height = 20
+              Height = 15
               Top = 3
-              Width = 856
+              Width = 682
               Align = alTop
               Caption = 'Site'
             end
             object edsite: TEdit
               Left = 3
-              Height = 28
-              Top = 23
-              Width = 856
+              Height = 22
+              Top = 18
+              Width = 682
               Align = alClient
               NumbersOnly = True
               TabOrder = 0
@@ -461,31 +461,431 @@ object frmCadEmpresa: TfrmCadEmpresa
       end
       object tsEndereco: TTabSheet
         Caption = 'Endereço'
+        ClientHeight = 369
+        ClientWidth = 688
+        object pnEndRow1: TPanel
+          Left = 0
+          Height = 369
+          Top = 0
+          Width = 688
+          Align = alClient
+          BevelOuter = bvNone
+          ClientHeight = 369
+          ClientWidth = 688
+          TabOrder = 0
+          object DBGrid_End: TDBGrid
+            Left = 0
+            Height = 336
+            Top = 0
+            Width = 688
+            Align = alClient
+            Color = clWindow
+            Columns = <            
+              item
+                Title.Alignment = taCenter
+                Title.Caption = 'ID'
+                Width = 65
+                FieldName = 'end_id_endereco'
+              end            
+              item
+                Title.Alignment = taCenter
+                Title.Caption = 'Logradouro'
+                Width = 300
+                FieldName = 'end_logradouro'
+              end            
+              item
+                Title.Alignment = taCenter
+                Title.Caption = 'Número'
+                Width = 65
+                FieldName = 'end_numero'
+              end            
+              item
+                Title.Alignment = taCenter
+                Title.Caption = 'Complemento'
+                Width = 300
+                FieldName = 'end_complemento'
+              end            
+              item
+                Title.Alignment = taCenter
+                Title.Caption = 'Bairro'
+                Width = 250
+                FieldName = 'end_bairro'
+              end            
+              item
+                Title.Alignment = taCenter
+                Title.Caption = 'Município'
+                Width = 250
+                FieldName = 'end_municipio'
+              end            
+              item
+                Title.Alignment = taCenter
+                Title.Caption = 'IBGE'
+                Width = 75
+                FieldName = 'end_codigo_municipio_ibge'
+              end            
+              item
+                Title.Alignment = taCenter
+                Title.Caption = 'UF'
+                Width = 75
+                FieldName = 'end_uf'
+              end            
+              item
+                Title.Alignment = taCenter
+                Title.Caption = 'CEP'
+                Width = 100
+                FieldName = 'end_cep'
+              end            
+              item
+                Title.Alignment = taCenter
+                Title.Caption = 'Pais'
+                Width = 300
+                FieldName = 'end'#31'_pais'
+              end            
+              item
+                Title.Alignment = taCenter
+                Title.Caption = 'IBGE'
+                Width = 75
+                FieldName = 'end_codigo_pais_ibge'
+              end            
+              item
+                Title.Alignment = taCenter
+                Title.Caption = 'Tipo'
+                Visible = False
+                FieldName = 'end_tipo_endereco'
+              end            
+              item
+                Title.Alignment = taCenter
+                Title.Caption = 'Tipo'
+                Width = 200
+                FieldName = 'end_tipo_endereco_desc'
+              end>
+            DataSource = dsEndereco
+            TabOrder = 0
+          end
+          object pnEnd_Footer: TPanel
+            Left = 0
+            Height = 33
+            Top = 336
+            Width = 688
+            Align = alBottom
+            BevelOuter = bvNone
+            ClientHeight = 33
+            ClientWidth = 688
+            TabOrder = 1
+            object btEnd_Add: TButton
+              Left = 0
+              Height = 33
+              Top = 0
+              Width = 56
+              Align = alLeft
+              TabOrder = 0
+              OnClick = btEnd_AddClick
+            end
+          end
+        end
       end
       object tsDadosBancarios: TTabSheet
         Caption = 'Dados Bancários'
+        ClientHeight = 369
+        ClientWidth = 688
+        object DBGrid_DB: TDBGrid
+          Left = 0
+          Height = 336
+          Top = 0
+          Width = 688
+          Align = alClient
+          Color = clWindow
+          Columns = <          
+            item
+              Title.Alignment = taCenter
+              Title.Caption = 'ID'
+              Width = 65
+              FieldName = 'db_id_banco'
+            end          
+            item
+              Title.Alignment = taCenter
+              Title.Caption = 'Banco'
+              Width = 300
+              FieldName = 'db_banco'
+            end          
+            item
+              Title.Alignment = taCenter
+              Title.Caption = 'Agência'
+              Width = 200
+              FieldName = 'db_agencia'
+            end          
+            item
+              Title.Alignment = taCenter
+              Title.Caption = 'Conta'
+              Width = 150
+              FieldName = 'db_conta'
+            end          
+            item
+              Title.Alignment = taCenter
+              Title.Caption = 'Tipo Conta'
+              Visible = False
+              FieldName = 'db_tipo_conta'
+            end          
+            item
+              Title.Alignment = taCenter
+              Title.Caption = 'Tipo Conta'
+              Width = 200
+              FieldName = 'db_tipo_conta_desc'
+            end>
+          DataSource = dsDadosBancarios
+          TabOrder = 0
+        end
+        object pnCB_Footer: TPanel
+          Left = 0
+          Height = 33
+          Top = 336
+          Width = 688
+          Align = alBottom
+          BevelOuter = bvNone
+          ClientHeight = 33
+          ClientWidth = 688
+          TabOrder = 1
+          object btCB_Add: TButton
+            Left = 0
+            Height = 33
+            Top = 0
+            Width = 56
+            Align = alLeft
+            TabOrder = 0
+            OnClick = btCB_AddClick
+          end
+        end
       end
       object tsCertificadoDigital: TTabSheet
         Caption = 'Certificado Digital'
+        ClientHeight = 369
+        ClientWidth = 688
+        object pnCDRow1: TPanel
+          Left = 0
+          Height = 43
+          Top = 0
+          Width = 688
+          Align = alTop
+          BevelOuter = bvNone
+          ClientHeight = 43
+          ClientWidth = 688
+          TabOrder = 0
+          object pnid_certificado: TPanel
+            Left = 0
+            Height = 43
+            Top = 0
+            Width = 80
+            Align = alLeft
+            BevelOuter = bvNone
+            BorderWidth = 3
+            ClientHeight = 43
+            ClientWidth = 80
+            TabOrder = 0
+            object lbid_certificado: TLabel
+              Left = 3
+              Height = 15
+              Top = 3
+              Width = 74
+              Align = alTop
+              Caption = 'Id'
+            end
+            object edid_certificado: TEdit
+              Left = 3
+              Height = 22
+              Top = 18
+              Width = 74
+              Align = alClient
+              Alignment = taRightJustify
+              NumbersOnly = True
+              TabOrder = 0
+            end
+          end
+          object pntipo: TPanel
+            Left = 80
+            Height = 43
+            Top = 0
+            Width = 458
+            Align = alClient
+            BevelOuter = bvNone
+            BorderWidth = 3
+            ClientHeight = 43
+            ClientWidth = 458
+            TabOrder = 1
+            object lbtipo: TLabel
+              Left = 3
+              Height = 15
+              Top = 3
+              Width = 452
+              Align = alTop
+              Caption = 'Tipo do Certificado'
+            end
+            object cbtipo: TComboBox
+              Left = 3
+              Height = 23
+              Top = 18
+              Width = 452
+              Align = alClient
+              ItemHeight = 15
+              Items.Strings = (
+                'A1 - Arquivo eletrônico (geralmente extensão [.pfx] ou [.p12])'
+                'A3 - Armazenado em dispositivo físico (token USB ou cartão com chip).  '
+              )
+              TabOrder = 0
+            end
+          end
+          object pnvalidade: TPanel
+            Left = 538
+            Height = 43
+            Top = 0
+            Width = 150
+            Align = alRight
+            BevelOuter = bvNone
+            BorderWidth = 3
+            ClientHeight = 43
+            ClientWidth = 150
+            TabOrder = 2
+            object lbvalidade: TLabel
+              Left = 3
+              Height = 15
+              Top = 3
+              Width = 144
+              Align = alTop
+              Caption = 'Validade'
+            end
+            object edvalidade: TDateTimePicker
+              Left = 3
+              Height = 22
+              Top = 18
+              Width = 144
+              CenturyFrom = 1941
+              MaxDate = 2958465
+              MinDate = -53780
+              TabOrder = 0
+              TrailingSeparator = False
+              TextForNullDate = 'NULL'
+              LeadingZeros = True
+              Align = alClient
+              Kind = dtkDate
+              TimeFormat = tf24
+              TimeDisplay = tdHMS
+              DateMode = dmComboBox
+              Date = 46047
+              Time = 0.4981900347193
+              UseDefaultSeparators = True
+              HideDateTimeParts = []
+              MonthNames = 'Long'
+            end
+          end
+        end
+        object pnCDRow2: TPanel
+          Left = 0
+          Height = 43
+          Top = 43
+          Width = 688
+          Align = alTop
+          BevelOuter = bvNone
+          ClientHeight = 43
+          ClientWidth = 688
+          TabOrder = 1
+          object pncaminho_arquivo: TPanel
+            Left = 0
+            Height = 43
+            Top = 0
+            Width = 688
+            Align = alClient
+            BevelOuter = bvNone
+            BorderWidth = 3
+            ClientHeight = 43
+            ClientWidth = 688
+            TabOrder = 0
+            object lbcaminho_arquivo: TLabel
+              Left = 3
+              Height = 15
+              Top = 3
+              Width = 682
+              Align = alTop
+              Caption = 'Caminho do arquivo'
+            end
+            object edcaminho_arquivo: TEdit
+              Left = 3
+              Height = 22
+              Top = 18
+              Width = 660
+              Align = alClient
+              NumbersOnly = True
+              TabOrder = 0
+            end
+            object btcaminho_arquivo: TButton
+              Left = 663
+              Height = 22
+              Top = 18
+              Width = 22
+              Align = alRight
+              TabOrder = 1
+            end
+          end
+        end
+        object pnCDRow3: TPanel
+          Left = 0
+          Height = 43
+          Top = 86
+          Width = 688
+          Align = alTop
+          BevelOuter = bvNone
+          ClientHeight = 43
+          ClientWidth = 688
+          TabOrder = 2
+          object pnsenha: TPanel
+            Left = 0
+            Height = 43
+            Top = 0
+            Width = 688
+            Align = alClient
+            BevelOuter = bvNone
+            BorderWidth = 3
+            ClientHeight = 43
+            ClientWidth = 688
+            TabOrder = 0
+            object lbsenha: TLabel
+              Left = 3
+              Height = 15
+              Top = 3
+              Width = 682
+              Align = alTop
+              Caption = 'Senha'
+            end
+            object edsenha: TEdit
+              Left = 3
+              Height = 22
+              Top = 18
+              Width = 682
+              Align = alClient
+              EchoMode = emPassword
+              NumbersOnly = True
+              PasswordChar = '*'
+              TabOrder = 0
+            end
+          end
+        end
       end
     end
   end
   object pnFooter: TPanel
     Left = 0
-    Height = 47
-    Top = 497
-    Width = 870
+    Height = 38
+    Top = 397
+    Width = 696
     Align = alBottom
     BevelOuter = bvNone
-    ClientHeight = 47
-    ClientWidth = 870
+    ClientHeight = 38
+    ClientWidth = 696
     TabOrder = 1
     object btCancelar: TButton
       Cursor = crHandPoint
-      Left = 776
-      Height = 47
+      Left = 621
+      Height = 38
       Top = 0
-      Width = 94
+      Width = 75
       Align = alRight
       Caption = 'Cancelar'
       TabOrder = 0
@@ -493,14 +893,308 @@ object frmCadEmpresa: TfrmCadEmpresa
     end
     object btConfirmar: TButton
       Cursor = crHandPoint
-      Left = 682
-      Height = 47
+      Left = 546
+      Height = 38
       Top = 0
-      Width = 94
+      Width = 75
       Align = alRight
       Caption = 'Confirmar'
       TabOrder = 1
       OnClick = btConfirmarClick
     end
+  end
+  object mdEndereco: TMemDataset
+    FieldDefs = <    
+      item
+        Name = 'end_id_endereco'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'end_logradouro'
+        DataType = ftString
+        Size = 255
+      end    
+      item
+        Name = 'end_numero'
+        DataType = ftString
+        Size = 20
+      end    
+      item
+        Name = 'end_complemento'
+        DataType = ftString
+        Size = 100
+      end    
+      item
+        Name = 'end_bairro'
+        DataType = ftString
+        Size = 100
+      end    
+      item
+        Name = 'end_municipio'
+        DataType = ftString
+        Size = 100
+      end    
+      item
+        Name = 'end_codigo_municipio_ibge'
+        DataType = ftString
+        Size = 7
+      end    
+      item
+        Name = 'end_uf'
+        DataType = ftString
+        Size = 2
+      end    
+      item
+        Name = 'end_cep'
+        DataType = ftString
+        Size = 8
+      end    
+      item
+        Name = 'end'#31'_pais'
+        DataType = ftString
+        Size = 100
+      end    
+      item
+        Name = 'end_codigo_pais_ibge'
+        DataType = ftString
+        Size = 4
+      end    
+      item
+        Name = 'end_tipo_endereco'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'end_tipo_endereco_desc'
+        DataType = ftString
+        Size = 100
+      end>
+    Left = 232
+    Top = 80
+    object mdEnderecoend_id_endereco: TLongintField
+      FieldKind = fkData
+      FieldName = 'end_id_endereco'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object mdEnderecoend_logradouro: TStringField
+      FieldKind = fkData
+      FieldName = 'end_logradouro'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object mdEnderecoend_numero: TStringField
+      FieldKind = fkData
+      FieldName = 'end_numero'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object mdEnderecoend_complemento: TStringField
+      FieldKind = fkData
+      FieldName = 'end_complemento'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 100
+    end
+    object mdEnderecoend_bairro: TStringField
+      FieldKind = fkData
+      FieldName = 'end_bairro'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 100
+    end
+    object mdEnderecoend_municipio: TStringField
+      FieldKind = fkData
+      FieldName = 'end_municipio'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 100
+    end
+    object mdEnderecoend_codigo_municipio_ibge: TStringField
+      FieldKind = fkData
+      FieldName = 'end_codigo_municipio_ibge'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 7
+    end
+    object mdEnderecoend_uf: TStringField
+      FieldKind = fkData
+      FieldName = 'end_uf'
+      Index = 7
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 2
+    end
+    object mdEnderecoend_cep: TStringField
+      FieldKind = fkData
+      FieldName = 'end_cep'
+      Index = 8
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 8
+    end
+    object mdEnderecoend_pais: TStringField
+      FieldKind = fkData
+      FieldName = 'end'#31'_pais'
+      Index = 9
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 100
+    end
+    object mdEnderecoend_codigo_pais_ibge: TStringField
+      FieldKind = fkData
+      FieldName = 'end_codigo_pais_ibge'
+      Index = 10
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 4
+    end
+    object mdEnderecoend_tipo_endereco: TLongintField
+      FieldKind = fkData
+      FieldName = 'end_tipo_endereco'
+      Index = 11
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object mdEnderecoend_tipo_endereco_desc: TStringField
+      FieldKind = fkData
+      FieldName = 'end_tipo_endereco_desc'
+      Index = 12
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 100
+    end
+  end
+  object dsEndereco: TDataSource
+    DataSet = mdEndereco
+    Left = 232
+    Top = 128
+  end
+  object mdDadosBancarios: TMemDataset
+    FieldDefs = <    
+      item
+        Name = 'db_id_banco'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'db_banco'
+        DataType = ftString
+        Size = 100
+      end    
+      item
+        Name = 'db_agencia'
+        DataType = ftString
+        Size = 20
+      end    
+      item
+        Name = 'db_conta'
+        DataType = ftString
+        Size = 20
+      end    
+      item
+        Name = 'db_tipo_conta'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'db_tipo_conta_desc'
+        DataType = ftString
+        Size = 100
+      end>
+    Left = 344
+    Top = 88
+    object mdDadosBancariosdb_id_banco: TLongintField
+      FieldKind = fkData
+      FieldName = 'db_id_banco'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object mdDadosBancariosdb_banco: TStringField
+      FieldKind = fkData
+      FieldName = 'db_banco'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 100
+    end
+    object mdDadosBancariosdb_agencia: TStringField
+      FieldKind = fkData
+      FieldName = 'db_agencia'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object mdDadosBancariosdb_conta: TStringField
+      FieldKind = fkData
+      FieldName = 'db_conta'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object mdDadosBancariosdb_tipo_conta: TLongintField
+      FieldKind = fkData
+      FieldName = 'db_tipo_conta'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object mdDadosBancariosdb_tipo_conta_desc: TStringField
+      FieldKind = fkData
+      FieldName = 'db_tipo_conta_desc'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 100
+    end
+  end
+  object dsDadosBancarios: TDataSource
+    DataSet = mdDadosBancarios
+    Left = 344
+    Top = 136
   end
 end

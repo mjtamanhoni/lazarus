@@ -1,0 +1,232 @@
+object frmCad_Empresa_DadosBancarios: TfrmCad_Empresa_DadosBancarios
+  Left = 262
+  Height = 452
+  Top = 250
+  Width = 752
+  Caption = 'Cadastro de Dados Bancários da Empresa'
+  ClientHeight = 452
+  ClientWidth = 752
+  LCLVersion = '4.4.0.0'
+  object pnFooter: TPanel
+    Left = 0
+    Height = 38
+    Top = 414
+    Width = 752
+    Align = alBottom
+    BevelOuter = bvNone
+    ClientHeight = 38
+    ClientWidth = 752
+    TabOrder = 0
+    object btCancelar: TButton
+      Cursor = crHandPoint
+      Left = 677
+      Height = 38
+      Top = 0
+      Width = 75
+      Align = alRight
+      Caption = 'Cancelar'
+      TabOrder = 0
+      OnClick = btCancelarClick
+    end
+    object btConfirmar: TButton
+      Cursor = crHandPoint
+      Left = 602
+      Height = 38
+      Top = 0
+      Width = 75
+      Align = alRight
+      Caption = 'Confirmar'
+      TabOrder = 1
+      OnClick = btConfirmarClick
+    end
+  end
+  object pnDetail: TPanel
+    Left = 0
+    Height = 414
+    Top = 0
+    Width = 752
+    Align = alClient
+    BevelOuter = bvNone
+    ClientHeight = 414
+    ClientWidth = 752
+    TabOrder = 1
+    object pnDBRow1: TPanel
+      Left = 0
+      Height = 43
+      Top = 0
+      Width = 752
+      Align = alTop
+      BevelOuter = bvNone
+      ClientHeight = 43
+      ClientWidth = 752
+      TabOrder = 0
+      object pnid_banco: TPanel
+        Left = 0
+        Height = 43
+        Top = 0
+        Width = 80
+        Align = alLeft
+        BevelOuter = bvNone
+        BorderWidth = 3
+        ClientHeight = 43
+        ClientWidth = 80
+        TabOrder = 0
+        object lbid_banco: TLabel
+          Left = 3
+          Height = 15
+          Top = 3
+          Width = 74
+          Align = alTop
+          Caption = 'Id'
+        end
+        object edid_banco: TEdit
+          Left = 3
+          Height = 22
+          Top = 18
+          Width = 74
+          Align = alClient
+          Alignment = taRightJustify
+          NumbersOnly = True
+          TabOrder = 0
+        end
+      end
+      object pntipo_conta: TPanel
+        Left = 80
+        Height = 43
+        Top = 0
+        Width = 672
+        Align = alClient
+        BevelOuter = bvNone
+        BorderWidth = 3
+        ClientHeight = 43
+        ClientWidth = 672
+        TabOrder = 1
+        object lbtipo_conta: TLabel
+          Left = 3
+          Height = 15
+          Top = 3
+          Width = 666
+          Align = alTop
+          Caption = 'Tipo da Conta'
+        end
+        object cbtipo_conta: TComboBox
+          Left = 3
+          Height = 23
+          Top = 18
+          Width = 666
+          Align = alClient
+          ItemHeight = 15
+          Items.Strings = (
+            'Corrente (PF/PJ) - Movimentação diária '
+            'Poupança (PF) - Guardar e render dinheiro '
+            'Salário (PF) - Receber salário/benefícios '
+            'Universitária/Jovem (Estudantes/jovens) - Condições especiais '
+            'PJ / MEI (Empresas/autônomos) - Gestão financeira empresarial '
+            'Digital (PF/PJ) - Movimentação online '
+            'Investimento (PF/PJ) - Aplicações financeiras '
+            'Conjunta (PF) - Compartilhar recursos '
+          )
+          TabOrder = 0
+        end
+      end
+    end
+    object pnDBRow2: TPanel
+      Left = 0
+      Height = 43
+      Top = 43
+      Width = 752
+      Align = alTop
+      BevelOuter = bvNone
+      ClientHeight = 43
+      ClientWidth = 752
+      TabOrder = 1
+      object pnbanco: TPanel
+        Left = 0
+        Height = 43
+        Top = 0
+        Width = 452
+        Align = alClient
+        BevelOuter = bvNone
+        BorderWidth = 3
+        ClientHeight = 43
+        ClientWidth = 452
+        TabOrder = 0
+        object lbbanco: TLabel
+          Left = 3
+          Height = 15
+          Top = 3
+          Width = 446
+          Align = alTop
+          Caption = 'Banco'
+        end
+        object edbanco: TEdit
+          Left = 3
+          Height = 22
+          Top = 18
+          Width = 446
+          Align = alClient
+          NumbersOnly = True
+          TabOrder = 0
+        end
+      end
+      object pnagencia: TPanel
+        Left = 452
+        Height = 43
+        Top = 0
+        Width = 100
+        Align = alRight
+        BevelOuter = bvNone
+        BorderWidth = 3
+        ClientHeight = 43
+        ClientWidth = 100
+        TabOrder = 1
+        object lbagencia: TLabel
+          Left = 3
+          Height = 15
+          Top = 3
+          Width = 94
+          Align = alTop
+          Caption = 'Agência'
+        end
+        object edagencia: TEdit
+          Left = 3
+          Height = 22
+          Top = 18
+          Width = 94
+          Align = alClient
+          NumbersOnly = True
+          TabOrder = 0
+        end
+      end
+      object pnconta: TPanel
+        Left = 552
+        Height = 43
+        Top = 0
+        Width = 200
+        Align = alRight
+        BevelOuter = bvNone
+        BorderWidth = 3
+        ClientHeight = 43
+        ClientWidth = 200
+        TabOrder = 2
+        object lbconta: TLabel
+          Left = 3
+          Height = 15
+          Top = 3
+          Width = 194
+          Align = alTop
+          Caption = 'Conta'
+        end
+        object edconta: TEdit
+          Left = 3
+          Height = 22
+          Top = 18
+          Width = 194
+          Align = alClient
+          NumbersOnly = True
+          TabOrder = 0
+        end
+      end
+    end
+  end
+end
