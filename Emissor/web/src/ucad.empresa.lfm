@@ -7,6 +7,8 @@ object frmCadEmpresa: TfrmCadEmpresa
   ClientHeight = 435
   ClientWidth = 696
   LCLVersion = '4.4.0.0'
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
   OnShow = FormShow
   object pnDetail: TPanel
     Left = 0
@@ -23,9 +25,9 @@ object frmCadEmpresa: TfrmCadEmpresa
       Height = 397
       Top = 0
       Width = 696
-      ActivePage = tsCertificadoDigital
+      ActivePage = tsEndereco
       Align = alClient
-      TabIndex = 3
+      TabIndex = 1
       TabOrder = 0
       object tsEmpresa: TTabSheet
         Caption = 'Empresa'
@@ -68,6 +70,7 @@ object frmCadEmpresa: TfrmCadEmpresa
               Align = alClient
               Alignment = taRightJustify
               NumbersOnly = True
+              ReadOnly = True
               TabOrder = 0
             end
           end
@@ -96,8 +99,8 @@ object frmCadEmpresa: TfrmCadEmpresa
               Top = 18
               Width = 118
               Align = alClient
-              NumbersOnly = True
               TabOrder = 0
+              OnExit = edcnpjExit
             end
           end
           object pninscricao_estadual: TPanel
@@ -125,7 +128,6 @@ object frmCadEmpresa: TfrmCadEmpresa
               Top = 18
               Width = 118
               Align = alClient
-              NumbersOnly = True
               TabOrder = 0
             end
           end
@@ -154,7 +156,6 @@ object frmCadEmpresa: TfrmCadEmpresa
               Top = 18
               Width = 118
               Align = alClient
-              NumbersOnly = True
               TabOrder = 0
             end
           end
@@ -227,7 +228,6 @@ object frmCadEmpresa: TfrmCadEmpresa
               Top = 18
               Width = 682
               Align = alClient
-              NumbersOnly = True
               TabOrder = 0
             end
           end
@@ -267,7 +267,6 @@ object frmCadEmpresa: TfrmCadEmpresa
               Top = 18
               Width = 682
               Align = alClient
-              NumbersOnly = True
               TabOrder = 0
             end
           end
@@ -301,7 +300,7 @@ object frmCadEmpresa: TfrmCadEmpresa
               Align = alTop
               Caption = 'Regime Tributário'
             end
-            object edregime_tributario: TComboBox
+            object cbregime_tributario: TComboBox
               Left = 3
               Height = 23
               Top = 18
@@ -316,6 +315,7 @@ object frmCadEmpresa: TfrmCadEmpresa
                 'MEI (Microempreendedor Individual)'
               )
               TabOrder = 0
+              OnChange = cbregime_tributarioChange
             end
           end
           object pncrt: TPanel
@@ -343,8 +343,63 @@ object frmCadEmpresa: TfrmCadEmpresa
               Top = 18
               Width = 74
               Align = alClient
-              NumbersOnly = True
               ReadOnly = True
+              TabOrder = 0
+            end
+          end
+          object pntelefone: TPanel
+            Left = 440
+            Height = 43
+            Top = 0
+            Width = 124
+            Align = alRight
+            BevelOuter = bvNone
+            BorderWidth = 3
+            ClientHeight = 43
+            ClientWidth = 124
+            TabOrder = 2
+            object lbtelefone: TLabel
+              Left = 3
+              Height = 15
+              Top = 3
+              Width = 118
+              Align = alTop
+              Caption = 'Telefone'
+            end
+            object edtelefone: TEdit
+              Left = 3
+              Height = 22
+              Top = 18
+              Width = 118
+              Align = alClient
+              TabOrder = 0
+            end
+          end
+          object pncelular: TPanel
+            Left = 564
+            Height = 43
+            Top = 0
+            Width = 124
+            Align = alRight
+            BevelOuter = bvNone
+            BorderWidth = 3
+            ClientHeight = 43
+            ClientWidth = 124
+            TabOrder = 3
+            object lbcelular: TLabel
+              Left = 3
+              Height = 15
+              Top = 3
+              Width = 118
+              Align = alTop
+              Caption = 'Celular'
+            end
+            object edcelular: TEdit
+              Left = 3
+              Height = 22
+              Top = 18
+              Width = 118
+              Align = alClient
               TabOrder = 0
             end
           end
@@ -363,18 +418,18 @@ object frmCadEmpresa: TfrmCadEmpresa
             Left = 0
             Height = 43
             Top = 0
-            Width = 564
+            Width = 688
             Align = alClient
             BevelOuter = bvNone
             BorderWidth = 3
             ClientHeight = 43
-            ClientWidth = 564
+            ClientWidth = 688
             TabOrder = 0
             object lbemail: TLabel
               Left = 3
               Height = 15
               Top = 3
-              Width = 558
+              Width = 682
               Align = alTop
               Caption = 'E-Mail'
             end
@@ -382,38 +437,8 @@ object frmCadEmpresa: TfrmCadEmpresa
               Left = 3
               Height = 22
               Top = 18
-              Width = 558
+              Width = 682
               Align = alClient
-              NumbersOnly = True
-              TabOrder = 0
-            end
-          end
-          object pntelefone: TPanel
-            Left = 564
-            Height = 43
-            Top = 0
-            Width = 124
-            Align = alRight
-            BevelOuter = bvNone
-            BorderWidth = 3
-            ClientHeight = 43
-            ClientWidth = 124
-            TabOrder = 1
-            object lbtelefone: TLabel
-              Left = 3
-              Height = 15
-              Top = 3
-              Width = 118
-              Align = alTop
-              Caption = 'Telefone'
-            end
-            object edtelefone: TEdit
-              Left = 3
-              Height = 22
-              Top = 18
-              Width = 118
-              Align = alClient
-              NumbersOnly = True
               TabOrder = 0
             end
           end
@@ -453,7 +478,6 @@ object frmCadEmpresa: TfrmCadEmpresa
               Top = 18
               Width = 682
               Align = alClient
-              NumbersOnly = True
               TabOrder = 0
             end
           end
@@ -697,6 +721,7 @@ object frmCadEmpresa: TfrmCadEmpresa
               Align = alClient
               Alignment = taRightJustify
               NumbersOnly = True
+              ReadOnly = True
               TabOrder = 0
             end
           end
@@ -812,7 +837,6 @@ object frmCadEmpresa: TfrmCadEmpresa
               Top = 18
               Width = 660
               Align = alClient
-              NumbersOnly = True
               TabOrder = 0
             end
             object btcaminho_arquivo: TButton
@@ -861,7 +885,6 @@ object frmCadEmpresa: TfrmCadEmpresa
               Width = 682
               Align = alClient
               EchoMode = emPassword
-              NumbersOnly = True
               PasswordChar = '*'
               TabOrder = 0
             end
@@ -968,8 +991,8 @@ object frmCadEmpresa: TfrmCadEmpresa
         DataType = ftString
         Size = 100
       end>
-    Left = 232
-    Top = 80
+    Left = 56
+    Top = 184
     object mdEnderecoend_id_endereco: TLongintField
       FieldKind = fkData
       FieldName = 'end_id_endereco'
@@ -1100,8 +1123,8 @@ object frmCadEmpresa: TfrmCadEmpresa
   end
   object dsEndereco: TDataSource
     DataSet = mdEndereco
-    Left = 232
-    Top = 128
+    Left = 56
+    Top = 240
   end
   object mdDadosBancarios: TMemDataset
     FieldDefs = <    
@@ -1133,8 +1156,8 @@ object frmCadEmpresa: TfrmCadEmpresa
         DataType = ftString
         Size = 100
       end>
-    Left = 344
-    Top = 88
+    Left = 104
+    Top = 296
     object mdDadosBancariosdb_id_banco: TLongintField
       FieldKind = fkData
       FieldName = 'db_id_banco'
@@ -1194,7 +1217,7 @@ object frmCadEmpresa: TfrmCadEmpresa
   end
   object dsDadosBancarios: TDataSource
     DataSet = mdDadosBancarios
-    Left = 344
-    Top = 136
+    Left = 104
+    Top = 344
   end
 end

@@ -26,6 +26,7 @@ type
     edPesquisar: TEdit;
     mdRegistro: TMemDataset;
     mdRegistroativo: TLongintField;
+    mdRegistrocelular: TStringField;
     mdRegistrocnpj: TStringField;
     mdRegistrocrt: TStringField;
     mdRegistrodata_cadastro: TDateTimeField;
@@ -242,10 +243,6 @@ begin
   end;
 end;
 
-procedure TfrmEmpresa.OnClick_Edit(const AId: Integer; const ANome:String);
-begin
-  MessageDlg('Editando: ' + AId.ToString + ' - ' + ANome,TMsgDlgType.mtInformation,[mbOK],0);
-end;
 
 procedure TfrmEmpresa.OnClick_Delete(const AId: Integer; const ANome:String);
 begin
@@ -315,15 +312,42 @@ begin
 
 end;
 
+procedure TfrmEmpresa.OnClick_Edit(const AId: Integer; const ANome:String);
+begin
+  try
+    FfrmCadEmpresa.Clear_Fields;
+    FfrmCadEmpresa.edid_empresa.Text := mdRegistroid_empresa.AsString;
+    FfrmCadEmpresa.edcnpj.Text := mdRegistrocnpj.AsString;
+    FfrmCadEmpresa.edinscricao_estadual.Text := mdRegistroinscricao_estadual.AsString;
+    FfrmCadEmpresa.edinscricao_municipal.Text := mdRegistroinscricao_municipal.AsString;
+    FfrmCadEmpresa.cbativo.ItemIndex := mdRegistroativo.AsInteger;
+    FfrmCadEmpresa.edrazao_social.Text := mdRegistrorazao_social.AsString;
+    FfrmCadEmpresa.ednome_fantasia.Text := mdRegistronome_fantasia.AsString;
+    FfrmCadEmpresa.cbregime_tributario.ItemIndex := FfrmCadEmpresa.cbregime_tributario.Items.IndexOf(mdRegistroregime_tributario.AsString);
+    FfrmCadEmpresa.edcrt.Text := mdRegistrocrt.AsString;
+    FfrmCadEmpresa.edtelefone.Text := mdRegistrotelefone.AsString;
+    FfrmCadEmpresa.edcelular.Text := mdRegistrocelular.AsString;
+    FfrmCadEmpresa.edemail.Text := mdRegistroemail.AsString;
+    FfrmCadEmpresa.edsite.Text := mdRegistrosite.AsString;
+
+    ShowPopupModal('Popup' + FfrmCadEmpresa.Name);
+
+    Pesquisar;
+
+  except
+    on E :Exception do
+       MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
+  end;
+end;
+
 procedure TfrmEmpresa.InitControlsD2Bridge(const PrismControl: TPrismControl);
 begin
   inherited;
-
-
     if PrismControl.VCLComponent = DBGrid then
     begin
       with PrismControl.AsDBGrid do
       begin
+        PrismControl.AsDBGrid.RecordsPerPage := 10;
         with Columns.Add do
         begin
           ColumnIndex := 0;

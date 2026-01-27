@@ -7,7 +7,9 @@ interface
 uses
   Classes, SysUtils, memds, DB, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls,
   ComCtrls, ComboEx, DBGrids, EditBtn, DateTimePicker, D2Bridge.Forms,
-  uCad.Empresa.Endereco,ucad.empresa.DadosBancarios;
+  ACBrValidador, IniFiles,
+  fpjson,DataSet.Serialize, RESTRequest4D, jsonparser,
+  uCad.Empresa.Endereco,ucad.empresa.DadosBancarios, uDM.ACBr, uBase.Functions;
 
 type
 
@@ -21,6 +23,7 @@ type
     btCB_Add: TButton;
     cbativo: TComboBox;
     cbtipo: TComboBox;
+    edcelular: TEdit;
     edvalidade: TDateTimePicker;
     edsenha: TEdit;
     DBGrid_DB: TDBGrid;
@@ -33,7 +36,7 @@ type
     edid_certificado: TEdit;
     edsite: TEdit;
     edtelefone: TEdit;
-    edregime_tributario: TComboBox;
+    cbregime_tributario: TComboBox;
     edinscricao_estadual: TEdit;
     edinscricao_municipal: TEdit;
     edid_empresa: TEdit;
@@ -41,6 +44,7 @@ type
     edrazao_social: TEdit;
     ednome_fantasia: TEdit;
     lbsenha: TLabel;
+    lbcelular: TLabel;
     lbvalidade: TLabel;
     lbcaminho_arquivo: TLabel;
     lbemail: TLabel;
@@ -82,6 +86,7 @@ type
     pnCB_Footer: TPanel;
     pnsenha: TPanel;
     pnCDRow3: TPanel;
+    pncelular: TPanel;
     pnvalidade: TPanel;
     pncaminho_arquivo: TPanel;
     pnCDRow1: TPanel;
@@ -118,14 +123,24 @@ type
     procedure btCB_AddClick(Sender: TObject);
     procedure btConfirmarClick(Sender: TObject);
     procedure btEnd_AddClick(Sender: TObject);
+    procedure cbregime_tributarioChange(Sender: TObject);
+    procedure edcnpjExit(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
     procedure FormShow(Sender: TObject);
   private
     { Private declarations }
     FfrmCad_Empresa_Endereco :TfrmCad_Empresa_Endereco;
     FfrmCad_Empresa_DadosBancarios :TfrmCad_Empresa_DadosBancarios;
+    fDM_ACBr :TDM_Acbr;
 
+    FHost :String;
+    FIniFile :TIniFile;
+
+    procedure Gravar;
   public
     { Public declarations }
+    procedure Clear_Fields;
   protected
     procedure ExportD2Bridge; override;
     procedure InitControlsD2Bridge(const PrismControl: TPrismControl); override;
@@ -159,17 +174,213 @@ end;
 
 procedure TfrmCadEmpresa.btConfirmarClick(Sender: TObject);
 begin
+  Gravar;
   Close;
+end;
+
+procedure TfrmCadEmpresa.Gravar;
+var
+  fResp :IResponse;
+  fRet :String;
+  fRetorno :TJSONObject;
+
+  fEmpresa :TJSONObject;
+  fCertificado :TJSONObject;
+begin
+  try
+    try
+      fEmpresa := TJSONObject.Create;
+      fCertificado := TJSONObject.Create;
+
+      if Trim(FHost) = '' then
+        raise Exception.Create('Host não informado');
+
+      {$Region 'Montando JSon'}
+        //Empresa...
+        fEmpresa.Add('idEmpresa',StrToIntDef(edid_empresa.Text,0));
+        fEmpresa.Add('razaoSocial',edrazao_social.Text);
+        fEmpresa.Add('nomeFantasia',ednome_fantasia.Text);
+        fEmpresa.Add('cnpj',edcnpj.Text);
+        fEmpresa.Add('inscricaoEstadual',edinscricao_estadual.Text);
+        fEmpresa.Add('inscricaoMunicipal',edinscricao_municipal.Text);
+        fEmpresa.Add('regimeTributario',cbregime_tributario.ItemIndex);
+        fEmpresa.Add('crt',edcrt.Text);
+        fEmpresa.Add('email',edemail.Text);
+        fEmpresa.Add('telefone',edtelefone.Text);
+        fEmpresa.Add('site',edsite.Text);
+        fEmpresa.Add('dataCadastro',Now);
+        fEmpresa.Add('ativo',cbativo.ItemIndex);
+        fEmpresa.Add('celular',edcelular.Text);
+
+        //Endereço da Empresa...
+        fEmpresa.Add('endereco',mdEndereco.ToJSONArray);
+
+        //Contas bancárias...
+        fEmpresa.Add('contaBancaria',mdDadosBancarios.ToJSONArray);
+
+        //Certificado...
+        fCertificado.Add('idCertificado',edid_certificado.Text);
+        fCertificado.Add('tipo',cbtipo.ItemIndex);
+        fCertificado.Add('validade',edvalidade.Date);
+        fCertificado.Add('caminhoArquivo',edcaminho_arquivo.Text);
+        fCertificado.Add('senha',edsenha.Text);
+        fEmpresa.Add('certificadoDigital',fCertificado);
+
+      {$EndRegion 'Montando JSon'}
+
+      {$Region 'Enviando dados para o Servidor'}
+        if fEmpresa.Count = 0 then
+          raise Exception.Create('Não há dados para serem salvos.');
+
+        SaveLog(fEmpresa.AsJSON);
+
+        if StrToIntDef(edid_empresa.Text,0) = 0 then
+        begin
+          FResp := TRequest.New.BaseURL(FHost)
+                   .Resource('empresa')
+                   .AddBody(fEmpresa)
+                   .Accept('application/json')
+                   .Post;
+        end
+        else
+        begin
+          FResp := TRequest.New.BaseURL(FHost)
+                   .Resource('empresa')
+                   .AddBody(fEmpresa)
+                   .Accept('application/json')
+                   .Put;
+        end;
+
+        fRet := '';
+        fRet := fResp.Content;
+        if Trim(fRet) = '' then
+          raise Exception.Create('Não houve retorno do Server');
+
+        fRetorno := TJSONObject(GetJSON(fRet));
+
+        if fRetorno['success'].AsBoolean = True then
+          MessageDlg(fRetorno['message'].AsString,TMsgDlgType.mtConfirmation,[mbOK],0)
+        else
+          raise Exception.Create(fRetorno['message'].AsString);
+
+
+      {$EndRegion 'Enviando dados para o Servidor'}
+
+      Close;
+    except on E: Exception do
+      MessageDlg(E.Message,TMsgDlgType.mtError,[mbOk],0);
+    end;
+  finally
+    //FreeAndNil(fEmpresa);
+  end;
 end;
 
 procedure TfrmCadEmpresa.btEnd_AddClick(Sender: TObject);
 begin
-  ShowPopupModal('Popup' + FfrmCad_Empresa_Endereco.Name);
+  try
+    mdEndereco.DisableControls;
+    mdEndereco.Close;
+    mdEndereco.Open;
+    ShowPopupModal('Popup' + FfrmCad_Empresa_Endereco.Name);
+  finally
+    mdEndereco.EnableControls;
+  end;
+end;
+
+procedure TfrmCadEmpresa.cbregime_tributarioChange(Sender: TObject);
+begin
+  case cbregime_tributario.ItemIndex of
+    0:edcrt.Text := '1';
+    1:edcrt.Text := '2';
+    2,3:edcrt.Text := '3';
+    4:edcrt.Text := '4';
+  end;
+end;
+
+procedure TfrmCadEmpresa.edcnpjExit(Sender: TObject);
+var
+  fDocumento :String;
+begin
+  try
+    try
+      fDM_ACBr := TDM_Acbr.Create(Nil);
+
+      if Trim(edcnpj.Text) = '' then
+        Exit;
+
+      fDocumento := '';
+      fDocumento := edcnpj.Text;
+
+      case Length(fDocumento) of
+        11:fDM_ACBr.ACBrValidador.TipoDocto := docCPF;
+        14:fDM_ACBr.ACBrValidador.TipoDocto := docCNPJ;
+        else
+	  raise Exception.Create('Documento inválido');
+      end;
+
+      fDM_ACBr.ACBrValidador.Documento := edcnpj.Text;
+      if fDM_ACBr.ACBrValidador.Validar then
+        edcnpj.Text := fDM_ACBr.ACBrValidador.Formatar
+      else
+        raise Exception.Create('Documento inválido');
+
+    finally
+      FreeAndNil(fDM_ACBr);
+    end;
+  except
+    on E :Exception do
+      MessageDlg(E.Message,TMsgDlgType.mtWarning,[mbOK],0);
+  end;
+end;
+
+procedure TfrmCadEmpresa.FormCreate(Sender: TObject);
+begin
+  try
+    try
+      FHost := '';
+      FIniFile := TIniFile.Create(ConfigFile);
+      FHost := FIniFile.ReadString('SERVER','HOST','') + ':' + FIniFile.ReadString('SERVER','PORT','');
+
+      if Trim(FHost) = '' then
+        raise Exception.Create('Host de acesso ao servidor não informado.');
+    except
+      on E :Exception do
+      	 MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
+    end;
+  finally
+  end;
+end;
+
+procedure TfrmCadEmpresa.FormDestroy(Sender: TObject);
+begin
+  FreeAndNil(FIniFile);
 end;
 
 procedure TfrmCadEmpresa.FormShow(Sender: TObject);
 begin
   pcPrincipal.ActivePage := tsEmpresa;
+
+
+  //mdDadosBancarios.Close;
+  //mdDadosBancarios.Open;
+
+end;
+
+procedure TfrmCadEmpresa.Clear_Fields;
+begin
+  edid_empresa.Clear;
+  edcnpj.Clear;
+  edinscricao_estadual.Clear;
+  edinscricao_municipal.Clear;
+  cbativo.ItemIndex := -1;
+  edrazao_social.Clear;
+  ednome_fantasia.Clear;
+  cbregime_tributario.ItemIndex := -1;
+  edcrt.Clear;
+  edtelefone.Clear;
+  edcelular.Clear;
+  edemail.Clear;
+  edsite.Clear;
 end;
 
 procedure TfrmCadEmpresa.ExportD2Bridge;
@@ -218,15 +429,14 @@ begin
 
               with Row.Items.Add do
               begin
-                FormGroup(lbregime_tributario.Caption,CSSClass.Col.colsize10).AddLCLObj(edregime_tributario);
+                FormGroup(lbregime_tributario.Caption,CSSClass.Col.colsize4).AddLCLObj(cbregime_tributario);
                 FormGroup(lbcrt.Caption,CSSClass.Col.colsize2).AddLCLObj(edcrt);
+                FormGroup(lbtelefone.Caption,CSSClass.Col.colsize3).AddLCLObj(edtelefone);
+                FormGroup(lbcelular.Caption,CSSClass.Col.colsize3).AddLCLObj(edcelular);
               end;
 
               with Row.Items.Add do
-              begin
-                FormGroup(lbemail.Caption,CSSClass.Col.colsize9).AddLCLObj(edemail);
-                FormGroup(lbtelefone.Caption,CSSClass.Col.colsize3).AddLCLObj(edtelefone);
-              end;
+                FormGroup(lbemail.Caption,CSSClass.Col.colsize12).AddLCLObj(edemail);
 
               with Row.Items.Add do
                 FormGroup(lbsite.Caption,CSSClass.Col.colsize12).AddLCLObj(edsite);
@@ -299,6 +509,79 @@ end;
 procedure TfrmCadEmpresa.InitControlsD2Bridge(const PrismControl: TPrismControl);
 begin
   inherited;
+  if PrismControl.VCLComponent = DBGrid_End then
+  begin
+    with PrismControl.AsDBGrid do
+    begin
+      PrismControl.AsDBGrid.RecordsPerPage := 5;
+      with Columns.Add do
+      begin
+        ColumnIndex := 0;
+        Title := D2Bridge.LangNav.Button.CaptionOptions;
+        Width := 45;
+
+        //Create Popup + Button
+        with Buttons.Add do
+        begin
+          ButtonModel:= TButtonModel.list;
+          Caption := '';
+
+          //Edit
+          with Add do
+          begin
+            ButtonModel:= TButtonModel.Edit;
+          end;
+
+          //Delete
+          with Add do
+          begin
+            ButtonModel:= TButtonModel.Delete;
+          end;
+        end;
+      end;
+    end;
+  end;
+
+  if PrismControl.VCLComponent = DBGrid_DB then
+  begin
+    PrismControl.AsDBGrid.RecordsPerPage := 5;
+    with PrismControl.AsDBGrid do
+    begin
+      with Columns.Add do
+      begin
+        ColumnIndex := 0;
+        Title := D2Bridge.LangNav.Button.CaptionOptions;
+        Width := 45;
+
+        //Create Popup + Button
+        with Buttons.Add do
+        begin
+          ButtonModel:= TButtonModel.list;
+          Caption := '';
+
+          //Edit
+          with Add do
+          begin
+            ButtonModel:= TButtonModel.Edit;
+          end;
+
+          //Delete
+          with Add do
+          begin
+            ButtonModel:= TButtonModel.Delete;
+          end;
+        end;
+      end;
+    end;
+  end;
+
+  if PrismControl.VCLComponent = edtelefone then
+    PrismControl.AsEdit.TextMask :=  '''mask'' : ''(99)9999-9999''';
+  if PrismControl.VCLComponent = edcelular then
+    PrismControl.AsEdit.TextMask := TPrismTextMask.BrazilPhone;//'''mask'' : ''(99)9999-9999''';
+  if PrismControl.VCLComponent = edemail then
+    PrismControl.AsEdit.TextMask:= TPrismTextMask.Email;
+
 
   //Change Init Property of Prism Controls
   {

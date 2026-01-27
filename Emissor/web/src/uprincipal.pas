@@ -96,3 +96,18 @@ begin
 end;
 
 end.
+
+
+{
+FResp := TRequest.New.BaseURL(FHost)
+         .Resource('empresa')
+         //.TokenBearer(Emissor.Token_Server)
+         .AddBody(fEmpresa)
+         .Accept('application/json')
+         .Post;
+
+
+}
+
+
+

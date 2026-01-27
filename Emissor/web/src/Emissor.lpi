@@ -206,6 +206,7 @@
         <Filename Value="ucad.empresa.dadosbancarios.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmCad_Empresa_DadosBancarios"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="ucad.empresa.DadosBancarios"/>
       </Unit>

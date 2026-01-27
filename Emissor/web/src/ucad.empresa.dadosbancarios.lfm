@@ -87,6 +87,7 @@ object frmCad_Empresa_DadosBancarios: TfrmCad_Empresa_DadosBancarios
           Align = alClient
           Alignment = taRightJustify
           NumbersOnly = True
+          ReadOnly = True
           TabOrder = 0
         end
       end
@@ -165,7 +166,6 @@ object frmCad_Empresa_DadosBancarios: TfrmCad_Empresa_DadosBancarios
           Top = 18
           Width = 446
           Align = alClient
-          NumbersOnly = True
           TabOrder = 0
         end
       end
@@ -194,7 +194,6 @@ object frmCad_Empresa_DadosBancarios: TfrmCad_Empresa_DadosBancarios
           Top = 18
           Width = 94
           Align = alClient
-          NumbersOnly = True
           TabOrder = 0
         end
       end
@@ -223,7 +222,6 @@ object frmCad_Empresa_DadosBancarios: TfrmCad_Empresa_DadosBancarios
           Top = 18
           Width = 194
           Align = alClient
-          NumbersOnly = True
           TabOrder = 0
         end
       end

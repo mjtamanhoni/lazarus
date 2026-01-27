@@ -247,6 +247,8 @@ begin
       FDm := TDM.Create(Nil);
       FQuery := FDm.GetQuery;
 
+      FDm.ZConnection.StartTransaction;
+
       if AJSon.IsEmpty and not AJSon.StartsWith('{') and not AJSon.EndsWith('}') then
         Raise Exception.Create('JSon Inválido!');
 
@@ -280,10 +282,13 @@ begin
         FQuery.ParamByName('id_perfil').AsInteger := FJson['id_perfil'].AsInteger;
       FQuery.ExecSQL;
 
+      FDm.ZConnection.Commit;
+
       Result :='{"success":true,"message":"Usuário inserido com sucesso"}';
     except
       on E:Exception do
       begin
+        FDm.ZConnection.Rollback;
         SaveLog(E.Message);
         Result :='{"success":false,"message":"'+E.Message+'"}';
       end;
@@ -304,6 +309,8 @@ begin
     try
       FDm := TDM.Create(Nil);
       FQuery := FDm.GetQuery;
+
+      FDm.ZConnection.StartTransaction;
 
       if AJSon.IsEmpty and not AJSon.StartsWith('{') and not AJSon.EndsWith('}') then
         Raise Exception.Create('JSon Inválido!');
@@ -328,10 +335,13 @@ begin
         FQuery.ParamByName('id_perfil').AsInteger := FJson['id_perfil'].AsInteger;
       FQuery.ExecSQL;
 
+      FDm.ZConnection.Commit;
+
       Result :='{"success":true,"message":"Usuário alterado com sucesso"}';
     except
       on E:Exception do
       begin
+        FDm.ZConnection.Rollback;
         SaveLog(E.Message);
         Result :='{"success":false,"message":"'+E.Message+'"}';
       end;
@@ -353,6 +363,8 @@ begin
       FDm := TDM.Create(Nil);
       FQuery := FDm.GetQuery;
 
+      FDm.ZConnection.StartTransaction;
+
       if AId = 0 then
         raise Exception.Create('Não foi informado o ID do usuário');
 
@@ -360,11 +372,14 @@ begin
       FQuery.ParamByName('id_usuario').AsInteger := AId;
       FQuery.ExecSQL;
 
+      FDm.ZConnection.Commit;
+
       Result :='{"success":true,"message":"Usuário excluído com sucesso"}';
 
     except
       on E:Exception do
       begin
+        FDm.ZConnection.Rollback;
         SaveLog(E.Message);
         Result :='{"success":false,"message":"'+E.Message+'"}';
       end;

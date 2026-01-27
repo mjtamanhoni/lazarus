@@ -87,6 +87,7 @@ object frmCad_Empresa_Endereco: TfrmCad_Empresa_Endereco
           Align = alClient
           Alignment = taRightJustify
           NumbersOnly = True
+          ReadOnly = True
           TabOrder = 0
         end
       end
@@ -154,7 +155,6 @@ object frmCad_Empresa_Endereco: TfrmCad_Empresa_Endereco
           Top = 18
           Width = 104
           Align = alClient
-          NumbersOnly = True
           TabOrder = 0
         end
         object btCep: TButton
@@ -202,7 +202,6 @@ object frmCad_Empresa_Endereco: TfrmCad_Empresa_Endereco
           Top = 18
           Width = 604
           Align = alClient
-          NumbersOnly = True
           TabOrder = 0
         end
       end
@@ -231,7 +230,6 @@ object frmCad_Empresa_Endereco: TfrmCad_Empresa_Endereco
           Top = 18
           Width = 94
           Align = alClient
-          NumbersOnly = True
           TabOrder = 0
         end
       end
@@ -271,7 +269,6 @@ object frmCad_Empresa_Endereco: TfrmCad_Empresa_Endereco
           Top = 18
           Width = 704
           Align = alClient
-          NumbersOnly = True
           TabOrder = 0
         end
       end
@@ -303,7 +300,7 @@ object frmCad_Empresa_Endereco: TfrmCad_Empresa_Endereco
           Top = 3
           Width = 294
           Align = alTop
-          Caption = 'Complemento'
+          Caption = 'Bairro'
         end
         object edbairro: TEdit
           Left = 3
@@ -311,7 +308,6 @@ object frmCad_Empresa_Endereco: TfrmCad_Empresa_Endereco
           Top = 18
           Width = 294
           Align = alClient
-          NumbersOnly = True
           TabOrder = 0
         end
       end
@@ -340,7 +336,6 @@ object frmCad_Empresa_Endereco: TfrmCad_Empresa_Endereco
           Top = 18
           Width = 274
           Align = alClient
-          NumbersOnly = True
           TabOrder = 0
         end
       end
@@ -398,7 +393,6 @@ object frmCad_Empresa_Endereco: TfrmCad_Empresa_Endereco
           Top = 18
           Width = 44
           Align = alClient
-          NumbersOnly = True
           TabOrder = 0
         end
       end
@@ -438,7 +432,6 @@ object frmCad_Empresa_Endereco: TfrmCad_Empresa_Endereco
           Top = 18
           Width = 624
           Align = alClient
-          NumbersOnly = True
           TabOrder = 0
         end
       end

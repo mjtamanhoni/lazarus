@@ -77,7 +77,7 @@ function frmCad_Empresa_Endereco: TfrmCad_Empresa_Endereco;
 implementation
 
 uses
-  EmissorWebApp;
+  EmissorWebApp, uCad.Empresa;
 
 {$R *.lfm}
 
@@ -93,7 +93,27 @@ end;
 
 procedure TfrmCad_Empresa_Endereco.btConfirmarClick(Sender: TObject);
 begin
-  Close;
+  try
+    //Incluir em variávies e depois inserir no mdEndereco
+    frmCadEmpresa.mdEndereco.Insert;
+    frmCadEmpresa.mdEnderecoend_id_endereco.AsInteger := StrToIntDef(edid_endereco.Text,0);
+    frmCadEmpresa.mdEnderecoend_tipo_endereco.AsInteger := cbtipo_endereco.ItemIndex;
+    frmCadEmpresa.mdEnderecoend_cep.AsString := edcep.Text;
+    frmCadEmpresa.mdEnderecoend_logradouro.AsString := edlogradouro.Text;
+    frmCadEmpresa.mdEnderecoend_numero.AsString := ednumero.Text;
+    frmCadEmpresa.mdEnderecoend_complemento.AsString := edcomplemento.Text;
+    frmCadEmpresa.mdEnderecoend_bairro.AsString := edbairro.Text;
+    frmCadEmpresa.mdEnderecoend_municipio.AsString := edmunicipio.Text;
+    frmCadEmpresa.mdEnderecoend_codigo_municipio_ibge.AsString := edcodigo_municipio_ibge.Text;
+    frmCadEmpresa.mdEnderecoend_uf.AsString := eduf.Text;
+    frmCadEmpresa.mdEnderecoend_pais.AsString := edpais.Text;
+    frmCadEmpresa.mdEnderecoend_codigo_pais_ibge.AsString := edcodigo_pais_ibge.Text;
+    frmCadEmpresa.mdEndereco.Post;
+    Close;
+  except
+    on E:Exception do
+      MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
+  end;
 end;
 
 procedure TfrmCad_Empresa_Endereco.ExportD2Bridge;
@@ -154,6 +174,8 @@ end;
 procedure TfrmCad_Empresa_Endereco.InitControlsD2Bridge(const PrismControl: TPrismControl);
 begin
   inherited;
+  if PrismControl.VCLComponent = edcep then
+    PrismControl.AsEdit.TextMask := TPrismTextMask.BrazilCep;
 
   //Change Init Property of Prism Controls
   {

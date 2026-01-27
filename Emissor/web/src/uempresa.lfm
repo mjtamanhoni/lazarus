@@ -1,9 +1,9 @@
 inherited frmEmpresa: TfrmEmpresa
   Height = 500
-  Width = 800
+  Width = 812
   Caption = 'Empresas'
   ClientHeight = 500
-  ClientWidth = 800
+  ClientWidth = 812
   OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
   OnShow = FormShow
@@ -11,36 +11,36 @@ inherited frmEmpresa: TfrmEmpresa
     Left = 0
     Height = 30
     Top = 0
-    Width = 800
+    Width = 812
     Align = alTop
     BevelOuter = bvNone
     ClientHeight = 30
-    ClientWidth = 800
+    ClientWidth = 812
     TabOrder = 0
     object pnFiltro: TPanel
       Left = 0
       Height = 30
       Top = 0
-      Width = 704
+      Width = 716
       Align = alClient
       BevelOuter = bvNone
       BorderWidth = 2
       ClientHeight = 30
-      ClientWidth = 704
+      ClientWidth = 716
       TabOrder = 0
       object edPesquisar: TEdit
         Tag = 1
         Left = 2
         Height = 26
         Top = 2
-        Width = 662
+        Width = 674
         Align = alClient
         TabOrder = 0
         TextHint = 'Pesquisar pela Razão Social da Empresa'
         OnKeyPress = edPesquisarKeyPress
       end
       object btSelPesquisa: TButton
-        Left = 664
+        Left = 676
         Height = 26
         Top = 2
         Width = 38
@@ -50,7 +50,7 @@ inherited frmEmpresa: TfrmEmpresa
       end
     end
     object pnTipoFiltro2: TPanel
-      Left = 704
+      Left = 716
       Height = 30
       Top = 0
       Width = 96
@@ -76,25 +76,34 @@ inherited frmEmpresa: TfrmEmpresa
     Left = 0
     Height = 420
     Top = 30
-    Width = 800
+    Width = 812
     Align = alClient
     BevelOuter = bvNone
     BorderWidth = 2
     ClientHeight = 420
-    ClientWidth = 800
+    ClientWidth = 812
     TabOrder = 1
     object DBGrid: TDBGrid
       Left = 2
       Height = 416
       Top = 2
-      Width = 796
+      Width = 808
       Align = alClient
       Color = clWindow
       Columns = <      
         item
+          ButtonStyle = cbsCheckboxColumn
           Title.Alignment = taCenter
           Title.MultiLine = True
-          Title.Caption = 'ID'
+          Title.Caption = 'Ativo'
+          Width = 65
+          FieldName = 'ativo'
+        end      
+        item
+          Title.Alignment = taCenter
+          Title.MultiLine = True
+          Title.Caption = 'Id'
+          Width = 65
           FieldName = 'id_empresa'
         end      
         item
@@ -107,6 +116,48 @@ inherited frmEmpresa: TfrmEmpresa
         item
           Title.Alignment = taCenter
           Title.MultiLine = True
+          Title.Caption = 'CNPJ/CPF'
+          Width = 150
+          FieldName = 'cnpj'
+        end      
+        item
+          Title.Alignment = taCenter
+          Title.MultiLine = True
+          Title.Caption = 'Inscrição Estadual'
+          Width = 150
+          FieldName = 'inscricao_estadual'
+        end      
+        item
+          Title.Alignment = taCenter
+          Title.MultiLine = True
+          Title.Caption = 'Regime Tributário'
+          Width = 250
+          FieldName = 'regime_tributario'
+        end      
+        item
+          Title.Alignment = taCenter
+          Title.MultiLine = True
+          Title.Caption = 'CRT'
+          Width = 65
+          FieldName = 'crt'
+        end      
+        item
+          Title.Alignment = taCenter
+          Title.MultiLine = True
+          Title.Caption = 'Celular'
+          Width = 100
+          FieldName = 'celular'
+        end      
+        item
+          Title.Alignment = taCenter
+          Title.MultiLine = True
+          Title.Caption = 'Telefone'
+          Width = 100
+          FieldName = 'telefone'
+        end      
+        item
+          Title.Alignment = taCenter
+          Title.MultiLine = True
           Title.Caption = 'Nome Fantasia'
           Width = 300
           FieldName = 'nome_fantasia'
@@ -114,51 +165,16 @@ inherited frmEmpresa: TfrmEmpresa
         item
           Title.Alignment = taCenter
           Title.MultiLine = True
-          Title.Caption = 'CNPJ'
-          Width = 100
-          FieldName = 'cnpj'
-        end      
-        item
-          Title.Alignment = taCenter
-          Title.MultiLine = True
-          Title.Caption = 'Inscrição Estadual'
-          Width = 100
-          FieldName = 'inscricao_estadual'
-        end      
-        item
-          Title.Alignment = taCenter
-          Title.MultiLine = True
           Title.Caption = 'Inscrição Municipal'
-          Width = 100
+          Width = 150
           FieldName = 'inscricao_municipal'
         end      
         item
           Title.Alignment = taCenter
           Title.MultiLine = True
-          Title.Caption = 'Regime Tributário'
-          Width = 300
-          FieldName = 'regime_tributario'
-        end      
-        item
-          Title.Alignment = taCenter
-          Title.MultiLine = True
-          Title.Caption = 'CRT'
-          Width = 30
-          FieldName = 'crt'
-        end      
-        item
-          Title.Alignment = taCenter
-          Title.MultiLine = True
-          Title.Caption = 'E-Mail'
+          Title.Caption = 'E-mail'
           Width = 300
           FieldName = 'email'
-        end      
-        item
-          Title.Alignment = taCenter
-          Title.MultiLine = True
-          Title.Caption = 'Telefone'
-          Width = 120
-          FieldName = 'telefone'
         end      
         item
           Title.Alignment = taCenter
@@ -170,16 +186,9 @@ inherited frmEmpresa: TfrmEmpresa
         item
           Title.Alignment = taCenter
           Title.MultiLine = True
-          Title.Caption = 'Cadastro'
-          Width = 100
+          Title.Caption = 'Data Cadastro'
+          Visible = False
           FieldName = 'data_cadastro'
-        end      
-        item
-          Title.Alignment = taCenter
-          Title.MultiLine = True
-          Title.Caption = 'Ativo'
-          Width = 50
-          FieldName = 'ativo'
         end>
       DataSource = DataSource
       Options = [dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit]
@@ -190,7 +199,7 @@ inherited frmEmpresa: TfrmEmpresa
     Left = 0
     Height = 50
     Top = 450
-    Width = 800
+    Width = 812
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 2
@@ -265,10 +274,16 @@ inherited frmEmpresa: TfrmEmpresa
       item
         Name = 'ativo'
         DataType = ftInteger
+      end    
+      item
+        Name = 'celular'
+        DataType = ftString
+        Size = 20
       end>
     Left = 304
     Top = 240
     object mdRegistroid_empresa: TLongintField
+      DisplayLabel = 'Id'
       FieldKind = fkData
       FieldName = 'id_empresa'
       Index = 0
@@ -278,6 +293,7 @@ inherited frmEmpresa: TfrmEmpresa
       Required = False
     end
     object mdRegistrorazao_social: TStringField
+      DisplayLabel = 'Razão Social'
       FieldKind = fkData
       FieldName = 'razao_social'
       Index = 1
@@ -288,6 +304,7 @@ inherited frmEmpresa: TfrmEmpresa
       Size = 255
     end
     object mdRegistronome_fantasia: TStringField
+      DisplayLabel = 'Nome Fantasia'
       FieldKind = fkData
       FieldName = 'nome_fantasia'
       Index = 2
@@ -298,6 +315,7 @@ inherited frmEmpresa: TfrmEmpresa
       Size = 255
     end
     object mdRegistrocnpj: TStringField
+      DisplayLabel = 'CNPJ/CPF'
       FieldKind = fkData
       FieldName = 'cnpj'
       Index = 3
@@ -308,6 +326,7 @@ inherited frmEmpresa: TfrmEmpresa
       Size = 14
     end
     object mdRegistroinscricao_estadual: TStringField
+      DisplayLabel = 'Inscrição Estadual'
       FieldKind = fkData
       FieldName = 'inscricao_estadual'
       Index = 4
@@ -317,6 +336,7 @@ inherited frmEmpresa: TfrmEmpresa
       Required = False
     end
     object mdRegistroinscricao_municipal: TStringField
+      DisplayLabel = 'Inscrição Municipal'
       FieldKind = fkData
       FieldName = 'inscricao_municipal'
       Index = 5
@@ -326,6 +346,7 @@ inherited frmEmpresa: TfrmEmpresa
       Required = False
     end
     object mdRegistroregime_tributario: TStringField
+      DisplayLabel = 'Regime Tributário'
       FieldKind = fkData
       FieldName = 'regime_tributario'
       Index = 6
@@ -336,6 +357,7 @@ inherited frmEmpresa: TfrmEmpresa
       Size = 50
     end
     object mdRegistrocrt: TStringField
+      DisplayLabel = 'CRT'
       FieldKind = fkData
       FieldName = 'crt'
       Index = 7
@@ -346,6 +368,7 @@ inherited frmEmpresa: TfrmEmpresa
       Size = 1
     end
     object mdRegistroemail: TStringField
+      DisplayLabel = 'E-mail'
       FieldKind = fkData
       FieldName = 'email'
       Index = 8
@@ -356,6 +379,7 @@ inherited frmEmpresa: TfrmEmpresa
       Size = 255
     end
     object mdRegistrotelefone: TStringField
+      DisplayLabel = 'Telefone'
       FieldKind = fkData
       FieldName = 'telefone'
       Index = 9
@@ -364,10 +388,21 @@ inherited frmEmpresa: TfrmEmpresa
       ReadOnly = False
       Required = False
     end
+    object mdRegistrocelular: TStringField
+      DisplayLabel = 'Celular'
+      FieldKind = fkData
+      FieldName = 'celular'
+      Index = 10
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
     object mdRegistrosite: TStringField
+      DisplayLabel = 'Site'
       FieldKind = fkData
       FieldName = 'site'
-      Index = 10
+      Index = 11
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -375,18 +410,20 @@ inherited frmEmpresa: TfrmEmpresa
       Size = 255
     end
     object mdRegistrodata_cadastro: TDateTimeField
+      DisplayLabel = 'Data Cadastro'
       FieldKind = fkData
       FieldName = 'data_cadastro'
-      Index = 11
+      Index = 12
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
     end
     object mdRegistroativo: TLongintField
+      DisplayLabel = 'Ativo'
       FieldKind = fkData
       FieldName = 'ativo'
-      Index = 12
+      Index = 13
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False

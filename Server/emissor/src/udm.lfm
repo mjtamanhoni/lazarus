@@ -25,7 +25,6 @@ object DM: TDM
   end
   object ZTransaction: TZTransaction
     Connection = ZConnection
-    AutoCommit = True
     Left = 204
     Top = 60
   end
