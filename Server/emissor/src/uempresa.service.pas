@@ -273,8 +273,6 @@ begin
       FDm := TDM.Create(Nil);
       FQuery := FDm.GetQuery;
 
-      //FDm.ZConnection.StartTransaction;
-      FDm.ZTransaction.StartTransaction;
 
       if AJSon.IsEmpty and not AJSon.StartsWith('{') and not AJSon.EndsWith('}') then
         Raise Exception.Create('JSon Inválido!');
@@ -284,6 +282,7 @@ begin
       if ((FJson['idEmpresa'].IsNull) or (FJson['idEmpresa'].AsInteger = 0)) then
         raise Exception.Create('Id da Empresa não informado');
 
+      FDm.ZTransaction.StartTransaction;
       FQuery.SQL.Add('update public.empresa set ');
       FQuery.SQL.Add('  razao_social = :razao_social ');
       FQuery.SQL.Add('  ,nome_fantasia = :nome_fantasia ');
@@ -312,40 +311,21 @@ begin
       FQuery.ParamByName('celular').AsString := FJson['celular'].AsString;
       FQuery.ParamByName('ativo').AsInteger := FJson['ativo'].AsInteger;
 
-      SaveLog(FQuery.SQL.Text);
-      SaveLog('id_empresa: ' + IntToStr(FQuery.ParamByName('id_empresa').AsInteger) + sLineBreak +
-              'razao_social: ' + FQuery.ParamByName('razao_social').AsString + sLineBreak +
-              'nome_fantasia: ' + FQuery.ParamByName('nome_fantasia').AsString + sLineBreak +
-              'cnpj: ' + FQuery.ParamByName('cnpj').AsString + sLineBreak +
-              'inscricao_estaudal: ' + FQuery.ParamByName('inscricao_estadual').AsString + sLineBreak +
-              'inscricao_muinicipal: ' + FQuery.ParamByName('inscricao_municipal').AsString + sLineBreak +
-              'regime_tributario: ' + FQuery.ParamByName('regime_tributario').AsString + sLineBreak +
-              'crt: ' + FQuery.ParamByName('crt').AsString + sLineBreak +
-              'email: ' + FQuery.ParamByName('email').AsString + sLineBreak +
-              'telefone: ' + FQuery.ParamByName('telefone').AsString + sLineBreak +
-              'site: ' + FQuery.ParamByName('site').AsString + sLineBreak +
-              'celular: ' + FQuery.ParamByName('celular').AsString + sLineBreak +
-              'ativo: ' + IntToStr(FQuery.ParamByName('ativo').AsInteger));
-
-
       FQuery.ExecSQL;
-
-      //FDm.ZConnection.Commit;
       FDm.ZTransaction.Commit;
 
       Result :='{"success":true,"message":"Empresa utualizada com sucesso"}';
     except
       on E:Exception do
       begin
-        //FDm.ZConnection.Rollback;
         FDm.ZTransaction.Rollback;
         SaveLog(E.Message);
         Result :='{"success":false,"message":"'+E.Message+'"}';
       end;
     end;
   finally
-    FreeAndNil(FDm);
     FreeAndNil(FQuery);
+    FreeAndNil(FDm);
   end;
 end;
 

@@ -4,10 +4,10 @@ program Server.Emissor;
 
 uses
   Classes, SysUtils,
-  Horse, Horse.JWT, Horse.Core, Horse.Jhonson,
+  Horse, Horse.JWT, Horse.Jhonson,
   zcomponent,
   uBase.Router, uUsuario.Service, uCripto_Descrito, uDM, uBase.Functions,
-uEmpresa.Service;
+  uEmpresa.Service;
 
 procedure OnListen();
 begin

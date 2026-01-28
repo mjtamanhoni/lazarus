@@ -99,6 +99,7 @@ function TDM.GetQuery: TZQuery;
 begin
   Result := TZQuery.Create(Nil);
   Result.Connection := ZConnection;
+  Result.Transaction := ZTransaction;
   Result.Close;
   Result.SQL.Clear;
 end;
