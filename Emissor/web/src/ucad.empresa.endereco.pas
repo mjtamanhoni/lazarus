@@ -6,7 +6,9 @@ interface
 
 uses
   Classes, SysUtils, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls,  
-  D2Bridge.Forms;
+  D2Bridge.Forms,
+  uType_Field_Table,
+  DataSet.Serialize;
 
 type
 
@@ -95,20 +97,19 @@ procedure TfrmCad_Empresa_Endereco.btConfirmarClick(Sender: TObject);
 begin
   try
     //Incluir em variávies e depois inserir no mdEndereco
-    frmCadEmpresa.mdEndereco.Insert;
-    frmCadEmpresa.mdEnderecoend_id_endereco.AsInteger := StrToIntDef(edid_endereco.Text,0);
-    frmCadEmpresa.mdEnderecoend_tipo_endereco.AsInteger := cbtipo_endereco.ItemIndex;
-    frmCadEmpresa.mdEnderecoend_cep.AsString := edcep.Text;
-    frmCadEmpresa.mdEnderecoend_logradouro.AsString := edlogradouro.Text;
-    frmCadEmpresa.mdEnderecoend_numero.AsString := ednumero.Text;
-    frmCadEmpresa.mdEnderecoend_complemento.AsString := edcomplemento.Text;
-    frmCadEmpresa.mdEnderecoend_bairro.AsString := edbairro.Text;
-    frmCadEmpresa.mdEnderecoend_municipio.AsString := edmunicipio.Text;
-    frmCadEmpresa.mdEnderecoend_codigo_municipio_ibge.AsString := edcodigo_municipio_ibge.Text;
-    frmCadEmpresa.mdEnderecoend_uf.AsString := eduf.Text;
-    frmCadEmpresa.mdEnderecoend_pais.AsString := edpais.Text;
-    frmCadEmpresa.mdEnderecoend_codigo_pais_ibge.AsString := edcodigo_pais_ibge.Text;
-    frmCadEmpresa.mdEndereco.Post;
+    Emissor.id_endereco := StrToIntDef(edid_endereco.Text,0);
+    Emissor.logradouro := edlogradouro.Text;
+    Emissor.numero := ednumero.Text;
+    Emissor.complemento := edcomplemento.Text;
+    Emissor.bairro := edbairro.Text;
+    Emissor.municipio := edmunicipio.Text;
+    Emissor.codigo_municipio_ibge := edcodigo_municipio_ibge.Text;
+    Emissor.uf := eduf.Text;
+    Emissor.cep := edcep.Text;
+    Emissor.pais := edpais.Text;
+    Emissor.codigo_pais_ibge := edcodigo_pais_ibge.Text;
+    Emissor.tipo_endereco := cbtipo_endereco.ItemIndex;
+
     Close;
   except
     on E:Exception do

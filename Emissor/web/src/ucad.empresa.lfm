@@ -506,84 +506,59 @@ object frmCadEmpresa: TfrmCadEmpresa
             Color = clWindow
             Columns = <            
               item
-                Title.Alignment = taCenter
-                Title.Caption = 'ID'
-                Width = 65
+                Title.Caption = 'end_id_endereco'
                 FieldName = 'end_id_endereco'
               end            
               item
-                Title.Alignment = taCenter
-                Title.Caption = 'Logradouro'
-                Width = 300
+                Title.Caption = 'end_logradouro'
                 FieldName = 'end_logradouro'
               end            
               item
-                Title.Alignment = taCenter
-                Title.Caption = 'Número'
-                Width = 65
+                Title.Caption = 'end_numero'
                 FieldName = 'end_numero'
               end            
               item
-                Title.Alignment = taCenter
-                Title.Caption = 'Complemento'
-                Width = 300
+                Title.Caption = 'end_complemento'
                 FieldName = 'end_complemento'
               end            
               item
-                Title.Alignment = taCenter
-                Title.Caption = 'Bairro'
-                Width = 250
+                Title.Caption = 'end_bairro'
                 FieldName = 'end_bairro'
               end            
               item
-                Title.Alignment = taCenter
-                Title.Caption = 'Município'
-                Width = 250
+                Title.Caption = 'end_municipio'
                 FieldName = 'end_municipio'
               end            
               item
-                Title.Alignment = taCenter
-                Title.Caption = 'IBGE'
-                Width = 75
+                Title.Caption = 'end_codigo_municipio_ibge'
                 FieldName = 'end_codigo_municipio_ibge'
               end            
               item
-                Title.Alignment = taCenter
-                Title.Caption = 'UF'
-                Width = 75
+                Title.Caption = 'end_uf'
                 FieldName = 'end_uf'
               end            
               item
-                Title.Alignment = taCenter
-                Title.Caption = 'CEP'
-                Width = 100
+                Title.Caption = 'end_cep'
                 FieldName = 'end_cep'
               end            
               item
-                Title.Alignment = taCenter
-                Title.Caption = 'Pais'
-                Width = 300
+                Title.Caption = 'end'#31'_pais'
                 FieldName = 'end'#31'_pais'
               end            
               item
-                Title.Alignment = taCenter
-                Title.Caption = 'IBGE'
-                Width = 75
+                Title.Caption = 'end_codigo_pais_ibge'
                 FieldName = 'end_codigo_pais_ibge'
               end            
               item
-                Title.Alignment = taCenter
-                Title.Caption = 'Tipo'
-                Visible = False
+                Title.Caption = 'end_tipo_endereco'
                 FieldName = 'end_tipo_endereco'
               end            
               item
-                Title.Alignment = taCenter
-                Title.Caption = 'Tipo'
-                Width = 200
+                Title.Caption = 'end_tipo_endereco_desc'
                 FieldName = 'end_tipo_endereco_desc'
               end>
             DataSource = dsEndereco
+            Options = [dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit]
             TabOrder = 0
           end
           object pnEnd_Footer: TPanel
@@ -1122,9 +1097,8 @@ object frmCadEmpresa: TfrmCadEmpresa
     end
   end
   object dsEndereco: TDataSource
-    DataSet = mdEndereco
-    Left = 56
-    Top = 240
+    Left = 392
+    Top = 136
   end
   object mdDadosBancarios: TMemDataset
     FieldDefs = <    
@@ -1219,5 +1193,10 @@ object frmCadEmpresa: TfrmCadEmpresa
     DataSet = mdDadosBancarios
     Left = 104
     Top = 344
+  end
+  object BufDataset1: TBufDataset
+    FieldDefs = <>
+    Left = 432
+    Top = 320
   end
 end

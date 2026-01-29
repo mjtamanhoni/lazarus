@@ -5,11 +5,11 @@ unit uCad.Empresa;
 interface
 
 uses
-  Classes, SysUtils, memds, DB, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls,
-  ComCtrls, ComboEx, DBGrids, EditBtn, DateTimePicker, D2Bridge.Forms,
-  ACBrValidador, IniFiles,
-  fpjson,DataSet.Serialize, RESTRequest4D, jsonparser,
-  uCad.Empresa.Endereco,ucad.empresa.DadosBancarios, uDM.ACBr, uBase.Functions;
+  Classes, SysUtils, memds, DB, BufDataset, Controls, Graphics, Dialogs,
+  StdCtrls, ExtCtrls, ComCtrls, ComboEx, DBGrids, EditBtn, DateTimePicker,
+  D2Bridge.Forms, ACBrValidador, IniFiles, fpjson, DataSet.Serialize,
+  RESTRequest4D, jsonparser, uCad.Empresa.Endereco, ucad.empresa.DadosBancarios,
+  uDM.ACBr, uBase.Functions;
 
 type
 
@@ -21,6 +21,7 @@ type
     btcaminho_arquivo: TButton;
     btEnd_Add: TButton;
     btCB_Add: TButton;
+    BufDataset1: TBufDataset;
     cbativo: TComboBox;
     cbtipo: TComboBox;
     edcelular: TEdit;
@@ -135,12 +136,24 @@ type
     fDM_ACBr :TDM_Acbr;
 
     FHost :String;
+    Fid_endereco: Integer;
     FIniFile :TIniFile;
 
+    fDataSet_Empresa :TBufDataset;
+    Flogradouro: String;
+
+
+
+    procedure CriaDataset_Empresa;
     procedure Gravar;
   public
     { Public declarations }
+
+    property id_endereco :Integer read Fid_endereco write Fid_endereco;
+    property logradouro :String read Flogradouro write Flogradouro;
+
     procedure Clear_Fields;
+
   protected
     procedure ExportD2Bridge; override;
     procedure InitControlsD2Bridge(const PrismControl: TPrismControl); override;
@@ -200,7 +213,7 @@ begin
         fEmpresa.Add('idEmpresa',StrToIntDef(edid_empresa.Text,0));
         fEmpresa.Add('razaoSocial',edrazao_social.Text);
         fEmpresa.Add('nomeFantasia',ednome_fantasia.Text);
-        fEmpresa.Add('cnpj',edcnpj.Text);
+        fEmpresa.Add('cnpj',RemoverMascara(edcnpj.Text));
         fEmpresa.Add('inscricaoEstadual',edinscricao_estadual.Text);
         fEmpresa.Add('inscricaoMunicipal',edinscricao_municipal.Text);
         fEmpresa.Add('regimeTributario',cbregime_tributario.ItemIndex);
@@ -232,7 +245,7 @@ begin
         if fEmpresa.Count = 0 then
           raise Exception.Create('Não há dados para serem salvos.');
 
-        SaveLog(fEmpresa.AsJSON);
+        //SaveLog(fEmpresa.AsJSON);
 
         if StrToIntDef(edid_empresa.Text,0) = 0 then
         begin
@@ -258,11 +271,8 @@ begin
 
         fRetorno := TJSONObject(GetJSON(fRet));
 
-        if fRetorno['success'].AsBoolean = True then
-          MessageDlg(fRetorno['message'].AsString,TMsgDlgType.mtConfirmation,[mbOK],0)
-        else
+        if fRetorno['success'].AsBoolean = False then
           raise Exception.Create(fRetorno['message'].AsString);
-
 
       {$EndRegion 'Enviando dados para o Servidor'}
 
@@ -271,19 +281,57 @@ begin
       MessageDlg(E.Message,TMsgDlgType.mtError,[mbOk],0);
     end;
   finally
-    //FreeAndNil(fEmpresa);
   end;
 end;
 
 procedure TfrmCadEmpresa.btEnd_AddClick(Sender: TObject);
 begin
   try
-    mdEndereco.DisableControls;
-    mdEndereco.Close;
-    mdEndereco.Open;
-    ShowPopupModal('Popup' + FfrmCad_Empresa_Endereco.Name);
+    try
+      fDataSet_Empresa.DisableControls;
+      ShowPopupModal('Popup' + FfrmCad_Empresa_Endereco.Name);
+
+      fDataSet_Empresa.Append;
+      fDataSet_Empresa.FieldByName('id_endereco').AsInteger := Emissor.id_endereco;
+      fDataSet_Empresa.FieldByName('logradouro').AsString := Emissor.logradouro;
+      fDataSet_Empresa.FieldByName('numero').AsString := Emissor.numero;
+      fDataSet_Empresa.FieldByName('complemento').AsString := Emissor.complemento;
+      fDataSet_Empresa.FieldByName('bairro').AsString := Emissor.bairro;
+      fDataSet_Empresa.FieldByName('municipio').AsString := Emissor.municipio;
+      fDataSet_Empresa.FieldByName('codigo_municipio_ibge').AsString := Emissor.codigo_municipio_ibge;
+      fDataSet_Empresa.FieldByName('uf').AsString := Emissor.uf;
+      fDataSet_Empresa.FieldByName('cep').AsString := Emissor.cep;
+      fDataSet_Empresa.FieldByName('pais').AsString := Emissor.pais;
+      fDataSet_Empresa.FieldByName('codigo_pais_ibge').AsString := Emissor.codigo_pais_ibge;
+      fDataSet_Empresa.FieldByName('tipo_endereco').AsInteger := Emissor.tipo_endereco;
+      fDataSet_Empresa.Post;
+      fDataSet_Empresa.EnableControls;
+
+      {
+      mdEndereco.Append;
+      with Emissor.EmpEndereco do
+      begin
+        mdEndereco.FieldByName('id_endereco').AsInteger := id_endereco;
+        mdEndereco.FieldByName('logradouro').AsString := logradouro;
+        mdEndereco.FieldByName('numero').AsString := numero;
+        mdEndereco.FieldByName('complemento').AsString := complemento;
+        mdEndereco.FieldByName('bairro').AsString := bairro;
+        mdEndereco.FieldByName('municipio').AsString := municipio;
+        mdEndereco.FieldByName('codigo_municipio_ibge').AsString := codigo_municipio_ibge;
+        mdEndereco.FieldByName('uf').AsString := uf;
+        mdEndereco.FieldByName('cep').AsString := cep;
+        mdEndereco.FieldByName('pais').AsString := pais;
+        mdEndereco.FieldByName('codigo_pais_ibge').AsString := codigo_pais_ibge;
+        mdEndereco.FieldByName('tipo_endereco').AsInteger := tipo_endereco;
+      end;
+      mdEndereco.Post;
+      }
+    except
+      on E:Exception do
+        raise Exception.Create(E.Message);
+    end;
   finally
-    mdEndereco.EnableControls;
+    fDataSet_Empresa.EnableControls;
   end;
 end;
 
@@ -298,8 +346,6 @@ begin
 end;
 
 procedure TfrmCadEmpresa.edcnpjExit(Sender: TObject);
-var
-  fDocumento :String;
 begin
   try
     try
@@ -308,17 +354,14 @@ begin
       if Trim(edcnpj.Text) = '' then
         Exit;
 
-      fDocumento := '';
-      fDocumento := edcnpj.Text;
-
-      case Length(fDocumento) of
+      case Length(RemoverMascara(edcnpj.Text)) of
         11:fDM_ACBr.ACBrValidador.TipoDocto := docCPF;
         14:fDM_ACBr.ACBrValidador.TipoDocto := docCNPJ;
         else
 	  raise Exception.Create('Documento inválido');
       end;
 
-      fDM_ACBr.ACBrValidador.Documento := edcnpj.Text;
+      fDM_ACBr.ACBrValidador.Documento := RemoverMascara(edcnpj.Text);
       if fDM_ACBr.ACBrValidador.Validar then
         edcnpj.Text := fDM_ACBr.ACBrValidador.Formatar
       else
@@ -341,6 +384,8 @@ begin
       FIniFile := TIniFile.Create(ConfigFile);
       FHost := FIniFile.ReadString('SERVER','HOST','') + ':' + FIniFile.ReadString('SERVER','PORT','');
 
+      CriaDataset_Empresa;
+
       if Trim(FHost) = '' then
         raise Exception.Create('Host de acesso ao servidor não informado.');
     except
@@ -351,19 +396,46 @@ begin
   end;
 end;
 
+procedure TfrmCadEmpresa.CriaDataset_Empresa;
+begin
+  try
+    fDataSet_Empresa := TBufDataset.Create(Nil);
+    fDataSet_Empresa.Name := 'DataSet_Empresa';
+
+    fDataSet_Empresa.FieldDefs.Add('id_endereco',ftInteger,0);
+    fDataSet_Empresa.FieldDefs.Add('id_empresa',ftInteger,0);
+    fDataSet_Empresa.FieldDefs.Add('logradouro',ftString,255,True);
+    fDataSet_Empresa.FieldDefs.Add('numero',ftString,20);
+    fDataSet_Empresa.FieldDefs.Add('complemento',ftString,100);
+    fDataSet_Empresa.FieldDefs.Add('bairro',ftString,100);
+    fDataSet_Empresa.FieldDefs.Add('municipio',ftString,100,True);
+    fDataSet_Empresa.FieldDefs.Add('codigo_municipio_ibge',ftString,7);
+    fDataSet_Empresa.FieldDefs.Add('uf',ftString,2);
+    fDataSet_Empresa.FieldDefs.Add('cep',ftString,8);
+    fDataSet_Empresa.FieldDefs.Add('pais',ftString,100);
+    fDataSet_Empresa.FieldDefs.Add('codigo_pais_ibge',ftString,4);
+    fDataSet_Empresa.FieldDefs.Add('tipo_endereco',ftInteger,0);
+
+    fDataSet_Empresa.CreateDataset;
+    fDataSet_Empresa.Open;
+
+    dsEndereco.DataSet := fDataSet_Empresa;
+
+  except
+    on E:Exception do
+       raise Exception.Create('Cria Dataset Empresa' + sLineBreak + E.Message);
+  end;
+end;
+
 procedure TfrmCadEmpresa.FormDestroy(Sender: TObject);
 begin
   FreeAndNil(FIniFile);
+  FreeAndNil(fDataSet_Empresa);
 end;
 
 procedure TfrmCadEmpresa.FormShow(Sender: TObject);
 begin
   pcPrincipal.ActivePage := tsEmpresa;
-
-
-  //mdDadosBancarios.Close;
-  //mdDadosBancarios.Open;
-
 end;
 
 procedure TfrmCadEmpresa.Clear_Fields;

@@ -17,9 +17,10 @@
         <Filename Value="ubase.router.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uBase.Router"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
-        <TopLine Value="101"/>
-        <CursorPos X="43" Y="114"/>
+        <TopLine Value="104"/>
+        <CursorPos Y="113"/>
         <FoldState Value=" TJP1CR"/>
         <UsageCount Value="214"/>
         <Loaded Value="True"/>
@@ -57,7 +58,7 @@
         <EditorIndex Value="6"/>
         <TopLine Value="72"/>
         <CursorPos X="39" Y="102"/>
-        <UsageCount Value="198"/>
+        <UsageCount Value="204"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
@@ -67,18 +68,17 @@
         <UnitName Value="uBase.Functions"/>
         <EditorIndex Value="2"/>
         <CursorPos X="10" Y="18"/>
-        <UsageCount Value="198"/>
+        <UsageCount Value="204"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="uempresa.service.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uEmpresa.Service"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="5"/>
-        <TopLine Value="277"/>
-        <CursorPos X="7" Y="313"/>
-        <UsageCount Value="150"/>
+        <TopLine Value="322"/>
+        <CursorPos X="39" Y="332"/>
+        <UsageCount Value="156"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -87,20 +87,20 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="420"/>
         <CursorPos X="53" Y="446"/>
-        <UsageCount Value="37"/>
+        <UsageCount Value="36"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
         <Filename Value="C:\lazarus\fpc\3.2.2\source\packages\fcl-json\src\fpjson.pp"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="77" Y="20"/>
-        <UsageCount Value="5"/>
+        <UsageCount Value="4"/>
       </Unit>
       <Unit>
         <Filename Value="C:\lazarus\components\dc4dl\DataSetConverter4Delphi\src\DataSetConverter4D.pas"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="8" Y="9"/>
-        <UsageCount Value="5"/>
+        <UsageCount Value="4"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
@@ -108,31 +108,11 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="495"/>
         <CursorPos X="40" Y="513"/>
-        <UsageCount Value="5"/>
+        <UsageCount Value="4"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
     </Units>
-    <JumpHistory HistoryIndex="29">
-      <Position>
-        <Filename Value="uempresa.service.pas"/>
-        <Caret Line="270" Column="40" TopLine="251"/>
-      </Position>
-      <Position>
-        <Filename Value="uempresa.service.pas"/>
-        <Caret Line="52" Column="18" TopLine="35"/>
-      </Position>
-      <Position>
-        <Filename Value="uempresa.service.pas"/>
-        <Caret Line="254" Column="33" TopLine="232"/>
-      </Position>
-      <Position>
-        <Filename Value="uempresa.service.pas"/>
-        <Caret Line="54" Column="14" TopLine="32"/>
-      </Position>
-      <Position>
-        <Filename Value="uempresa.service.pas"/>
-        <Caret Line="271" Column="3" TopLine="265"/>
-      </Position>
+    <JumpHistory HistoryIndex="28">
       <Position>
         <Filename Value="uempresa.service.pas"/>
         <Caret Line="54" Column="14" TopLine="35"/>
@@ -233,21 +213,25 @@
         <Filename Value="uempresa.service.pas"/>
         <Caret Line="274" Column="34" TopLine="261"/>
       </Position>
+      <Position>
+        <Filename Value="uempresa.service.pas"/>
+        <Caret Line="310" Column="55" TopLine="290"/>
+      </Position>
+      <Position>
+        <Filename Value="uempresa.service.pas"/>
+        <Caret Line="52" Column="14" TopLine="36"/>
+      </Position>
+      <Position>
+        <Filename Value="ubase.router.pas"/>
+        <Caret Line="121" Column="43" TopLine="112"/>
+      </Position>
+      <Position>
+        <Filename Value="ubase.router.pas"/>
+      </Position>
     </JumpHistory>
     <RunParams>
       <FormatVersion Value="2"/>
       <Modes ActiveMode=""/>
     </RunParams>
   </ProjectSession>
-  <Debugging>
-    <BreakPoints>
-      <Item>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="ubase.router.pas"/>
-        <Line Value="113"/>
-      </Item>
-    </BreakPoints>
-  </Debugging>
 </CONFIG>

@@ -210,6 +210,11 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="ucad.empresa.DadosBancarios"/>
       </Unit>
+      <Unit>
+        <Filename Value="utype_field_table.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uType_Field_Table"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -224,6 +229,7 @@
     </SearchPaths>
     <Parsing>
       <SyntaxOptions>
+        <SyntaxMode Value="Delphi"/>
         <IncludeAssertionCode Value="True"/>
       </SyntaxOptions>
     </Parsing>

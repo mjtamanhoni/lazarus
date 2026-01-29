@@ -3,7 +3,7 @@
   <ProjectSession>
     <PathDelim Value="\"/>
     <Version Value="12"/>
-    <BuildModes Active="D2Bridge Web Release"/>
+    <BuildModes Active="D2Bridge Web Debug"/>
     <Units>
       <Unit>
         <Filename Value="Emissor.lpr"/>
@@ -11,7 +11,7 @@
         <UnitName Value="D2BridgeWebAppLCL"/>
         <EditorIndex Value="10"/>
         <CursorPos X="38" Y="29"/>
-        <UsageCount Value="126"/>
+        <UsageCount Value="161"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -21,11 +21,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Unit1"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="61"/>
         <CursorPos X="24" Y="78"/>
-        <UsageCount Value="126"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
+        <UsageCount Value="161"/>
       </Unit>
       <Unit>
         <Filename Value="Emissor_Session.pas"/>
@@ -33,9 +32,10 @@
         <ComponentName Value="EmissorSession"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
-        <EditorIndex Value="1"/>
-        <CursorPos X="16" Y="16"/>
-        <UsageCount Value="126"/>
+        <IsVisibleTab Value="True"/>
+        <TopLine Value="39"/>
+        <CursorPos Y="53"/>
+        <UsageCount Value="161"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
@@ -45,22 +45,20 @@
         <ComponentName Value="EmissorWebAppGlobal"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
-        <EditorIndex Value="2"/>
-        <TopLine Value="31"/>
-        <CursorPos X="35" Y="13"/>
-        <UsageCount Value="126"/>
+        <EditorIndex Value="1"/>
+        <UsageCount Value="161"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="Unit_D2Bridge_Server_Console.pas"/>
         <IsPartOfProject Value="True"/>
-        <UsageCount Value="126"/>
+        <UsageCount Value="161"/>
       </Unit>
       <Unit>
         <Filename Value="D2BridgeFormTemplate.pas"/>
         <IsPartOfProject Value="True"/>
-        <UsageCount Value="126"/>
+        <UsageCount Value="161"/>
       </Unit>
       <Unit>
         <Filename Value="Unit_Login.pas"/>
@@ -68,10 +66,10 @@
         <ComponentName Value="Form_Login"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="3"/>
         <TopLine Value="74"/>
         <CursorPos X="45" Y="98"/>
-        <UsageCount Value="126"/>
+        <UsageCount Value="161"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
@@ -82,9 +80,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <EditorIndex Value="13"/>
-        <TopLine Value="566"/>
-        <CursorPos X="42" Y="573"/>
-        <UsageCount Value="126"/>
+        <UsageCount Value="161"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
@@ -95,7 +91,7 @@
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="126"/>
+        <UsageCount Value="161"/>
       </Unit>
       <Unit>
         <Filename Value="uprincipal.pas"/>
@@ -104,10 +100,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uPrincipal"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="2"/>
         <TopLine Value="73"/>
         <CursorPos Y="108"/>
-        <UsageCount Value="126"/>
+        <UsageCount Value="161"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
@@ -116,9 +112,9 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="uBase.Functions"/>
         <EditorIndex Value="11"/>
-        <TopLine Value="259"/>
-        <CursorPos X="31" Y="268"/>
-        <UsageCount Value="111"/>
+        <TopLine Value="130"/>
+        <CursorPos X="3" Y="134"/>
+        <UsageCount Value="146"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -129,7 +125,7 @@
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="106"/>
+        <UsageCount Value="141"/>
       </Unit>
       <Unit>
         <Filename Value="..\..\..\Global\ubase.validation.pas"/>
@@ -138,7 +134,7 @@
         <EditorIndex Value="12"/>
         <TopLine Value="109"/>
         <CursorPos X="33" Y="125"/>
-        <UsageCount Value="105"/>
+        <UsageCount Value="140"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -150,7 +146,7 @@
         <UnitName Value="uDM.ACBr"/>
         <EditorIndex Value="8"/>
         <CursorPos X="49" Y="18"/>
-        <UsageCount Value="100"/>
+        <UsageCount Value="135"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
@@ -161,10 +157,13 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uCad.Empresa"/>
-        <EditorIndex Value="5"/>
-        <TopLine Value="278"/>
-        <CursorPos X="42" Y="284"/>
-        <UsageCount Value="91"/>
+        <EditorIndex Value="4"/>
+        <TopLine Value="283"/>
+        <CursorPos X="60" Y="303"/>
+        <UsageCount Value="126"/>
+        <Bookmarks Count="1">
+          <Item0 X="44" Y="291" Left="1" Top="275" ID="2"/>
+        </Bookmarks>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
@@ -176,11 +175,11 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uEmpresa"/>
         <EditorIndex Value="9"/>
-        <TopLine Value="109"/>
-        <CursorPos X="12" Y="141"/>
-        <UsageCount Value="91"/>
+        <TopLine Value="36"/>
+        <CursorPos X="19" Y="55"/>
+        <UsageCount Value="126"/>
         <Bookmarks Count="1">
-          <Item0 X="57" Y="157" Left="1" Top="155" ID="2"/>
+          <Item0 X="44" Y="233" Left="1" Top="223" ID="1"/>
         </Bookmarks>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -192,13 +191,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uCad.Empresa.Endereco"/>
-        <EditorIndex Value="7"/>
-        <TopLine Value="85"/>
-        <CursorPos X="70" Y="98"/>
-        <UsageCount Value="64"/>
-        <Bookmarks Count="1">
-          <Item0 X="46" Y="112" Left="1" Top="94" ID="1"/>
-        </Bookmarks>
+        <EditorIndex Value="6"/>
+        <TopLine Value="90"/>
+        <CursorPos X="93" Y="117"/>
+        <UsageCount Value="99"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
@@ -209,11 +205,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="ucad.empresa.DadosBancarios"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="6"/>
-        <TopLine Value="84"/>
-        <CursorPos Y="107"/>
-        <UsageCount Value="63"/>
+        <EditorIndex Value="5"/>
+        <TopLine Value="33"/>
+        <CursorPos X="99" Y="79"/>
+        <UsageCount Value="98"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
@@ -222,71 +217,64 @@
         <ComponentName Value="PrismSessionBase"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="6"/>
       </Unit>
       <Unit>
         <Filename Value="C:\lazarus\components\D2Bridge\d2bridgeframework\Stable\D2Bridge Framework\Prism\Prism.Card.Model.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="42"/>
         <CursorPos X="12" Y="56"/>
-        <UsageCount Value="55"/>
-      </Unit>
-      <Unit>
-        <Filename Value="C:\lazarus\fpc\3.2.2\source\packages\rtl-generics\src\generics.collections.pas"/>
-        <UnitName Value="Generics.Collections"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="1377"/>
-        <CursorPos Y="1396"/>
-        <UsageCount Value="2"/>
+        <UsageCount Value="51"/>
       </Unit>
       <Unit>
         <Filename Value="C:\lazarus\components\D2Bridge\d2bridgeframework\Stable\D2Bridge Framework\Prism\Prism.Util.pas"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="23"/>
-        <CursorPos X="18" Y="40"/>
-        <UsageCount Value="47"/>
+        <TopLine Value="24"/>
+        <CursorPos X="30" Y="39"/>
+        <UsageCount Value="43"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
         <Filename Value="C:\lazarus\fpc\3.2.2\source\packages\fcl-json\src\fpjson.pp"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="630"/>
         <CursorPos X="79" Y="480"/>
-        <UsageCount Value="5"/>
+        <UsageCount Value="1"/>
       </Unit>
       <Unit>
         <Filename Value="C:\lazarus\components\D2Bridge\d2bridgeframework\Stable\D2Bridge Framework\D2Bridge.Interfaces.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="1098"/>
         <CursorPos X="12" Y="1116"/>
-        <UsageCount Value="26"/>
+        <UsageCount Value="22"/>
       </Unit>
       <Unit>
         <Filename Value="..\..\..\..\Componentes\ACBr\Fontes\ACBrDiversos\ACBrValidador.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="32"/>
         <CursorPos X="36" Y="43"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="3"/>
       </Unit>
       <Unit>
         <Filename Value="C:\lazarus\components\RestRequest4Delphi\RESTRequest4Delphi\src\RESTRequest4D.pas"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="19"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="5"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
         <Filename Value="C:\lazarus\components\D2Bridge\d2bridgeframework\Stable\D2Bridge Framework\D2Bridge.Forms.pas"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="77"/>
-        <CursorPos Y="96"/>
-        <UsageCount Value="10"/>
+        <TopLine Value="2334"/>
+        <CursorPos Y="2351"/>
+        <UsageCount Value="11"/>
       </Unit>
       <Unit>
         <Filename Value="C:\lazarus\components\D2Bridge\d2bridgeframework\Stable\D2Bridge Framework\Prism\Prism.DBGrid.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="416"/>
         <CursorPos X="21" Y="432"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="5"/>
       </Unit>
       <Unit>
         <Filename Value="C:\lazarus\components\D2Bridge\d2bridgeframework\Stable\D2Bridge Framework\Prism\Prism.Server.Functions.pas"/>
@@ -296,121 +284,138 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="504"/>
         <CursorPos X="99" Y="519"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="5"/>
+      </Unit>
+      <Unit>
+        <Filename Value="utype_field_table.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uType_Field_Table"/>
+        <EditorIndex Value="7"/>
+        <TopLine Value="13"/>
+        <CursorPos X="15" Y="14"/>
+        <UsageCount Value="40"/>
+        <Loaded Value="True"/>
       </Unit>
     </Units>
-    <JumpHistory HistoryIndex="28">
+    <JumpHistory HistoryIndex="29">
       <Position>
-        <Filename Value="ucad.empresa.endereco.pas"/>
-        <Caret Line="97" TopLine="94"/>
-      </Position>
-      <Position>
-        <Filename Value="ucad.empresa.endereco.pas"/>
-        <Caret Line="65" Column="29" TopLine="44"/>
+        <Filename Value="ucad.empresa.pas"/>
+        <Caret Line="419" Column="21" TopLine="401"/>
       </Position>
       <Position>
         <Filename Value="ucad.empresa.pas"/>
-        <Caret Line="13" Column="38"/>
+        <Caret Line="421" Column="21" TopLine="401"/>
       </Position>
       <Position>
         <Filename Value="ucad.empresa.pas"/>
-        <Caret Line="344" Column="78" TopLine="329"/>
-      </Position>
-      <Position>
-        <Filename Value="ucad.empresa.endereco.pas"/>
-        <Caret Line="97" Column="56" TopLine="78"/>
-      </Position>
-      <Position>
-        <Filename Value="ucad.empresa.endereco.pas"/>
-        <Caret Line="110" Column="56" TopLine="78"/>
-      </Position>
-      <Position>
-        <Filename Value="ucad.empresa.endereco.pas"/>
+        <Caret Line="422" Column="21" TopLine="401"/>
       </Position>
       <Position>
         <Filename Value="ucad.empresa.pas"/>
-        <Caret Line="345" Column="61" TopLine="272"/>
+        <Caret Line="424" Column="43" TopLine="401"/>
       </Position>
       <Position>
         <Filename Value="ucad.empresa.pas"/>
+        <Caret Line="401" Column="45" TopLine="363"/>
       </Position>
       <Position>
         <Filename Value="ucad.empresa.pas"/>
-        <Caret Line="128" Column="25" TopLine="93"/>
-      </Position>
-      <Position>
-        <Filename Value="ucad.empresa.pas"/>
-        <Caret Line="349" Column="60" TopLine="328"/>
-      </Position>
-      <Position>
-        <Filename Value="ucad.empresa.dadosbancarios.pas"/>
-        <Caret Line="107" TopLine="83"/>
-      </Position>
-      <Position>
-        <Filename Value="ucad.empresa.pas"/>
-        <Caret Line="334" Column="9" TopLine="328"/>
-      </Position>
-      <Position>
-        <Filename Value="ucad.empresa.endereco.pas"/>
-        <Caret Line="97" Column="44" TopLine="85"/>
-      </Position>
-      <Position>
-        <Filename Value="ucad.empresa.pas"/>
-        <Caret Line="334" Column="9" TopLine="328"/>
-      </Position>
-      <Position>
-        <Filename Value="ucad.empresa.endereco.pas"/>
-        <Caret Line="97" Column="41" TopLine="85"/>
+        <Caret Line="291" Column="44" TopLine="275"/>
       </Position>
       <Position>
         <Filename Value="uempresa.pas"/>
-        <Caret Line="236" Column="31" TopLine="208"/>
-      </Position>
-      <Position>
-        <Filename Value="ucad.empresa.pas"/>
-        <Caret Line="332" Column="8" TopLine="328"/>
-      </Position>
-      <Position>
-        <Filename Value="ucad.empresa.pas"/>
-      </Position>
-      <Position>
-        <Filename Value="ucad.empresa.pas"/>
-        <Caret Line="130" Column="23" TopLine="95"/>
-      </Position>
-      <Position>
-        <Filename Value="uempresa.pas"/>
-        <Caret Line="236" Column="31" TopLine="168"/>
+        <Caret Line="234" Column="44" TopLine="187"/>
       </Position>
       <Position>
         <Filename Value="uempresa.pas"/>
       </Position>
       <Position>
         <Filename Value="uempresa.pas"/>
-        <Caret Line="84" Column="24" TopLine="46"/>
+        <Caret Line="55" Column="25" TopLine="24"/>
+      </Position>
+      <Position>
+        <Filename Value="uempresa.pas"/>
+        <Caret Line="103" Column="22" TopLine="91"/>
+      </Position>
+      <Position>
+        <Filename Value="uempresa.pas"/>
+        <Caret Line="56" Column="16" TopLine="39"/>
       </Position>
       <Position>
         <Filename Value="ucad.empresa.pas"/>
-        <Caret Line="356" TopLine="348"/>
+        <Caret Line="292" Column="64" TopLine="275"/>
       </Position>
       <Position>
         <Filename Value="ucad.empresa.pas"/>
-        <Caret Line="286" Column="31" TopLine="278"/>
+        <Caret Line="129" Column="16" TopLine="110"/>
+      </Position>
+      <Position>
+        <Filename Value="ucad.empresa.pas"/>
+        <Caret Line="402" Column="26" TopLine="395"/>
       </Position>
       <Position>
         <Filename Value="ucad.empresa.endereco.pas"/>
-        <Caret Line="98" Column="70" TopLine="85"/>
-      </Position>
-      <Position>
-        <Filename Value="C:\lazarus\components\D2Bridge\d2bridgeframework\Stable\D2Bridge Framework\D2Bridge.ServerControllerBase.pas"/>
-        <Caret Line="571" Column="42" TopLine="564"/>
-      </Position>
-      <Position>
-        <Filename Value="C:\lazarus\components\D2Bridge\d2bridgeframework\Stable\D2Bridge Framework\D2Bridge.ServerControllerBase.pas"/>
-        <Caret Line="574" Column="42" TopLine="567"/>
+        <Caret Line="101" Column="41" TopLine="96"/>
       </Position>
       <Position>
         <Filename Value="ucad.empresa.pas"/>
-        <Caret Line="284" Column="42" TopLine="278"/>
+        <Caret Line="294" TopLine="280"/>
+      </Position>
+      <Position>
+        <Filename Value="ucad.empresa.pas"/>
+        <Caret Line="295" TopLine="280"/>
+      </Position>
+      <Position>
+        <Filename Value="ucad.empresa.pas"/>
+        <Caret Line="296" TopLine="280"/>
+      </Position>
+      <Position>
+        <Filename Value="ucad.empresa.pas"/>
+        <Caret Line="297" Column="66" TopLine="284"/>
+      </Position>
+      <Position>
+        <Filename Value="ucad.empresa.pas"/>
+        <Caret Line="298" Column="71" TopLine="284"/>
+      </Position>
+      <Position>
+        <Filename Value="ucad.empresa.pas"/>
+        <Caret Line="299" Column="66" TopLine="284"/>
+      </Position>
+      <Position>
+        <Filename Value="ucad.empresa.pas"/>
+        <Caret Line="300" Column="69" TopLine="284"/>
+      </Position>
+      <Position>
+        <Filename Value="ucad.empresa.pas"/>
+        <Caret Line="301" Column="81" TopLine="284"/>
+      </Position>
+      <Position>
+        <Filename Value="ucad.empresa.pas"/>
+        <Caret Line="302" Column="62" TopLine="284"/>
+      </Position>
+      <Position>
+        <Filename Value="ucad.empresa.pas"/>
+        <Caret Line="303" Column="63" TopLine="284"/>
+      </Position>
+      <Position>
+        <Filename Value="ucad.empresa.pas"/>
+        <Caret Line="304" Column="64" TopLine="284"/>
+      </Position>
+      <Position>
+        <Filename Value="ucad.empresa.pas"/>
+        <Caret Line="305" Column="76" TopLine="284"/>
+      </Position>
+      <Position>
+        <Filename Value="ucad.empresa.pas"/>
+        <Caret Line="301" Column="111" TopLine="284"/>
+      </Position>
+      <Position>
+        <Filename Value="Emissor_Session.pas"/>
+        <Caret Line="53" Column="79" TopLine="31"/>
+      </Position>
+      <Position>
+        <Filename Value="Emissor_Session.pas"/>
+        <Caret Line="52" Column="32" TopLine="15"/>
       </Position>
     </JumpHistory>
     <RunParams>

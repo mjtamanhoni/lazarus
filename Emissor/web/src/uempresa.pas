@@ -100,40 +100,12 @@ begin
     if Trim(FHost) = '' then
       raise Exception.Create('Host de acesso ao servidor não informado.');
 
-
     except
       on E :Exception do
       	 MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
     end;
   finally
   end;
-
-
-  (*Esse é um exemplo...
-
-  MemDataset.Close;
-  mdRegistro.Open;;
-
-  mdRegistro.Insert;
-  MemDatasetidEmpresa.AsInteger := 1;
-  MemDatasetNome.AsString := 'MARCOS';
-  mdRegistro.Post;
-
-  mdRegistro.Insert;
-  MemDatasetidEmpresa.AsInteger := 2;
-  MemDatasetNome.AsString := 'SIMONE';
-  mdRegistro.Post;
-
-  mdRegistro.Insert;
-  MemDatasetidEmpresa.AsInteger := 3;
-  MemDatasetNome.AsString := 'GABRIEL';
-  mdRegistro.Post;
-
-  mdRegistro.Insert;
-  MemDatasetidEmpresa.AsInteger := 4;
-  MemDatasetNome.AsString := 'NICOLAS';
-  mdRegistro.Post;
-  *)
 end;
 
 procedure TfrmEmpresa.FormShow(Sender: TObject);
@@ -154,7 +126,9 @@ end;
 
 procedure TfrmEmpresa.btNovoClick(Sender: TObject);
 begin
+  FfrmCadEmpresa.Clear_Fields;
   ShowPopupModal('Popup' + FfrmCadEmpresa.Name);
+  Pesquisar;
 end;
 
 procedure TfrmEmpresa.miRazaoSocialClick(Sender: TObject);
@@ -245,8 +219,36 @@ end;
 
 
 procedure TfrmEmpresa.OnClick_Delete(const AId: Integer; const ANome:String);
+var
+  fResp :IResponse;
+  fRet :String;
+  fBody :TJSONObject;
 begin
-  MessageDlg('Excluirndo: ' + AId.ToString + ' - ' + ANome,TMsgDlgType.mtInformation,[mbOK],0);
+  try
+    if MessageDlg('Deseja excluir o registro selecionado?',TMsgDlgType.mtConfirmation,[mbYes,mbNo],0) = mrYes then
+    begin
+      fResp := TRequest.New.BaseURL(FHost)
+      	       .AddParam('id',mdRegistroid_empresa.AsString)
+               .Resource('empresa')
+               .Accept('application/json')
+               .Delete;
+
+      fRet := '';
+      fRet := fResp.Content;
+      fBody := TJSONObject(GetJSON(fRet));
+      if fBody['success'].AsBoolean = False then
+        raise Exception.Create(fBody['message'].AsString)
+      else
+      begin
+        MessageDlg(fBody['message'].AsString,TMsgDlgType.mtInformation,[mbOK],0);
+        Pesquisar;
+      end;
+
+    end;
+  except
+    on E :Exception do
+       MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
+  end;
 end;
 
 procedure TfrmEmpresa.OnClick_Print(const AId: Integer; const ANome:String);
