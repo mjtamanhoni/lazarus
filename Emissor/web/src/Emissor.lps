@@ -9,9 +9,11 @@
         <Filename Value="Emissor.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="D2BridgeWebAppLCL"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="10"/>
-        <CursorPos X="38" Y="29"/>
-        <UsageCount Value="163"/>
+        <TopLine Value="4"/>
+        <CursorPos Y="38"/>
+        <UsageCount Value="165"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -24,7 +26,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="61"/>
         <CursorPos X="24" Y="78"/>
-        <UsageCount Value="163"/>
+        <UsageCount Value="165"/>
       </Unit>
       <Unit>
         <Filename Value="Emissor_Session.pas"/>
@@ -32,10 +34,9 @@
         <ComponentName Value="EmissorSession"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
-        <IsVisibleTab Value="True"/>
         <TopLine Value="18"/>
-        <CursorPos Y="36"/>
-        <UsageCount Value="163"/>
+        <CursorPos X="52" Y="42"/>
+        <UsageCount Value="165"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
@@ -46,19 +47,19 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <EditorIndex Value="1"/>
-        <UsageCount Value="163"/>
+        <UsageCount Value="165"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="Unit_D2Bridge_Server_Console.pas"/>
         <IsPartOfProject Value="True"/>
-        <UsageCount Value="163"/>
+        <UsageCount Value="165"/>
       </Unit>
       <Unit>
         <Filename Value="D2BridgeFormTemplate.pas"/>
         <IsPartOfProject Value="True"/>
-        <UsageCount Value="163"/>
+        <UsageCount Value="165"/>
       </Unit>
       <Unit>
         <Filename Value="Unit_Login.pas"/>
@@ -69,7 +70,7 @@
         <EditorIndex Value="3"/>
         <TopLine Value="74"/>
         <CursorPos X="45" Y="98"/>
-        <UsageCount Value="163"/>
+        <UsageCount Value="165"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
@@ -80,7 +81,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <EditorIndex Value="13"/>
-        <UsageCount Value="163"/>
+        <UsageCount Value="165"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
@@ -91,7 +92,7 @@
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="163"/>
+        <UsageCount Value="165"/>
       </Unit>
       <Unit>
         <Filename Value="uprincipal.pas"/>
@@ -102,7 +103,7 @@
         <UnitName Value="uPrincipal"/>
         <EditorIndex Value="2"/>
         <TopLine Value="16"/>
-        <UsageCount Value="163"/>
+        <UsageCount Value="165"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
@@ -112,7 +113,7 @@
         <UnitName Value="uBase.Functions"/>
         <EditorIndex Value="11"/>
         <CursorPos X="21"/>
-        <UsageCount Value="148"/>
+        <UsageCount Value="150"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -123,7 +124,7 @@
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="143"/>
+        <UsageCount Value="145"/>
       </Unit>
       <Unit>
         <Filename Value="..\..\..\Global\ubase.validation.pas"/>
@@ -131,7 +132,7 @@
         <UnitName Value="uBase.Validation"/>
         <EditorIndex Value="12"/>
         <CursorPos X="26" Y="12"/>
-        <UsageCount Value="142"/>
+        <UsageCount Value="144"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -143,7 +144,7 @@
         <UnitName Value="uDM.ACBr"/>
         <EditorIndex Value="8"/>
         <CursorPos X="49" Y="18"/>
-        <UsageCount Value="137"/>
+        <UsageCount Value="139"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
@@ -155,9 +156,9 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uCad.Empresa"/>
         <EditorIndex Value="4"/>
-        <TopLine Value="369"/>
-        <CursorPos X="38" Y="382"/>
-        <UsageCount Value="128"/>
+        <TopLine Value="590"/>
+        <CursorPos X="50" Y="592"/>
+        <UsageCount Value="130"/>
         <Bookmarks Count="1">
           <Item0 X="46" Y="290" Left="1" Top="274" ID="2"/>
         </Bookmarks>
@@ -174,7 +175,7 @@
         <EditorIndex Value="9"/>
         <TopLine Value="36"/>
         <CursorPos X="19" Y="55"/>
-        <UsageCount Value="128"/>
+        <UsageCount Value="130"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
@@ -188,7 +189,7 @@
         <EditorIndex Value="6"/>
         <TopLine Value="105"/>
         <CursorPos X="9" Y="115"/>
-        <UsageCount Value="101"/>
+        <UsageCount Value="103"/>
         <Bookmarks Count="1">
           <Item0 Y="101" Left="1" Top="94" ID="1"/>
         </Bookmarks>
@@ -205,7 +206,7 @@
         <EditorIndex Value="5"/>
         <TopLine Value="33"/>
         <CursorPos X="99" Y="79"/>
-        <UsageCount Value="100"/>
+        <UsageCount Value="102"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
@@ -215,7 +216,7 @@
         <UnitName Value="uType_Field_Table"/>
         <EditorIndex Value="7"/>
         <CursorPos X="17" Y="14"/>
-        <UsageCount Value="42"/>
+        <UsageCount Value="44"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -294,17 +295,6 @@
       </Unit>
     </Units>
     <JumpHistory HistoryIndex="29">
-      <Position>
-        <Filename Value="Emissor_Session.pas"/>
-        <Caret Line="49" Column="42" TopLine="21"/>
-      </Position>
-      <Position>
-        <Filename Value="Emissor_Session.pas"/>
-      </Position>
-      <Position>
-        <Filename Value="Emissor_Session.pas"/>
-        <Caret Line="27"/>
-      </Position>
       <Position>
         <Filename Value="Emissor_Session.pas"/>
         <Caret Line="48" TopLine="21"/>
@@ -404,6 +394,18 @@
       <Position>
         <Filename Value="Emissor_Session.pas"/>
         <Caret Line="21"/>
+      </Position>
+      <Position>
+        <Filename Value="ucad.empresa.pas"/>
+        <Caret Line="382" Column="38" TopLine="369"/>
+      </Position>
+      <Position>
+        <Filename Value="ucad.empresa.pas"/>
+        <Caret Line="158" Column="15" TopLine="129"/>
+      </Position>
+      <Position>
+        <Filename Value="ucad.empresa.pas"/>
+        <Caret Line="592" Column="50" TopLine="590"/>
       </Position>
     </JumpHistory>
     <RunParams>

@@ -526,55 +526,81 @@ object frmCadEmpresa: TfrmCadEmpresa
             Color = clWindow
             Columns = <            
               item
-                Title.Caption = 'end_id_endereco'
+                Title.Alignment = taCenter
+                Title.Caption = 'Id'
+                Width = 65
                 FieldName = 'end_id_endereco'
               end            
               item
-                Title.Caption = 'end_logradouro'
+                Title.Alignment = taCenter
+                Title.Caption = 'Logradouro'
+                Width = 300
                 FieldName = 'end_logradouro'
               end            
               item
-                Title.Caption = 'end_numero'
+                Title.Alignment = taCenter
+                Title.Caption = 'Número'
+                Width = 65
                 FieldName = 'end_numero'
               end            
               item
-                Title.Caption = 'end_complemento'
+                Title.Alignment = taCenter
+                Title.Caption = 'Complemento'
+                Width = 250
                 FieldName = 'end_complemento'
               end            
               item
-                Title.Caption = 'end_bairro'
+                Title.Alignment = taCenter
+                Title.Caption = 'Bairro'
+                Width = 250
                 FieldName = 'end_bairro'
               end            
               item
-                Title.Caption = 'end_municipio'
+                Title.Alignment = taCenter
+                Title.Caption = 'Município'
+                Width = 250
                 FieldName = 'end_municipio'
               end            
               item
-                Title.Caption = 'end_codigo_municipio_ibge'
+                Title.Alignment = taCenter
+                Title.Caption = 'IBGE'
+                Width = 100
                 FieldName = 'end_codigo_municipio_ibge'
               end            
               item
-                Title.Caption = 'end_uf'
+                Title.Alignment = taCenter
+                Title.Caption = 'UF'
+                Width = 65
                 FieldName = 'end_uf'
               end            
               item
-                Title.Caption = 'end_cep'
+                Title.Alignment = taCenter
+                Title.Caption = 'CEP'
+                Width = 100
                 FieldName = 'end_cep'
               end            
               item
-                Title.Caption = 'end'#31'_pais'
+                Title.Alignment = taCenter
+                Title.Caption = 'Pais'
+                Width = 200
                 FieldName = 'end'#31'_pais'
               end            
               item
-                Title.Caption = 'end_codigo_pais_ibge'
+                Title.Alignment = taCenter
+                Title.Caption = 'IBGE'
+                Width = 100
                 FieldName = 'end_codigo_pais_ibge'
               end            
               item
-                Title.Caption = 'end_tipo_endereco'
+                Title.Alignment = taCenter
+                Title.Caption = 'TIpo'
+                Width = 65
                 FieldName = 'end_tipo_endereco'
               end            
               item
-                Title.Caption = 'end_tipo_endereco_desc'
+                Title.Alignment = taCenter
+                Title.Caption = 'Tipo Endereço'
+                Width = 250
                 FieldName = 'end_tipo_endereco_desc'
               end>
             DataSource = dsEndereco
@@ -969,6 +995,7 @@ object frmCadEmpresa: TfrmCadEmpresa
     Left = 56
     Top = 184
     object mdEnderecoend_id_endereco: TLongintField
+      DisplayLabel = 'Id'
       FieldKind = fkData
       FieldName = 'end_id_endereco'
       Index = 0
