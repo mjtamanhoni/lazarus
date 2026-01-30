@@ -4,7 +4,8 @@ interface
 
 uses
   SysUtils, Classes,
-  Prism.SessionBase;
+  Prism.SessionBase,
+  uType_Field_Table;
 
 type
 
@@ -12,24 +13,12 @@ type
 
   TEmissorSession = class(TPrismSessionBase)
   private
-    Fbairro: String;
-    Fcep: String;
     fCNPJ_Empresa: String;
-    Fcodigo_municipio_ibge: String;
-    Fcodigo_pais_ibge: String;
-    Fcomplemento: String;
-    Fid_empresa: Integer;
-    Fid_endereco: Integer;
+    FEmpEnd_Fields: TEmpEnd_Fields;
     fID_Usuario: Integer;
     fLogin_Usuario: String;
-    Flogradouro: String;
-    Fmunicipio: String;
     fNome_Usuario: String;
-    Fnumero: String;
-    Fpais: String;
-    Ftipo_endereco: Integer;
     fToken_Server: String;
-    Fuf: String;
     fUsuario_Ativo: Integer;
 
   public
@@ -47,19 +36,7 @@ type
    {$EndRegion 'Acesso ao Sistema'}
 
    {$Region 'Empresa - Endereço'}
-     property id_endereco :Integer read Fid_endereco write Fid_endereco;
-     property logradouro :String read Flogradouro write Flogradouro;
-     property id_empresa :Integer read Fid_empresa write Fid_empresa;
-     property numero :String read Fnumero write Fnumero;
-     property complemento :String read Fcomplemento write Fcomplemento;
-     property bairro :String read Fbairro write Fbairro;
-     property municipio :String read Fmunicipio write Fmunicipio;
-     property codigo_municipio_ibge :String read Fcodigo_municipio_ibge write Fcodigo_municipio_ibge;
-     property uf :String read Fuf write Fuf;
-     property cep :String read Fcep write Fcep;
-     property pais :String read Fpais write Fpais;
-     property codigo_pais_ibge :String read Fcodigo_pais_ibge write Fcodigo_pais_ibge;
-     property tipo_endereco :Integer read Ftipo_endereco write Ftipo_endereco;
+     property EmpEnd_Fields :TEmpEnd_Fields read FEmpEnd_Fields write FEmpEnd_Fields;
    {$EndRegion 'Empresa - Endereço'}
 
   end;

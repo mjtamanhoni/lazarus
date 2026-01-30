@@ -8,7 +8,8 @@ uses
   Classes, SysUtils, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls,  
   D2Bridge.Forms,
   uType_Field_Table,
-  DataSet.Serialize;
+  DataSet.Serialize,
+  uBase.Validation, uBase.Functions;
 
 type
 
@@ -97,18 +98,21 @@ procedure TfrmCad_Empresa_Endereco.btConfirmarClick(Sender: TObject);
 begin
   try
     //Incluir em variávies e depois inserir no mdEndereco
-    Emissor.id_endereco := StrToIntDef(edid_endereco.Text,0);
-    Emissor.logradouro := edlogradouro.Text;
-    Emissor.numero := ednumero.Text;
-    Emissor.complemento := edcomplemento.Text;
-    Emissor.bairro := edbairro.Text;
-    Emissor.municipio := edmunicipio.Text;
-    Emissor.codigo_municipio_ibge := edcodigo_municipio_ibge.Text;
-    Emissor.uf := eduf.Text;
-    Emissor.cep := edcep.Text;
-    Emissor.pais := edpais.Text;
-    Emissor.codigo_pais_ibge := edcodigo_pais_ibge.Text;
-    Emissor.tipo_endereco := cbtipo_endereco.ItemIndex;
+    with Emissor.EmpEnd_Fields do
+    begin
+      id_endereco := StrToIntDef(edid_endereco.Text,0);
+      logradouro := edlogradouro.Text;
+      numero := ednumero.Text;
+      complemento := edcomplemento.Text;
+      bairro := edbairro.Text;
+      municipio := edmunicipio.Text;
+      codigo_municipio_ibge := edcodigo_municipio_ibge.Text;
+      uf := eduf.Text;
+      cep := edcep.Text;
+      pais := edpais.Text;
+      codigo_pais_ibge := edcodigo_pais_ibge.Text;
+      tipo_endereco := cbtipo_endereco.ItemIndex;
+    end;
 
     Close;
   except

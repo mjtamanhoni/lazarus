@@ -497,6 +497,26 @@ object frmCadEmpresa: TfrmCadEmpresa
           ClientHeight = 369
           ClientWidth = 688
           TabOrder = 0
+          object pnEnd_Footer: TPanel
+            Left = 0
+            Height = 33
+            Top = 336
+            Width = 688
+            Align = alBottom
+            BevelOuter = bvNone
+            ClientHeight = 33
+            ClientWidth = 688
+            TabOrder = 0
+            object btEnd_Add: TButton
+              Left = 0
+              Height = 33
+              Top = 0
+              Width = 56
+              Align = alLeft
+              TabOrder = 0
+              OnClick = btEnd_AddClick
+            end
+          end
           object DBGrid_End: TDBGrid
             Left = 0
             Height = 336
@@ -559,27 +579,7 @@ object frmCadEmpresa: TfrmCadEmpresa
               end>
             DataSource = dsEndereco
             Options = [dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit]
-            TabOrder = 0
-          end
-          object pnEnd_Footer: TPanel
-            Left = 0
-            Height = 33
-            Top = 336
-            Width = 688
-            Align = alBottom
-            BevelOuter = bvNone
-            ClientHeight = 33
-            ClientWidth = 688
             TabOrder = 1
-            object btEnd_Add: TButton
-              Left = 0
-              Height = 33
-              Top = 0
-              Width = 56
-              Align = alLeft
-              TabOrder = 0
-              OnClick = btEnd_AddClick
-            end
           end
         end
       end
@@ -1097,8 +1097,10 @@ object frmCadEmpresa: TfrmCadEmpresa
     end
   end
   object dsEndereco: TDataSource
-    Left = 392
-    Top = 136
+    AutoEdit = False
+    DataSet = mdEndereco
+    Left = 64
+    Top = 128
   end
   object mdDadosBancarios: TMemDataset
     FieldDefs = <    
@@ -1193,10 +1195,5 @@ object frmCadEmpresa: TfrmCadEmpresa
     DataSet = mdDadosBancarios
     Left = 104
     Top = 344
-  end
-  object BufDataset1: TBufDataset
-    FieldDefs = <>
-    Left = 432
-    Top = 320
   end
 end

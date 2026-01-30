@@ -9,9 +9,9 @@ uses
 
 type
 
-  { TEmpEndereco }
+  { TEmpEnd_Fields }
 
-  TEmpEndereco = class
+  TEmpEnd_Fields = class
   private
     class var Fbairro: String;
     class var Fcep: String;
