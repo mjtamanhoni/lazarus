@@ -180,6 +180,12 @@
       <Item>
         <Name Value="EFOpenError"/>
       </Item>
+      <Item>
+        <Name Value="RunError(219)"/>
+      </Item>
+      <Item>
+        <Name Value="EInvalidCast"/>
+      </Item>
     </Exceptions>
   </Debugging>
 </CONFIG>
