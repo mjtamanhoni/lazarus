@@ -68,6 +68,7 @@ type
     { Private declarations }
   public
     { Public declarations }
+    procedure Clear_Fields;
   protected
     procedure ExportD2Bridge; override;
     procedure InitControlsD2Bridge(const PrismControl: TPrismControl); override;
@@ -119,6 +120,22 @@ begin
     on E:Exception do
       MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
   end;
+end;
+
+procedure TfrmCad_Empresa_Endereco.Clear_Fields;
+begin
+  edid_endereco.Clear;
+  cbtipo_endereco.ItemIndex := -1;
+  edcep.Clear;
+  edlogradouro.Clear;
+  ednumero.Clear;
+  edcomplemento.Clear;
+  edbairro.Clear;
+  edmunicipio.Clear;
+  edcodigo_municipio_ibge.Clear;
+  eduf.Clear;
+  edpais.Clear;
+  edcodigo_pais_ibge.Clear;
 end;
 
 procedure TfrmCad_Empresa_Endereco.ExportD2Bridge;

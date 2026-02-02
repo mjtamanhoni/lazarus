@@ -137,13 +137,9 @@ type
     FHost :String;
     Fid_endereco: Integer;
     FIniFile :TIniFile;
-
-    fDataSet_Empresa :TBufDataset;
     Flogradouro: String;
 
-
-
-    procedure CriaDataset_Empresa;
+    procedure Clear_Parans(const AClear:Integer);
     procedure Gravar;
   public
     { Public declarations }
@@ -181,7 +177,40 @@ end;
 
 procedure TfrmCadEmpresa.btCB_AddClick(Sender: TObject);
 begin
-  ShowPopupModal('Popup' + FfrmCad_Empresa_DadosBancarios.Name);
+  try
+    try
+      FfrmCad_Empresa_DadosBancarios.Clear_Fields;
+
+      ShowPopupModal('Popup' + FfrmCad_Empresa_DadosBancarios.Name);
+
+      mdDadosBancarios.DisableControls;
+      mdDadosBancarios.Open;
+      with Emissor.EmpCB_Fields do
+      begin
+        if Trim(conta) <> '' then
+        begin
+          mdDadosBancarios.Append;
+          mdDadosBancariosdb_id_banco.AsInteger := id_banco;
+          mdDadosBancariosdb_banco.AsString := banco;
+          mdDadosBancariosdb_agencia.AsString := agencia;
+          mdDadosBancariosdb_conta.AsString := conta;
+          mdDadosBancariosdb_tipo_conta.AsInteger := tipo_conta;
+          mdDadosBancarios.Post;
+        end;
+      end;
+
+      mdDadosBancarios.Active := True;
+    except
+      on E:Exception do
+      begin
+        SaveLog(E.Message);
+        raise Exception.Create(E.Message);
+      end;
+    end;
+  finally
+    Clear_Parans(1);
+    mdDadosBancarios.EnableControls;
+  end;
 end;
 
 procedure TfrmCadEmpresa.btConfirmarClick(Sender: TObject);
@@ -287,42 +316,33 @@ procedure TfrmCadEmpresa.btEnd_AddClick(Sender: TObject);
 begin
   try
     try
-      //fDataSet_Empresa.DisableControls;
+      FfrmCad_Empresa_Endereco.Clear_Fields;
+
       ShowPopupModal('Popup' + FfrmCad_Empresa_Endereco.Name);
 
       mdEndereco.DisableControls;
       mdEndereco.Open;
-      mdEndereco.Append;
       with Emissor.EmpEnd_Fields do
       begin
-        mdEnderecoend_id_endereco.AsInteger := id_endereco;
-        mdEnderecoend_logradouro.AsString := logradouro;
-        mdEnderecoend_numero.AsString := numero;
-        mdEnderecoend_complemento.AsString := complemento;
-        mdEnderecoend_bairro.AsString := bairro;
-        mdEnderecoend_municipio.AsString := municipio;
-        mdEnderecoend_codigo_municipio_ibge.AsString := codigo_municipio_ibge;
-        mdEnderecoend_uf.AsString := uf;
-        mdEnderecoend_cep.AsString := cep;
-        mdEnderecoend_pais.AsString := pais;
-        mdEnderecoend_codigo_pais_ibge.AsString := codigo_pais_ibge;
-        mdEnderecoend_tipo_endereco.AsInteger := tipo_endereco;
+        if Trim(logradouro) <> '' then
+        begin
+          mdEndereco.Append;
+          mdEnderecoend_id_endereco.AsInteger := id_endereco;
+          mdEnderecoend_logradouro.AsString := logradouro;
+          mdEnderecoend_numero.AsString := numero;
+          mdEnderecoend_complemento.AsString := complemento;
+          mdEnderecoend_bairro.AsString := bairro;
+          mdEnderecoend_municipio.AsString := municipio;
+          mdEnderecoend_codigo_municipio_ibge.AsString := codigo_municipio_ibge;
+          mdEnderecoend_uf.AsString := uf;
+          mdEnderecoend_cep.AsString := cep;
+          mdEnderecoend_pais.AsString := pais;
+          mdEnderecoend_codigo_pais_ibge.AsString := codigo_pais_ibge;
+          mdEnderecoend_tipo_endereco.AsInteger := tipo_endereco;
+          mdEndereco.Post;
+        end;
       end;
 
-      SaveLog('mdEnderecoend_id_endereco.AsInteger: ' + mdEnderecoend_id_endereco.AsString + sLineBreak +
-              'mdEnderecoend_logradouro.AsString: ' + mdEnderecoend_logradouro.AsString + sLineBreak +
-              'mdEnderecoend_numero.AsString: ' + mdEnderecoend_numero.AsString + sLineBreak +
-              'mdEnderecoend_complemento.AsString: ' + mdEnderecoend_complemento.AsString + sLineBreak +
-              'mdEnderecoend_bairro.AsString: ' + mdEnderecoend_bairro.AsString + sLineBreak +
-              'mdEnderecoend_municipio.AsString: ' + mdEnderecoend_municipio.AsString + sLineBreak +
-              'mdEnderecoend_codigo_municipio_ibge.AsString: ' + mdEnderecoend_codigo_municipio_ibge.AsString + sLineBreak +
-              'mdEnderecoend_uf.AsString: ' + mdEnderecoend_uf.AsString + sLineBreak +
-              'mdEnderecoend_cep.AsString: ' + mdEnderecoend_cep.AsString + sLineBreak +
-              'mdEnderecoend_pais.AsString: ' + mdEnderecoend_pais.AsString + sLineBreak +
-              'mdEnderecoend_codigo_pais_ibge.AsString: ' + mdEnderecoend_codigo_pais_ibge.AsString + sLineBreak +
-              'mdEnderecoend_tipo_endereco.AsInteger: ' + mdEnderecoend_tipo_endereco.AsString);
-
-      mdEndereco.Post;
       mdEndereco.Active := True;
 
       SaveLog('Qtd: ' + IntToStr(mdEndereco.RecordCount));
@@ -334,7 +354,42 @@ begin
       end;
     end;
   finally
+    Clear_Parans(0);
     mdEndereco.EnableControls;
+  end;
+end;
+
+procedure TfrmCadEmpresa.Clear_Parans(const AClear:Integer);
+begin
+  case AClear of
+    0:begin
+        with Emissor.EmpEnd_Fields do
+        begin
+          id_endereco := 0;
+          logradouro := '';
+          numero := '';
+          complemento := '';
+          bairro := '';
+          municipio := '';
+          codigo_municipio_ibge := '';
+          uf := '';
+          cep := '';
+          pais := '';
+          codigo_pais_ibge := '';
+          tipo_endereco := 0;
+        end;
+    end;
+    1:begin
+        with Emissor.EmpCB_Fields do
+        begin
+          id_banco := 0;
+          id_empresa := 0;
+          banco := '';
+          agencia := '';
+          conta := '';
+          tipo_conta := 0;
+        end;
+    end;
   end;
 end;
 
@@ -399,41 +454,9 @@ begin
   end;
 end;
 
-procedure TfrmCadEmpresa.CriaDataset_Empresa;
-begin
-  try
-    fDataSet_Empresa := TBufDataset.Create(Self);
-    fDataSet_Empresa.Name := 'DataSet_Empresa';
-
-    fDataSet_Empresa.FieldDefs.Add('id_endereco',ftInteger,0);
-    fDataSet_Empresa.FieldDefs.Add('id_empresa',ftInteger,0);
-    fDataSet_Empresa.FieldDefs.Add('logradouro',ftString,255,True);
-    fDataSet_Empresa.FieldDefs.Add('numero',ftString,20);
-    fDataSet_Empresa.FieldDefs.Add('complemento',ftString,100);
-    fDataSet_Empresa.FieldDefs.Add('bairro',ftString,100);
-    fDataSet_Empresa.FieldDefs.Add('municipio',ftString,100,True);
-    fDataSet_Empresa.FieldDefs.Add('codigo_municipio_ibge',ftString,7);
-    fDataSet_Empresa.FieldDefs.Add('uf',ftString,2);
-    fDataSet_Empresa.FieldDefs.Add('cep',ftString,8);
-    fDataSet_Empresa.FieldDefs.Add('pais',ftString,100);
-    fDataSet_Empresa.FieldDefs.Add('codigo_pais_ibge',ftString,4);
-    fDataSet_Empresa.FieldDefs.Add('tipo_endereco',ftInteger,0);
-
-    fDataSet_Empresa.CreateDataset;
-    fDataSet_Empresa.Open;
-
-    dsEndereco.DataSet := fDataSet_Empresa;
-
-  except
-    on E:Exception do
-       raise Exception.Create('Cria Dataset Empresa' + sLineBreak + E.Message);
-  end;
-end;
-
 procedure TfrmCadEmpresa.FormDestroy(Sender: TObject);
 begin
   FreeAndNil(FIniFile);
-  FreeAndNil(fDataSet_Empresa);
 end;
 
 procedure TfrmCadEmpresa.FormShow(Sender: TObject);

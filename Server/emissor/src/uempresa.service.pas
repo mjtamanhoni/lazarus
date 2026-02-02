@@ -176,6 +176,7 @@ begin
         Raise Exception.Create('JSon Inválido!');
 
       FJson := TJSONObject(GetJSON(AJSon));
+      SaveLog(FJson.AsJSON);
 
       if Trim(FJson['cnpj'].AsString) = '' then
         raise Exception.Create('CNPJ não informado: este campo é obrigatório.');

@@ -14,7 +14,10 @@ type
   TEmissorSession = class(TPrismSessionBase)
   private
     fCNPJ_Empresa: String;
+    FEmpCB_Fields: TEmpCB_Fields;
+    FEmpCD_Fields: TEmpCD_Fields;
     FEmpEnd_Fields: TEmpEnd_Fields;
+    FEmpresa_Fields: TEmpresa_Fields;
     fID_Usuario: Integer;
     fLogin_Usuario: String;
     fNome_Usuario: String;
@@ -36,7 +39,10 @@ type
    {$EndRegion 'Acesso ao Sistema'}
 
    {$Region 'Empresa - Endereço'}
+     property Empresa_Fields :TEmpresa_Fields read FEmpresa_Fields write FEmpresa_Fields;
      property EmpEnd_Fields :TEmpEnd_Fields read FEmpEnd_Fields write FEmpEnd_Fields;
+     property EmpCB_Fields :TEmpCB_Fields read FEmpCB_Fields write FEmpCB_Fields;
+     property EmpCD_Fields :TEmpCD_Fields read FEmpCD_Fields write FEmpCD_Fields;
    {$EndRegion 'Empresa - Endereço'}
 
   end;

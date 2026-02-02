@@ -583,7 +583,7 @@ object frmCadEmpresa: TfrmCadEmpresa
                 Title.Alignment = taCenter
                 Title.Caption = 'Pais'
                 Width = 200
-                FieldName = 'end'#31'_pais'
+                FieldName = 'end_pais'
               end            
               item
                 Title.Alignment = taCenter
@@ -658,6 +658,7 @@ object frmCadEmpresa: TfrmCadEmpresa
               FieldName = 'db_tipo_conta_desc'
             end>
           DataSource = dsDadosBancarios
+          Options = [dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit]
           TabOrder = 0
         end
         object pnCB_Footer: TPanel
@@ -974,7 +975,7 @@ object frmCadEmpresa: TfrmCadEmpresa
         Size = 8
       end    
       item
-        Name = 'end'#31'_pais'
+        Name = 'end_pais'
         DataType = ftString
         Size = 100
       end    
@@ -1085,7 +1086,7 @@ object frmCadEmpresa: TfrmCadEmpresa
     end
     object mdEnderecoend_pais: TStringField
       FieldKind = fkData
-      FieldName = 'end'#31'_pais'
+      FieldName = 'end_pais'
       Index = 9
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
@@ -1126,8 +1127,8 @@ object frmCadEmpresa: TfrmCadEmpresa
   object dsEndereco: TDataSource
     AutoEdit = False
     DataSet = mdEndereco
-    Left = 64
-    Top = 128
+    Left = 56
+    Top = 240
   end
   object mdDadosBancarios: TMemDataset
     FieldDefs = <    
@@ -1159,8 +1160,8 @@ object frmCadEmpresa: TfrmCadEmpresa
         DataType = ftString
         Size = 100
       end>
-    Left = 104
-    Top = 296
+    Left = 184
+    Top = 184
     object mdDadosBancariosdb_id_banco: TLongintField
       FieldKind = fkData
       FieldName = 'db_id_banco'
@@ -1220,7 +1221,7 @@ object frmCadEmpresa: TfrmCadEmpresa
   end
   object dsDadosBancarios: TDataSource
     DataSet = mdDadosBancarios
-    Left = 104
-    Top = 344
+    Left = 184
+    Top = 240
   end
 end

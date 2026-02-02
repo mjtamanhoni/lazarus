@@ -6,7 +6,10 @@ interface
 
 uses
   Classes, SysUtils, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls,  
-  D2Bridge.Forms;
+  D2Bridge.Forms,
+  uType_Field_Table,
+  DataSet.Serialize,
+  uBase.Validation, uBase.Functions;
 
 type
 
@@ -40,6 +43,7 @@ type
     { Private declarations }
   public
     { Public declarations }
+    procedure Clear_Fields;
   protected
     procedure ExportD2Bridge; override;
     procedure InitControlsD2Bridge(const PrismControl: TPrismControl); override;
@@ -68,7 +72,30 @@ end;
 
 procedure TfrmCad_Empresa_DadosBancarios.btConfirmarClick(Sender: TObject);
 begin
-  Close;
+  try
+    with Emissor.EmpCB_Fields do
+    begin
+      id_banco := StrToIntDef(edid_banco.Text,0);
+      id_empresa := 0;
+      banco := edbanco.Text;
+      agencia := edagencia.Text;
+      conta := edbanco.Text;
+      tipo_conta := cbtipo_conta.ItemIndex;
+    end;
+    Close;
+  except
+    on E:Exception do
+      MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
+  end;
+end;
+
+procedure TfrmCad_Empresa_DadosBancarios.Clear_Fields;
+begin
+  edid_banco.Clear;
+  cbtipo_conta.ItemIndex := -1;
+  edbanco.Clear;
+  edagencia.Clear;
+  edconta.Clear;
 end;
 
 procedure TfrmCad_Empresa_DadosBancarios.ExportD2Bridge;
