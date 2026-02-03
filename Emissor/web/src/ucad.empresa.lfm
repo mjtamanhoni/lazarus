@@ -25,9 +25,9 @@ object frmCadEmpresa: TfrmCadEmpresa
       Height = 397
       Top = 0
       Width = 696
-      ActivePage = tsEmpresa
+      ActivePage = tsCertificadoDigital
       Align = alClient
-      TabIndex = 0
+      TabIndex = 3
       TabOrder = 0
       object tsEmpresa: TTabSheet
         Caption = 'Empresa'
@@ -837,17 +837,9 @@ object frmCadEmpresa: TfrmCadEmpresa
               Left = 3
               Height = 22
               Top = 18
-              Width = 660
+              Width = 682
               Align = alClient
               TabOrder = 0
-            end
-            object btcaminho_arquivo: TButton
-              Left = 663
-              Height = 22
-              Top = 18
-              Width = 22
-              Align = alRight
-              TabOrder = 1
             end
           end
         end
@@ -1223,5 +1215,9 @@ object frmCadEmpresa: TfrmCadEmpresa
     DataSet = mdDadosBancarios
     Left = 184
     Top = 240
+  end
+  object OpenDialog: TOpenDialog
+    Left = 464
+    Top = 280
   end
 end

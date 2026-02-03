@@ -676,7 +676,7 @@ inherited frmEmpresa: TfrmEmpresa
       Size = 255
     end
   end
-  object meDadosBancarios: TMemDataset[8]
+  object mdDadosBancarios: TMemDataset[8]
     FieldDefs = <    
       item
         Name = 'idBanco'
@@ -712,7 +712,7 @@ inherited frmEmpresa: TfrmEmpresa
       end>
     Left = 456
     Top = 144
-    object meDadosBancariosidBanco: TLongintField
+    object mdDadosBancariosidBanco: TLongintField
       FieldKind = fkData
       FieldName = 'idBanco'
       Index = 0
@@ -721,7 +721,7 @@ inherited frmEmpresa: TfrmEmpresa
       ReadOnly = False
       Required = False
     end
-    object meDadosBancariosidEmpresa: TLongintField
+    object mdDadosBancariosidEmpresa: TLongintField
       FieldKind = fkData
       FieldName = 'idEmpresa'
       Index = 1
@@ -730,7 +730,7 @@ inherited frmEmpresa: TfrmEmpresa
       ReadOnly = False
       Required = False
     end
-    object meDadosBancariosbanco: TStringField
+    object mdDadosBancariosbanco: TStringField
       FieldKind = fkData
       FieldName = 'banco'
       Index = 2
@@ -740,7 +740,7 @@ inherited frmEmpresa: TfrmEmpresa
       Required = False
       Size = 100
     end
-    object meDadosBancariosagencia: TStringField
+    object mdDadosBancariosagencia: TStringField
       FieldKind = fkData
       FieldName = 'agencia'
       Index = 3
@@ -749,7 +749,7 @@ inherited frmEmpresa: TfrmEmpresa
       ReadOnly = False
       Required = False
     end
-    object meDadosBancariosconta: TStringField
+    object mdDadosBancariosconta: TStringField
       FieldKind = fkData
       FieldName = 'conta'
       Index = 4
@@ -758,7 +758,7 @@ inherited frmEmpresa: TfrmEmpresa
       ReadOnly = False
       Required = False
     end
-    object meDadosBancariostipoConta: TLongintField
+    object mdDadosBancariostipoConta: TLongintField
       FieldKind = fkData
       FieldName = 'tipoConta'
       Index = 5
@@ -767,7 +767,7 @@ inherited frmEmpresa: TfrmEmpresa
       ReadOnly = False
       Required = False
     end
-    object meDadosBancariostipoContaDesc: TStringField
+    object mdDadosBancariostipoContaDesc: TStringField
       FieldKind = fkData
       FieldName = 'tipoContaDesc'
       Index = 6

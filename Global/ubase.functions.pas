@@ -298,8 +298,10 @@ begin
               ftString, ftMemo:
                 mdRegistro.FieldByName(FieldNameDS).AsString := Valor;
 
-              ftDate, ftDateTime:
+              ftDate,ftDateTime:
                 mdRegistro.FieldByName(FieldNameDS).AsDateTime := ISO8601ToDateDef(Valor, 0);
+
+              //DateOf(FJson_CD.Floats['validade']);
 
               ftFloat, ftCurrency:
                 mdRegistro.FieldByName(FieldName).AsFloat := StrToFloatDef(Valor, 0);

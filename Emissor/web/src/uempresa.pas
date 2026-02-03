@@ -46,7 +46,7 @@ type
     mdEnderecotipoEnderecoDesc: TStringField;
     mdEnderecouf: TStringField;
     mdRegistrocrtDesc: TStringField;
-    meDadosBancarios: TMemDataset;
+    mdDadosBancarios: TMemDataset;
     mdRegistro: TMemDataset;
     mdRegistroativo: TLongintField;
     mdRegistrocelular: TStringField;
@@ -64,13 +64,13 @@ type
     mdRegistrotelefone: TStringField;
     mdEndereco: TMemDataset;
     mdCertificadoDigital: TMemDataset;
-    meDadosBancariosagencia: TStringField;
-    meDadosBancariosbanco: TStringField;
-    meDadosBancariosconta: TStringField;
-    meDadosBancariosidBanco: TLongintField;
-    meDadosBancariosidEmpresa: TLongintField;
-    meDadosBancariostipoConta: TLongintField;
-    meDadosBancariostipoContaDesc: TStringField;
+    mdDadosBancariosagencia: TStringField;
+    mdDadosBancariosbanco: TStringField;
+    mdDadosBancariosconta: TStringField;
+    mdDadosBancariosidBanco: TLongintField;
+    mdDadosBancariosidEmpresa: TLongintField;
+    mdDadosBancariostipoConta: TLongintField;
+    mdDadosBancariostipoContaDesc: TStringField;
     miCNPJ_CPF: TMenuItem;
     miNomeFantasia: TMenuItem;
     miRazaoSocial: TMenuItem;
@@ -181,7 +181,12 @@ var
   FResp :IResponse;
   FRet :String;
   FBody :TJSONObject;
+
   FDados :TJSONArray;
+  FEndereco :TJSONArray;
+  FDBanco :TJSONArray;
+  FCertificado :TJSONArray;
+
   FTipoPesquisa:String;
   x:Integer;
 
@@ -238,8 +243,14 @@ begin
         raise Exception.Create(FBody['message'].AsString);
 
       FDados := TJSONArray(GetJSON(FBody['data'].AsJSON));
+      FEndereco := TJSONArray(GetJSON(FBody['endereco'].AsJSON));
+      FDBanco := TJSONArray(GetJSON(FBody['contaBancaria'].AsJSON));
+      FCertificado := TJSONArray(GetJSON(FBody['certificadoDigital'].AsJSON));
 
       PopularMemDataDoJSON(FDados,mdRegistro);
+      PopularMemDataDoJSON(FEndereco,mdEndereco);
+      PopularMemDataDoJSON(FDBanco,mdDadosBancarios);
+      PopularMemDataDoJSON(FCertificado,mdCertificadoDigital);
 
     except on E: Exception do
       MessageDlg(E.Message,TMsgDlgType.mtError,[TMsgDlgBtn.mbOK],0);

@@ -285,7 +285,7 @@ begin
         // Verifica se o campo existe no dataset
         if mdRegistro.FieldDefs.IndexOf(FieldNameDS) >= 0 then
         begin
-          if JsonObj.[FieldName].IsNull then
+          if JsonObj[FieldName].IsNull then
             mdRegistro.FieldByName(FieldNameDS).Clear
           else
           begin
@@ -298,8 +298,13 @@ begin
               ftString, ftMemo:
                 mdRegistro.FieldByName(FieldNameDS).AsString := Valor;
 
-              ftDate, ftDateTime:
+              ftDateTime:
                 mdRegistro.FieldByName(FieldNameDS).AsDateTime := ISO8601ToDateDef(Valor, 0);
+
+              ftDate:
+                mdRegistro.FieldByName(FieldNameDS).AsDateTime := DateOf(Valor, 0);
+
+              //DateOf(FJson_CD.Floats['validade']);
 
               ftFloat, ftCurrency:
                 mdRegistro.FieldByName(FieldName).AsFloat := StrToFloatDef(Valor, 0);

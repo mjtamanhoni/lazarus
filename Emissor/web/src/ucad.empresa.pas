@@ -18,7 +18,6 @@ type
   TfrmCadEmpresa = class(TD2BridgeForm)
     btCancelar: TButton;
     btConfirmar: TButton;
-    btcaminho_arquivo: TButton;
     btEnd_Add: TButton;
     btCB_Add: TButton;
     cbativo: TComboBox;
@@ -82,6 +81,7 @@ type
     mdEnderecoend_tipo_endereco_desc: TStringField;
     mdEnderecoend_uf: TStringField;
     mdDadosBancarios: TMemDataset;
+    OpenDialog: TOpenDialog;
     pnEnd_Footer: TPanel;
     pnCB_Footer: TPanel;
     pnsenha: TPanel;
@@ -119,6 +119,7 @@ type
     tsEndereco: TTabSheet;
     tsDadosBancarios: TTabSheet;
     tsCertificadoDigital: TTabSheet;
+    procedure btcaminho_arquivoClick(Sender: TObject);
     procedure btCancelarClick(Sender: TObject);
     procedure btCB_AddClick(Sender: TObject);
     procedure btConfirmarClick(Sender: TObject);
@@ -152,8 +153,8 @@ type
   protected
     procedure ExportD2Bridge; override;
     procedure InitControlsD2Bridge(const PrismControl: TPrismControl); override;
-    procedure RenderD2Bridge(const PrismControl: TPrismControl; 
-      var HTMLControl: string); override;
+    procedure RenderD2Bridge(const PrismControl: TPrismControl; var HTMLControl: string); override;
+    procedure Upload(AFiles: TStrings; Sender: TObject); override;
   end;
 
 function frmCadEmpresa: TfrmCadEmpresa;
@@ -173,6 +174,12 @@ end;
 procedure TfrmCadEmpresa.btCancelarClick(Sender: TObject);
 begin
   Close;
+end;
+
+procedure TfrmCadEmpresa.btcaminho_arquivoClick(Sender: TObject);
+begin
+  if OpenDialog.Execute then
+     edcaminho_arquivo.Text := OpenDialog.FileName;
 end;
 
 procedure TfrmCadEmpresa.btCB_AddClick(Sender: TObject);
@@ -466,6 +473,7 @@ end;
 
 procedure TfrmCadEmpresa.Clear_Fields;
 begin
+  //Dados da empresa...
   edid_empresa.Clear;
   edcnpj.Clear;
   edinscricao_estadual.Clear;
@@ -479,6 +487,20 @@ begin
   edcelular.Clear;
   edemail.Clear;
   edsite.Clear;
+
+  //Endereço...
+  mdEndereco.Clear;
+
+  //Dados Bancários...
+  mdDadosBancarios.Clear;
+
+  //Certificado digital...
+  edid_certificado.Clear;
+  cbtipo.Clear;
+  edvalidade.Date := Date;
+  edcaminho_arquivo.Clear;
+  edsenha.Clear;;
+
 end;
 
 procedure TfrmCadEmpresa.ExportD2Bridge;
@@ -573,16 +595,17 @@ begin
                 FormGroup(lbtipo.Caption,CSSClass.Col.colsize9).AddLCLObj(cbtipo);
                 FormGroup(lbvalidade.Caption,CSSClass.Col.colsize2).AddLCLObj(edvalidade);
               end;
-              with Row.Items.Add do
-              begin
-                With FormGroup(lbcaminho_arquivo.Caption,CSSClass.Col.colsize12).Items.Add do
-                begin
-                  LCLObj(edcaminho_arquivo);
-                  LCLObj(btcaminho_arquivo, PopupMenu, CSSClass.Button.folderopen);
-                end;
-              end;
+
               with Row.Items.Add do
                 FormGroup(lbsenha.Caption,CSSClass.Col.colsize6).AddLCLObj(edsenha);
+
+              with PanelGroup('Selecione o arquivo do Certificado', '', false, CSSClass.Col.colsize12).Items.Add do
+              begin
+                with Row(CSSClass.Space.margim_bottom3).Items.Add do
+                  FormGroup('',CSSClass.Col.colsize12).AddLCLObj(edcaminho_arquivo);
+                with Row.Items.Add do
+                  Upload('Selecione o Certificado','*.pfx');
+              end;
             end;
           end;
         end;
@@ -706,6 +729,12 @@ begin
     HTMLControl:= '</>';
   end;
   }
+end;
+
+procedure TfrmCadEmpresa.Upload(AFiles: TStrings; Sender: TObject);
+begin
+  //inherited Upload(AFiles, Sender);
+  edcaminho_arquivo.Text := AFiles[0];
 end;
 
 end.
