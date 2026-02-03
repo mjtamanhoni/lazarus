@@ -76,9 +76,9 @@
         <UnitName Value="uEmpresa.Service"/>
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="5"/>
-        <TopLine Value="170"/>
-        <CursorPos Y="209"/>
-        <FoldState Value=" TJo87z1 Pi3iK7*"/>
+        <TopLine Value="239"/>
+        <CursorPos X="33" Y="254"/>
+        <FoldState Value=" TJo77z1 Pi3iK7("/>
         <UsageCount Value="300"/>
         <Loaded Value="True"/>
       </Unit>
@@ -222,7 +222,7 @@
         <WatchScope Value="wpsLocal"/>
         <WatchKind Value="wpkWrite"/>
         <Source Value="uempresa.service.pas"/>
-        <Line Value="286"/>
+        <Line Value="285"/>
       </Item>
     </BreakPoints>
   </Debugging>

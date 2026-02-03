@@ -230,7 +230,7 @@ begin
         FQuery.Sql.Add('  db.id_empresa ');
         FQuery.Sql.Add('  ,db.id_banco; ');
         FQuery.Open;
-        FJSonobject.Add('conta bancaria',FQuery.ToJSONArray);
+        FJSonobject.Add('contaBancaria',FQuery.ToJSONArray);
 
         //Certificado digital...
         FQuery.Close;
@@ -247,10 +247,11 @@ begin
         FQuery.Sql.Add('  cd.id_empresa ');
         FQuery.Sql.Add('  ,cd.id_certificado; ');
         FQuery.Open;
-        FJSonobject.Add('certificado digital',FQuery.ToJSONArray);
+        FJSonobject.Add('certificadoDigital',FQuery.ToJSONArray);
       end;
 
       Result := FJSonobject.AsJSON;
+      SaveLog(FJSonobject.AsJSON);
 
     except
       on E :Exception do
