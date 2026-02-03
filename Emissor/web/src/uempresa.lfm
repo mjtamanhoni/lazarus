@@ -279,6 +279,11 @@ inherited frmEmpresa: TfrmEmpresa
         Name = 'celular'
         DataType = ftString
         Size = 20
+      end    
+      item
+        Name = 'crtDesc'
+        DataType = ftString
+        Size = 255
       end>
     Left = 304
     Top = 240
@@ -429,10 +434,20 @@ inherited frmEmpresa: TfrmEmpresa
       ReadOnly = False
       Required = False
     end
+    object mdRegistrocrtDesc: TStringField
+      FieldKind = fkData
+      FieldName = 'crtDesc'
+      Index = 14
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
   end
   object pMenu_Filtro: TPopupMenu[6]
-    Left = 504
-    Top = 224
+    Left = 168
+    Top = 200
     object miId: TMenuItem
       Caption = 'ID'
       OnClick = miRazaoSocialClick
@@ -451,6 +466,420 @@ inherited frmEmpresa: TfrmEmpresa
       Tag = 3
       Caption = 'CNPJ/CPF'
       OnClick = miRazaoSocialClick
+    end
+  end
+  object mdEndereco: TMemDataset[7]
+    FieldDefs = <    
+      item
+        Name = 'idEndereco'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'idEmpresa'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'logradouro'
+        DataType = ftString
+        Size = 255
+      end    
+      item
+        Name = 'numero'
+        DataType = ftString
+        Size = 20
+      end    
+      item
+        Name = 'complemento'
+        DataType = ftString
+        Size = 100
+      end    
+      item
+        Name = 'bairro'
+        DataType = ftString
+        Size = 100
+      end    
+      item
+        Name = 'municipio'
+        DataType = ftString
+        Size = 100
+      end    
+      item
+        Name = 'codigoMunicipioIbge'
+        DataType = ftString
+        Size = 7
+      end    
+      item
+        Name = 'uf'
+        DataType = ftString
+        Size = 2
+      end    
+      item
+        Name = 'cep'
+        DataType = ftString
+        Size = 8
+      end    
+      item
+        Name = 'pais'
+        DataType = ftString
+        Size = 100
+      end    
+      item
+        Name = 'codigoPaisIbge'
+        DataType = ftString
+        Size = 4
+      end    
+      item
+        Name = 'tipoEndereco'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'tipoEnderecoDesc'
+        DataType = ftString
+        Size = 255
+      end>
+    Left = 456
+    Top = 88
+    object mdEnderecoidEndereco: TLongintField
+      FieldKind = fkData
+      FieldName = 'idEndereco'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object mdEnderecoidEmpresa: TLongintField
+      FieldKind = fkData
+      FieldName = 'idEmpresa'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object mdEnderecologradouro: TStringField
+      FieldKind = fkData
+      FieldName = 'logradouro'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object mdEndereconumero: TStringField
+      FieldKind = fkData
+      FieldName = 'numero'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object mdEnderecocomplemento: TStringField
+      FieldKind = fkData
+      FieldName = 'complemento'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 100
+    end
+    object mdEnderecobairro: TStringField
+      FieldKind = fkData
+      FieldName = 'bairro'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 100
+    end
+    object mdEnderecomunicipio: TStringField
+      FieldKind = fkData
+      FieldName = 'municipio'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 100
+    end
+    object mdEnderecocodigoMunicipioIbge: TStringField
+      FieldKind = fkData
+      FieldName = 'codigoMunicipioIbge'
+      Index = 7
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 7
+    end
+    object mdEnderecouf: TStringField
+      FieldKind = fkData
+      FieldName = 'uf'
+      Index = 8
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 2
+    end
+    object mdEnderecocep: TStringField
+      FieldKind = fkData
+      FieldName = 'cep'
+      Index = 9
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 8
+    end
+    object mdEnderecopais: TStringField
+      FieldKind = fkData
+      FieldName = 'pais'
+      Index = 10
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 100
+    end
+    object mdEnderecocodigoPaisIbge: TStringField
+      FieldKind = fkData
+      FieldName = 'codigoPaisIbge'
+      Index = 11
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 4
+    end
+    object mdEnderecotipoEndereco: TLongintField
+      FieldKind = fkData
+      FieldName = 'tipoEndereco'
+      Index = 12
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object mdEnderecotipoEnderecoDesc: TStringField
+      FieldKind = fkData
+      FieldName = 'tipoEnderecoDesc'
+      Index = 13
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+  end
+  object meDadosBancarios: TMemDataset[8]
+    FieldDefs = <    
+      item
+        Name = 'idBanco'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'idEmpresa'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'banco'
+        DataType = ftString
+        Size = 100
+      end    
+      item
+        Name = 'agencia'
+        DataType = ftString
+        Size = 20
+      end    
+      item
+        Name = 'conta'
+        DataType = ftString
+        Size = 20
+      end    
+      item
+        Name = 'tipoConta'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'tipoContaDesc'
+        DataType = ftString
+        Size = 255
+      end>
+    Left = 456
+    Top = 144
+    object meDadosBancariosidBanco: TLongintField
+      FieldKind = fkData
+      FieldName = 'idBanco'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object meDadosBancariosidEmpresa: TLongintField
+      FieldKind = fkData
+      FieldName = 'idEmpresa'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object meDadosBancariosbanco: TStringField
+      FieldKind = fkData
+      FieldName = 'banco'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 100
+    end
+    object meDadosBancariosagencia: TStringField
+      FieldKind = fkData
+      FieldName = 'agencia'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object meDadosBancariosconta: TStringField
+      FieldKind = fkData
+      FieldName = 'conta'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object meDadosBancariostipoConta: TLongintField
+      FieldKind = fkData
+      FieldName = 'tipoConta'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object meDadosBancariostipoContaDesc: TStringField
+      FieldKind = fkData
+      FieldName = 'tipoContaDesc'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+  end
+  object mdCertificadoDigital: TMemDataset[9]
+    FieldDefs = <    
+      item
+        Name = 'idCertificado'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'idEmpresa'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'tipo'
+        DataType = ftString
+        Size = 50
+      end    
+      item
+        Name = 'validade'
+        DataType = ftDate
+      end    
+      item
+        Name = 'caminhoArquivo'
+        DataType = ftString
+        Size = 255
+      end    
+      item
+        Name = 'senha'
+        DataType = ftString
+        Size = 255
+      end    
+      item
+        Name = 'tipoDesc'
+        DataType = ftString
+        Size = 255
+      end>
+    Left = 456
+    Top = 208
+    object mdCertificadoDigitalidCertificado: TLongintField
+      FieldKind = fkData
+      FieldName = 'idCertificado'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object mdCertificadoDigitalidEmpresa: TLongintField
+      FieldKind = fkData
+      FieldName = 'idEmpresa'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object mdCertificadoDigitaltipo: TStringField
+      FieldKind = fkData
+      FieldName = 'tipo'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 50
+    end
+    object mdCertificadoDigitalvalidade: TDateField
+      FieldKind = fkData
+      FieldName = 'validade'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object mdCertificadoDigitalcaminhoArquivo: TStringField
+      FieldKind = fkData
+      FieldName = 'caminhoArquivo'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object mdCertificadoDigitalsenha: TStringField
+      FieldKind = fkData
+      FieldName = 'senha'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object mdCertificadoDigitaltipoDesc: TStringField
+      FieldKind = fkData
+      FieldName = 'tipoDesc'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
     end
   end
 end

@@ -154,10 +154,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uCad.Empresa"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="4"/>
         <TopLine Value="395"/>
-        <CursorPos X="29" Y="402"/>
+        <CursorPos X="68" Y="417"/>
         <UsageCount Value="267"/>
         <Bookmarks Count="2">
           <Item0 Y="457" Left="1" Top="443" ID="2"/>
@@ -173,9 +172,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uEmpresa"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="9"/>
-        <TopLine Value="316"/>
-        <CursorPos X="62" Y="331"/>
+        <TopLine Value="221"/>
+        <CursorPos X="68" Y="239"/>
         <UsageCount Value="267"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -242,41 +242,6 @@
       </Unit>
     </Units>
     <JumpHistory HistoryIndex="29">
-      <Position>
-        <Filename Value="ucad.empresa.pas"/>
-        <Caret Line="467" Column="48" TopLine="450"/>
-      </Position>
-      <Position>
-        <Filename Value="ucad.empresa.pas"/>
-        <Caret Line="480" Column="41" TopLine="450"/>
-      </Position>
-      <Position>
-        <Filename Value="ucad.empresa.pas"/>
-        <Caret Line="467" Column="9" TopLine="450"/>
-      </Position>
-      <Position>
-        <Filename Value="ucad.empresa.pas"/>
-        <Caret Line="468" Column="21" TopLine="450"/>
-      </Position>
-      <Position>
-        <Filename Value="ucad.empresa.pas"/>
-      </Position>
-      <Position>
-        <Filename Value="ucad.empresa.pas"/>
-        <Caret Line="141" TopLine="111"/>
-      </Position>
-      <Position>
-        <Filename Value="ucad.empresa.pas"/>
-        <Caret Line="183" TopLine="152"/>
-      </Position>
-      <Position>
-        <Filename Value="ucad.empresa.pas"/>
-        <Caret Line="320" TopLine="289"/>
-      </Position>
-      <Position>
-        <Filename Value="ucad.empresa.pas"/>
-        <Caret Line="458" Column="34" TopLine="445"/>
-      </Position>
       <Position>
         <Filename Value="ucad.empresa.pas"/>
         <Caret Line="143" TopLine="125"/>
@@ -358,6 +323,42 @@
       <Position>
         <Filename Value="ucad.empresa.pas"/>
         <Caret Line="247" Column="41" TopLine="226"/>
+      </Position>
+      <Position>
+        <Filename Value="uempresa.pas"/>
+        <Caret Line="331" Column="62" TopLine="316"/>
+      </Position>
+      <Position>
+        <Filename Value="uempresa.pas"/>
+        <Caret Line="332" Column="62" TopLine="317"/>
+      </Position>
+      <Position>
+        <Filename Value="uempresa.pas"/>
+        <Caret Line="333" Column="62" TopLine="318"/>
+      </Position>
+      <Position>
+        <Filename Value="uempresa.pas"/>
+        <Caret Line="334" Column="62" TopLine="319"/>
+      </Position>
+      <Position>
+        <Filename Value="uempresa.pas"/>
+        <Caret Line="338" Column="35" TopLine="290"/>
+      </Position>
+      <Position>
+        <Filename Value="uempresa.pas"/>
+        <Caret Line="69" Column="20" TopLine="45"/>
+      </Position>
+      <Position>
+        <Filename Value="uempresa.pas"/>
+        <Caret Line="211" Column="68" TopLine="193"/>
+      </Position>
+      <Position>
+        <Filename Value="uempresa.pas"/>
+        <Caret Line="225" Column="68" TopLine="207"/>
+      </Position>
+      <Position>
+        <Filename Value="uempresa.pas"/>
+        <Caret Line="232" Column="68" TopLine="214"/>
       </Position>
     </JumpHistory>
     <RunParams>
