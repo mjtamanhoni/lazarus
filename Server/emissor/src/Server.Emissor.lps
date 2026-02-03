@@ -18,7 +18,7 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="uBase.Router"/>
         <EditorIndex Value="3"/>
-        <TopLine Value="82"/>
+        <TopLine Value="94"/>
         <CursorPos X="43" Y="102"/>
         <FoldState Value=" TJP1CR"/>
         <UsageCount Value="214"/>
@@ -76,9 +76,9 @@
         <UnitName Value="uEmpresa.Service"/>
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="5"/>
-        <TopLine Value="343"/>
-        <CursorPos X="70" Y="355"/>
-        <FoldState Value=" TJlQ7z1 Pi3iK7T"/>
+        <TopLine Value="170"/>
+        <CursorPos Y="209"/>
+        <FoldState Value=" TJo87z1 Pi3iK7*"/>
         <UsageCount Value="300"/>
         <Loaded Value="True"/>
       </Unit>
@@ -93,26 +93,6 @@
       </Unit>
     </Units>
     <JumpHistory HistoryIndex="29">
-      <Position>
-        <Filename Value="ubase.router.pas"/>
-        <Caret Line="144" Column="49" TopLine="113"/>
-      </Position>
-      <Position>
-        <Filename Value="udm.pas"/>
-        <Caret Line="57" Column="47" TopLine="56"/>
-      </Position>
-      <Position>
-        <Filename Value="uempresa.service.pas"/>
-        <Caret Line="342" Column="11" TopLine="316"/>
-      </Position>
-      <Position>
-        <Filename Value="udm.pas"/>
-        <Caret Line="56" Column="47" TopLine="55"/>
-      </Position>
-      <Position>
-        <Filename Value="uempresa.service.pas"/>
-        <Caret Line="274" Column="34" TopLine="261"/>
-      </Position>
       <Position>
         <Filename Value="uempresa.service.pas"/>
         <Caret Line="310" Column="55" TopLine="290"/>
@@ -162,10 +142,6 @@
       </Position>
       <Position>
         <Filename Value="uempresa.service.pas"/>
-        <Caret Line="257" Column="76" TopLine="274"/>
-      </Position>
-      <Position>
-        <Filename Value="uempresa.service.pas"/>
         <Caret Line="242" Column="22" TopLine="225"/>
       </Position>
       <Position>
@@ -209,6 +185,30 @@
         <Filename Value="uempresa.service.pas"/>
         <Caret Line="357" Column="55" TopLine="324"/>
       </Position>
+      <Position>
+        <Filename Value="uempresa.service.pas"/>
+        <Caret Line="456" Column="48" TopLine="451"/>
+      </Position>
+      <Position>
+        <Filename Value="uempresa.service.pas"/>
+        <Caret Line="46" Column="20" TopLine="37"/>
+      </Position>
+      <Position>
+        <Filename Value="uempresa.service.pas"/>
+        <Caret Line="239" Column="50" TopLine="221"/>
+      </Position>
+      <Position>
+        <Filename Value="uempresa.service.pas"/>
+        <Caret Line="105" Column="45" TopLine="87"/>
+      </Position>
+      <Position>
+        <Filename Value="uempresa.service.pas"/>
+        <Caret Line="156" Column="60" TopLine="136"/>
+      </Position>
+      <Position>
+        <Filename Value="uempresa.service.pas"/>
+        <Caret Line="211" Column="61" TopLine="183"/>
+      </Position>
     </JumpHistory>
     <RunParams>
       <FormatVersion Value="2"/>
@@ -222,7 +222,7 @@
         <WatchScope Value="wpsLocal"/>
         <WatchKind Value="wpkWrite"/>
         <Source Value="uempresa.service.pas"/>
-        <Line Value="175"/>
+        <Line Value="286"/>
       </Item>
     </BreakPoints>
   </Debugging>

@@ -91,6 +91,7 @@ var
   FJSonObject :TJSONObject;
   FDM :TDM;
   FQuery :TZQuery;
+  FLista :String;
 begin
   try
     try
@@ -101,6 +102,12 @@ begin
 
       FQuery.SQL.Add('select ');
       FQuery.SQL.Add('  e.* ');
+      FQuery.SQL.Add('  ,cast(case e.crt ');
+      FQuery.SQL.Add('     when ''1'' then ''Simples Nacional'' ');
+      FQuery.SQL.Add('     when ''2'' then ''Simples Nacional - excesso de sublimite de receita bruta'' ');
+      FQuery.SQL.Add('     when ''3'' then ''Regime Normal (Lucro Presumido ou Real)'' ');
+      FQuery.SQL.Add('     when ''4'' then ''Microempreendedor Individual (MEI)'' ');
+      FQuery.SQL.Add('  end as varchar(255)) as crt_desc ');
       FQuery.SQL.Add('from public.empresa e ');
       FQuery.SQL.Add('where 1=1 ');
       if AId > 0 then
@@ -130,15 +137,117 @@ begin
       end;
       FQuery.SQL.Add('order by ');
       FQuery.SQL.Add('  e.id_empresa; ');
-
       FQuery.Open;
 
       if FQuery.IsEmpty then
-        raise Exception.Create('Empresa não localizada')
-      else
+        raise Exception.Create('Empresa não localizada');
+
+      FJSonobject.Add('success',True);
+
+      //Empresa...
+      FJSonobject.Add('data',FQuery.ToJSONArray);
+
+      //Lista de empresas...
+      FLista := '';
+      FQuery.Close;
+      FQuery.SQL.Clear;
+      FQuery.Sql.Add('select ');
+      FQuery.Sql.Add('	string_agg(e.id_empresa::text,'','') as empresas ');
+      FQuery.Sql.Add('from public.empresa e ');
+      FQuery.Sql.Add('where 1=1 ');
+      if AId > 0 then
       begin
-        FJSonobject.Add('success',True);
-        FJSonobject.Add('data',FQuery.ToJSONArray);
+        FQuery.SQL.Add('  AND e.id_empresa = :id_empresa ');
+        FQuery.ParamByName('id_empresa').AsInteger := AId;
+      end;
+      if Trim(ACNPJ) <> '' then
+      begin
+        FQuery.SQL.Add('  and e.cnpj  = :cnpj ');
+        FQuery.ParamByName('cnpj').AsString := ACNPJ;
+      end;
+      if Trim(ARazaoSocial) <> '' then
+      begin
+        FQuery.SQL.Add('  and e.razao_social = :razao_social ');
+        FQuery.ParamByName('razao_social').AsString := ARazaoSocial;
+      end;
+      if Trim(ANomeFantasia) <> '' then
+      begin
+        FQuery.SQL.Add('  and e.nome_fantasia = :nome_fantasia ');
+        FQuery.ParamByName('nome_fantasia').AsString := ANomeFantasia;
+      end;
+      if AStatus in [0,1] then
+      begin
+        FQuery.SQL.Add('  and e.ativo = :ativo');
+        FQuery.ParamByName('ativo').AsInteger := AStatus;
+      end;
+      FQuery.Open;
+      if ((not FQuery.IsEmpty) and (not FQuery.FieldByName('empresas').IsNull)) then
+        FLista := FQuery.FieldByName('empresas').AsString;
+
+      if Trim(FLista) <> '' then
+      begin
+        //Endereços...
+        FQuery.Close;
+        FQuery.SQL.Clear;
+        FQuery.Sql.Add('select ');
+        FQuery.Sql.Add('  ee.* ');
+        FQuery.Sql.Add('  ,cast(case ee.tipo_endereco ');
+        FQuery.Sql.Add('     when 0 then ''Comercial'' ');
+        FQuery.Sql.Add('     when 1 then ''Residencial'' ');
+        FQuery.Sql.Add('     when 2 then ''Entrega (Shipping)'' ');
+        FQuery.Sql.Add('     when 3 then ''Cobrança/Faturamento'' ');
+        FQuery.Sql.Add('     when 4 then ''Correspondência'' ');
+        FQuery.Sql.Add('     when 5 then ''Endereço de Instalação (quando envolve serviços técnicos), endereço rural'' ');
+        FQuery.Sql.Add('     when 6 then ''Endereço Rural (para produtores)'' ');
+        FQuery.Sql.Add('     when 7 then ''Endereço Temporário (Eventos, obras)'' ');
+        FQuery.Sql.Add('  end as varchar(255)) as tipo_endereco_desc ');
+        FQuery.Sql.Add('from public.endereco_empresa ee ');
+        FQuery.Sql.Add('where ee.id_empresa in ('+FLista+') ');
+        FQuery.Sql.Add('order by ');
+        FQuery.Sql.Add('  ee.id_empresa ');
+        FQuery.Sql.Add('  ,ee.id_endereco; ');
+        FQuery.Open;
+        FJSonobject.Add('endereco',FQuery.ToJSONArray);
+
+        //Contas bancárias...
+        FQuery.Close;
+        FQuery.SQL.Clear;
+        FQuery.Sql.Add('select ');
+        FQuery.Sql.Add('  db.* ');
+        FQuery.Sql.Add('  ,cast(case db.tipo_conta ');
+        FQuery.Sql.Add('     when 0 then ''Corrente (PF/PJ) - Movimentação diária'' ');
+        FQuery.Sql.Add('     when 1 then ''Poupança (PF) - Guardar e render dinheiro'' ');
+        FQuery.Sql.Add('     when 2 then ''Salário (PF) - Receber salário/benefícios'' ');
+        FQuery.Sql.Add('     when 3 then ''Universitária/Jovem (Estudantes/jovens) - Condições especiais'' ');
+        FQuery.Sql.Add('     when 4 then ''PJ/MEI (Empresas/autônomos) - Gestão financeira empresarial'' ');
+        FQuery.Sql.Add('     when 5 then ''Digital (PF/PJ) - Movimentação online'' ');
+        FQuery.Sql.Add('     when 6 then ''Investimento (PF/PJ) - Aplicações financeiras'' ');
+        FQuery.Sql.Add('     when 7 then ''Conjunta (PF) - Compartilhar recursos'' ');
+        FQuery.Sql.Add('  end as varchar(255)) as tipo_conta_desc ');
+        FQuery.Sql.Add('from public.dados_bancarios db ');
+        FQuery.Sql.Add('where db.id_empresa in ('+FLista+') ');
+        FQuery.Sql.Add('order by ');
+        FQuery.Sql.Add('  db.id_empresa ');
+        FQuery.Sql.Add('  ,db.id_banco; ');
+        FQuery.Open;
+        FJSonobject.Add('conta bancaria',FQuery.ToJSONArray);
+
+        //Certificado digital...
+        FQuery.Close;
+        FQuery.SQL.Clear;
+        FQuery.Sql.Add('select ');
+        FQuery.Sql.Add('  cd.* ');
+        FQuery.Sql.Add('  ,cast(case cd.tipo ');
+        FQuery.Sql.Add('     when ''0'' then ''Certificado Digital A1'' ');
+        FQuery.Sql.Add('     when ''1'' then ''Certificado Digital A3'' ');
+        FQuery.Sql.Add('  end as varchar(255)) as tipo_desc ');
+        FQuery.Sql.Add('from public.certificado_digital cd ');
+        FQuery.Sql.Add('where cd.id_empresa in ('+FLista+') ');
+        FQuery.Sql.Add('order by ');
+        FQuery.Sql.Add('  cd.id_empresa ');
+        FQuery.Sql.Add('  ,cd.id_certificado; ');
+        FQuery.Open;
+        FJSonobject.Add('certificado digital',FQuery.ToJSONArray);
       end;
 
       Result := FJSonobject.AsJSON;

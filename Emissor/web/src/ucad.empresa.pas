@@ -244,7 +244,7 @@ begin
         fEmpresa.Add('cnpj',RemoverMascara(edcnpj.Text));
         fEmpresa.Add('inscricaoEstadual',edinscricao_estadual.Text);
         fEmpresa.Add('inscricaoMunicipal',edinscricao_municipal.Text);
-        fEmpresa.Add('regimeTributario',cbregime_tributario.ItemIndex);
+        fEmpresa.Add('regimeTributario',cbregime_tributario.Text);
         fEmpresa.Add('crt',edcrt.Text);
         fEmpresa.Add('email',edemail.Text);
         fEmpresa.Add('telefone',edtelefone.Text);
