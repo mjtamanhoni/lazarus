@@ -24,7 +24,7 @@ Unit_D2Bridge_Server_Console in 'Unit_D2Bridge_Server_Console.pas',
   
   unit1, D2Bridge.ServerControllerBase, Prism.Session, uPrincipal,
 uBase.Validation, uDM.ACBr, uCad.Empresa, uEmpresa, uCad.Empresa.Endereco,
-ucad.empresa.DadosBancarios, uType_Field_Table
+ucad.empresa.DadosBancarios, uType_Field_Table, uBase.DataSets
   { you can add units after this };
 
 {$R *.res}

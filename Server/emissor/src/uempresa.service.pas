@@ -251,7 +251,6 @@ begin
       end;
 
       Result := FJSonobject.AsJSON;
-      SaveLog(FJSonobject.AsJSON);
 
     except
       on E :Exception do

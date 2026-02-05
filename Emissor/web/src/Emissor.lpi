@@ -215,6 +215,11 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="uType_Field_Table"/>
       </Unit>
+      <Unit>
+        <Filename Value="ubase.datasets.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uBase.DataSets"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

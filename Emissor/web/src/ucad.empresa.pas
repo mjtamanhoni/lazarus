@@ -351,8 +351,6 @@ begin
       end;
 
       mdEndereco.Active := True;
-
-      SaveLog('Qtd: ' + IntToStr(mdEndereco.RecordCount));
     except
       on E:Exception do
       begin
@@ -449,7 +447,6 @@ begin
       FIniFile := TIniFile.Create(ConfigFile);
       FHost := FIniFile.ReadString('SERVER','HOST','') + ':' + FIniFile.ReadString('SERVER','PORT','');
 
-      //CriaDataset_Empresa;
 
       if Trim(FHost) = '' then
         raise Exception.Create('Host de acesso ao servidor não informado.');
@@ -488,6 +485,7 @@ begin
   edemail.Clear;
   edsite.Clear;
 
+  {
   //Endereço...
   mdEndereco.Clear;
 
@@ -500,7 +498,7 @@ begin
   edvalidade.Date := Date;
   edcaminho_arquivo.Clear;
   edsenha.Clear;;
-
+  }
 end;
 
 procedure TfrmCadEmpresa.ExportD2Bridge;
@@ -604,7 +602,7 @@ begin
                 with Row(CSSClass.Space.margim_bottom3).Items.Add do
                   FormGroup('',CSSClass.Col.colsize12).AddLCLObj(edcaminho_arquivo);
                 with Row.Items.Add do
-                  Upload('Selecione o Certificado','*.pfx');
+                  Upload('Selecione o Certificado','pfx,p12');
               end;
             end;
           end;

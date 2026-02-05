@@ -22,6 +22,7 @@ procedure PreencherDataSetDeJSONArray(
   const ADataSet: TDataSet;
   const IgnorarCampos: array of string); // campos opcionais para ignorar
 procedure PopularMemDataDoJSON(FDados: TJSONArray; mdRegistro: TMemDataset);
+function StrISOToDateTime(const DataStr: string): TDateTime;
 
 {$EndRegion}
 
@@ -298,11 +299,8 @@ begin
               ftString, ftMemo:
                 mdRegistro.FieldByName(FieldNameDS).AsString := Valor;
 
-              ftDateTime:
+              ftDate,ftDateTime:
                 mdRegistro.FieldByName(FieldNameDS).AsDateTime := ISO8601ToDateDef(Valor, 0);
-
-              ftDate:
-                mdRegistro.FieldByName(FieldNameDS).AsDateTime := DateOf(Valor, 0);
 
               //DateOf(FJson_CD.Floats['validade']);
 
@@ -326,7 +324,35 @@ begin
   end;
 end;
 
+function StrISOToDateTime(const DataStr: string): TDateTime;
+begin
+  Result := 0;
 
+  if Trim(DataStr) = '' then Exit;
+
+  try
+    // Tenta converter diretamente no formato ISO (YYYY-MM-DD)
+    Result := EncodeDate(
+      StrToInt(Copy(DataStr, 1, 4)),     // Ano
+      StrToInt(Copy(DataStr, 6, 2)),     // Mês
+      StrToInt(Copy(DataStr, 9, 2))      // Dia
+    );
+
+    // Se tiver hora (YYYY-MM-DDTHH:MM:SS), converte também
+    if Pos('T', DataStr) > 0 then
+    begin
+      Result := Result + EncodeTime(
+        StrToInt(Copy(DataStr, 12, 2)),  // Hora
+        StrToInt(Copy(DataStr, 15, 2)),  // Minuto
+        StrToInt(Copy(DataStr, 18, 2)),  // Segundo
+        0                                // Milissegundo
+      );
+    end;
+  except
+    on E: Exception do
+      raise Exception.Create(E.Message);
+  end;
+end;
 
 
 end.
