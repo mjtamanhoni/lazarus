@@ -460,6 +460,8 @@ begin
       memD_Endereco := TBufDataset.Create(Self);
       memD_CBanco := TBufDataset.Create(Self);
 
+      Create_DataSet;
+
       if Trim(FHost) = '' then
         raise Exception.Create('Host de acesso ao servidor não informado.');
     except

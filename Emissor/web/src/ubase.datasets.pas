@@ -36,62 +36,68 @@ begin
   // Limpa colunas existentes (opcional - comente se quiser manter algumas personalizadas)
   //Grid.Columns.Clear;
 
-  Dataset.DisableControls;
   try
-    for Field in Dataset.Fields do
-    begin
-      Col := Grid.Columns.Add;
-      Col.FieldName := Field.FieldName;
-      Col.Title.Caption := Field.DisplayLabel;
+    Dataset.DisableControls;
+    try
+      for Field in Dataset.Fields do
+      begin
+        Col := Grid.Columns.Add;
+        Col.FieldName := Field.FieldName;
+        Col.Title.Caption := Field.DisplayLabel;
 
-      // Se DisplayLabel estiver vazio, usa o FieldName
-      if Trim(Col.Title.Caption) = '' then
-        Col.Title.Caption := Field.FieldName;
+        // Se DisplayLabel estiver vazio, usa o FieldName
+        if Trim(Col.Title.Caption) = '' then
+          Col.Title.Caption := Field.FieldName;
 
-      // Define largura automática baseada no tipo e tamanho do campo
-      case Field.DataType of
-        ftString, ftMemo, ftWideString:
-          begin
-            Largura := Field.Size * 8;  // Aproximadamente 8 pixels por caractere
-            if Largura < 80 then Largura := 80;
-            if Largura > 350 then Largura := 350; // Limite máximo
-          end;
+        // Define largura automática baseada no tipo e tamanho do campo
+        case Field.DataType of
+          ftString, ftMemo, ftWideString:
+            begin
+              Largura := Field.Size * 8;  // Aproximadamente 8 pixels por caractere
+              if Largura < 80 then Largura := 80;
+              if Largura > 350 then Largura := 350; // Limite máximo
+            end;
 
-        ftInteger, ftSmallint, ftLargeint:
-          Largura := 65;  // Largura fixa para números inteiros
+          ftInteger, ftSmallint, ftLargeint:
+            Largura := 65;  // Largura fixa para números inteiros
 
-        ftFloat, ftCurrency:
-          Largura := 100; // Com casas decimais
+          ftFloat, ftCurrency:
+            Largura := 100; // Com casas decimais
 
-        ftDate, ftTime, ftDateTime:
-          Largura := 120; // Formato de data/hora
+          ftDate, ftTime, ftDateTime:
+            Largura := 120; // Formato de data/hora
 
-        ftBoolean:
-          Largura := 60;  // Checkbox ou texto "Sim/Não"
+          ftBoolean:
+            Largura := 60;  // Checkbox ou texto "Sim/Não"
 
-        else
-          Largura := 100; // Default para tipos desconhecidos
+          else
+            Largura := 100; // Default para tipos desconhecidos
+        end;
+
+        Col.Width := Largura;
+
+        // Alinhamento automático
+        case Field.DataType of
+          ftInteger, ftSmallint, ftLargeint, ftFloat, ftCurrency:
+            Col.Alignment := taRightJustify;
+          ftBoolean:
+            Col.Alignment := taCenter;
+          else
+            Col.Alignment := taLeftJustify;
+        end;
       end;
 
-      Col.Width := Largura;
+      // Opcional: Ajusta colunas para preencher o grid
+      //Grid.AutoFillColumns := True;
+      //Grid.Options := Grid.Options + [dgAutoSizeColumns];
 
-      // Alinhamento automático
-      case Field.DataType of
-        ftInteger, ftSmallint, ftLargeint, ftFloat, ftCurrency:
-          Col.Alignment := taRightJustify;
-        ftBoolean:
-          Col.Alignment := taCenter;
-        else
-          Col.Alignment := taLeftJustify;
-      end;
+    finally
+      Dataset.EnableControls;
     end;
 
-    // Opcional: Ajusta colunas para preencher o grid
-    //Grid.AutoFillColumns := True;
-    //Grid.Options := Grid.Options + [dgAutoSizeColumns];
-
-  finally
-    Dataset.EnableControls;
+  except
+    on E:Exception do
+      raise Exception.Create('Configurando DbGrid: ' + E.Message);
   end;
 
 end;

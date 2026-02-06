@@ -187,6 +187,10 @@ var
 begin
   try
     try
+      memD_Empresas.DisableControls;
+      memD_Endereco.DisableControls;
+      memD_CBanco.DisableControls;
+
       if AJSon_Empresa.Count = 0 then
         raise Exception.Create('Não há empresas para listar.');
 
@@ -194,7 +198,6 @@ begin
         Create_DataSet;
 
       //Adicionando dados da empresa...
-      memD_Empresas.DisableControls;
       for I := 0 to Pred(AJSon_Empresa.Count) do
       begin
         memD_Empresas.Append;
@@ -215,9 +218,9 @@ begin
         memD_Empresas.FieldByName('crtDesc').AsString := AJSon_Empresa.Objects[I].Strings['crtDesc'];
         memD_Empresas.Post;
       end;
+      memD_Empresas.EnableControls;
 
       //Adicionando dados do endereço...
-      memD_Endereco.DisableControls;
       for I := 0 to Pred(AJSon_Endereco.Count) do
       begin
         memD_Endereco.Append;
@@ -239,7 +242,6 @@ begin
       end;
 
       //Adicionando dados da conta bancária...
-      memD_CBanco.DisableControls;
       for I := 0 to Pred(AJSon_CBanco.Count) do
       begin
         memD_CBanco.Append;
@@ -478,14 +480,14 @@ begin
       if not memD_Empresas.IsEmpty then
       begin
 
-        memD_Endereco.First;
-        memD_Endereco.Filter := 'idEmpresa = ' + memD_Empresas.FieldByName('idEmpresa').AsString;
-        memD_Endereco.Filtered := True;
+        //Endereço...
 
         if not FfrmCadEmpresa.memD_Endereco.Active then
           FfrmCadEmpresa.Create_DataSet;
 
         FfrmCadEmpresa.memD_Endereco.DisableControls;
+        memD_Endereco.Filter := 'idEmpresa = ' + memD_Empresas.FieldByName('idEmpresa').AsString;
+        memD_Endereco.Filtered := True;
 	while not memD_Endereco.EOF do
         begin
           //Adicionando dados da empresa...
@@ -508,11 +510,33 @@ begin
 
             memD_Endereco.Next;
         end;
+        FfrmCadEmpresa.memD_Endereco.EnableControls;
+
+        //Contas bancárias...
+        FfrmCadEmpresa.memD_CBanco.DisableControls;
+        memD_CBanco.Filter := 'idEmpresa = ' + memD_Empresas.FieldByName('idEmpresa').AsString;
+        memD_CBanco.Filtered := True;
+        while not memD_CBanco.EOF do
+        begin
+          FfrmCadEmpresa.memD_CBanco.Append;
+          FfrmCadEmpresa.memD_CBanco.FieldByName('idBanco').AsInteger := memD_CBanco.FieldByName('idBanco').AsInteger;
+          FfrmCadEmpresa.memD_CBanco.FieldByName('idEmpresa').AsInteger := memD_CBanco.FieldByName('idEmpresa').AsInteger;
+          FfrmCadEmpresa.memD_CBanco.FieldByName('banco').AsString := memD_CBanco.FieldByName('banco').AsString;
+          FfrmCadEmpresa.memD_CBanco.FieldByName('agencia').AsString := memD_CBanco.FieldByName('agencia').AsString;
+          FfrmCadEmpresa.memD_CBanco.FieldByName('conta').AsString := memD_CBanco.FieldByName('conta').AsString;
+          FfrmCadEmpresa.memD_CBanco.FieldByName('tipoConta').AsInteger := memD_CBanco.FieldByName('tipoConta').AsInteger;
+          FfrmCadEmpresa.memD_CBanco.FieldByName('tipoContaDesc').AsString := memD_CBanco.FieldByName('tipoContaDesc').AsString;
+          FfrmCadEmpresa.memD_CBanco.Post;
+
+          memD_CBanco.Next;
+        end;
+        FfrmCadEmpresa.memD_CBanco.EnableControls;
       end;
 
 
       ShowPopupModal('Popup' + FfrmCadEmpresa.Name);
 
+      //Informações atualizadas pelos registros da tela de cadastro...
       Pesquisar;
 
     except
@@ -523,8 +547,8 @@ begin
       end;
     end;
   finally
-    memD_Endereco.Filter := '';
     memD_Endereco.Filtered := False;
+    memD_CBanco.Filtered := False;
   end;
 end;
 
