@@ -110,6 +110,9 @@ end;
 procedure TfrmEmpresa.FormDestroy(Sender: TObject);
 begin
   FreeAndNil(memD_Empresas);
+  FreeAndNil(memD_Endereco);
+  FreeAndNil(memD_CBanco);
+  FreeAndNil(memD_Certificado);
   FreeAndNil(FIniFile);
 end;
 
@@ -340,7 +343,6 @@ begin
       FJSon_Certificado := TJSONArray(GetJSON(FBody['certificadoDigital'].AsJSON));
 
       //Inserindo informações...
-      SaveLog('Passou aqui');
       Adiciona_Dados(FJSon_Empresa,FJSon_Endereco,FJSon_DBanco,FJSon_Certificado);
 
     except
@@ -472,49 +474,42 @@ begin
       FfrmCadEmpresa.edsite.Text := memD_Empresas.FieldByName('site').AsString;
 
       //Endereço...
-      {
+
       if not memD_Empresas.IsEmpty then
       begin
 
         memD_Endereco.First;
         memD_Endereco.Filter := 'idEmpresa = ' + memD_Empresas.FieldByName('idEmpresa').AsString;
         memD_Endereco.Filtered := True;
-        memD_Endereco.Refresh;
 
+        if not FfrmCadEmpresa.memD_Endereco.Active then
+          FfrmCadEmpresa.Create_DataSet;
 
-        FfrmCadEmpresa.mdEndereco.DisableControls;
-        FfrmCadEmpresa.mdEndereco.Open;
-        SaveLog('003');
-
-        while not memD_Endereco.EOF do
+        FfrmCadEmpresa.memD_Endereco.DisableControls;
+	while not memD_Endereco.EOF do
         begin
-	  SaveLog('Loop. Registro: ' + memD_Endereco.RecNo.ToString);
+          //Adicionando dados da empresa...
+            FfrmCadEmpresa.memD_Endereco.Append;
+            FfrmCadEmpresa.memD_Endereco.FieldByName('idEndereco').AsInteger := memD_Endereco.FieldByName('idEndereco').AsInteger;
+            FfrmCadEmpresa.memD_Endereco.FieldByName('idEmpresa').AsInteger := memD_Endereco.FieldByName('idEmpresa').AsInteger;
+            FfrmCadEmpresa.memD_Endereco.FieldByName('logradouro').AsString := memD_Endereco.FieldByName('logradouro').AsString;
+            FfrmCadEmpresa.memD_Endereco.FieldByName('numero').AsString := memD_Endereco.FieldByName('numero').AsString;
+            FfrmCadEmpresa.memD_Endereco.FieldByName('complemento').AsString := memD_Endereco.FieldByName('complemento').AsString;
+            FfrmCadEmpresa.memD_Endereco.FieldByName('bairro').AsString := memD_Endereco.FieldByName('bairro').AsString;
+            FfrmCadEmpresa.memD_Endereco.FieldByName('municipio').AsString := memD_Endereco.FieldByName('municipio').AsString;
+            FfrmCadEmpresa.memD_Endereco.FieldByName('codigoMunicipioIbge').AsString := memD_Endereco.FieldByName('codigoMunicipioIbge').AsString;
+            FfrmCadEmpresa.memD_Endereco.FieldByName('uf').AsString := memD_Endereco.FieldByName('uf').AsString;
+            FfrmCadEmpresa.memD_Endereco.FieldByName('cep').AsString := memD_Endereco.FieldByName('cep').AsString;
+            FfrmCadEmpresa.memD_Endereco.FieldByName('pais').AsString := memD_Endereco.FieldByName('pais').AsString;
+            FfrmCadEmpresa.memD_Endereco.FieldByName('codigoPaisIbge').AsString := memD_Endereco.FieldByName('codigoPaisIbge').AsString;
+            FfrmCadEmpresa.memD_Endereco.FieldByName('tipoEndereco').AsInteger := memD_Endereco.FieldByName('tipoEndereco').AsInteger;
+            FfrmCadEmpresa.memD_Endereco.FieldByName('tipoEnderecoDesc').AsString := memD_Endereco.FieldByName('tipoEnderecoDesc').AsString;
+            FfrmCadEmpresa.memD_Endereco.Post;
 
-          FfrmCadEmpresa.mdEndereco.Append;
-
-          FfrmCadEmpresa.mdEndereco.FieldByName('end_id_endereco').AsInteger := mdEnderecoidEndereco.AsInteger;
-          FfrmCadEmpresa.mdEndereco.FieldByName('end_logradouro').AsString := mdEnderecologradouro.AsString;
-          FfrmCadEmpresa.mdEndereco.FieldByName('end_numero').AsString := mdEndereconumero.AsString;
-          FfrmCadEmpresa.mdEndereco.FieldByName('end_complemento').AsString := mdEnderecocomplemento.AsString;
-          FfrmCadEmpresa.mdEndereco.FieldByName('end_bairro').AsString := mdEnderecobairro.AsString;
-          FfrmCadEmpresa.mdEndereco.FieldByName('end_municipio').AsString := mdEnderecomunicipio.AsString;
-          FfrmCadEmpresa.mdEndereco.FieldByName('end_codigo_municipio_ibge').AsString := mdEnderecocodigoMunicipioIbge.AsString;
-          FfrmCadEmpresa.mdEndereco.FieldByName('end_uf').AsString := mdEnderecouf.AsString;
-          FfrmCadEmpresa.mdEndereco.FieldByName('end_cep').AsString := mdEnderecocep.AsString;
-          FfrmCadEmpresa.mdEndereco.FieldByName('end_pais').AsString := mdEnderecopais.AsString;
-          FfrmCadEmpresa.mdEndereco.FieldByName('end_codigo_pais_ibge').AsString := mdEnderecocodigoPaisIbge.AsString;
-          FfrmCadEmpresa.mdEndereco.FieldByName('end_tipo_endereco').AsInteger := mdEnderecotipoEndereco.AsInteger;
-
-          FfrmCadEmpresa.mdEndereco.Post;
-
-          memD_Endereco.Next;
+            memD_Endereco.Next;
         end;
-
-        FfrmCadEmpresa.mdEndereco.Active := True;
-        FfrmCadEmpresa.mdEndereco.EnableControls;
-
       end;
-      }
+
 
       ShowPopupModal('Popup' + FfrmCadEmpresa.Name);
 
@@ -522,7 +517,10 @@ begin
 
     except
       on E :Exception do
+      begin
+        SaveLog('Editando empresa. ' + E.Message);
          MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
+      end;
     end;
   finally
     memD_Endereco.Filter := '';

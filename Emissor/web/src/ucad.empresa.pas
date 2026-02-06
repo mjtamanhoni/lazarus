@@ -9,7 +9,7 @@ uses
   StdCtrls, ExtCtrls, ComCtrls, ComboEx, DBGrids, EditBtn, DateTimePicker,
   D2Bridge.Forms, ACBrValidador, IniFiles, fpjson, DataSet.Serialize,
   RESTRequest4D, jsonparser, uCad.Empresa.Endereco, ucad.empresa.DadosBancarios,
-  uDM.ACBr, uBase.Functions;
+  uDM.ACBr, uBase.Functions, uBase.DataSets;
 
 type
 
@@ -22,13 +22,13 @@ type
     btCB_Add: TButton;
     cbativo: TComboBox;
     cbtipo: TComboBox;
+    dsEndereco: TDataSource;
+    dsConta: TDataSource;
     DBGrid_End: TDBGrid;
     edcelular: TEdit;
     edvalidade: TDateTimePicker;
     edsenha: TEdit;
     DBGrid_DB: TDBGrid;
-    dsEndereco: TDataSource;
-    dsDadosBancarios: TDataSource;
     edcaminho_arquivo: TEdit;
     edcrt: TEdit;
     edemail: TEdit;
@@ -60,28 +60,6 @@ type
     lbnome_fantasia: TLabel;
     lbcrt: TLabel;
     lbtipo: TLabel;
-    mdDadosBancariosdb_agencia: TStringField;
-    mdDadosBancariosdb_banco: TStringField;
-    mdDadosBancariosdb_conta: TStringField;
-    mdDadosBancariosdb_id_banco: TLongintField;
-    mdDadosBancariosdb_tipo_conta: TLongintField;
-    mdDadosBancariosdb_tipo_conta_desc: TStringField;
-    mdEndereco: TMemDataset;
-    mdEnderecoend_bairro: TStringField;
-    mdEnderecoend_cep: TStringField;
-    mdEnderecoend_codigo_municipio_ibge: TStringField;
-    mdEnderecoend_codigo_pais_ibge: TStringField;
-    mdEnderecoend_complemento: TStringField;
-    mdEnderecoend_id_endereco: TLongintField;
-    mdEnderecoend_logradouro: TStringField;
-    mdEnderecoend_municipio: TStringField;
-    mdEnderecoend_numero: TStringField;
-    mdEnderecoend_pais: TStringField;
-    mdEnderecoend_tipo_endereco: TLongintField;
-    mdEnderecoend_tipo_endereco_desc: TStringField;
-    mdEnderecoend_uf: TStringField;
-    mdDadosBancarios: TMemDataset;
-    OpenDialog: TOpenDialog;
     pnEnd_Footer: TPanel;
     pnCB_Footer: TPanel;
     pnsenha: TPanel;
@@ -119,7 +97,6 @@ type
     tsEndereco: TTabSheet;
     tsDadosBancarios: TTabSheet;
     tsCertificadoDigital: TTabSheet;
-    procedure btcaminho_arquivoClick(Sender: TObject);
     procedure btCancelarClick(Sender: TObject);
     procedure btCB_AddClick(Sender: TObject);
     procedure btConfirmarClick(Sender: TObject);
@@ -140,14 +117,19 @@ type
     FIniFile :TIniFile;
     Flogradouro: String;
 
+
     procedure Clear_Parans(const AClear:Integer);
     procedure Gravar;
+
   public
     { Public declarations }
+    memD_Endereco :TBufDataset;
+    memD_CBanco :TBufDataset;
 
     property id_endereco :Integer read Fid_endereco write Fid_endereco;
     property logradouro :String read Flogradouro write Flogradouro;
 
+    procedure Create_DataSet;
     procedure Clear_Fields;
 
   protected
@@ -176,12 +158,6 @@ begin
   Close;
 end;
 
-procedure TfrmCadEmpresa.btcaminho_arquivoClick(Sender: TObject);
-begin
-  if OpenDialog.Execute then
-     edcaminho_arquivo.Text := OpenDialog.FileName;
-end;
-
 procedure TfrmCadEmpresa.btCB_AddClick(Sender: TObject);
 begin
   try
@@ -189,7 +165,7 @@ begin
       FfrmCad_Empresa_DadosBancarios.Clear_Fields;
 
       ShowPopupModal('Popup' + FfrmCad_Empresa_DadosBancarios.Name);
-
+      {
       mdDadosBancarios.DisableControls;
       mdDadosBancarios.Open;
       with Emissor.EmpCB_Fields do
@@ -207,6 +183,7 @@ begin
       end;
 
       mdDadosBancarios.Active := True;
+      }
     except
       on E:Exception do
       begin
@@ -216,7 +193,7 @@ begin
     end;
   finally
     Clear_Parans(1);
-    mdDadosBancarios.EnableControls;
+    //mdDadosBancarios.EnableControls;
   end;
 end;
 
@@ -261,10 +238,10 @@ begin
         fEmpresa.Add('celular',edcelular.Text);
 
         //Endereço da Empresa...
-        fEmpresa.Add('endereco',mdEndereco.ToJSONArray);
+        //fEmpresa.Add('endereco',mdEndereco.ToJSONArray);
 
         //Contas bancárias...
-        fEmpresa.Add('contaBancaria',mdDadosBancarios.ToJSONArray);
+        //fEmpresa.Add('contaBancaria',mdDadosBancarios.ToJSONArray);
 
         //Certificado...
         fCertificado.Add('idCertificado',edid_certificado.Text);
@@ -319,6 +296,38 @@ begin
   end;
 end;
 
+procedure TfrmCadEmpresa.Create_DataSet;
+var
+  FEmpresa :TEmpresa;
+begin
+  FEmpresa := TEmpresa.Create;
+  try
+    try
+      //Criando bufdataset - Endereço
+      FEmpresa.Criar_DataSet_Endereco(memD_Endereco);
+      dsEndereco.DataSet := memD_Endereco;
+      DBGrid_End.DataSource := dsEndereco;
+      ConfigColGridAut(DBGrid_End,memD_Endereco);
+
+      //Criando bufdataset - Conta bancária
+      FEmpresa.Criar_DataSet_CBanco(memD_CBanco);
+      dsConta.DataSet := memD_CBanco;
+      DBGrid_DB.DataSource := dsConta;
+      ConfigColGridAut(DBGrid_DB,memD_CBanco);
+
+    except
+      on E:Exception do
+      begin
+        SaveLog(E.Message);
+        MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
+      end;
+    end;
+
+  finally
+    FreeAndNil(FEmpresa)
+  end;
+end;
+
 procedure TfrmCadEmpresa.btEnd_AddClick(Sender: TObject);
 begin
   try
@@ -326,7 +335,7 @@ begin
       FfrmCad_Empresa_Endereco.Clear_Fields;
 
       ShowPopupModal('Popup' + FfrmCad_Empresa_Endereco.Name);
-
+      {
       mdEndereco.DisableControls;
       mdEndereco.Open;
       with Emissor.EmpEnd_Fields do
@@ -351,6 +360,7 @@ begin
       end;
 
       mdEndereco.Active := True;
+      }
     except
       on E:Exception do
       begin
@@ -360,7 +370,7 @@ begin
     end;
   finally
     Clear_Parans(0);
-    mdEndereco.EnableControls;
+    //mdEndereco.EnableControls;
   end;
 end;
 
@@ -447,6 +457,8 @@ begin
       FIniFile := TIniFile.Create(ConfigFile);
       FHost := FIniFile.ReadString('SERVER','HOST','') + ':' + FIniFile.ReadString('SERVER','PORT','');
 
+      memD_Endereco := TBufDataset.Create(Self);
+      memD_CBanco := TBufDataset.Create(Self);
 
       if Trim(FHost) = '' then
         raise Exception.Create('Host de acesso ao servidor não informado.');
@@ -460,6 +472,8 @@ end;
 
 procedure TfrmCadEmpresa.FormDestroy(Sender: TObject);
 begin
+  FreeAndNil(memD_Endereco);
+  FreeAndNil(memD_CBanco);
   FreeAndNil(FIniFile);
 end;
 
@@ -485,12 +499,9 @@ begin
   edemail.Clear;
   edsite.Clear;
 
-  {
   //Endereço...
-  mdEndereco.Clear;
 
   //Dados Bancários...
-  mdDadosBancarios.Clear;
 
   //Certificado digital...
   edid_certificado.Clear;
@@ -498,7 +509,6 @@ begin
   edvalidade.Date := Date;
   edcaminho_arquivo.Clear;
   edsenha.Clear;;
-  }
 end;
 
 procedure TfrmCadEmpresa.ExportD2Bridge;
