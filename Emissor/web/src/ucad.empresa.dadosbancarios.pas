@@ -81,6 +81,7 @@ begin
       agencia := edagencia.Text;
       conta := edbanco.Text;
       tipo_conta := cbtipo_conta.ItemIndex;
+      tipo_conta_desc := cbtipo_conta.Text;
     end;
     Close;
   except

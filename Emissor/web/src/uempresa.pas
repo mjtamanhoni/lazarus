@@ -475,19 +475,15 @@ begin
       FfrmCadEmpresa.edemail.Text := memD_Empresas.FieldByName('email').AsString;
       FfrmCadEmpresa.edsite.Text := memD_Empresas.FieldByName('site').AsString;
 
-      //Endereço...
-
       if not memD_Empresas.IsEmpty then
       begin
+        FfrmCadEmpresa.Create_DataSet;
 
         //Endereço...
-
-        if not FfrmCadEmpresa.memD_Endereco.Active then
-          FfrmCadEmpresa.Create_DataSet;
-
         FfrmCadEmpresa.memD_Endereco.DisableControls;
         memD_Endereco.Filter := 'idEmpresa = ' + memD_Empresas.FieldByName('idEmpresa').AsString;
         memD_Endereco.Filtered := True;
+        memD_Endereco.First;
 	while not memD_Endereco.EOF do
         begin
           //Adicionando dados da empresa...
@@ -516,6 +512,7 @@ begin
         FfrmCadEmpresa.memD_CBanco.DisableControls;
         memD_CBanco.Filter := 'idEmpresa = ' + memD_Empresas.FieldByName('idEmpresa').AsString;
         memD_CBanco.Filtered := True;
+        memD_CBanco.First;
         while not memD_CBanco.EOF do
         begin
           FfrmCadEmpresa.memD_CBanco.Append;
@@ -527,13 +524,18 @@ begin
           FfrmCadEmpresa.memD_CBanco.FieldByName('tipoConta').AsInteger := memD_CBanco.FieldByName('tipoConta').AsInteger;
           FfrmCadEmpresa.memD_CBanco.FieldByName('tipoContaDesc').AsString := memD_CBanco.FieldByName('tipoContaDesc').AsString;
           FfrmCadEmpresa.memD_CBanco.Post;
-
           memD_CBanco.Next;
         end;
         FfrmCadEmpresa.memD_CBanco.EnableControls;
+
+        //Certificado digital...
+        FfrmCadEmpresa.edid_certificado.Text := memD_Certificado.FieldByName('idCertificado').AsString;
+        FfrmCadEmpresa.cbtipo.ItemIndex := memD_Certificado.FieldByName('tipo').AsInteger;
+        FfrmCadEmpresa.edvalidade.Date := memD_Certificado.FieldByName('validade').AsDateTime;
+        FfrmCadEmpresa.edcaminho_arquivo.Text := memD_Certificado.FieldByName('caminhoArquivo').AsString;
+        FfrmCadEmpresa.edsenha.Text := memD_Certificado.FieldByName('senha').AsString;;
+
       end;
-
-
       ShowPopupModal('Popup' + FfrmCadEmpresa.Name);
 
       //Informações atualizadas pelos registros da tela de cadastro...

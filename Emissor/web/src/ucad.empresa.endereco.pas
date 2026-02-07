@@ -113,6 +113,7 @@ begin
       pais := edpais.Text;
       codigo_pais_ibge := edcodigo_pais_ibge.Text;
       tipo_endereco := cbtipo_endereco.ItemIndex;
+      tipo_endereco_desc := cbtipo_endereco.Text;
     end;
 
     Close;

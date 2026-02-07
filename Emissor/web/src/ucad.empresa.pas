@@ -165,25 +165,26 @@ begin
       FfrmCad_Empresa_DadosBancarios.Clear_Fields;
 
       ShowPopupModal('Popup' + FfrmCad_Empresa_DadosBancarios.Name);
-      {
-      mdDadosBancarios.DisableControls;
-      mdDadosBancarios.Open;
+
+      memD_CBanco.DisableControls;
       with Emissor.EmpCB_Fields do
       begin
         if Trim(conta) <> '' then
         begin
-          mdDadosBancarios.Append;
-          mdDadosBancariosdb_id_banco.AsInteger := id_banco;
-          mdDadosBancariosdb_banco.AsString := banco;
-          mdDadosBancariosdb_agencia.AsString := agencia;
-          mdDadosBancariosdb_conta.AsString := conta;
-          mdDadosBancariosdb_tipo_conta.AsInteger := tipo_conta;
-          mdDadosBancarios.Post;
+          memD_CBanco.Append;
+          memD_CBanco.FieldByName('idBanco').AsInteger := id_banco;
+          memD_CBanco.FieldByName('idEmpresa').AsInteger := StrToIntDef(edid_empresa.Text,0);
+          memD_CBanco.FieldByName('banco').AsString := banco;
+          memD_CBanco.FieldByName('agencia').AsString := agencia;
+          memD_CBanco.FieldByName('conta').AsString := conta;
+          memD_CBanco.FieldByName('tipoConta').AsInteger := tipo_conta;
+          memD_CBanco.FieldByName('tipoContaDesc').AsString := tipo_conta_desc;
+          memD_CBanco.Post;
         end;
       end;
 
-      mdDadosBancarios.Active := True;
-      }
+      memD_CBanco.EnableControls;
+
     except
       on E:Exception do
       begin
@@ -193,7 +194,7 @@ begin
     end;
   finally
     Clear_Parans(1);
-    //mdDadosBancarios.EnableControls;
+    memD_CBanco.EnableControls;
   end;
 end;
 
@@ -238,10 +239,10 @@ begin
         fEmpresa.Add('celular',edcelular.Text);
 
         //Endereço da Empresa...
-        //fEmpresa.Add('endereco',mdEndereco.ToJSONArray);
+        fEmpresa.Add('endereco',memD_Endereco.ToJSONArray);
 
         //Contas bancárias...
-        //fEmpresa.Add('contaBancaria',mdDadosBancarios.ToJSONArray);
+        fEmpresa.Add('contaBancaria',memD_CBanco.ToJSONArray);
 
         //Certificado...
         fCertificado.Add('idCertificado',edid_certificado.Text);
@@ -289,8 +290,12 @@ begin
       {$EndRegion 'Enviando dados para o Servidor'}
 
       Close;
-    except on E: Exception do
-      MessageDlg(E.Message,TMsgDlgType.mtError,[mbOk],0);
+    except
+      on E: Exception do
+      begin
+        SaveLog('Gravar: ' + E.Message);
+        MessageDlg(E.Message,TMsgDlgType.mtError,[mbOk],0);
+      end;
     end;
   finally
   end;
@@ -335,32 +340,34 @@ begin
       FfrmCad_Empresa_Endereco.Clear_Fields;
 
       ShowPopupModal('Popup' + FfrmCad_Empresa_Endereco.Name);
-      {
-      mdEndereco.DisableControls;
-      mdEndereco.Open;
+
+      memD_Endereco.DisableControls;
       with Emissor.EmpEnd_Fields do
       begin
         if Trim(logradouro) <> '' then
         begin
-          mdEndereco.Append;
-          mdEnderecoend_id_endereco.AsInteger := id_endereco;
-          mdEnderecoend_logradouro.AsString := logradouro;
-          mdEnderecoend_numero.AsString := numero;
-          mdEnderecoend_complemento.AsString := complemento;
-          mdEnderecoend_bairro.AsString := bairro;
-          mdEnderecoend_municipio.AsString := municipio;
-          mdEnderecoend_codigo_municipio_ibge.AsString := codigo_municipio_ibge;
-          mdEnderecoend_uf.AsString := uf;
-          mdEnderecoend_cep.AsString := cep;
-          mdEnderecoend_pais.AsString := pais;
-          mdEnderecoend_codigo_pais_ibge.AsString := codigo_pais_ibge;
-          mdEnderecoend_tipo_endereco.AsInteger := tipo_endereco;
-          mdEndereco.Post;
+          memD_Endereco.Append;
+          memD_Endereco.FieldByName('idEndereco').AsInteger := id_endereco;
+          memD_Endereco.FieldByName('idEmpresa').AsInteger := StrToIntDef(edid_empresa.Text,0);
+          memD_Endereco.FieldByName('logradouro').AsString := logradouro;
+          memD_Endereco.FieldByName('numero').AsString := numero;
+          memD_Endereco.FieldByName('complemento').AsString := complemento;
+          memD_Endereco.FieldByName('bairro').AsString := bairro;
+          memD_Endereco.FieldByName('municipio').AsString := municipio;
+          memD_Endereco.FieldByName('codigoMunicipioIbge').AsString := codigo_municipio_ibge;
+          memD_Endereco.FieldByName('uf').AsString := uf;
+          memD_Endereco.FieldByName('cep').AsString := cep;
+          memD_Endereco.FieldByName('pais').AsString := pais;
+          memD_Endereco.FieldByName('codigoPaisIbge').AsString := codigo_pais_ibge;
+          memD_Endereco.FieldByName('tipoEndereco').AsInteger := tipo_endereco;
+          memD_Endereco.FieldByName('tipoEnderecoDesc').AsString := tipo_endereco_desc;
+          memD_Endereco.Post;
         end;
       end;
+      memD_Endereco.EnableControls;
 
-      mdEndereco.Active := True;
-      }
+      //mdEndereco.Active := True;
+
     except
       on E:Exception do
       begin
@@ -501,16 +508,15 @@ begin
   edemail.Clear;
   edsite.Clear;
 
-  //Endereço...
-
-  //Dados Bancários...
+  //Endereço - Dados Bancários...
+  Create_DataSet;
 
   //Certificado digital...
   edid_certificado.Clear;
-  cbtipo.Clear;
+  cbtipo.ItemIndex := -1;
   edvalidade.Date := Date;
   edcaminho_arquivo.Clear;
-  edsenha.Clear;;
+  edsenha.Clear;
 end;
 
 procedure TfrmCadEmpresa.ExportD2Bridge;

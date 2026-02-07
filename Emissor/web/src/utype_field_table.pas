@@ -49,6 +49,7 @@ type
 
   TEmpEnd_Fields = class
   private
+    class var Ftipo_endereco_desc: String;
     class var Fbairro: String;
     class var Fcep: String;
     class var Fcodigo_municipio_ibge: String;
@@ -76,12 +77,14 @@ type
     class property pais :String read Fpais write Fpais;
     class property codigo_pais_ibge :String read Fcodigo_pais_ibge write Fcodigo_pais_ibge;
     class property tipo_endereco :Integer read Ftipo_endereco write Ftipo_endereco;
+    class property tipo_endereco_desc :String read Ftipo_endereco_desc write Ftipo_endereco_desc;
   end;
 
   { TEmpCB_Fields }
 
   TEmpCB_Fields = class
   private
+    class var Ftipo_conta_desc: String;
     class var Fagencia: String;
     class var Fbanco: String;
     class var Fconta: String;
@@ -95,6 +98,7 @@ type
     class property agencia :String read Fagencia write Fagencia;
     class property conta :String read Fconta write Fconta;
     class property tipo_conta :Integer read Ftipo_conta write Ftipo_conta;
+    class property tipo_conta_desc :String read Ftipo_conta_desc write Ftipo_conta_desc;
   end;
 
   { TEmpCD_Fields }

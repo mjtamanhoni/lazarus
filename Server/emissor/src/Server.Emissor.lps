@@ -18,7 +18,7 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="uBase.Router"/>
         <EditorIndex Value="3"/>
-        <TopLine Value="142"/>
+        <TopLine Value="137"/>
         <CursorPos X="43" Y="102"/>
         <FoldState Value=" TJP1CR"/>
         <UsageCount Value="214"/>
@@ -29,7 +29,7 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="uUsuario.Service"/>
         <EditorIndex Value="4"/>
-        <TopLine Value="13"/>
+        <TopLine Value="250"/>
         <CursorPos X="59" Y="13"/>
         <UsageCount Value="214"/>
         <Bookmarks Count="1">
@@ -65,10 +65,9 @@
         <Filename Value="..\..\..\Global\ubase.functions.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uBase.Functions"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
-        <TopLine Value="216"/>
-        <CursorPos X="64" Y="244"/>
+        <TopLine Value="59"/>
+        <CursorPos X="40" Y="231"/>
         <UsageCount Value="204"/>
         <Loaded Value="True"/>
       </Unit>
@@ -76,9 +75,10 @@
         <Filename Value="uempresa.service.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uEmpresa.Service"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="5"/>
-        <TopLine Value="428"/>
-        <CursorPos X="44" Y="464"/>
+        <TopLine Value="516"/>
+        <CursorPos Y="540"/>
         <UsageCount Value="300"/>
         <Loaded Value="True"/>
       </Unit>
@@ -88,34 +88,11 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="420"/>
         <CursorPos X="53" Y="446"/>
-        <UsageCount Value="12"/>
+        <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
     </Units>
     <JumpHistory HistoryIndex="29">
-      <Position>
-        <Filename Value="uempresa.service.pas"/>
-        <Caret Line="242" Column="22" TopLine="225"/>
-      </Position>
-      <Position>
-        <Filename Value="uempresa.service.pas"/>
-        <Caret Line="277" Column="9" TopLine="189"/>
-      </Position>
-      <Position>
-        <Filename Value="uempresa.service.pas"/>
-        <Caret Line="276" Column="87" TopLine="199"/>
-      </Position>
-      <Position>
-        <Filename Value="uempresa.service.pas"/>
-        <Caret Line="232" Column="79" TopLine="212"/>
-      </Position>
-      <Position>
-        <Filename Value="uempresa.service.pas"/>
-      </Position>
-      <Position>
-        <Filename Value="uusuario.service.pas"/>
-        <Caret Line="365" Column="43" TopLine="360"/>
-      </Position>
       <Position>
         <Filename Value="uusuario.service.pas"/>
       </Position>
@@ -208,6 +185,30 @@
       <Position>
         <Filename Value="uempresa.service.pas"/>
       </Position>
+      <Position>
+        <Filename Value="uempresa.service.pas"/>
+        <Caret Line="450" Column="37" TopLine="439"/>
+      </Position>
+      <Position>
+        <Filename Value="uempresa.service.pas"/>
+        <Caret Line="54" Column="14" TopLine="36"/>
+      </Position>
+      <Position>
+        <Filename Value="uempresa.service.pas"/>
+        <Caret Line="516" Column="83" TopLine="498"/>
+      </Position>
+      <Position>
+        <Filename Value="uempresa.service.pas"/>
+        <Caret Line="52" Column="15" TopLine="35"/>
+      </Position>
+      <Position>
+        <Filename Value="uempresa.service.pas"/>
+        <Caret Line="423" Column="61" TopLine="413"/>
+      </Position>
+      <Position>
+        <Filename Value="uempresa.service.pas"/>
+        <Caret Line="49" Column="23" TopLine="21"/>
+      </Position>
     </JumpHistory>
     <RunParams>
       <FormatVersion Value="2"/>
@@ -221,7 +222,7 @@
         <WatchScope Value="wpsLocal"/>
         <WatchKind Value="wpkWrite"/>
         <Source Value="uempresa.service.pas"/>
-        <Line Value="284"/>
+        <Line Value="276"/>
       </Item>
     </BreakPoints>
   </Debugging>

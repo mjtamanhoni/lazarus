@@ -23,13 +23,9 @@ type
              const ANomeFantasia:String;
              const ACNPJ:String;
              const AStatus:Integer):String;
-    function EmpresaPost(
-    	     const AJSon :String):String;
-    function EmpresaPut(
-    	     const AJSon :String):String;
-    function EmpresaDelete(
-    	     const AId:Integer;
-             const ACNPJ:String):String;
+    function EmpresaPost(const AJSon :String):String;
+    function EmpresaPut(const AJSon :String):String;
+    function EmpresaDelete(const AId:Integer; const ACNPJ:String):String;
   end;
 
 
@@ -49,13 +45,9 @@ type
              const ANomeFantasia:String;
              const ACNPJ:String;
              const AStatus:Integer):String;
-    function EmpresaPost(
-    	     const AJSon :String):String;
-    function EmpresaPut(
-    	     const AJSon :String):String;
-    function EmpresaDelete(
-    	     const AId:Integer;
-             const ACNPJ:String):String;
+    function EmpresaPost(const AJSon :String):String;
+    function EmpresaPut(const AJSon :String):String;
+    function EmpresaDelete(const AId:Integer; const ACNPJ:String):String;
 
   end;
 
@@ -289,6 +281,8 @@ begin
       if AJSon.IsEmpty and not AJSon.StartsWith('{') and not AJSon.EndsWith('}') then
         Raise Exception.Create('JSon Inválido!');
 
+      SaveLog(AJSon);
+
       FJson := TJSONObject(GetJSON(AJSon));
       FJson_End := TJSONArray(GetJSON(FJson['endereco'].AsJSON));
       FJson_CB := TJSONArray(GetJSON(FJson['contaBancaria'].AsJSON));
@@ -401,17 +395,17 @@ begin
         FQuery.SQL.Add('	,:tipo_endereco ');
         FQuery.SQL.Add('); ');
         FQuery.ParamByName('id_empresa').AsInteger := FId_Empresa;
-        FQuery.ParamByName('logradouro').AsString := FJson_End.Objects[I].Strings['endLogradouro'];
-        FQuery.ParamByName('numero').AsString := FJson_End.Objects[I].Strings['endNumero'];
-        FQuery.ParamByName('complemento').AsString := FJson_End.Objects[I].Strings['endComplemento'];
-        FQuery.ParamByName('bairro').AsString := FJson_End.Objects[I].Strings['endBairro'];
-        FQuery.ParamByName('municipio').AsString := FJson_End.Objects[I].Strings['endMunicipio'];
-        FQuery.ParamByName('codigo_municipio_ibge').AsString := FJson_End.Objects[I].Strings['endCodigoMunicipioIbge'];
-        FQuery.ParamByName('uf').AsString := FJson_End.Objects[I].Strings['endUf'];
-        FQuery.ParamByName('cep').AsString := FJson_End.Objects[I].Strings['endCep'];
-        FQuery.ParamByName('pais').AsString := FJson_End.Objects[I].Strings['endPais'];
-        FQuery.ParamByName('codigo_pais_ibge').AsString := FJson_End.Objects[I].Strings['endCodigoPaisIbge'];
-        FQuery.ParamByName('tipo_endereco').AsInteger := FJson_End.Objects[I].Integers['endTipoEndereco'];
+        FQuery.ParamByName('logradouro').AsString := FJson_End.Objects[I].Strings['logradouro'];
+        FQuery.ParamByName('numero').AsString := FJson_End.Objects[I].Strings['numero'];
+        FQuery.ParamByName('complemento').AsString := FJson_End.Objects[I].Strings['complemento'];
+        FQuery.ParamByName('bairro').AsString := FJson_End.Objects[I].Strings['bairro'];
+        FQuery.ParamByName('municipio').AsString := FJson_End.Objects[I].Strings['municipio'];
+        FQuery.ParamByName('codigo_municipio_ibge').AsString := FJson_End.Objects[I].Strings['codigomunicipioibge'];
+        FQuery.ParamByName('uf').AsString := FJson_End.Objects[I].Strings['uf'];
+        FQuery.ParamByName('cep').AsString := FJson_End.Objects[I].Strings['cep'];
+        FQuery.ParamByName('pais').AsString := FJson_End.Objects[I].Strings['pais'];
+        FQuery.ParamByName('codigo_pais_ibge').AsString := FJson_End.Objects[I].Strings['codigopaisibge'];
+        FQuery.ParamByName('tipo_endereco').AsInteger := FJson_End.Objects[I].Integers['tipoendereco'];
         FQuery.ExecSQL;
       end;
       {$EndRegion 'Endereço'}
@@ -435,10 +429,10 @@ begin
 	FQuery.SQL.Add('  ,:tipo_conta ');
         FQuery.SQL.Add('); ');
         FQuery.ParamByName('id_empresa').AsInteger := FId_Empresa;
-        FQuery.ParamByName('banco').AsString := FJson_CB.Objects[I].Strings['dbBanco'];
-        FQuery.ParamByName('agencia').AsString := FJson_CB.Objects[I].Strings['dbAgencia'];
-        FQuery.ParamByName('conta').AsString := FJson_CB.Objects[I].Strings['dbConta'];
-        FQuery.ParamByName('tipo_conta').AsInteger := FJson_CB.Objects[I].Integers['dbTipoConta'];
+        FQuery.ParamByName('banco').AsString := FJson_CB.Objects[I].Strings['banco'];
+        FQuery.ParamByName('agencia').AsString := FJson_CB.Objects[I].Strings['agencia'];
+        FQuery.ParamByName('conta').AsString := FJson_CB.Objects[I].Strings['conta'];
+        FQuery.ParamByName('tipo_conta').AsInteger := FJson_CB.Objects[I].Integers['tipoconta'];
         FQuery.ExecSQL;
       end;
       {$EndRegion 'Conta Bancária'}
@@ -506,6 +500,8 @@ begin
         raise Exception.Create('Id da Empresa não informado');
 
       FDm.ZTransaction.StartTransaction;
+
+      //Atualizando empresa...
       FQuery.SQL.Add('update public.empresa set ');
       FQuery.SQL.Add('  razao_social = :razao_social ');
       FQuery.SQL.Add('  ,nome_fantasia = :nome_fantasia ');
@@ -533,8 +529,15 @@ begin
       FQuery.ParamByName('site').AsString := FJson['site'].AsString;
       FQuery.ParamByName('celular').AsString := FJson['celular'].AsString;
       FQuery.ParamByName('ativo').AsInteger := FJson['ativo'].AsInteger;
-
       FQuery.ExecSQL;
+
+      //Atualizando Endereço...
+
+      //Atualizando Conta Bancária...
+
+      //Atualizando Certificado...
+
+
       FDm.ZTransaction.Commit;
 
       Result :='{"success":true,"message":"Empresa utualizada com sucesso"}';
