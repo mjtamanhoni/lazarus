@@ -166,6 +166,7 @@ object frmCad_Empresa_DadosBancarios: TfrmCad_Empresa_DadosBancarios
           Top = 18
           Width = 446
           Align = alClient
+          CharCase = ecUppercase
           TabOrder = 0
         end
       end

@@ -130,6 +130,7 @@ end;
 procedure TfrmEmpresa.btNovoClick(Sender: TObject);
 begin
   FfrmCadEmpresa.Clear_Fields;
+  FfrmCadEmpresa.pcPrincipal.ActivePageIndex := 0;
   ShowPopupModal('Popup' + FfrmCadEmpresa.Name);
   Pesquisar;
 end;
@@ -388,7 +389,10 @@ begin
     end;
   except
     on E :Exception do
-       MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
+    begin
+      SaveLog('Excluindo Empresa: ' + E.Message);
+      MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
+    end;
   end;
 end;
 
@@ -536,6 +540,7 @@ begin
         FfrmCadEmpresa.edsenha.Text := memD_Certificado.FieldByName('senha').AsString;;
 
       end;
+      FfrmCadEmpresa.pcPrincipal.ActivePageIndex := 0;
       ShowPopupModal('Popup' + FfrmCadEmpresa.Name);
 
       //Informações atualizadas pelos registros da tela de cadastro...
@@ -545,7 +550,7 @@ begin
       on E :Exception do
       begin
         SaveLog('Editando empresa. ' + E.Message);
-         MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
+        MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
       end;
     end;
   finally

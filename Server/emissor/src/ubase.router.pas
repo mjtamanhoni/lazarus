@@ -124,6 +124,31 @@ begin
   Res.ContentType('application/json')
       .Send(TEmpresaService.New.EmpresaDelete(FId,FCNPJ));
 end;
+
+procedure OnEmpresaDel_End(Req:THorseRequest; Res:THorseResponse);
+var
+  FId_Empresa :Integer;
+  FId_End :Integer;
+begin
+  FId_Empresa := StrToIntDef(Req.Query['idEmpresa'],0);
+  FId_End := StrToIntDef(Req.Query['idEndereco'],0);
+
+  Res.ContentType('application/json')
+      .Send(TEmpresaService.New.EmpresaDelete_End(FId_Empresa,FId_End));
+end;
+
+procedure OnEmpresaDel_DB(Req:THorseRequest; Res:THorseResponse);
+var
+  FId_Empresa :Integer;
+  FId_DB :Integer;
+begin
+  FId_Empresa := StrToIntDef(Req.Query['idEmpresa'],0);
+  FId_DB := StrToIntDef(Req.Query['idDBanco'],0);
+
+  Res.ContentType('application/json')
+      .Send(TEmpresaService.New.EmpresaDelete_DB(FId_Empresa,FId_DB));
+end;
+
 {$EndRegion 'Empresa}
 
 class procedure TBaseRoute.Load();
@@ -143,7 +168,9 @@ begin
   THorse.Get('/empresa',OnEmpresaGet)
         .Post('/empresa',OnEmpresaPost)
         .Put('/empresa',OnEmpresaPut)
-        .Delete('/empresa',OnEmpresaDel);
+        .Delete('/empresa',OnEmpresaDel)
+        .Delete('/empresa/endereco',OnEmpresaDel_End)
+        .Delete('/empresa/dBanco',OnEmpresaDel_DB);
 {$EndRegion 'Empresa'}
 
 end;

@@ -11,11 +11,15 @@ uses
 
 procedure OnListen();
 begin
+  WriteLn(Format('Server name: %s',['E M I S S O R']));
+  WriteLn('');
   WriteLn(Format('Server active on port: %d',[THorse.Port]));
-  WriteLn(Format('Executable in Folder: %s',[ParamStr(0)]));
+  WriteLn(Format('Executable in folder: %s',[ParamStr(0)]));
   WriteLn(Format('Developed by: %s',['MJT-System']));
+  WriteLn(Format('Responsible developer: %s',['Marcos Tamanhoni']));
   WriteLn(Format('E-Mail: %s',['mjtamanhoni@gmail.com']));
   WriteLn(Format('Mobile phone (WhatsApp): %s',['(27) 98833-7323']));
+  WriteLn('');
   WriteLn(Format('Server started on: %s',[FormatDateTime('dd/mm/yyy hh:nn:ss',Now)]));
 
   SaveLog(sLineBreak + '============================================================================',False);

@@ -26,6 +26,9 @@ type
     function EmpresaPost(const AJSon :String):String;
     function EmpresaPut(const AJSon :String):String;
     function EmpresaDelete(const AId:Integer; const ACNPJ:String):String;
+    function EmpresaDelete_End(const AIdEmpresa,AIdEndereco:Integer):String;
+    function EmpresaDelete_DB(const AIdEmpresa,AIdDB:Integer):String;
+
   end;
 
 
@@ -48,6 +51,8 @@ type
     function EmpresaPost(const AJSon :String):String;
     function EmpresaPut(const AJSon :String):String;
     function EmpresaDelete(const AId:Integer; const ACNPJ:String):String;
+    function EmpresaDelete_End(const AIdEmpresa,AIdEndereco:Integer):String;
+    function EmpresaDelete_DB(const AIdEmpresa,AIdDB:Integer):String;
 
   end;
 
@@ -482,8 +487,12 @@ end;
 function TEmpresaService.EmpresaPut(const AJSon: String): String;
 var
   FJson :TJSONObject;
+  FJson_Endereco :TJSONArray;
+  FJson_CBanco :TJSONArray;
+  FJson_Certificado :TJSONObject;
   FDm :TDM;
   FQuery :TZQuery;
+  I :Integer;
 begin
   try
     try
@@ -498,6 +507,10 @@ begin
 
       if ((FJson['idEmpresa'].IsNull) or (FJson['idEmpresa'].AsInteger = 0)) then
         raise Exception.Create('Id da Empresa não informado');
+
+      FJson_Endereco := TJSONArray(GetJSON(FJson['endereco'].AsJSON));
+      FJson_CBanco := TJSONArray(GetJSON(FJson['contaBancaria'].AsJSON));
+      FJson_Certificado := TJSONObject(GetJSON(FJson['certificadoDigital'].AsJSON));
 
       FDm.ZTransaction.StartTransaction;
 
@@ -516,27 +529,177 @@ begin
       FQuery.SQL.Add('  ,ativo = :ativo ');
       FQuery.SQL.Add('  ,celular = :celular ');
       FQuery.SQL.Add('where id_empresa = :id_empresa; ');
-      FQuery.ParamByName('id_empresa').AsInteger := FJson['idEmpresa'].AsInteger;
-      FQuery.ParamByName('razao_social').AsString := FJson['razaoSocial'].AsString;
-      FQuery.ParamByName('nome_fantasia').AsString := FJson['nomeFantasia'].AsString;
-      FQuery.ParamByName('cnpj').AsString := RemoverMascara(FJson['cnpj'].AsString);
-      FQuery.ParamByName('inscricao_estadual').AsString := FJson['inscricaoEstadual'].AsString;
-      FQuery.ParamByName('inscricao_municipal').AsString := FJson['inscricaoMunicipal'].AsString;
-      FQuery.ParamByName('regime_tributario').AsString := FJson['regimeTributario'].AsString;
-      FQuery.ParamByName('crt').AsString := FJson['crt'].AsString;
-      FQuery.ParamByName('email').AsString := FJson['email'].AsString;
-      FQuery.ParamByName('telefone').AsString := FJson['telefone'].AsString;
-      FQuery.ParamByName('site').AsString := FJson['site'].AsString;
-      FQuery.ParamByName('celular').AsString := FJson['celular'].AsString;
-      FQuery.ParamByName('ativo').AsInteger := FJson['ativo'].AsInteger;
+      FQuery.ParamByName('id_empresa').AsInteger := FJson.Integers['idEmpresa'];
+      FQuery.ParamByName('razao_social').AsString := FJson.Strings['razaoSocial'];
+      FQuery.ParamByName('nome_fantasia').AsString := FJson.Strings['nomeFantasia'];
+      FQuery.ParamByName('cnpj').AsString := RemoverMascara(FJson.Strings['cnpj']);
+      FQuery.ParamByName('inscricao_estadual').AsString := FJson.Strings['inscricaoEstadual'];
+      FQuery.ParamByName('inscricao_municipal').AsString := FJson.Strings['inscricaoMunicipal'];
+      FQuery.ParamByName('regime_tributario').AsString := FJson.Strings['regimeTributario'];
+      FQuery.ParamByName('crt').AsString := FJson.Strings['crt'];
+      FQuery.ParamByName('email').AsString := FJson.Strings['email'];
+      FQuery.ParamByName('telefone').AsString := FJson.Strings['telefone'];
+      FQuery.ParamByName('site').AsString := FJson.Strings['site'];
+      FQuery.ParamByName('celular').AsString := FJson.Strings['celular'];
+      FQuery.ParamByName('ativo').AsInteger := FJson.Integers['ativo'];
       FQuery.ExecSQL;
 
       //Atualizando Endereço...
+      if FJson_Endereco.Count > 0 then
+      begin
+        for I := 0 to Pred(FJson_Endereco.Count) do
+        begin
+          FQuery.Close;
+          FQuery.SQL.Clear;
+
+          if FJson_Endereco.Objects[I].Integers['idendereco'] = 0 then
+          begin
+            //Novo registro (Inserindo)...
+            FQuery.SQL.Add('INSERT INTO public.endereco_empresa( ');
+	    FQuery.SQL.Add('  id_empresa ');
+	    FQuery.SQL.Add('  ,logradouro ');
+	    FQuery.SQL.Add('  ,numero ');
+	    FQuery.SQL.Add('  ,complemento ');
+	    FQuery.SQL.Add('  ,bairro ');
+	    FQuery.SQL.Add('  ,municipio ');
+	    FQuery.SQL.Add('  ,codigo_municipio_ibge ');
+	    FQuery.SQL.Add('  ,uf ');
+	    FQuery.SQL.Add('  ,cep ');
+	    FQuery.SQL.Add('  ,pais ');
+	    FQuery.SQL.Add('  ,codigo_pais_ibge ');
+	    FQuery.SQL.Add('  ,tipo_endereco ');
+            FQuery.SQL.Add(') VALUES( ');
+	    FQuery.SQL.Add('  :id_empresa ');
+	    FQuery.SQL.Add('  ,:logradouro ');
+	    FQuery.SQL.Add('  ,:numero ');
+	    FQuery.SQL.Add('  ,:complemento ');
+	    FQuery.SQL.Add('  ,:bairro ');
+	    FQuery.SQL.Add('  ,:municipio ');
+	    FQuery.SQL.Add('  ,:codigo_municipio_ibge ');
+	    FQuery.SQL.Add('  ,:uf ');
+	    FQuery.SQL.Add('  ,:cep ');
+	    FQuery.SQL.Add('  ,:pais ');
+	    FQuery.SQL.Add('  ,:codigo_pais_ibge ');
+	    FQuery.SQL.Add('  ,:tipo_endereco ');
+            FQuery.SQL.Add('); ');
+          end
+          else
+          begin
+            //Atulizando registro (Atualizando)...
+            FQuery.SQL.Add('UPDATE public.endereco_empresa SET ');
+	    FQuery.SQL.Add('  id_empresa = :id_empresa ');
+	    FQuery.SQL.Add('  ,logradouro = :logradouro ');
+	    FQuery.SQL.Add('  ,numero = :numero ');
+	    FQuery.SQL.Add('  ,complemento = :complemento ');
+	    FQuery.SQL.Add('  ,bairro = :bairro ');
+	    FQuery.SQL.Add('  ,municipio = :municipio ');
+	    FQuery.SQL.Add('  ,codigo_municipio_ibge = :codigo_municipio_ibge ');
+	    FQuery.SQL.Add('  ,uf = :uf ');
+	    FQuery.SQL.Add('  ,cep = :cep ');
+	    FQuery.SQL.Add('  ,pais = :pais ');
+	    FQuery.SQL.Add('  ,codigo_pais_ibge = :codigo_pais_ibge ');
+	    FQuery.SQL.Add('  ,tipo_endereco = :tipo_endereco ');
+            FQuery.SQL.Add('WHERE id_endereco = :id_endereco; ');
+  	    FQuery.ParamByName('id_endereco').AsInteger := FJson_Endereco.Objects[I].Integers['idendereco'];
+          end;
+	  FQuery.ParamByName('id_empresa').AsInteger := FJson_Endereco.Objects[I].Integers['idempresa'];
+	  FQuery.ParamByName('logradouro').AsString := FJson_Endereco.Objects[I].Strings['logradouro'];
+	  FQuery.ParamByName('numero').AsString := FJson_Endereco.Objects[I].Strings['numero'];
+	  FQuery.ParamByName('complemento').AsString := FJson_Endereco.Objects[I].Strings['complemento'];
+	  FQuery.ParamByName('bairro').AsString := FJson_Endereco.Objects[I].Strings['bairro'];
+	  FQuery.ParamByName('municipio').AsString := FJson_Endereco.Objects[I].Strings['municipio'];
+	  FQuery.ParamByName('codigo_municipio_ibge').AsString := FJson_Endereco.Objects[I].Strings['codigomunicipioibge'];
+	  FQuery.ParamByName('uf').AsString := FJson_Endereco.Objects[I].Strings['uf'];
+	  FQuery.ParamByName('cep').AsString := FJson_Endereco.Objects[I].Strings['cep'];
+	  FQuery.ParamByName('pais').AsString := FJson_Endereco.Objects[I].Strings['pais'];
+	  FQuery.ParamByName('codigo_pais_ibge').AsString := FJson_Endereco.Objects[I].Strings['codigopaisibge'];
+	  FQuery.ParamByName('tipo_endereco').AsString := FJson_Endereco.Objects[I].Strings['tipoendereco'];
+          FQuery.ExecSQL;
+        end;
+      end;
 
       //Atualizando Conta Bancária...
+      if FJson_CBanco.Count > 0 then
+      begin
+        for I := 0 to Pred(FJson_CBanco.Count) do
+        begin
+          FQuery.Close;
+          FQuery.SQL.Clear;
+          if FJson_CBanco.Objects[I].Integers['idbanco'] = 0 then
+          begin
+            FQuery.SQL.Add('INSERT INTO public.dados_bancarios( ');
+            FQuery.SQL.Add('  id_empresa ');
+            FQuery.SQL.Add('  ,banco ');
+            FQuery.SQL.Add('  ,agencia ');
+            FQuery.SQL.Add('  ,conta ');
+            FQuery.SQL.Add('  ,tipo_conta ');
+            FQuery.SQL.Add(') VALUES( ');
+            FQuery.SQL.Add('  :id_empresa ');
+            FQuery.SQL.Add('  ,:banco ');
+            FQuery.SQL.Add('  ,:agencia ');
+            FQuery.SQL.Add('  ,:conta ');
+            FQuery.SQL.Add('  ,:tipo_conta ');
+            FQuery.SQL.Add('); ');
+          end
+          else
+          begin
+            FQuery.SQL.Add('UPDATE public.dados_bancarios SET ');
+            FQuery.SQL.Add('  id_empresa = :id_empresa ');
+            FQuery.SQL.Add('  ,banco = :banco ');
+            FQuery.SQL.Add('  ,agencia = :agencia ');
+            FQuery.SQL.Add('  ,conta = :conta ');
+            FQuery.SQL.Add('  ,tipo_conta = :tipo_conta ');
+            FQuery.SQL.Add('WHERE id_banco = :id_banco; ');
+            FQuery.ParamByName('id_banco').AsInteger := FJson_CBanco.Objects[I].Integers['idbanco'];
+          end;
+          FQuery.ParamByName('id_empresa').AsInteger := FJson_CBanco.Objects[I].Integers['idempresa'];
+          FQuery.ParamByName('banco').AsString := FJson_CBanco.Objects[I].Strings['banco'];
+          FQuery.ParamByName('agencia').AsString := FJson_CBanco.Objects[I].Strings['agencia'];
+          FQuery.ParamByName('conta').AsString := FJson_CBanco.Objects[I].Strings['conta'];
+          FQuery.ParamByName('tipo_conta').AsInteger := FJson_CBanco.Objects[I].Integers['tipoconta'];
+          FQuery.ExecSQL;
+        end;
+      end;
 
       //Atualizando Certificado...
-
+      if FJson_Certificado.Count > 0 then
+      begin
+        FQuery.Close;
+        FQuery.SQL.Clear;
+        if FJson_Certificado.Integers['idCertificado'] = 0 then
+        begin
+          FQuery.SQL.Add('INSERT INTO public.certificado_digital( ');
+          FQuery.SQL.Add('  id_empresa ');
+          FQuery.SQL.Add('  ,tipo ');
+          FQuery.SQL.Add('  ,validade ');
+          FQuery.SQL.Add('  ,caminho_arquivo ');
+          FQuery.SQL.Add('  ,senha ');
+          FQuery.SQL.Add(') VALUES( ');
+          FQuery.SQL.Add('  :id_empresa ');
+          FQuery.SQL.Add('  ,:tipo ');
+          FQuery.SQL.Add('  ,:validade ');
+          FQuery.SQL.Add('  ,:caminho_arquivo ');
+          FQuery.SQL.Add('  ,:senha ');
+          FQuery.SQL.Add('); ');
+        end
+        else
+        begin
+          FQuery.SQL.Add('UPDATE public.certificado_digital SET ');
+          FQuery.SQL.Add('  id_empresa = :id_empresa ');
+          FQuery.SQL.Add('  ,tipo = :tipo ');
+          FQuery.SQL.Add('  ,validade = :validade ');
+          FQuery.SQL.Add('  ,caminho_arquivo = :caminho_arquivo ');
+          FQuery.SQL.Add('  ,senha = :senha ');
+          FQuery.SQL.Add('WHERE id_certificado = :id_certificado; ');
+          FQuery.ParamByName('id_certificado').AsInteger := FJson_Certificado.Integers['idCertificado'];
+        end;
+        FQuery.ParamByName('id_empresa').AsInteger := FJson_Certificado.Integers['idEmpresa'];
+        FQuery.ParamByName('tipo').AsInteger := FJson_Certificado.Integers['tipo'];
+        FQuery.ParamByName('validade').AsDate := DateOf(FJson_Certificado.Floats['validade']);
+        FQuery.ParamByName('caminho_arquivo').AsString := FJson_Certificado.Strings['caminhoArquivo'];
+        FQuery.ParamByName('senha').AsString := FJson_Certificado.Strings['senha'];
+        FQuery.ExecSQL;
+      end;
 
       FDm.ZTransaction.Commit;
 
@@ -589,6 +752,86 @@ begin
       FDm.ZConnection.Commit;
 
       Result :='{"success":true,"message":"Empresa excluída com sucesso"}';
+
+    except
+      on E:Exception do
+      begin
+        FDm.ZConnection.Rollback;
+        SaveLog(E.Message);
+        Result :='{"success":false,"message":"'+E.Message+'"}';
+      end;
+    end;
+  finally
+    FreeAndNil(FDm);
+    FreeAndNil(FQuery);
+  end;
+end;
+
+function TEmpresaService.EmpresaDelete_End(const AIdEmpresa, AIdEndereco: Integer): String;
+var
+  FJson :TJSONObject;
+  FDm :TDM;
+  FQuery :TZQuery;
+begin
+  try
+    try
+      FDm := TDM.Create(Nil);
+      FQuery := FDm.GetQuery;
+
+      FDm.ZConnection.StartTransaction;
+
+      if ((AIdEmpresa = 0) and (AIdEndereco = 0)) then
+        raise Exception.Create('Não foi informado o Id da Empresa ou o Id do Endereço');
+
+      FQuery.SQL.Add('DELETE FROM public.endereco_empresa ');
+      FQuery.SQL.Add('  WHERE id_endereco = :id_endereco ');
+      FQuery.SQL.Add('    and id_empresa = :id_empresa; ');
+      FQuery.ParamByName('id_endereco').AsInteger := AIdEndereco;
+      FQuery.ParamByName('id_empresa').AsInteger := AIdEmpresa;
+      FQuery.ExecSQL;
+      FDm.ZConnection.Commit;
+
+      Result :='{"success":true,"message":"Endereço da Empresa excluído com sucesso"}';
+
+    except
+      on E:Exception do
+      begin
+        FDm.ZConnection.Rollback;
+        SaveLog(E.Message);
+        Result :='{"success":false,"message":"'+E.Message+'"}';
+      end;
+    end;
+  finally
+    FreeAndNil(FDm);
+    FreeAndNil(FQuery);
+  end;
+end;
+
+function TEmpresaService.EmpresaDelete_DB(const AIdEmpresa, AIdDB: Integer): String;
+var
+  FJson :TJSONObject;
+  FDm :TDM;
+  FQuery :TZQuery;
+begin
+  try
+    try
+      FDm := TDM.Create(Nil);
+      FQuery := FDm.GetQuery;
+
+      FDm.ZConnection.StartTransaction;
+
+      if ((AIdEmpresa = 0) and (AIdDB = 0)) then
+        raise Exception.Create('Não foi informado o Id da Empresa ou o Id da Conta Bancária');
+
+      FQuery.SQL.Add('DELETE FROM public.dados_bancarios ');
+      FQuery.SQL.Add('WHERE id_banco = :id_banco ');
+      FQuery.SQL.Add('  and id_empresa = :id_empresa; ');
+      FQuery.ParamByName('id_banco').AsInteger := AIdDB;
+      FQuery.ParamByName('id_empresa').AsInteger := AIdEmpresa;
+      FQuery.ExecSQL;
+      FDm.ZConnection.Commit;
+
+      Result :='{"success":true,"message":"Conta Bancária da Empresa excluída com sucesso"}';
 
     except
       on E:Exception do

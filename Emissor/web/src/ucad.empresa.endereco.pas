@@ -109,7 +109,7 @@ begin
       municipio := edmunicipio.Text;
       codigo_municipio_ibge := edcodigo_municipio_ibge.Text;
       uf := eduf.Text;
-      cep := edcep.Text;
+      cep := RemoverMascara(edcep.Text);
       pais := edpais.Text;
       codigo_pais_ibge := edcodigo_pais_ibge.Text;
       tipo_endereco := cbtipo_endereco.ItemIndex;

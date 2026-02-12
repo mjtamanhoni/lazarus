@@ -9,7 +9,6 @@ object frmCadEmpresa: TfrmCadEmpresa
   LCLVersion = '4.4.0.0'
   OnCreate = FormCreate
   OnDestroy = FormDestroy
-  OnShow = FormShow
   object pnDetail: TPanel
     Left = 0
     Height = 397
@@ -25,9 +24,9 @@ object frmCadEmpresa: TfrmCadEmpresa
       Height = 397
       Top = 0
       Width = 696
-      ActivePage = tsCertificadoDigital
+      ActivePage = tsDadosBancarios
       Align = alClient
-      TabIndex = 3
+      TabIndex = 2
       TabOrder = 0
       object tsEmpresa: TTabSheet
         Caption = 'Empresa'
@@ -228,6 +227,7 @@ object frmCadEmpresa: TfrmCadEmpresa
               Top = 18
               Width = 682
               Align = alClient
+              CharCase = ecUppercase
               TabOrder = 0
             end
           end
@@ -267,6 +267,7 @@ object frmCadEmpresa: TfrmCadEmpresa
               Top = 18
               Width = 682
               Align = alClient
+              CharCase = ecUppercase
               TabOrder = 0
             end
           end
@@ -723,6 +724,7 @@ object frmCadEmpresa: TfrmCadEmpresa
               Top = 18
               Width = 682
               Align = alClient
+              CharCase = ecUppercase
               TabOrder = 0
             end
           end

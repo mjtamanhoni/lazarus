@@ -79,7 +79,7 @@ begin
       id_empresa := 0;
       banco := edbanco.Text;
       agencia := edagencia.Text;
-      conta := edbanco.Text;
+      conta := edconta.Text;
       tipo_conta := cbtipo_conta.ItemIndex;
       tipo_conta_desc := cbtipo_conta.Text;
     end;
