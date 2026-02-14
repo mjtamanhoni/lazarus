@@ -225,6 +225,13 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="uBase.DataSets"/>
       </Unit>
+      <Unit>
+        <Filename Value="uusuario.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmUsuarios"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="uUsuario"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

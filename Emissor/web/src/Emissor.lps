@@ -9,7 +9,7 @@
         <Filename Value="Emissor.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="D2BridgeWebAppLCL"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="13"/>
         <CursorPos Y="38"/>
         <UsageCount Value="302"/>
         <Loaded Value="True"/>
@@ -69,9 +69,12 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="3"/>
-        <TopLine Value="15"/>
-        <CursorPos Y="44"/>
+        <TopLine Value="26"/>
+        <CursorPos X="39" Y="56"/>
         <UsageCount Value="302"/>
+        <Bookmarks Count="1">
+          <Item0 X="3" Y="139" Left="1" Top="130" ID="1"/>
+        </Bookmarks>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
@@ -114,7 +117,7 @@
         <Filename Value="..\..\..\Global\ubase.functions.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uBase.Functions"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="11"/>
         <CursorPos X="24" Y="18"/>
         <UsageCount Value="287"/>
         <Loaded Value="True"/>
@@ -146,7 +149,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="uDM.ACBr"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="9"/>
         <CursorPos X="9" Y="18"/>
         <UsageCount Value="276"/>
         <Loaded Value="True"/>
@@ -159,15 +162,13 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uCad.Empresa"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="4"/>
-        <TopLine Value="458"/>
-        <CursorPos Y="478"/>
+        <EditorIndex Value="5"/>
+        <TopLine Value="459"/>
+        <CursorPos X="54" Y="477"/>
         <UsageCount Value="267"/>
-        <Bookmarks Count="3">
+        <Bookmarks Count="2">
           <Item0 Y="859" Left="1" Top="798" ID="3"/>
           <Item1 X="5" Y="894" Left="1" Top="881" ID="2"/>
-          <Item2 X="51" Y="476" Left="1" Top="457" ID="1"/>
         </Bookmarks>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -179,7 +180,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uEmpresa"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="10"/>
         <TopLine Value="513"/>
         <CursorPos X="56" Y="533"/>
         <UsageCount Value="267"/>
@@ -193,7 +194,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uCad.Empresa.Endereco"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="7"/>
         <TopLine Value="93"/>
         <CursorPos X="11" Y="119"/>
         <UsageCount Value="240"/>
@@ -207,7 +208,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="ucad.empresa.DadosBancarios"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="6"/>
         <TopLine Value="60"/>
         <CursorPos X="50" Y="78"/>
         <UsageCount Value="239"/>
@@ -218,7 +219,7 @@
         <Filename Value="utype_field_table.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uType_Field_Table"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="8"/>
         <TopLine Value="66"/>
         <CursorPos X="30" Y="89"/>
         <UsageCount Value="204"/>
@@ -228,10 +229,10 @@
         <Filename Value="ubase.datasets.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uBase.DataSets"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="12"/>
         <TopLine Value="27"/>
         <CursorPos X="3" Y="33"/>
-        <UsageCount Value="190"/>
+        <UsageCount Value="195"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -250,20 +251,23 @@
         <UsageCount Value="6"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
+      <Unit>
+        <Filename Value="uusuario.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmUsuarios"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="uUsuario"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="4"/>
+        <TopLine Value="24"/>
+        <CursorPos X="21" Y="42"/>
+        <UsageCount Value="25"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit>
     </Units>
     <JumpHistory HistoryIndex="29">
-      <Position>
-        <Filename Value="ucad.empresa.pas"/>
-        <Caret Line="472" Column="31" TopLine="447"/>
-      </Position>
-      <Position>
-        <Filename Value="ucad.empresa.pas"/>
-        <Caret Line="330" Column="21" TopLine="324"/>
-      </Position>
-      <Position>
-        <Filename Value="ucad.empresa.pas"/>
-        <Caret Line="841" Column="21" TopLine="809"/>
-      </Position>
       <Position>
         <Filename Value="ucad.empresa.pas"/>
       </Position>
@@ -368,6 +372,18 @@
       <Position>
         <Filename Value="ucad.empresa.pas"/>
         <Caret Line="364" Column="35" TopLine="342"/>
+      </Position>
+      <Position>
+        <Filename Value="Unit_Login.pas"/>
+        <Caret Line="44" TopLine="15"/>
+      </Position>
+      <Position>
+        <Filename Value="Unit_Login.pas"/>
+        <Caret Line="132" Column="3" TopLine="130"/>
+      </Position>
+      <Position>
+        <Filename Value="Unit_Login.pas"/>
+        <Caret Line="139" Column="3" TopLine="130"/>
       </Position>
     </JumpHistory>
     <RunParams>
