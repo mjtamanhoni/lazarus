@@ -785,7 +785,7 @@ begin
 
       FQuery.SQL.Add('DELETE FROM public.endereco_empresa ');
       FQuery.SQL.Add('  WHERE id_endereco = :id_endereco ');
-      FQuery.SQL.Add('    and id_empresa = :id_empresa; ');
+      FQuery.SQL.Add('    AND id_empresa = :id_empresa; ');
       FQuery.ParamByName('id_endereco').AsInteger := AIdEndereco;
       FQuery.ParamByName('id_empresa').AsInteger := AIdEmpresa;
       FQuery.ExecSQL;

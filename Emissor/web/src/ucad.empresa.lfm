@@ -24,9 +24,9 @@ object frmCadEmpresa: TfrmCadEmpresa
       Height = 397
       Top = 0
       Width = 696
-      ActivePage = tsDadosBancarios
+      ActivePage = tsEndereco
       Align = alClient
-      TabIndex = 2
+      TabIndex = 1
       TabOrder = 0
       object tsEmpresa: TTabSheet
         Caption = 'Empresa'

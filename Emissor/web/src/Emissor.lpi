@@ -12,6 +12,11 @@
         <DpiAware Value="True"/>
       </XPManifest>
     </General>
+    <VersionInfo>
+      <UseVersionInfo Value="True"/>
+      <AutoIncrementBuild Value="True"/>
+      <StringTable CompanyName="MJT Systems" FileDescription="Servidor Horse para emissão de Documentos Fiscais" LegalCopyright="Marcos Tamanhoni" ProductName="HorseFiscal"/>
+    </VersionInfo>
     <BuildModes>
       <Item Name="D2Bridge Web Debug" Default="True"/>
       <Item Name="D2Bridge Web Release">

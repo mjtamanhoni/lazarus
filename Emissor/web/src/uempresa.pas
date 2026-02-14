@@ -367,7 +367,7 @@ var
   fBody :TJSONObject;
 begin
   try
-    if MessageDlg('Deseja excluir o registro selecionado?',TMsgDlgType.mtConfirmation,[mbYes,mbNo],0) = mrYes then
+    if MessageDlg('Deseja excluir a Empresa selecionada?',TMsgDlgType.mtConfirmation,[mbYes,mbNo],0) = mrYes then
     begin
       fResp := TRequest.New.BaseURL(FHost)
       	       .AddParam('id',memD_Empresas.FieldByName('idEmpresa').AsString)

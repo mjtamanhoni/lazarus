@@ -467,11 +467,17 @@ begin
       if fBody['success'].AsBoolean = False then
         raise Exception.Create(fBody['message'].AsString)
       else
-      begin
         MessageDlg(fBody['message'].AsString,TMsgDlgType.mtInformation,[mbOK],0);
-        Pesquisar;
-      end;
 
+      memD_Endereco.DisableControls;
+      try
+      	 memD_Endereco.Delete;
+         memD_Endereco.Open;
+         //memD_Endereco.Refresh;
+      finally
+        DBGrid_End.Refresh;
+        memD_Endereco.EnableControls;
+      end;
     end;
   except
     on E :Exception do
@@ -505,7 +511,37 @@ begin
 end;
 
 procedure TfrmCadEmpresa.OnClick_Delete_CBanco(const AId_Endereco: Integer);
+var
+  fResp :IResponse;
+  fRet :String;
+  fBody :TJSONObject;
 begin
+  try
+    if MessageDlg('Deseja excluir a Conta Bancária selecionada?',TMsgDlgType.mtConfirmation,[mbYes,mbNo],0) = mrYes then
+    begin
+      fResp := TRequest.New.BaseURL(FHost)
+      	       .AddParam('idEmpresa',memD_Endereco.FieldByName('idempresa').AsString)
+      	       .AddParam('idDBanco',memD_Endereco.FieldByName('idbanco').AsString)
+               .Resource('empresa/dBanco')
+               .Accept('application/json')
+               .Delete;
+
+      fRet := '';
+      fRet := fResp.Content;
+      fBody := TJSONObject(GetJSON(fRet));
+      if fBody['success'].AsBoolean = False then
+        raise Exception.Create(fBody['message'].AsString)
+      else
+        MessageDlg(fBody['message'].AsString,TMsgDlgType.mtInformation,[mbOK],0);
+      memD_CBanco.Delete;
+    end;
+  except
+    on E :Exception do
+    begin
+      SaveLog('Excluindo Conta Bancária: ' + E.Message);
+      MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
+    end;
+  end;
 
 end;
 
