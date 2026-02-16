@@ -23,10 +23,13 @@ object frmPrincipal: TfrmPrincipal
           Caption = 'Perfil'
         end
         object menuCad_Usu_PermissaoAcao: TMenuItem
-          Caption = 'Permissões de Ação'
-        end
-        object menuCad_Usu_PermissaoTela: TMenuItem
-          Caption = 'Permissões de Telas'
+          Caption = 'Permissões'
+          object MenuItem1: TMenuItem
+            Caption = 'Ação'
+          end
+          object MenuItem2: TMenuItem
+            Caption = 'Telas'
+          end
         end
       end
     end

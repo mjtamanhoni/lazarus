@@ -20,7 +20,8 @@ type
     menuCad_Usu_Usuario: TMenuItem;
     menuCad_Usu_Perfil: TMenuItem;
     menuCad_Usu_PermissaoAcao: TMenuItem;
-    menuCad_Usu_PermissaoTela: TMenuItem;
+    MenuItem1: TMenuItem;
+    MenuItem2: TMenuItem;
   private
     { Private declarations }
   public
