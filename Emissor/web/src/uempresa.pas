@@ -24,16 +24,11 @@ type
     dsRegistro: TDataSource;
     DBGrid_Empresa: TDBGrid;
     edPesquisar: TEdit;
-    miCNPJ_CPF: TMenuItem;
-    miNomeFantasia: TMenuItem;
-    miRazaoSocial: TMenuItem;
-    miId: TMenuItem;
     pnHeader: TPanel;
     pnDetail: TPanel;
     pnFooter: TPanel;
     pnFiltro: TPanel;
     pnTipoFiltro2: TPanel;
-    pMenu_Filtro: TPopupMenu;
     procedure btNovoClick(Sender: TObject);
     procedure edPesquisarKeyPress(Sender: TObject; var Key: char);
     procedure FormCreate(Sender: TObject);

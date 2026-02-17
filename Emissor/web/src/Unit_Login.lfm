@@ -206,7 +206,7 @@ object Form_Login: TForm_Login
       Cursor = crHandPoint
       Left = 179
       Height = 25
-      Top = 183
+      Top = 184
       Width = 35
       TabOrder = 4
       OnClick = btCadUsuarioClick

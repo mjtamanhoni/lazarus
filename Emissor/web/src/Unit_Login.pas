@@ -53,7 +53,7 @@ Function Form_Login: TForm_Login;
 implementation
 
 Uses
-   EmissorWebApp, uPrincipal, uEmpresa;
+   EmissorWebApp, uPrincipal, uEmpresa, uUsuario;
 
 Function Form_Login: TForm_Login;
 begin
@@ -136,7 +136,9 @@ end;
 
 procedure TForm_Login.btCadUsuarioClick(Sender: TObject);
 begin
-  MessageDlg('Cadastro usuário',TMsgDlgType.mtInformation,[mbOK],0);
+  if frmUsuarios = nil then
+    TfrmUsuarios.CreateInstance;
+  frmUsuarios.Show;
 end;
 
 procedure TForm_Login.Button_ShowPassClick(Sender: TObject);

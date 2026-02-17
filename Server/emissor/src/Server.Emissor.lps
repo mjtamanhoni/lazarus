@@ -8,9 +8,8 @@
       <Unit>
         <Filename Value="Server.Emissor.lpr"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
         <TopLine Value="65"/>
-        <CursorPos X="75" Y="77"/>
+        <CursorPos X="73" Y="81"/>
         <UsageCount Value="214"/>
         <Loaded Value="True"/>
       </Unit>
@@ -31,9 +30,10 @@
         <Filename Value="uusuario.service.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uUsuario.Service"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="4"/>
-        <TopLine Value="241"/>
-        <CursorPos X="30" Y="13"/>
+        <TopLine Value="177"/>
+        <CursorPos X="3" Y="175"/>
         <UsageCount Value="214"/>
         <Loaded Value="True"/>
       </Unit>
@@ -94,7 +94,7 @@
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
     </Units>
-    <JumpHistory HistoryIndex="26">
+    <JumpHistory HistoryIndex="28">
       <Position>
         <Filename Value="uempresa.service.pas"/>
         <Caret Line="54" Column="22" TopLine="35"/>
@@ -200,6 +200,14 @@
       <Position>
         <Filename Value="Server.Emissor.lpr"/>
         <Caret Line="14" Column="31" TopLine="6"/>
+      </Position>
+      <Position>
+        <Filename Value="uusuario.service.pas"/>
+        <Caret Line="256" Column="63" TopLine="242"/>
+      </Position>
+      <Position>
+        <Filename Value="uusuario.service.pas"/>
+        <Caret Line="46" Column="22" TopLine="25"/>
       </Position>
     </JumpHistory>
     <RunParams>

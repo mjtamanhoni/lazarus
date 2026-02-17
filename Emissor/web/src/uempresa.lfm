@@ -1,9 +1,9 @@
 inherited frmEmpresa: TfrmEmpresa
   Height = 500
-  Width = 812
+  Width = 800
   Caption = 'Empresas'
   ClientHeight = 500
-  ClientWidth = 812
+  ClientWidth = 800
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnShow = FormShow
@@ -11,46 +11,45 @@ inherited frmEmpresa: TfrmEmpresa
     Left = 0
     Height = 30
     Top = 0
-    Width = 812
+    Width = 800
     Align = alTop
     BevelOuter = bvNone
     ClientHeight = 30
-    ClientWidth = 812
+    ClientWidth = 800
     TabOrder = 0
     object pnFiltro: TPanel
       Left = 0
       Height = 30
       Top = 0
-      Width = 716
+      Width = 704
       Align = alClient
       BevelOuter = bvNone
       BorderWidth = 2
       ClientHeight = 30
-      ClientWidth = 716
+      ClientWidth = 704
       TabOrder = 0
       object edPesquisar: TEdit
         Tag = 1
         Left = 2
         Height = 26
         Top = 2
-        Width = 674
+        Width = 662
         Align = alClient
         TabOrder = 0
         TextHint = 'Pesquisar pela Razão Social da Empresa'
         OnKeyPress = edPesquisarKeyPress
       end
       object btSelPesquisa: TButton
-        Left = 676
+        Left = 664
         Height = 26
         Top = 2
         Width = 38
         Align = alRight
-        PopupMenu = pMenu_Filtro
         TabOrder = 1
       end
     end
     object pnTipoFiltro2: TPanel
-      Left = 716
+      Left = 704
       Height = 30
       Top = 0
       Width = 96
@@ -76,18 +75,18 @@ inherited frmEmpresa: TfrmEmpresa
     Left = 0
     Height = 420
     Top = 30
-    Width = 812
+    Width = 800
     Align = alClient
     BevelOuter = bvNone
     BorderWidth = 2
     ClientHeight = 420
-    ClientWidth = 812
+    ClientWidth = 800
     TabOrder = 1
     object DBGrid_Empresa: TDBGrid
       Left = 2
       Height = 416
       Top = 2
-      Width = 808
+      Width = 796
       Align = alClient
       Color = clWindow
       Columns = <>
@@ -99,38 +98,25 @@ inherited frmEmpresa: TfrmEmpresa
     Left = 0
     Height = 50
     Top = 450
-    Width = 812
+    Width = 800
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 2
   end
-  inherited MainMenu1: TMainMenu[3]
+  inherited mmPrincipal: TMainMenu[3]
+    inherited mnuCadastro: TMenuItem
+      inherited mnuCadUsuario: TMenuItem
+        inherited mnuCad_Usu_Permissoes: TMenuItem
+          Caption = 'Permissões de Ação'
+        end
+        object menuCad_Usu_PermissaoTela: TMenuItem[3]
+          Caption = 'Permissões de Telas'
+        end
+      end
+    end
   end
   object dsRegistro: TDataSource[4]
-    Left = 304
-    Top = 184
-  end
-  object pMenu_Filtro: TPopupMenu[5]
-    Left = 168
-    Top = 200
-    object miId: TMenuItem
-      Caption = 'ID'
-      OnClick = miRazaoSocialClick
-    end
-    object miRazaoSocial: TMenuItem
-      Tag = 1
-      Caption = 'Razão Social'
-      OnClick = miRazaoSocialClick
-    end
-    object miNomeFantasia: TMenuItem
-      Tag = 2
-      Caption = 'Nome Fantasia'
-      OnClick = miRazaoSocialClick
-    end
-    object miCNPJ_CPF: TMenuItem
-      Tag = 3
-      Caption = 'CNPJ/CPF'
-      OnClick = miRazaoSocialClick
-    end
+    Left = 280
+    Top = 120
   end
 end

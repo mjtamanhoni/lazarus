@@ -13,15 +13,22 @@ type
   { TfrmPrincipal }
 
   TfrmPrincipal = class(TD2BridgeForm)
-    MainMenu1: TMainMenu;
-    menuCadastro: TMenuItem;
-    menuCad_Empresa: TMenuItem;
-    menuCadUsuario: TMenuItem;
-    menuCad_Usu_Usuario: TMenuItem;
-    menuCad_Usu_Perfil: TMenuItem;
-    menuCad_Usu_PermissaoAcao: TMenuItem;
-    MenuItem1: TMenuItem;
-    MenuItem2: TMenuItem;
+    mnuCadUsu_Acao: TMenuItem;
+    mnuCadUsu_Tela: TMenuItem;
+    mnuDesconectar: TMenuItem;
+    mnuConfig: TMenuItem;
+    mnuRelatorios: TMenuItem;
+    mnuDashboard: TMenuItem;
+    mnuMovimento: TMenuItem;
+    mmPrincipal: TMainMenu;
+    mnuCadastro: TMenuItem;
+    mnuCad_Empresa: TMenuItem;
+    mnuCadUsuario: TMenuItem;
+    mnuCad_Usu_Usuario: TMenuItem;
+    mnuCad_Usu_Perfil: TMenuItem;
+    mnuCad_Usu_Permissoes: TMenuItem;
+    procedure mnuCad_EmpresaClick(Sender: TObject);
+    procedure mnuDesconectarClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -38,13 +45,29 @@ function frmPrincipal: TfrmPrincipal;
 implementation
 
 uses
-  EmissorWebApp;
+  EmissorWebApp, uEmpresa, uUsuario;
 
 {$R *.lfm}
 
 function frmPrincipal: TfrmPrincipal;
 begin
   result := (TfrmPrincipal.GetInstance as TfrmPrincipal);
+end;
+
+procedure TfrmPrincipal.mnuDesconectarClick(Sender: TObject);
+begin
+  if MessageDlg('Deseja encerrar a sessão atual e realizar um novo login?',TMsgDlgType.mtConfirmation,[mbYes,mbNo],0) = mrYes then
+  begin
+    if IsD2BridgeContext then
+      Session.Close(True);
+  end;
+end;
+
+procedure TfrmPrincipal.mnuCad_EmpresaClick(Sender: TObject);
+begin
+  if frmEmpresa = nil then
+    TfrmEmpresa.CreateInstance;
+  frmEmpresa.Show;
 end;
 
 procedure TfrmPrincipal.ExportD2Bridge;
@@ -60,7 +83,7 @@ begin
   with D2Bridge.Items.add do
   begin
     {Yours Controls}
-    SideMenu(MainMenu1);
+    SideMenu(mmPrincipal);
   end;
 
 end;
@@ -68,6 +91,36 @@ end;
 procedure TfrmPrincipal.InitControlsD2Bridge(const PrismControl: TPrismControl);
 begin
   inherited;
+
+  if PrismControl.VCLComponent = mmPrincipal then
+  begin
+    with PrismControl.AsSideMenu do
+    begin
+      PrismControl.AsSideMenu.Color := clBlue;
+      {$Region 'Principal'}
+      PrismControl.AsSideMenu.MenuItemFromVCLComponent(mnuCadastro).Icon := 'fa-solid fa-address-card';
+      PrismControl.AsSideMenu.MenuItemFromVCLComponent(mnuMovimento).Icon := 'fa-solid fa-money-bill-transfer';
+      PrismControl.AsSideMenu.MenuItemFromVCLComponent(mnuDashboard).Icon := 'fa-solid fa-chart-line';
+      PrismControl.AsSideMenu.MenuItemFromVCLComponent(mnuRelatorios).Icon := 'fa-solid fa-print';
+      PrismControl.AsSideMenu.MenuItemFromVCLComponent(mnuConfig).Icon := 'fa-solid fa-gear';
+      PrismControl.AsSideMenu.MenuItemFromVCLComponent(mnuDesconectar).Icon := 'fa-solid fa-arrow-right-from-bracket';
+      {$EndRegion 'Principal'}
+
+      {$Region 'Usuarios'}
+        PrismControl.AsSideMenu.MenuItemFromVCLComponent(mnuCadUsuario).Icon := 'fa-solid fa-users';
+        PrismControl.AsSideMenu.MenuItemFromVCLComponent(mnuCad_Usu_Usuario).Icon := 'fa-solid fa-users';
+        PrismControl.AsSideMenu.MenuItemFromVCLComponent(mnuCad_Usu_Perfil).Icon := 'fa-solid fa-address-card';
+        PrismControl.AsSideMenu.MenuItemFromVCLComponent(mnuCad_Usu_Permissoes).Icon := 'fa-solid fa-lock-open'; //<i class="fa-solid fa-lock-open"></i>
+        PrismControl.AsSideMenu.MenuItemFromVCLComponent(mnuCadUsu_Acao).Icon := 'fa-solid fa-circle-ellipsis';
+        PrismControl.AsSideMenu.MenuItemFromVCLComponent(mnuCadUsu_Tela).Icon := 'fa-solid fa-laptop-file';
+      {$EndRegion 'Usuarios'}
+
+      {$Region 'Empresa'}
+        PrismControl.AsSideMenu.MenuItemFromVCLComponent(mnuCad_Empresa).Icon := 'fa-solid fa-building';
+      {$EndRegion 'Empresa'}
+
+    end;
+  end;
 
   //Change Init Property of Prism Controls
   {

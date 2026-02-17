@@ -1,8 +1,107 @@
-object frmUsuarios: TfrmUsuarios
-  Left = 262
-  Height = 549
-  Top = 250
-  Width = 808
+inherited frmUsuarios: TfrmUsuarios
+  Height = 500
+  Width = 800
   Caption = 'Usuários'
-  LCLVersion = '4.4.0.0'
+  ClientHeight = 500
+  ClientWidth = 800
+  object pnHeader: TPanel[0]
+    Left = 0
+    Height = 30
+    Top = 0
+    Width = 800
+    Align = alTop
+    BevelOuter = bvNone
+    ClientHeight = 30
+    ClientWidth = 800
+    TabOrder = 0
+    object pnFiltro: TPanel
+      Left = 0
+      Height = 30
+      Top = 0
+      Width = 704
+      Align = alClient
+      BevelOuter = bvNone
+      BorderWidth = 2
+      ClientHeight = 30
+      ClientWidth = 704
+      TabOrder = 0
+      object edPesquisar: TEdit
+        Tag = 1
+        Left = 2
+        Height = 26
+        Top = 2
+        Width = 662
+        Align = alClient
+        TabOrder = 0
+        TextHint = 'Pesquisar pela Razão Social da Empresa'
+      end
+      object btSelPesquisa: TButton
+        Left = 664
+        Height = 26
+        Top = 2
+        Width = 38
+        Align = alRight
+        TabOrder = 1
+      end
+    end
+    object pnTipoFiltro2: TPanel
+      Left = 704
+      Height = 30
+      Top = 0
+      Width = 96
+      Align = alRight
+      BevelOuter = bvNone
+      BorderWidth = 2
+      ClientHeight = 30
+      ClientWidth = 96
+      TabOrder = 1
+      object btNovo: TButton
+        Left = 32
+        Height = 26
+        Top = 2
+        Width = 62
+        Align = alRight
+        Caption = 'Novo'
+        TabOrder = 0
+      end
+    end
+  end
+  object pnDetail: TPanel[1]
+    Left = 0
+    Height = 420
+    Top = 30
+    Width = 800
+    Align = alClient
+    BevelOuter = bvNone
+    BorderWidth = 2
+    ClientHeight = 420
+    ClientWidth = 800
+    TabOrder = 1
+    object DBGrid_Empresa: TDBGrid
+      Left = 2
+      Height = 416
+      Top = 2
+      Width = 796
+      Align = alClient
+      Color = clWindow
+      Columns = <>
+      Options = [dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit]
+      TabOrder = 0
+    end
+  end
+  object pnFooter: TPanel[2]
+    Left = 0
+    Height = 50
+    Top = 450
+    Width = 800
+    Align = alBottom
+    BevelOuter = bvNone
+    TabOrder = 2
+  end
+  inherited mmPrincipal: TMainMenu[3]
+  end
+  object dsRegistro: TDataSource[4]
+    Left = 308
+    Top = 148
+  end
 end

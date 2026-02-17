@@ -5,11 +5,15 @@ unit uUsuario;
 interface
 
 uses
-  Classes, SysUtils, Controls, Graphics, Dialogs, StdCtrls,  
-  D2Bridge.Forms;
+  Classes, SysUtils, DB, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls,  
+  D2Bridge.Forms, uPrincipal;
 
 type
-  TfrmUsuarios = class(TD2BridgeForm)
+
+  { TfrmUsuarios }
+
+  TfrmUsuarios = class(TfrmPrincipal)
+    dsRegistro: TDataSource;
   private
     { Private declarations }
   public

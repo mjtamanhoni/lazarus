@@ -4,34 +4,51 @@ object frmPrincipal: TfrmPrincipal
   Top = 250
   Width = 599
   Caption = 'Menu Principal'
-  Menu = MainMenu1
+  Menu = mmPrincipal
   LCLVersion = '4.4.0.0'
-  object MainMenu1: TMainMenu
+  object mmPrincipal: TMainMenu
     Left = 168
     Top = 112
-    object menuCadastro: TMenuItem
+    object mnuCadastro: TMenuItem
       Caption = 'Cadastro'
-      object menuCad_Empresa: TMenuItem
+      object mnuCad_Empresa: TMenuItem
         Caption = 'Empresa'
+        OnClick = mnuCad_EmpresaClick
       end
-      object menuCadUsuario: TMenuItem
+      object mnuCadUsuario: TMenuItem
         Caption = 'Usuário'
-        object menuCad_Usu_Usuario: TMenuItem
+        object mnuCad_Usu_Usuario: TMenuItem
           Caption = 'Usuário'
         end
-        object menuCad_Usu_Perfil: TMenuItem
+        object mnuCad_Usu_Perfil: TMenuItem
           Caption = 'Perfil'
         end
-        object menuCad_Usu_PermissaoAcao: TMenuItem
+        object mnuCad_Usu_Permissoes: TMenuItem
           Caption = 'Permissões'
-          object MenuItem1: TMenuItem
-            Caption = 'Ação'
-          end
-          object MenuItem2: TMenuItem
+          object mnuCadUsu_Tela: TMenuItem
             Caption = 'Telas'
+          end
+          object mnuCadUsu_Acao: TMenuItem
+            Caption = 'Ação'
           end
         end
       end
+    end
+    object mnuMovimento: TMenuItem
+      Caption = 'Movimento'
+    end
+    object mnuDashboard: TMenuItem
+      Caption = 'Dashboard'
+    end
+    object mnuRelatorios: TMenuItem
+      Caption = 'Relatórios'
+    end
+    object mnuConfig: TMenuItem
+      Caption = 'Configurações'
+    end
+    object mnuDesconectar: TMenuItem
+      Caption = 'Login'
+      OnClick = mnuDesconectarClick
     end
   end
 end
