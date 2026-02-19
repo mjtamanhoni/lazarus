@@ -45,7 +45,7 @@ function frmPrincipal: TfrmPrincipal;
 implementation
 
 uses
-  EmissorWebApp, uEmpresa, uUsuario;
+  EmissorWebApp, uEmpresa;
 
 {$R *.lfm}
 
@@ -111,8 +111,8 @@ begin
         PrismControl.AsSideMenu.MenuItemFromVCLComponent(mnuCad_Usu_Usuario).Icon := 'fa-solid fa-users';
         PrismControl.AsSideMenu.MenuItemFromVCLComponent(mnuCad_Usu_Perfil).Icon := 'fa-solid fa-address-card';
         PrismControl.AsSideMenu.MenuItemFromVCLComponent(mnuCad_Usu_Permissoes).Icon := 'fa-solid fa-lock-open'; //<i class="fa-solid fa-lock-open"></i>
-        PrismControl.AsSideMenu.MenuItemFromVCLComponent(mnuCadUsu_Acao).Icon := 'fa-solid fa-circle-ellipsis';
         PrismControl.AsSideMenu.MenuItemFromVCLComponent(mnuCadUsu_Tela).Icon := 'fa-solid fa-laptop-file';
+        PrismControl.AsSideMenu.MenuItemFromVCLComponent(mnuCadUsu_Acao).Icon := 'fa-solid fa-list';
       {$EndRegion 'Usuarios'}
 
       {$Region 'Empresa'}
@@ -121,6 +121,9 @@ begin
 
     end;
   end;
+
+
+  //https://fontawesome.com/icons/laptop
 
   //Change Init Property of Prism Controls
   {

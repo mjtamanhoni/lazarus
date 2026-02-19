@@ -16,3 +16,5 @@ Emissor/web/src/backup/
 Emissor/web/src/lib/x86_64-win64/
 Emissor/web/src/Web/log/
 *.pfx
+*.o
+emissor/Temp/

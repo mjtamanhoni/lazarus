@@ -11,6 +11,7 @@ uses
   DataSet.Serialize,
   RESTRequest4D,
   jsonparser,
+  uCad.Empresa,
   uBase.Functions,
   uCripto_Descrito, uDM.ACBr; //Declare D2Bridge.Forms always in the last unit
 
@@ -31,7 +32,6 @@ type
     Button_Login: TButton;
     Image_BackGround: TImage;
     procedure btCadEmpresaClick(Sender: TObject);
-    procedure btCadUsuarioClick(Sender: TObject);
     procedure Button_LoginClick(Sender: TObject);
     procedure Button_ShowPassClick(Sender: TObject);
     procedure edCNPJExit(Sender: TObject);
@@ -39,6 +39,7 @@ type
     procedure Edit_UserNameKeyPress(Sender: TObject; var Key: char);
   private
     fDM_ACBr :TDM_Acbr;
+    FfrmCadEmpresa :TfrmCadEmpresa;
 
   public
 
@@ -53,7 +54,7 @@ Function Form_Login: TForm_Login;
 implementation
 
 Uses
-   EmissorWebApp, uPrincipal, uEmpresa, uUsuario;
+   EmissorWebApp, uPrincipal, uEmpresa;
 
 Function Form_Login: TForm_Login;
 begin
@@ -129,16 +130,15 @@ end;
 
 procedure TForm_Login.btCadEmpresaClick(Sender: TObject);
 begin
+ {
   if frmEmpresa = nil then
     TfrmEmpresa.CreateInstance;
   frmEmpresa.Show;
-end;
-
-procedure TForm_Login.btCadUsuarioClick(Sender: TObject);
-begin
-  if frmUsuarios = nil then
-    TfrmUsuarios.CreateInstance;
-  frmUsuarios.Show;
+}
+  FfrmCadEmpresa.Clear_Fields;
+  FfrmCadEmpresa.pcPrincipal.ActivePageIndex := 0;
+  ShowPopupModal('Popup' + FfrmCadEmpresa.Name);
+  edCNPJ.Text := Emissor.Empresa_Fields.cnpj;
 end;
 
 procedure TForm_Login.Button_ShowPassClick(Sender: TObject);
@@ -213,6 +213,11 @@ begin
  Title:= 'Emissor';
  SubTitle:= 'Acessar o Sistema';
 
+
+ FfrmCadEmpresa := TfrmCadEmpresa.Create(Self);
+ D2Bridge.AddNested(FfrmCadEmpresa);
+
+
  //Background color
  D2Bridge.HTML.Render.BodyStyle:= 'background-color: #f0f0f0;';
 
@@ -269,6 +274,10 @@ begin
    end;
 
   end;
+
+  with Popup('Popup' + FfrmCadEmpresa.Name,'Cadastro de Empresas',True,CSSClass.Popup.ExtraLarge).Items.Add do
+    Nested(FfrmCadEmpresa);
+
  end;
 end;
 

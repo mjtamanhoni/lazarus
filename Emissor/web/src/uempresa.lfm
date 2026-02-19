@@ -103,18 +103,7 @@ inherited frmEmpresa: TfrmEmpresa
     BevelOuter = bvNone
     TabOrder = 2
   end
-  inherited mmPrincipal: TMainMenu[3]
-    inherited mnuCadastro: TMenuItem
-      inherited mnuCadUsuario: TMenuItem
-        inherited mnuCad_Usu_Permissoes: TMenuItem
-          Caption = 'Permissões de Ação'
-        end
-        object menuCad_Usu_PermissaoTela: TMenuItem[3]
-          Caption = 'Permissões de Telas'
-        end
-      end
-    end
-  end
+
   object dsRegistro: TDataSource[4]
     Left = 280
     Top = 120

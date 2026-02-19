@@ -1,4 +1,4 @@
-inherited frmUsuarios: TfrmUsuarios
+inherited frmUsuario: TfrmUsuario
   Height = 500
   Width = 800
   Caption = 'Usuários'

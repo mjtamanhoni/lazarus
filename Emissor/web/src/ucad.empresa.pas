@@ -9,7 +9,7 @@ uses
   StdCtrls, ExtCtrls, ComCtrls, ComboEx, DBGrids, EditBtn, DateTimePicker,
   D2Bridge.Forms, ACBrValidador, IniFiles, fpjson, DataSet.Serialize,
   RESTRequest4D, jsonparser, uCad.Empresa.Endereco, ucad.empresa.DadosBancarios,
-  uDM.ACBr, uBase.Functions, uBase.DataSets;
+  uDM.ACBr, uBase.Functions, uBase.DataSets, Forms;
 
 type
 
@@ -103,6 +103,7 @@ type
     procedure btEnd_AddClick(Sender: TObject);
     procedure cbregime_tributarioChange(Sender: TObject);
     procedure edcnpjExit(Sender: TObject);
+    procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
   private
@@ -412,6 +413,26 @@ begin
   except
     on E :Exception do
       MessageDlg(E.Message,TMsgDlgType.mtWarning,[mbOK],0);
+  end;
+end;
+
+procedure TfrmCadEmpresa.FormClose(Sender: TObject; var CloseAction: TCloseAction);
+begin
+  with Emissor.Empresa_Fields do
+  begin
+    id_empresa := StrToIntDef(edid_empresa.Text,0);
+    razao_social := edrazao_social.Text;
+    nome_fantasia := ednome_fantasia.Text;
+    cnpj := edcnpj.Text;
+    inscricao_estadual := edinscricao_estadual.Text;
+    inscricao_municipal := edinscricao_municipal.Text;
+    regime_tributario := cbregime_tributario.Text;
+    crt := edcrt.Text;
+    email := edemail.Text;
+    telefone := edtelefone.Text;
+    site := edsite.Text;
+    ativo := cbativo.ItemIndex;
+    celular := edcelular.Text;
   end;
 end;
 

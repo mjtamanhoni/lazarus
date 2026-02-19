@@ -229,7 +229,7 @@
       <Unit>
         <Filename Value="uusuario.pas"/>
         <IsPartOfProject Value="True"/>
-        <ComponentName Value="frmUsuarios"/>
+        <ComponentName Value="frmUsuario"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uUsuario"/>

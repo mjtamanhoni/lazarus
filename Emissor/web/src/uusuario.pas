@@ -5,15 +5,25 @@ unit uUsuario;
 interface
 
 uses
-  Classes, SysUtils, DB, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls,  
-  D2Bridge.Forms, uPrincipal;
+  Classes, SysUtils, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls,
+  uPrincipal, DB,
+  D2Bridge.Forms;
 
 type
 
-  { TfrmUsuarios }
+  { TfrmUsuario }
 
-  TfrmUsuarios = class(TfrmPrincipal)
+  TfrmUsuario = class(TfrmPrincipal)
+    btNovo: TButton;
+    btSelPesquisa: TButton;
+    DBGrid_Empresa: TDBGrid;
     dsRegistro: TDataSource;
+    edPesquisar: TEdit;
+    pnDetail: TPanel;
+    pnFiltro: TPanel;
+    pnFooter: TPanel;
+    pnHeader: TPanel;
+    pnTipoFiltro2: TPanel;
   private
     { Private declarations }
   public
@@ -25,7 +35,7 @@ type
       var HTMLControl: string); override;
   end;
 
-function frmUsuarios: TfrmUsuarios;
+function frmUsuario: TfrmUsuario;
 
 implementation
 
@@ -34,16 +44,16 @@ uses
 
 {$R *.lfm}
 
-function frmUsuarios: TfrmUsuarios;
+function frmUsuario: TfrmUsuario;
 begin
-  result := (TfrmUsuarios.GetInstance as TfrmUsuarios);
+  result := (TfrmUsuario.GetInstance as TfrmUsuario);
 end;
 
-procedure TfrmUsuarios.ExportD2Bridge;
+procedure TfrmUsuario.ExportD2Bridge;
 begin
   inherited;
 
-  Title := 'Usuários';
+  Title := 'My D2Bridge Form';
 
   //TemplateClassForm:= TD2BridgeFormTemplate;
   D2Bridge.FrameworkExportType.TemplateMasterHTMLFile := '';
@@ -56,7 +66,7 @@ begin
 
 end;
 
-procedure TfrmUsuarios.InitControlsD2Bridge(const PrismControl: TPrismControl);
+procedure TfrmUsuario.InitControlsD2Bridge(const PrismControl: TPrismControl);
 begin
   inherited;
 
@@ -73,7 +83,7 @@ begin
   }
 end;
 
-procedure TfrmUsuarios.RenderD2Bridge(const PrismControl: TPrismControl;
+procedure TfrmUsuario.RenderD2Bridge(const PrismControl: TPrismControl;
   var HTMLControl: string);
 begin
   inherited;
