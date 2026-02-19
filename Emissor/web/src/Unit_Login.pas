@@ -12,6 +12,7 @@ uses
   RESTRequest4D,
   jsonparser,
   uCad.Empresa,
+  uCad.Usuario,
   uBase.Functions,
   uCripto_Descrito, uDM.ACBr; //Declare D2Bridge.Forms always in the last unit
 
@@ -32,6 +33,7 @@ type
     Button_Login: TButton;
     Image_BackGround: TImage;
     procedure btCadEmpresaClick(Sender: TObject);
+    procedure btCadUsuarioClick(Sender: TObject);
     procedure Button_LoginClick(Sender: TObject);
     procedure Button_ShowPassClick(Sender: TObject);
     procedure edCNPJExit(Sender: TObject);
@@ -40,6 +42,7 @@ type
   private
     fDM_ACBr :TDM_Acbr;
     FfrmCadEmpresa :TfrmCadEmpresa;
+    FfrmCad_Usuario :TfrmCad_Usuario;
 
   public
 
@@ -130,15 +133,17 @@ end;
 
 procedure TForm_Login.btCadEmpresaClick(Sender: TObject);
 begin
- {
-  if frmEmpresa = nil then
-    TfrmEmpresa.CreateInstance;
-  frmEmpresa.Show;
-}
   FfrmCadEmpresa.Clear_Fields;
   FfrmCadEmpresa.pcPrincipal.ActivePageIndex := 0;
   ShowPopupModal('Popup' + FfrmCadEmpresa.Name);
   edCNPJ.Text := Emissor.Empresa_Fields.cnpj;
+end;
+
+procedure TForm_Login.btCadUsuarioClick(Sender: TObject);
+begin
+ FfrmCad_Usuario.Clear_Fields;
+ ShowPopupModal('Popup' + FfrmCad_Usuario.Name);
+ Edit_UserName.Text := Emissor.Login_Usuario;
 end;
 
 procedure TForm_Login.Button_ShowPassClick(Sender: TObject);
@@ -213,10 +218,13 @@ begin
  Title:= 'Emissor';
  SubTitle:= 'Acessar o Sistema';
 
-
+ //Cadastro de Empresa...
  FfrmCadEmpresa := TfrmCadEmpresa.Create(Self);
  D2Bridge.AddNested(FfrmCadEmpresa);
 
+ //Cadastro de usuário...
+ FfrmCad_Usuario := TfrmCad_Usuario.Create(Self);
+ D2Bridge.AddNested(FfrmCad_Usuario);
 
  //Background color
  D2Bridge.HTML.Render.BodyStyle:= 'background-color: #f0f0f0;';
@@ -275,8 +283,12 @@ begin
 
   end;
 
+  //Cadastro de empresa...
   with Popup('Popup' + FfrmCadEmpresa.Name,'Cadastro de Empresas',True,CSSClass.Popup.ExtraLarge).Items.Add do
     Nested(FfrmCadEmpresa);
+  //Cadastro de usuário...
+  with Popup('Popup' + FfrmCad_Usuario.Name,'Cadastro de Usuários',True,CSSClass.Popup.ExtraLarge).Items.Add do
+    Nested(FfrmCad_Usuario);
 
  end;
 end;

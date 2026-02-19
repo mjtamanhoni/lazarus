@@ -209,6 +209,7 @@ object Form_Login: TForm_Login
       Top = 184
       Width = 35
       TabOrder = 4
+      OnClick = btCadUsuarioClick
     end
   end
   object Button_ShowPass: TButton

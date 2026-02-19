@@ -9,7 +9,7 @@
         <Filename Value="Emissor.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="D2BridgeWebAppLCL"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="12"/>
         <CursorPos X="50" Y="10"/>
         <UsageCount Value="302"/>
         <Loaded Value="True"/>
@@ -69,12 +69,13 @@
         <ComponentName Value="Form_Login"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
-        <TopLine Value="31"/>
-        <CursorPos X="34" Y="4"/>
+        <TopLine Value="120"/>
+        <CursorPos X="18" Y="149"/>
         <UsageCount Value="302"/>
         <Bookmarks Count="1">
-          <Item0 X="29" Y="134" Left="1" Top="130" ID="1"/>
+          <Item0 X="29" Y="137" Left="1" Top="133" ID="1"/>
         </Bookmarks>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -117,7 +118,7 @@
         <Filename Value="..\..\..\Global\ubase.functions.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uBase.Functions"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="10"/>
         <CursorPos X="24" Y="18"/>
         <UsageCount Value="287"/>
         <Loaded Value="True"/>
@@ -149,7 +150,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="uDM.ACBr"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="9"/>
         <CursorPos X="57" Y="16"/>
         <UsageCount Value="276"/>
         <Loaded Value="True"/>
@@ -162,7 +163,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uCad.Empresa"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="6"/>
         <TopLine Value="360"/>
         <CursorPos X="76" Y="435"/>
         <UsageCount Value="267"/>
@@ -180,7 +181,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uEmpresa"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="8"/>
         <TopLine Value="433"/>
         <CursorPos Y="453"/>
         <UsageCount Value="267"/>
@@ -215,7 +216,7 @@
         <Filename Value="utype_field_table.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uType_Field_Table"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="7"/>
         <TopLine Value="13"/>
         <CursorPos Y="46"/>
         <UsageCount Value="204"/>
@@ -225,7 +226,7 @@
         <Filename Value="ubase.datasets.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uBase.DataSets"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="11"/>
         <TopLine Value="27"/>
         <CursorPos X="3" Y="33"/>
         <UsageCount Value="252"/>
@@ -238,11 +239,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uUsuario"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="4"/>
         <TopLine Value="7"/>
-        <CursorPos X="37" Y="27"/>
-        <UsageCount Value="22"/>
+        <CursorPos X="36" Y="16"/>
+        <UsageCount Value="24"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
@@ -276,36 +276,22 @@
         <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit>
+      <Unit>
+        <Filename Value="ucad.usuario.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmCad_Usuario"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="uCad.Usuario"/>
+        <EditorIndex Value="5"/>
+        <TopLine Value="74"/>
+        <CursorPos X="5" Y="77"/>
+        <UsageCount Value="22"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit>
     </Units>
     <JumpHistory HistoryIndex="29">
-      <Position>
-        <Filename Value="uprincipal.pas"/>
-        <Caret Line="87" Column="67" TopLine="77"/>
-      </Position>
-      <Position>
-        <Filename Value="uprincipal.pas"/>
-        <Caret Line="88" Column="67" TopLine="78"/>
-      </Position>
-      <Position>
-        <Filename Value="uprincipal.pas"/>
-        <Caret Line="86" Column="31" TopLine="79"/>
-      </Position>
-      <Position>
-        <Filename Value="uempresa.pas"/>
-        <Caret Line="9" Column="50"/>
-      </Position>
-      <Position>
-        <Filename Value="uempresa.pas"/>
-        <Caret Line="118" Column="44" TopLine="114"/>
-      </Position>
-      <Position>
-        <Filename Value="uprincipal.pas"/>
-        <Caret Line="107" Column="9" TopLine="86"/>
-      </Position>
-      <Position>
-        <Filename Value="uprincipal.pas"/>
-        <Caret Line="90" Column="39" TopLine="87"/>
-      </Position>
       <Position>
         <Filename Value="Unit_Login.pas"/>
         <Caret Line="268" Column="51" TopLine="234"/>
@@ -395,6 +381,34 @@
       <Position>
         <Filename Value="uusuario.pas"/>
         <Caret Line="18" Column="37" TopLine="7"/>
+      </Position>
+      <Position>
+        <Filename Value="ucad.usuario.pas"/>
+        <Caret Line="12" Column="40"/>
+      </Position>
+      <Position>
+        <Filename Value="ucad.usuario.pas"/>
+        <Caret Line="15" Column="40"/>
+      </Position>
+      <Position>
+        <Filename Value="Unit_Login.pas"/>
+        <Caret Line="42" Column="36" TopLine="32"/>
+      </Position>
+      <Position>
+        <Filename Value="Unit_Login.pas"/>
+        <Caret Line="43" Column="7" TopLine="26"/>
+      </Position>
+      <Position>
+        <Filename Value="Unit_Login.pas"/>
+        <Caret Line="140" Column="17" TopLine="108"/>
+      </Position>
+      <Position>
+        <Filename Value="Unit_Login.pas"/>
+        <Caret Line="141" TopLine="111"/>
+      </Position>
+      <Position>
+        <Filename Value="ucad.usuario.pas"/>
+        <Caret Line="53" Column="28" TopLine="29"/>
       </Position>
     </JumpHistory>
     <RunParams>

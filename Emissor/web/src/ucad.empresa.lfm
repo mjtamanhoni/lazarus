@@ -1,47 +1,47 @@
 object frmCadEmpresa: TfrmCadEmpresa
   Left = 262
-  Height = 435
+  Height = 500
   Top = 250
-  Width = 696
+  Width = 700
   Caption = 'Cadastro de Empresa'
-  ClientHeight = 435
-  ClientWidth = 696
+  ClientHeight = 500
+  ClientWidth = 700
   LCLVersion = '4.4.0.0'
   OnClose = FormClose
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   object pnDetail: TPanel
     Left = 0
-    Height = 397
+    Height = 462
     Top = 0
-    Width = 696
+    Width = 700
     Align = alClient
     BevelOuter = bvNone
-    ClientHeight = 397
-    ClientWidth = 696
+    ClientHeight = 462
+    ClientWidth = 700
     TabOrder = 0
     object pcPrincipal: TPageControl
       Left = 0
-      Height = 397
+      Height = 462
       Top = 0
-      Width = 696
+      Width = 700
       ActivePage = tsEmpresa
       Align = alClient
       TabIndex = 0
       TabOrder = 0
       object tsEmpresa: TTabSheet
         Caption = 'Empresa'
-        ClientHeight = 369
-        ClientWidth = 688
+        ClientHeight = 434
+        ClientWidth = 692
         object pnRow001: TPanel
           Left = 0
           Height = 43
           Top = 0
-          Width = 688
+          Width = 692
           Align = alTop
           BevelOuter = bvNone
           ClientHeight = 43
-          ClientWidth = 688
+          ClientWidth = 692
           TabOrder = 0
           object pnid_empresa: TPanel
             Left = 0
@@ -160,7 +160,7 @@ object frmCadEmpresa: TfrmCadEmpresa
             end
           end
           object pnativo: TPanel
-            Left = 564
+            Left = 568
             Height = 43
             Top = 0
             Width = 124
@@ -197,28 +197,28 @@ object frmCadEmpresa: TfrmCadEmpresa
           Left = 0
           Height = 43
           Top = 43
-          Width = 688
+          Width = 692
           Align = alTop
           BevelOuter = bvNone
           ClientHeight = 43
-          ClientWidth = 688
+          ClientWidth = 692
           TabOrder = 1
           object pnrazao_social: TPanel
             Left = 0
             Height = 43
             Top = 0
-            Width = 688
+            Width = 692
             Align = alClient
             BevelOuter = bvNone
             BorderWidth = 3
             ClientHeight = 43
-            ClientWidth = 688
+            ClientWidth = 692
             TabOrder = 0
             object lbrazao_social: TLabel
               Left = 3
               Height = 15
               Top = 3
-              Width = 682
+              Width = 686
               Align = alTop
               Caption = 'Razão Social'
             end
@@ -226,7 +226,7 @@ object frmCadEmpresa: TfrmCadEmpresa
               Left = 3
               Height = 22
               Top = 18
-              Width = 682
+              Width = 686
               Align = alClient
               CharCase = ecUppercase
               TabOrder = 0
@@ -237,28 +237,28 @@ object frmCadEmpresa: TfrmCadEmpresa
           Left = 0
           Height = 43
           Top = 86
-          Width = 688
+          Width = 692
           Align = alTop
           BevelOuter = bvNone
           ClientHeight = 43
-          ClientWidth = 688
+          ClientWidth = 692
           TabOrder = 2
           object pnnome_fantasia: TPanel
             Left = 0
             Height = 43
             Top = 0
-            Width = 688
+            Width = 692
             Align = alClient
             BevelOuter = bvNone
             BorderWidth = 3
             ClientHeight = 43
-            ClientWidth = 688
+            ClientWidth = 692
             TabOrder = 0
             object lbnome_fantasia: TLabel
               Left = 3
               Height = 15
               Top = 3
-              Width = 682
+              Width = 686
               Align = alTop
               Caption = 'Nome Fantasia'
             end
@@ -266,7 +266,7 @@ object frmCadEmpresa: TfrmCadEmpresa
               Left = 3
               Height = 22
               Top = 18
-              Width = 682
+              Width = 686
               Align = alClient
               CharCase = ecUppercase
               TabOrder = 0
@@ -277,11 +277,11 @@ object frmCadEmpresa: TfrmCadEmpresa
           Left = 0
           Height = 43
           Top = 129
-          Width = 688
+          Width = 692
           Align = alTop
           BevelOuter = bvNone
           ClientHeight = 43
-          ClientWidth = 688
+          ClientWidth = 692
           TabOrder = 3
           object pnregime_tributario: TPanel
             Left = 0
@@ -350,7 +350,7 @@ object frmCadEmpresa: TfrmCadEmpresa
             end
           end
           object pntelefone: TPanel
-            Left = 440
+            Left = 444
             Height = 43
             Top = 0
             Width = 124
@@ -378,7 +378,7 @@ object frmCadEmpresa: TfrmCadEmpresa
             end
           end
           object pncelular: TPanel
-            Left = 564
+            Left = 568
             Height = 43
             Top = 0
             Width = 124
@@ -410,28 +410,28 @@ object frmCadEmpresa: TfrmCadEmpresa
           Left = 0
           Height = 43
           Top = 172
-          Width = 688
+          Width = 692
           Align = alTop
           BevelOuter = bvNone
           ClientHeight = 43
-          ClientWidth = 688
+          ClientWidth = 692
           TabOrder = 4
           object pnemail: TPanel
             Left = 0
             Height = 43
             Top = 0
-            Width = 688
+            Width = 692
             Align = alClient
             BevelOuter = bvNone
             BorderWidth = 3
             ClientHeight = 43
-            ClientWidth = 688
+            ClientWidth = 692
             TabOrder = 0
             object lbemail: TLabel
               Left = 3
               Height = 15
               Top = 3
-              Width = 682
+              Width = 686
               Align = alTop
               Caption = 'E-Mail'
             end
@@ -439,7 +439,7 @@ object frmCadEmpresa: TfrmCadEmpresa
               Left = 3
               Height = 22
               Top = 18
-              Width = 682
+              Width = 686
               Align = alClient
               TabOrder = 0
             end
@@ -449,28 +449,28 @@ object frmCadEmpresa: TfrmCadEmpresa
           Left = 0
           Height = 43
           Top = 215
-          Width = 688
+          Width = 692
           Align = alTop
           BevelOuter = bvNone
           ClientHeight = 43
-          ClientWidth = 688
+          ClientWidth = 692
           TabOrder = 5
           object pnsite: TPanel
             Left = 0
             Height = 43
             Top = 0
-            Width = 688
+            Width = 692
             Align = alClient
             BevelOuter = bvNone
             BorderWidth = 3
             ClientHeight = 43
-            ClientWidth = 688
+            ClientWidth = 692
             TabOrder = 0
             object lbsite: TLabel
               Left = 3
               Height = 15
               Top = 3
-              Width = 682
+              Width = 686
               Align = alTop
               Caption = 'Site'
             end
@@ -478,7 +478,7 @@ object frmCadEmpresa: TfrmCadEmpresa
               Left = 3
               Height = 22
               Top = 18
-              Width = 682
+              Width = 686
               Align = alClient
               TabOrder = 0
             end
@@ -487,27 +487,27 @@ object frmCadEmpresa: TfrmCadEmpresa
       end
       object tsEndereco: TTabSheet
         Caption = 'Endereço'
-        ClientHeight = 369
-        ClientWidth = 688
+        ClientHeight = 434
+        ClientWidth = 692
         object pnEndRow1: TPanel
           Left = 0
-          Height = 369
+          Height = 434
           Top = 0
-          Width = 688
+          Width = 692
           Align = alClient
           BevelOuter = bvNone
-          ClientHeight = 369
-          ClientWidth = 688
+          ClientHeight = 434
+          ClientWidth = 692
           TabOrder = 0
           object pnEnd_Footer: TPanel
             Left = 0
             Height = 33
-            Top = 336
-            Width = 688
+            Top = 401
+            Width = 692
             Align = alBottom
             BevelOuter = bvNone
             ClientHeight = 33
-            ClientWidth = 688
+            ClientWidth = 692
             TabOrder = 0
             object btEnd_Add: TButton
               Left = 0
@@ -521,9 +521,9 @@ object frmCadEmpresa: TfrmCadEmpresa
           end
           object DBGrid_End: TDBGrid
             Left = 0
-            Height = 336
+            Height = 401
             Top = 0
-            Width = 688
+            Width = 692
             Align = alClient
             Color = clWindow
             Columns = <>
@@ -534,13 +534,13 @@ object frmCadEmpresa: TfrmCadEmpresa
       end
       object tsDadosBancarios: TTabSheet
         Caption = 'Dados Bancários'
-        ClientHeight = 369
-        ClientWidth = 688
+        ClientHeight = 434
+        ClientWidth = 692
         object DBGrid_DB: TDBGrid
           Left = 0
-          Height = 336
+          Height = 401
           Top = 0
-          Width = 688
+          Width = 692
           Align = alClient
           Color = clWindow
           Columns = <>
@@ -550,12 +550,12 @@ object frmCadEmpresa: TfrmCadEmpresa
         object pnCB_Footer: TPanel
           Left = 0
           Height = 33
-          Top = 336
-          Width = 688
+          Top = 401
+          Width = 692
           Align = alBottom
           BevelOuter = bvNone
           ClientHeight = 33
-          ClientWidth = 688
+          ClientWidth = 692
           TabOrder = 1
           object btCB_Add: TButton
             Left = 0
@@ -570,17 +570,17 @@ object frmCadEmpresa: TfrmCadEmpresa
       end
       object tsCertificadoDigital: TTabSheet
         Caption = 'Certificado Digital'
-        ClientHeight = 369
-        ClientWidth = 688
+        ClientHeight = 434
+        ClientWidth = 692
         object pnCDRow1: TPanel
           Left = 0
           Height = 43
           Top = 0
-          Width = 688
+          Width = 692
           Align = alTop
           BevelOuter = bvNone
           ClientHeight = 43
-          ClientWidth = 688
+          ClientWidth = 692
           TabOrder = 0
           object pnid_certificado: TPanel
             Left = 0
@@ -617,18 +617,18 @@ object frmCadEmpresa: TfrmCadEmpresa
             Left = 80
             Height = 43
             Top = 0
-            Width = 458
+            Width = 462
             Align = alClient
             BevelOuter = bvNone
             BorderWidth = 3
             ClientHeight = 43
-            ClientWidth = 458
+            ClientWidth = 462
             TabOrder = 1
             object lbtipo: TLabel
               Left = 3
               Height = 15
               Top = 3
-              Width = 452
+              Width = 456
               Align = alTop
               Caption = 'Tipo do Certificado'
             end
@@ -636,7 +636,7 @@ object frmCadEmpresa: TfrmCadEmpresa
               Left = 3
               Height = 23
               Top = 18
-              Width = 452
+              Width = 456
               Align = alClient
               ItemHeight = 15
               Items.Strings = (
@@ -647,7 +647,7 @@ object frmCadEmpresa: TfrmCadEmpresa
             end
           end
           object pnvalidade: TPanel
-            Left = 538
+            Left = 542
             Height = 43
             Top = 0
             Width = 150
@@ -694,28 +694,28 @@ object frmCadEmpresa: TfrmCadEmpresa
           Left = 0
           Height = 43
           Top = 43
-          Width = 688
+          Width = 692
           Align = alTop
           BevelOuter = bvNone
           ClientHeight = 43
-          ClientWidth = 688
+          ClientWidth = 692
           TabOrder = 1
           object pncaminho_arquivo: TPanel
             Left = 0
             Height = 43
             Top = 0
-            Width = 688
+            Width = 692
             Align = alClient
             BevelOuter = bvNone
             BorderWidth = 3
             ClientHeight = 43
-            ClientWidth = 688
+            ClientWidth = 692
             TabOrder = 0
             object lbcaminho_arquivo: TLabel
               Left = 3
               Height = 15
               Top = 3
-              Width = 682
+              Width = 686
               Align = alTop
               Caption = 'Caminho do arquivo'
             end
@@ -723,7 +723,7 @@ object frmCadEmpresa: TfrmCadEmpresa
               Left = 3
               Height = 22
               Top = 18
-              Width = 682
+              Width = 686
               Align = alClient
               CharCase = ecUppercase
               TabOrder = 0
@@ -734,28 +734,28 @@ object frmCadEmpresa: TfrmCadEmpresa
           Left = 0
           Height = 43
           Top = 86
-          Width = 688
+          Width = 692
           Align = alTop
           BevelOuter = bvNone
           ClientHeight = 43
-          ClientWidth = 688
+          ClientWidth = 692
           TabOrder = 2
           object pnsenha: TPanel
             Left = 0
             Height = 43
             Top = 0
-            Width = 688
+            Width = 692
             Align = alClient
             BevelOuter = bvNone
             BorderWidth = 3
             ClientHeight = 43
-            ClientWidth = 688
+            ClientWidth = 692
             TabOrder = 0
             object lbsenha: TLabel
               Left = 3
               Height = 15
               Top = 3
-              Width = 682
+              Width = 686
               Align = alTop
               Caption = 'Senha'
             end
@@ -763,7 +763,7 @@ object frmCadEmpresa: TfrmCadEmpresa
               Left = 3
               Height = 22
               Top = 18
-              Width = 682
+              Width = 686
               Align = alClient
               EchoMode = emPassword
               PasswordChar = '*'
@@ -777,16 +777,16 @@ object frmCadEmpresa: TfrmCadEmpresa
   object pnFooter: TPanel
     Left = 0
     Height = 38
-    Top = 397
-    Width = 696
+    Top = 462
+    Width = 700
     Align = alBottom
     BevelOuter = bvNone
     ClientHeight = 38
-    ClientWidth = 696
+    ClientWidth = 700
     TabOrder = 1
     object btCancelar: TButton
       Cursor = crHandPoint
-      Left = 621
+      Left = 625
       Height = 38
       Top = 0
       Width = 75
@@ -797,7 +797,7 @@ object frmCadEmpresa: TfrmCadEmpresa
     end
     object btConfirmar: TButton
       Cursor = crHandPoint
-      Left = 546
+      Left = 550
       Height = 38
       Top = 0
       Width = 75

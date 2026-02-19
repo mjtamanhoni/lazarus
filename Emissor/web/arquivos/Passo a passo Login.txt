@@ -1,0 +1,31 @@
+	id_empresa serial4 NOT NULL,
+	razao_social varchar(255) NOT NULL,
+	nome_fantasia varchar(255) NULL,
+	cnpj bpchar(14) NOT NULL,
+	inscricao_estadual varchar(20) NULL,
+	inscricao_municipal varchar(20) NULL,
+	regime_tributario varchar(50) NULL,
+	crt bpchar(1) NULL,
+	email varchar(255) NULL,
+	telefone varchar(20) NULL,
+	site varchar(255) NULL,
+	data_cadastro timestamp DEFAULT CURRENT_TIMESTAMP NULL,
+	ativo int4 DEFAULT 1 NOT NULL,
+	
+	
+	
+CREATE TABLE public.endereco_empresa (
+	id_endereco serial4 NOT NULL,
+	id_empresa int4 NULL,
+	logradouro varchar(255) NOT NULL,
+	numero varchar(20) NULL,
+	complemento varchar(100) NULL,
+	bairro varchar(100) NULL,
+	municipio varchar(100) NOT NULL,
+	codigo_municipio_ibge varchar(7) NULL,
+	uf bpchar(2) NOT NULL,
+	cep bpchar(8) NOT NULL,
+	pais varchar(100) DEFAULT 'Brasil'::character varying NULL,
+	codigo_pais_ibge varchar(4) DEFAULT '1058'::character varying NULL,
+	tipo_endereco int4 NULL,
+	
