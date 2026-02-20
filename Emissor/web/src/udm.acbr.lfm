@@ -9,4 +9,22 @@ object DM_Acbr: TDM_Acbr
     Left = 104
     Top = 64
   end
+  object ACBrConsultaCNPJ: TACBrConsultaCNPJ
+    ContentsEncodingCompress = []
+    NivelLog = 0
+    PesquisarIBGE = False
+    IniServicos = 'C:\lazarus\ACBrConsultaCNPJServicos.ini'
+    Mei = False
+    Simples = False
+    Left = 104
+    Top = 128
+  end
+  object ACBrCEP: TACBrCEP
+    ProxyPort = '8080'
+    ContentsEncodingCompress = []
+    NivelLog = 0
+    PesquisarIBGE = True
+    Left = 104
+    Top = 192
+  end
 end

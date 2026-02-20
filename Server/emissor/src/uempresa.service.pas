@@ -114,7 +114,7 @@ begin
       end;
       if Trim(ACNPJ) <> '' then
       begin
-        FQuery.SQL.Add('  and e.cnpj  = :cnpj ');
+        FQuery.SQL.Add('  and replace(replace(replace(e.cnpj,''.'',''''),''-'',''''),''/'','''')  = :cnpj ');
         FQuery.ParamByName('cnpj').AsString := ACNPJ;
       end;
       if Trim(ARazaoSocial) <> '' then
@@ -285,8 +285,6 @@ begin
 
       if AJSon.IsEmpty and not AJSon.StartsWith('{') and not AJSon.EndsWith('}') then
         Raise Exception.Create('JSon Inválido!');
-
-      SaveLog(AJSon);
 
       FJson := TJSONObject(GetJSON(AJSon));
       FJson_End := TJSONArray(GetJSON(FJson['endereco'].AsJSON));

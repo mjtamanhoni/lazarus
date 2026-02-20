@@ -16,7 +16,6 @@ type
   TfrmUsuario = class(TfrmPrincipal)
     btNovo: TButton;
     btSelPesquisa: TButton;
-    DBGrid_Empresa: TDBGrid;
     dsRegistro: TDataSource;
     edPesquisar: TEdit;
     pnDetail: TPanel;

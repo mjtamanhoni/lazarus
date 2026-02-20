@@ -113,8 +113,9 @@ type
     fDM_ACBr :TDM_Acbr;
 
     FHost :String;
-    Fid_endereco: Integer;
     FIniFile :TIniFile;
+
+    Fid_endereco: Integer;
     Flogradouro: String;
 
     procedure OnClick_Edit_End;
@@ -176,7 +177,7 @@ begin
     except
       on E:Exception do
       begin
-        SaveLog(E.Message);
+        SaveLog(Self.Caption + ' [' + Self.Name + '] - Adiciona conta bancária: ' + E.Message);
         MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
       end;
     end;
@@ -282,7 +283,7 @@ begin
     except
       on E: Exception do
       begin
-        SaveLog('Gravar: ' + E.Message);
+        SaveLog(Self.Caption + ' [' + Self.Name + '] - Gravar: ' + E.Message);
         MessageDlg(E.Message,TMsgDlgType.mtError,[mbOk],0);
       end;
     end;
@@ -312,7 +313,7 @@ begin
     except
       on E:Exception do
       begin
-        SaveLog(E.Message);
+        SaveLog(Self.Caption + ' [' + Self.Name + '] - Criando DataSet: ' + E.Message);
         MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
       end;
     end;
@@ -332,7 +333,7 @@ begin
     except
       on E:Exception do
       begin
-        SaveLog(E.Message);
+        SaveLog(Self.Caption + ' [' + Self.Name + '] - Adiciona endereço: ' + E.Message);
         MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
       end;
     end;
@@ -412,7 +413,10 @@ begin
     end;
   except
     on E :Exception do
-      MessageDlg(E.Message,TMsgDlgType.mtWarning,[mbOK],0);
+    begin
+      SaveLog(Self.Caption + ' [' + Self.Name + '] - Validando CNPJ: ' + E.Message);
+      MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
+    end;
   end;
 end;
 
@@ -453,7 +457,10 @@ begin
         raise Exception.Create('Host de acesso ao servidor não informado.');
     except
       on E :Exception do
-      	 MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
+      begin
+        SaveLog(Self.Caption + ' [' + Self.Name + '] - Criando Formulário: ' + E.Message);
+        MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
+      end;
     end;
   finally
   end;
@@ -503,7 +510,7 @@ begin
   except
     on E :Exception do
     begin
-      SaveLog('Excluindo Empresa: ' + E.Message);
+      SaveLog(Self.Caption + ' [' + Self.Name + '] - Exclui empresa: ' + E.Message);
       MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
     end;
   end;
@@ -524,7 +531,7 @@ begin
   except
     on E:Exception do
     begin
-      SaveLog('Editando dados Bancários: ' + E.Message);
+      SaveLog(Self.Caption + ' [' + Self.Name + '] - Edita conta bancária: ' + E.Message);
       MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
     end;
   end;
@@ -559,7 +566,7 @@ begin
   except
     on E :Exception do
     begin
-      SaveLog('Excluindo Conta Bancária: ' + E.Message);
+      SaveLog(Self.Caption + ' [' + Self.Name + '] - Exclui conta bancária: ' + E.Message);
       MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
     end;
   end;
@@ -626,14 +633,14 @@ begin
               with Row.Items.Add do
               begin
                 FormGroup(lbid_empresa.Caption,CSSClass.Col.colsize1).AddLCLObj(edid_empresa);
-                FormGroup(lbcnpj.Caption,CSSClass.Col.colsize3).AddLCLObj(edcnpj);
+                FormGroup(lbcnpj.Caption,CSSClass.Col.colsize3).AddLCLObj(edcnpj,'ValidationGravar',True);
                 FormGroup(lbinscricao_estadual.Caption,CSSClass.Col.colsize3).AddLCLObj(edinscricao_estadual);
                 FormGroup(lbinscricao_municipal.Caption,CSSClass.Col.colsize3).AddLCLObj(edinscricao_municipal);
-                FormGroup(lbativo.Caption,CSSClass.Col.colsize2).AddLCLObj(cbativo);
+                FormGroup(lbativo.Caption,CSSClass.Col.colsize2).AddLCLObj(cbativo,'ValidationGravar',True);
               end;
 
               with Row.Items.Add do
-                FormGroup(lbrazao_social.Caption,CSSClass.Col.colsize12).AddLCLObj(edrazao_social);
+                FormGroup(lbrazao_social.Caption,CSSClass.Col.colsize12).AddLCLObj(edrazao_social,'ValidationGravar',True);
 
               with Row.Items.Add do
                 FormGroup(lbnome_fantasia.Caption,CSSClass.Col.colsize12).AddLCLObj(ednome_fantasia);
@@ -705,7 +712,7 @@ begin
 
     with Row(CSSClass.DivHtml.Align_Center).Items.Add do
     begin
-      VCLObj(btConfirmar, CSSClass.Button.save + CSSClass.Col.colsize2);
+      VCLObj(btConfirmar, 'ValidationGravar',False, CSSClass.Button.save + CSSClass.Col.colsize2);
       VCLObj(btCancelar, CSSClass.Button.cancel + CSSClass.Col.colsize2);
     end;
 
@@ -869,7 +876,7 @@ begin
   except
     on E:Exception do
     begin
-      SaveLog('Editando Endereço: ' + E.Message);
+      SaveLog(Self.Caption + ' [' + Self.Name + '] - Edita endereço: ' + E.Message);
       MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
     end;
   end;

@@ -135,13 +135,15 @@ procedure TForm_Login.btCadEmpresaClick(Sender: TObject);
 begin
   FfrmCadEmpresa.Clear_Fields;
   FfrmCadEmpresa.pcPrincipal.ActivePageIndex := 0;
+  FfrmCadEmpresa.cbativo.ItemIndex := 1;
   ShowPopupModal('Popup' + FfrmCadEmpresa.Name);
   edCNPJ.Text := Emissor.Empresa_Fields.cnpj;
 end;
 
 procedure TForm_Login.btCadUsuarioClick(Sender: TObject);
 begin
- FfrmCad_Usuario.Clear_Fields;
+ FfrmCad_Usuario.cbativo.ItemIndex := 1;
+ Emissor.Usuario_Fields.id_empresa := 1;
  ShowPopupModal('Popup' + FfrmCad_Usuario.Name);
  Edit_UserName.Text := Emissor.Login_Usuario;
 end;
@@ -189,6 +191,8 @@ begin
         edCNPJ.Text := fDM_ACBr.ACBrValidador.Formatar
       else
         raise Exception.Create('Documento inválido');
+
+      //Verifica se o documento [CNPJ/CPF] já está cadastrado e se já possui usuários...
 
     finally
       FreeAndNil(fDM_ACBr);
@@ -302,8 +306,6 @@ end;
 procedure TForm_Login.RenderD2Bridge(const PrismControl: TPrismControl; var HTMLControl: string);
 begin
  inherited;
-
- //Intercept HTML
  {
   if PrismControl.VCLComponent = Edit1 then
   begin

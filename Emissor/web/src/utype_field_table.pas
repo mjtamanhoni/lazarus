@@ -9,6 +9,34 @@ uses
 
 type
 
+   { TUsuario_Fields }
+
+   TUsuario_Fields = class
+   private
+     class var Fid_empresa: Integer;
+     class var Fativo: Integer;
+     class var Fdata_cadastro: TDateTime;
+     class var Femail: String;
+     class var Fid_perfil: Integer;
+     class var Fid_perfil_desc: String;
+     class var Fid_usuario: Integer;
+     class var Flogin: String;
+     class var Fnome: String;
+     class var Fsenha: String;
+     class var Fultimo_acesso: TDateTime;
+   public
+     class property id_usuario :Integer read Fid_usuario write Fid_usuario;
+     class property login :String read Flogin write Flogin;
+     class property senha :String read Fsenha write Fsenha;
+     class property nome :String read Fnome write Fnome;
+     class property email :String read Femail write Femail;
+     class property ativo :Integer read Fativo write Fativo;
+     class property data_cadastro :TDateTime read Fdata_cadastro write Fdata_cadastro;
+     class property ultimo_acesso :TDateTime read Fultimo_acesso write Fultimo_acesso;
+     class property id_perfil :Integer read Fid_perfil write Fid_perfil;
+     class property id_perfil_desc :String read Fid_perfil_desc write Fid_perfil_desc;
+     class property id_empresa :Integer read Fid_empresa write Fid_empresa;
+   end;
 
   { TEmpresa_Fields }
 

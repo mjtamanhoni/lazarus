@@ -72,6 +72,9 @@
     </RunParams>
     <RequiredPackages>
       <Item>
+        <PackageName Value="ACBrTCP"/>
+      </Item>
+      <Item>
         <PackageName Value="DateTimeCtrlsDsgn"/>
       </Item>
       <Item>
@@ -238,6 +241,7 @@
         <Filename Value="ucad.usuario.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmCad_Usuario"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uCad.Usuario"/>
       </Unit>

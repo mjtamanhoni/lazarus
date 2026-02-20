@@ -264,22 +264,25 @@ begin
       FQuery.SQL.Add('  ,senha ');
       FQuery.SQL.Add('  ,nome ');
       FQuery.SQL.Add('  ,email ');
-      if not FJson['id_perfil'].IsNull then
+      if not FJson['idPerfil'].IsNull then
         FQuery.SQL.Add('  ,id_perfil ');
+      FQuery.SQL.Add('  ,id_empresa ');
       FQuery.SQL.Add(') values( ');
       FQuery.SQL.Add('  :login ');
       FQuery.SQL.Add('  ,:senha ');
       FQuery.SQL.Add('  ,:nome ');
       FQuery.SQL.Add('  ,:email ');
-      if not FJson['id_perfil'].IsNull then
+      if not FJson['idPerfil'].IsNull then
         FQuery.SQL.Add('  ,:id_perfil ');
+      FQuery.SQL.Add('  ,:id_empresa ');
       FQuery.SQL.Add('); ');
       FQuery.ParamByName('login').AsString := FJson['login'].AsString;
       FQuery.ParamByName('senha').AsString := FJson['senha'].AsString;
       FQuery.ParamByName('nome').AsString := FJson['nome'].AsString;
       FQuery.ParamByName('email').AsString := FJson['email'].AsString;
-      if not FJson['id_perfil'].IsNull then
-        FQuery.ParamByName('id_perfil').AsInteger := FJson['id_perfil'].AsInteger;
+      if not FJson['idPerfil'].IsNull then
+        FQuery.ParamByName('id_perfil').AsInteger := FJson['idPerfil'].AsInteger;
+      FQuery.ParamByName('id_empresa').AsInteger := FJson['idEmpresa'].AsInteger;
       FQuery.ExecSQL;
 
       FDm.ZConnection.Commit;
@@ -323,16 +326,17 @@ begin
       FQuery.SQL.Add('  ,nome = :nome ');
       FQuery.SQL.Add('  ,email = :email ');
       FQuery.SQL.Add('  ,ativo = :ativo ');
-      if not FJson['id_perfil'].IsNull then
+      if not FJson['idPerfil'].IsNull then
         FQuery.SQL.Add('  ,id_perfil = :id_perfil ');
       FQuery.SQL.Add('where id_usuario = :id_usuario; ');
+      FQuery.ParamByName('id_usuario').AsInteger := FJson['idUsuario'].AsInteger;
       FQuery.ParamByName('login').AsString := FJson['login'].AsString;
       FQuery.ParamByName('senha').AsString := FJson['senha'].AsString;
       FQuery.ParamByName('nome').AsString := FJson['nome'].AsString;
       FQuery.ParamByName('email').AsString := FJson['email'].AsString;
       FQuery.ParamByName('ativo').AsInteger := FJson['ativo'].AsInteger;
-      if not FJson['id_perfil'].IsNull then
-        FQuery.ParamByName('id_perfil').AsInteger := FJson['id_perfil'].AsInteger;
+      if not FJson['idPerfil'].IsNull then
+        FQuery.ParamByName('id_perfil').AsInteger := FJson['idPerfil'].AsInteger;
       FQuery.ExecSQL;
 
       FDm.ZConnection.Commit;

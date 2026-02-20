@@ -5,13 +5,15 @@ unit uDM.ACBr;
 interface
 
 uses
-  Classes, SysUtils, ACBrValidador;
+  Classes, SysUtils, ACBrValidador, ACBrConsultaCNPJ, ACBrCEP;
 
 type
 
   { TDM_Acbr }
 
   TDM_Acbr = class(TDataModule)
+    ACBrCEP: TACBrCEP;
+    ACBrConsultaCNPJ: TACBrConsultaCNPJ;
     ACBrValidador: TACBrValidador;
   private
 

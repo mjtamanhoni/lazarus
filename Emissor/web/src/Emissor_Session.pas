@@ -23,6 +23,7 @@ type
     fNome_Usuario: String;
     fToken_Server: String;
     fUsuario_Ativo: Integer;
+    FUsuario_Fields: TUsuario_Fields;
 
   public
    constructor Create(APrismSession: TPrismSession); override;  //OnNewSession
@@ -36,6 +37,7 @@ type
      property Login_Usuario :String read fLogin_Usuario write fLogin_Usuario;
      property Usuario_Ativo :Integer read fUsuario_Ativo write fUsuario_Ativo;
      property Token_Server :String read fToken_Server write fToken_Server;
+     property Usuario_Fields :TUsuario_Fields read FUsuario_Fields write FUsuario_Fields;
    {$EndRegion 'Acesso ao Sistema'}
 
    {$Region 'Empresa - Endereço'}
