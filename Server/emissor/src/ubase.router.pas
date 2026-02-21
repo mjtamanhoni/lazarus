@@ -102,6 +102,16 @@ begin
       .Send(TEmpresaService.New.EmpresaGet(FId,FRazaoSocial,FNomeFantasia,FCNPJ,FStatus));
 end;
 
+procedure OnValida_CNPJ_Empresa(Req:THorseRequest; Res:THorseResponse);
+var
+  FCNPJ :String;
+begin
+  FCNPJ := Req.Query['cnpj'];
+  Res.ContentType('application/json')
+      .Send(TEmpresaService.New.Valida_CNPJ_Empresa(FCNPJ));
+
+end;
+
 procedure OnEmpresaPost(Req:THorseRequest; Res:THorseResponse);
 begin
   Res.ContentType('application/json')
@@ -166,6 +176,7 @@ begin
 
 {$Region 'Empresa'}
   THorse.Get('/empresa',OnEmpresaGet)
+        .Get('empresa/validaCnpj',OnValida_CNPJ_Empresa)
         .Post('/empresa',OnEmpresaPost)
         .Put('/empresa',OnEmpresaPut)
         .Delete('/empresa',OnEmpresaDel)

@@ -43,6 +43,7 @@ type
     fDM_ACBr :TDM_Acbr;
     FfrmCadEmpresa :TfrmCadEmpresa;
     FfrmCad_Usuario :TfrmCad_Usuario;
+    procedure Confere_Doc_Existe(const aDocumento: String);
 
   public
 
@@ -193,13 +194,82 @@ begin
         raise Exception.Create('Documento inválido');
 
       //Verifica se o documento [CNPJ/CPF] já está cadastrado e se já possui usuários...
+      Confere_Doc_Existe(edCNPJ.Text);
 
     finally
       FreeAndNil(fDM_ACBr);
     end;
   except
     on E :Exception do
+    begin
+      SaveLog(Self.Caption + ' [' + Self.Name + '] ' + sLineBreak + '    Valida Documento: ' + E.Message);
       MessageDlg(E.Message,TMsgDlgType.mtWarning,[mbOK],0);
+    end;
+  end;
+end;
+
+procedure TForm_Login.Confere_Doc_Existe(const aDocumento:String);
+var
+  FIniFile :TIniFile;
+  FHost :String;
+  FResp :IResponse;
+  FRet :String;
+  FRetorno :TJSONObject;
+  FDados :TJSONObject;
+begin
+  try
+    try
+     FHost := '';
+     FIniFile := TIniFile.Create(ConfigFile);
+     FHost := FIniFile.ReadString('SERVER','HOST','') + ':' + FIniFile.ReadString('SERVER','PORT','');
+     if Trim(FHost) = '' then
+       raise Exception.Create('Host de acesso ao servidor não informado.');
+
+     FResp := TRequest.New.BaseURL(FHost)
+     	        .AddParam('cnpj',RemoverMascara(edCNPJ.Text))
+     	        .Resource('empresa/validaCnpj')
+                .Accept('application/json')
+                .Get;
+
+     FRet := '';
+     FRet := FResp.Content;
+     FRetorno := TJSONObject(GetJSON(FRet));
+     if FRetorno['success'].AsBoolean = False then
+       raise Exception.Create(FRetorno['message'].AsString);
+
+     FDados := TJSONObject(GetJSON(FRetorno['data'].AsJSON));
+     if FDados.Count = 0 then
+       raise Exception.Create('Empresa não cadastrada');
+
+     with Emissor.Empresa_Fields do
+     begin
+       id_empresa := FDados.Integers['idEmpresa'];
+       razao_social := FDados.Strings['razaoSocial'];
+       nome_fantasia := FDados.Strings['nomeFantasia'];
+       cnpj := FDados.Strings['cnpj'];
+       inscricao_estadual := FDados.Strings['inscricaoEstadual'];
+       inscricao_municipal := FDados.Strings['inscricaoMunicipal'];
+       regime_tributario := FDados.Strings['regimeTributario'];
+       crt := FDados.Strings['crt'];
+       email := FDados.Strings['email'];
+       telefone := FDados.Strings['telefone'];
+       site := FDados.Strings['site'];
+       data_cadastro := StrISOToDateTime(FDados.Strings['dataCadastro']);
+       ativo := FDados.Integers['ativo'];
+       celular := FDados.Strings['celular'];
+     end;
+
+     Edit_UserName.Enabled := (FDados.Integers['qtdUser'] > 0);
+     Edit_Password.Enabled := (FDados.Integers['qtdUser'] > 0);
+     btCadUsuario.Enabled := (FDados.Integers['qtdUser'] = 0);
+
+    except
+      on E:Exception do
+        raise Exception.Create('Confere se Documento Existe: ' + E.Message);
+    end;
+
+  finally
+    FreeAndNil(FIniFile);
   end;
 end;
 

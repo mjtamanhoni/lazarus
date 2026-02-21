@@ -103,7 +103,9 @@ begin
              ,'/usuario'
              ,'/empresa'
              ,'/empresa/endereco'
-             ,'/empresa/dBanco']
+             ,'/empresa/dBanco'
+             ,'/empresa/validaCnpj'
+             ]
   )));
 
   //Lendo as rotas..

@@ -34,7 +34,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <TopLine Value="12"/>
-        <CursorPos X="38" Y="42"/>
+        <CursorPos X="34" Y="34"/>
         <UsageCount Value="302"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -59,7 +59,6 @@
         <CursorPos X="70" Y="82"/>
         <UsageCount Value="302"/>
         <Loaded Value="True"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
         <Filename Value="D2BridgeFormTemplate.pas"/>
@@ -73,10 +72,15 @@
         <ComponentName Value="Form_Login"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
-        <TopLine Value="143"/>
-        <CursorPos X="41" Y="146"/>
+        <TopLine Value="210"/>
+        <CursorPos X="61" Y="229"/>
         <UsageCount Value="302"/>
+        <Bookmarks Count="2">
+          <Item0 X="6" Y="265" Left="1" Top="198" ID="2"/>
+          <Item1 X="34" Y="229" Left="1" Top="207" ID="1"/>
+        </Bookmarks>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
@@ -131,7 +135,6 @@
         <CursorPos X="22"/>
         <UsageCount Value="282"/>
         <Loaded Value="True"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
         <Filename Value="..\..\..\Global\ubase.validation.pas"/>
@@ -163,12 +166,11 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uCad.Empresa"/>
         <EditorIndex Value="8"/>
-        <TopLine Value="691"/>
-        <CursorPos X="45" Y="711"/>
+        <TopLine Value="902"/>
+        <CursorPos X="5" Y="922"/>
         <UsageCount Value="267"/>
-        <Bookmarks Count="2">
+        <Bookmarks Count="1">
           <Item0 Y="887" Left="1" Top="826" ID="3"/>
-          <Item1 X="5" Y="922" Left="1" Top="909" ID="2"/>
         </Bookmarks>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -181,8 +183,8 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uEmpresa"/>
         <EditorIndex Value="10"/>
-        <TopLine Value="433"/>
-        <CursorPos Y="453"/>
+        <TopLine Value="243"/>
+        <CursorPos X="81" Y="262"/>
         <UsageCount Value="267"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -216,8 +218,8 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="uType_Field_Table"/>
         <EditorIndex Value="9"/>
-        <TopLine Value="11"/>
-        <CursorPos X="36" Y="42"/>
+        <TopLine Value="39"/>
+        <CursorPos Y="74"/>
         <UsageCount Value="204"/>
         <Loaded Value="True"/>
       </Unit>
@@ -240,7 +242,7 @@
         <UnitName Value="uUsuario"/>
         <EditorIndex Value="6"/>
         <CursorPos X="44" Y="23"/>
-        <UsageCount Value="39"/>
+        <UsageCount Value="44"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
@@ -251,14 +253,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uCad.Usuario"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="7"/>
-        <TopLine Value="148"/>
-        <CursorPos X="70" Y="169"/>
-        <UsageCount Value="37"/>
-        <Bookmarks Count="1">
-          <Item0 Y="144" Left="1" Top="100" ID="1"/>
-        </Bookmarks>
+        <TopLine Value="64"/>
+        <CursorPos X="108" Y="93"/>
+        <UsageCount Value="42"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
@@ -267,7 +265,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="42"/>
         <CursorPos X="12" Y="56"/>
-        <UsageCount Value="3"/>
+        <UsageCount Value="2"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
@@ -275,112 +273,31 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="24"/>
         <CursorPos X="30" Y="39"/>
-        <UsageCount Value="5"/>
+        <UsageCount Value="4"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
         <Filename Value="uempresa.lfm"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="26" Y="78"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="5"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit>
       <Unit>
         <Filename Value="uusuario.lfm"/>
         <EditorIndex Value="-1"/>
         <CursorPos Y="8"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="7"/>
+        <DefaultSyntaxHighlighter Value="LFM"/>
+      </Unit>
+      <Unit>
+        <Filename Value="ucad.usuario.lfm"/>
+        <EditorIndex Value="-1"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit>
     </Units>
     <JumpHistory HistoryIndex="29">
-      <Position>
-        <Filename Value="ucad.usuario.pas"/>
-        <Caret Line="189" Column="36" TopLine="174"/>
-      </Position>
-      <Position>
-        <Filename Value="ucad.usuario.pas"/>
-        <Caret Line="105" Column="15" TopLine="98"/>
-      </Position>
-      <Position>
-        <Filename Value="ucad.usuario.pas"/>
-        <Caret Line="224" Column="50" TopLine="196"/>
-      </Position>
-      <Position>
-        <Filename Value="ucad.usuario.pas"/>
-        <Caret Line="122" Column="38" TopLine="99"/>
-      </Position>
-      <Position>
-        <Filename Value="ucad.usuario.pas"/>
-      </Position>
-      <Position>
-        <Filename Value="ucad.usuario.pas"/>
-        <Caret Line="55" Column="24" TopLine="43"/>
-      </Position>
-      <Position>
-        <Filename Value="ucad.usuario.pas"/>
-        <Caret Line="184" Column="72" TopLine="164"/>
-      </Position>
-      <Position>
-        <Filename Value="ucad.usuario.pas"/>
-      </Position>
-      <Position>
-        <Filename Value="ucad.usuario.pas"/>
-        <Caret Line="93" Column="69" TopLine="67"/>
-      </Position>
-      <Position>
-        <Filename Value="ucad.empresa.pas"/>
-        <Caret Line="478" Column="56" TopLine="469"/>
-      </Position>
-      <Position>
-        <Filename Value="ucad.empresa.pas"/>
-      </Position>
-      <Position>
-        <Filename Value="ucad.empresa.pas"/>
-        <Caret Line="425" Column="34" TopLine="411"/>
-      </Position>
-      <Position>
-        <Filename Value="ucad.empresa.pas"/>
-      </Position>
-      <Position>
-        <Filename Value="ucad.empresa.pas"/>
-        <Caret Line="425" Column="30" TopLine="393"/>
-      </Position>
-      <Position>
-        <Filename Value="Emissor_Session.pas"/>
-        <Caret Line="44" Column="46" TopLine="23"/>
-      </Position>
-      <Position>
-        <Filename Value="Emissor_Session.pas"/>
-        <Caret Line="20" Column="37"/>
-      </Position>
-      <Position>
-        <Filename Value="Emissor_Session.pas"/>
-      </Position>
-      <Position>
-        <Filename Value="Emissor_Session.pas"/>
-        <Caret Line="20" Column="37"/>
-      </Position>
-      <Position>
-        <Filename Value="Emissor_Session.pas"/>
-        <Caret Line="42" Column="38" TopLine="12"/>
-      </Position>
-      <Position>
-        <Filename Value="ucad.empresa.pas"/>
-        <Caret Line="423" Column="49" TopLine="411"/>
-      </Position>
-      <Position>
-        <Filename Value="ucad.empresa.pas"/>
-        <Caret Line="144" Column="15" TopLine="124"/>
-      </Position>
-      <Position>
-        <Filename Value="Unit_Login.pas"/>
-        <Caret Line="276" Column="59" TopLine="247"/>
-      </Position>
-      <Position>
-        <Filename Value="Unit_Login.pas"/>
-        <Caret Line="221" Column="68" TopLine="205"/>
-      </Position>
       <Position>
         <Filename Value="Unit_Login.pas"/>
         <Caret Line="52" Column="14" TopLine="32"/>
@@ -407,6 +324,98 @@
       <Position>
         <Filename Value="ucad.usuario.pas"/>
         <Caret Line="223" Column="37" TopLine="208"/>
+      </Position>
+      <Position>
+        <Filename Value="ucad.usuario.pas"/>
+        <Caret Line="142" Column="61" TopLine="133"/>
+      </Position>
+      <Position>
+        <Filename Value="Unit_Login.pas"/>
+        <Caret Line="79" Column="36" TopLine="59"/>
+      </Position>
+      <Position>
+        <Filename Value="Unit_Login.pas"/>
+        <Caret Line="209" Column="5" TopLine="186"/>
+      </Position>
+      <Position>
+        <Filename Value="Unit_Login.pas"/>
+        <Caret Line="212" Column="15" TopLine="189"/>
+      </Position>
+      <Position>
+        <Filename Value="Unit_Login.pas"/>
+        <Caret Line="87" Column="16" TopLine="63"/>
+      </Position>
+      <Position>
+        <Filename Value="ucad.empresa.pas"/>
+        <Caret Line="922" Column="5" TopLine="902"/>
+      </Position>
+      <Position>
+        <Filename Value="Unit_Login.pas"/>
+        <Caret Line="87" Column="16" TopLine="63"/>
+      </Position>
+      <Position>
+        <Filename Value="Unit_Login.pas"/>
+        <Caret Line="46" Column="15" TopLine="18"/>
+      </Position>
+      <Position>
+        <Filename Value="Unit_Login.pas"/>
+        <Caret Line="217" Column="26" TopLine="211"/>
+      </Position>
+      <Position>
+        <Filename Value="Unit_Login.pas"/>
+        <Caret Line="85" Column="34" TopLine="68"/>
+      </Position>
+      <Position>
+        <Filename Value="Unit_Login.pas"/>
+        <Caret Line="226" Column="6" TopLine="198"/>
+      </Position>
+      <Position>
+        <Filename Value="Unit_Login.pas"/>
+        <Caret Line="96" Column="29" TopLine="81"/>
+      </Position>
+      <Position>
+        <Filename Value="Unit_Login.pas"/>
+        <Caret Line="220" Column="31" TopLine="206"/>
+      </Position>
+      <Position>
+        <Filename Value="Unit_Login.pas"/>
+        <Caret Line="80" Column="27" TopLine="65"/>
+      </Position>
+      <Position>
+        <Filename Value="Unit_Login.pas"/>
+        <Caret Line="216" Column="60" TopLine="205"/>
+      </Position>
+      <Position>
+        <Filename Value="Unit_Login.pas"/>
+        <Caret Line="108" Column="28" TopLine="87"/>
+      </Position>
+      <Position>
+        <Filename Value="Emissor_Session.pas"/>
+        <Caret Line="34" Column="34" TopLine="12"/>
+      </Position>
+      <Position>
+        <Filename Value="Unit_Login.pas"/>
+        <Caret Line="244" Column="29" TopLine="237"/>
+      </Position>
+      <Position>
+        <Filename Value="uempresa.pas"/>
+        <Caret Line="344" Column="15" TopLine="326"/>
+      </Position>
+      <Position>
+        <Filename Value="uempresa.pas"/>
+        <Caret Line="51" Column="29" TopLine="33"/>
+      </Position>
+      <Position>
+        <Filename Value="Unit_Login.pas"/>
+        <Caret Line="108" Column="28" TopLine="98"/>
+      </Position>
+      <Position>
+        <Filename Value="Unit_Login.pas"/>
+        <Caret Line="229" Column="32" TopLine="207"/>
+      </Position>
+      <Position>
+        <Filename Value="Unit_Login.pas"/>
+        <Caret Line="16" Column="18" TopLine="82"/>
       </Position>
     </JumpHistory>
     <RunParams>

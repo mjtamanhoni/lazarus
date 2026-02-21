@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls,  
   D2Bridge.Forms,
   IniFiles, fpjson, DataSet.Serialize, RESTRequest4D, jsonparser,
-  uDM.ACBr, uBase.Functions, uBase.DataSets,uCripto_Descrito, Forms;
+  uDM.ACBr, uBase.Functions, uBase.DataSets,uCripto_Descrito, Forms, Menus;
 
 type
 

@@ -23,6 +23,7 @@ type
              const ANomeFantasia:String;
              const ACNPJ:String;
              const AStatus:Integer):String;
+    function Valida_CNPJ_Empresa(const ACNPJ:String):String;
     function EmpresaPost(const AJSon :String):String;
     function EmpresaPut(const AJSon :String):String;
     function EmpresaDelete(const AId:Integer; const ACNPJ:String):String;
@@ -48,6 +49,7 @@ type
              const ANomeFantasia:String;
              const ACNPJ:String;
              const AStatus:Integer):String;
+    function Valida_CNPJ_Empresa(const ACNPJ:String):String;
     function EmpresaPost(const AJSon :String):String;
     function EmpresaPut(const AJSon :String):String;
     function EmpresaDelete(const AId:Integer; const ACNPJ:String):String;
@@ -247,6 +249,57 @@ begin
         FJSonobject.Add('certificadoDigital',FQuery.ToJSONArray);
       end;
 
+      Result := FJSonobject.AsJSON;
+
+    except
+      on E :Exception do
+      begin
+        FJSonobject.Add('success',False);
+        FJSonobject.Add('message',E.Message);
+        Result := FJSonobject.AsJSON;
+        SaveLog(E.Message);
+      end;
+    end;
+  finally
+    FreeAndNil(FJSonobject);
+    FreeAndNil(FQuery);
+    FreeAndNil(FDM);
+  end;
+end;
+
+function TEmpresaService.Valida_CNPJ_Empresa(const ACNPJ: String): String;
+var
+  FJSonObject :TJSONObject;
+  FDM :TDM;
+  FQuery :TZQuery;
+  FLista :String;
+begin
+  try
+    try
+      FDM := TDM.Create(Nil);
+      FQuery := FDM.GetQuery;
+
+      FJSonobject := TJSONObject.Create;
+
+      if Trim(ACNPJ) = '' then
+        raise Exception.Create('Documento não informado');
+
+      FQuery.SQL.Add('select ');
+      FQuery.SQL.Add('  e.* ');
+      FQuery.SQL.Add('  ,coalesce(count(u.id_usuario),0) as qtd_user ');
+      FQuery.SQL.Add('from public.empresa e ');
+      FQuery.SQL.Add('	      left join public.usuarios u on u.id_empresa = e.id_empresa ');
+      FQuery.SQL.Add('where replace(replace(replace(e.cnpj,''.'',''''),''-'',''''),''/'','''') = :cnpj ');
+      FQuery.SQL.Add('group by ');
+      FQuery.SQL.Add('  e.id_empresa; ');
+      FQuery.ParamByName('cnpj').AsString := ACNPJ;
+      FQuery.Open;
+
+      if FQuery.IsEmpty then
+        raise Exception.Create('Empresa não localizada');
+
+      FJSonobject.Add('success',True);
+      FJSonobject.Add('data',FQuery.ToJSONArray);
       Result := FJSonobject.AsJSON;
 
     except

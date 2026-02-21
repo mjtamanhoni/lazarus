@@ -8,8 +8,8 @@
       <Unit>
         <Filename Value="Server.Emissor.lpr"/>
         <IsPartOfProject Value="True"/>
-        <TopLine Value="65"/>
-        <CursorPos X="73" Y="81"/>
+        <TopLine Value="77"/>
+        <CursorPos X="26" Y="104"/>
         <UsageCount Value="214"/>
         <Loaded Value="True"/>
       </Unit>
@@ -18,12 +18,9 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="uBase.Router"/>
         <EditorIndex Value="3"/>
-        <TopLine Value="140"/>
-        <CursorPos X="44" Y="157"/>
+        <TopLine Value="85"/>
+        <CursorPos X="48" Y="105"/>
         <UsageCount Value="214"/>
-        <Bookmarks Count="1">
-          <Item0 X="20" Y="128" Left="1" Top="109" ID="1"/>
-        </Bookmarks>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -32,8 +29,8 @@
         <UnitName Value="uUsuario.Service"/>
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="4"/>
-        <TopLine Value="252"/>
-        <CursorPos X="69" Y="273"/>
+        <TopLine Value="213"/>
+        <CursorPos X="24" Y="102"/>
         <UsageCount Value="214"/>
         <Loaded Value="True"/>
       </Unit>
@@ -76,11 +73,12 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="uEmpresa.Service"/>
         <EditorIndex Value="5"/>
-        <TopLine Value="85"/>
-        <CursorPos X="64" Y="99"/>
+        <TopLine Value="54"/>
+        <CursorPos X="7" Y="93"/>
         <UsageCount Value="300"/>
-        <Bookmarks Count="1">
-          <Item0 X="30" Y="369" Left="1" Top="342" ID="2"/>
+        <Bookmarks Count="2">
+          <Item0 X="30" Y="422" Left="1" Top="395" ID="2"/>
+          <Item1 Y="271" Left="1" Top="270" ID="1"/>
         </Bookmarks>
         <Loaded Value="True"/>
       </Unit>
@@ -90,57 +88,11 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="420"/>
         <CursorPos X="53" Y="446"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="7"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
     </Units>
     <JumpHistory HistoryIndex="29">
-      <Position>
-        <Filename Value="uempresa.service.pas"/>
-      </Position>
-      <Position>
-        <Filename Value="uempresa.service.pas"/>
-        <Caret Line="29" Column="31"/>
-      </Position>
-      <Position>
-        <Filename Value="uempresa.service.pas"/>
-        <Caret Line="54" Column="31" TopLine="22"/>
-      </Position>
-      <Position>
-        <Filename Value="ubase.router.pas"/>
-        <Caret Line="128" Column="15" TopLine="108"/>
-      </Position>
-      <Position>
-        <Filename Value="ubase.router.pas"/>
-        <Caret Line="172" Column="53" TopLine="140"/>
-      </Position>
-      <Position>
-        <Filename Value="ubase.router.pas"/>
-      </Position>
-      <Position>
-        <Filename Value="ubase.router.pas"/>
-        <Caret Line="128" Column="27" TopLine="96"/>
-      </Position>
-      <Position>
-        <Filename Value="ubase.router.pas"/>
-        <Caret Line="172" Column="53" TopLine="140"/>
-      </Position>
-      <Position>
-        <Filename Value="ubase.router.pas"/>
-        <Caret Line="128" Column="27" TopLine="108"/>
-      </Position>
-      <Position>
-        <Filename Value="Server.Emissor.lpr"/>
-        <Caret Line="11" TopLine="6"/>
-      </Position>
-      <Position>
-        <Filename Value="Server.Emissor.lpr"/>
-        <Caret Line="12"/>
-      </Position>
-      <Position>
-        <Filename Value="Server.Emissor.lpr"/>
-        <Caret Line="70" Column="46" TopLine="63"/>
-      </Position>
       <Position>
         <Filename Value="Server.Emissor.lpr"/>
         <Caret Line="114" TopLine="77"/>
@@ -213,6 +165,52 @@
         <Filename Value="uempresa.service.pas"/>
         <Caret Line="45" Column="22" TopLine="31"/>
       </Position>
+      <Position>
+        <Filename Value="uempresa.service.pas"/>
+        <Caret Line="99" Column="64" TopLine="85"/>
+      </Position>
+      <Position>
+        <Filename Value="uempresa.service.pas"/>
+        <Caret Line="52" Column="21" TopLine="27"/>
+      </Position>
+      <Position>
+        <Filename Value="uempresa.service.pas"/>
+        <Caret Line="272" TopLine="255"/>
+      </Position>
+      <Position>
+        <Filename Value="uempresa.service.pas"/>
+        <Caret Line="46" Column="14" TopLine="32"/>
+      </Position>
+      <Position>
+        <Filename Value="uempresa.service.pas"/>
+        <Caret Line="90" TopLine="83"/>
+      </Position>
+      <Position>
+        <Filename Value="uempresa.service.pas"/>
+        <Caret Line="48" Column="27" TopLine="28"/>
+      </Position>
+      <Position>
+        <Filename Value="ubase.router.pas"/>
+        <Caret Line="169" Column="30" TopLine="140"/>
+      </Position>
+      <Position>
+        <Filename Value="Server.Emissor.lpr"/>
+        <Caret Line="107" Column="17" TopLine="77"/>
+      </Position>
+      <Position>
+        <Filename Value="uempresa.service.pas"/>
+        <Caret Line="448" Column="60" TopLine="436"/>
+      </Position>
+      <Position>
+        <Filename Value="uempresa.service.pas"/>
+      </Position>
+      <Position>
+        <Filename Value="uusuario.service.pas"/>
+        <Caret Line="268" Column="57" TopLine="253"/>
+      </Position>
+      <Position>
+        <Filename Value="uusuario.service.pas"/>
+      </Position>
     </JumpHistory>
     <RunParams>
       <FormatVersion Value="2"/>
@@ -226,7 +224,7 @@
         <WatchScope Value="wpsLocal"/>
         <WatchKind Value="wpkWrite"/>
         <Source Value="uempresa.service.pas"/>
-        <Line Value="281"/>
+        <Line Value="334"/>
       </Item>
     </BreakPoints>
   </Debugging>

@@ -1,13 +1,16 @@
-inherited frmCad_Usuario: TfrmCad_Usuario
+object frmCad_Usuario: TfrmCad_Usuario
+  Left = 0
   Height = 319
+  Top = 0
   Width = 700
   Caption = 'Cadastro de Usuário'
   ClientHeight = 319
   ClientWidth = 700
   Position = poScreenCenter
+  LCLVersion = '4.4.0.0'
   OnCreate = FormCreate
   OnDestroy = FormDestroy
-  object pnDetail: TPanel[0]
+  object pnDetail: TPanel
     Left = 0
     Height = 281
     Top = 0
@@ -310,7 +313,7 @@ inherited frmCad_Usuario: TfrmCad_Usuario
       end
     end
   end
-  object pnFooter: TPanel[1]
+  object pnFooter: TPanel
     Left = 0
     Height = 38
     Top = 281
@@ -342,7 +345,5 @@ inherited frmCad_Usuario: TfrmCad_Usuario
       TabOrder = 1
       OnClick = btConfirmarClick
     end
-  end
-  inherited mmPrincipal: TMainMenu[2]
   end
 end
