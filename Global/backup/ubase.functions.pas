@@ -5,7 +5,8 @@ unit uBase.Functions;
 interface
 
 uses
-  Classes, SysUtils, Math, DB, memds, fpjson, jsonparser, Variants, DateUtils;
+  Classes, SysUtils, Math, DB, memds, fpjson, jsonparser, Variants, DateUtils,
+  Controls, Graphics, windows;
 
 {$Region 'Funçoes'}
 function EndPath:String;
@@ -23,6 +24,7 @@ procedure PreencherDataSetDeJSONArray(
   const IgnorarCampos: array of string); // campos opcionais para ignorar
 procedure PopularMemDataDoJSON(FDados: TJSONArray; mdRegistro: TMemDataset);
 function StrISOToDateTime(const DataStr: string): TDateTime;
+procedure PularCompoenente(Sender:TWinControl);
 
 {$EndRegion}
 
@@ -350,8 +352,14 @@ begin
     end;
   except
     on E: Exception do
-      raise Exception.Create(E.Message);
+      raise Exception.Create('Converte Data: ' + E.Message);
   end;
+end;
+
+procedure PularCompoenente(Sender: TWinControl);
+begin
+  if Sender.CanFocus then
+    Sender.SetFocus;
 end;
 
 

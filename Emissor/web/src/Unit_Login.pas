@@ -38,12 +38,13 @@ type
     procedure Button_ShowPassClick(Sender: TObject);
     procedure edCNPJExit(Sender: TObject);
     procedure edCNPJKeyPress(Sender: TObject; var Key: char);
+    procedure Edit_PasswordKeyPress(Sender: TObject; var Key: char);
     procedure Edit_UserNameKeyPress(Sender: TObject; var Key: char);
   private
     fDM_ACBr :TDM_Acbr;
     FfrmCadEmpresa :TfrmCadEmpresa;
     FfrmCad_Usuario :TfrmCad_Usuario;
-    procedure Confere_Doc_Existe(const aDocumento: String);
+    function Confere_Doc_Existe(const aDocumento: String):Boolean;
 
   public
 
@@ -147,6 +148,9 @@ begin
  Emissor.Usuario_Fields.id_empresa := 1;
  ShowPopupModal('Popup' + FfrmCad_Usuario.Name);
  Edit_UserName.Text := Emissor.Login_Usuario;
+ Edit_UserName.Enabled := True;
+ Edit_Password.Enabled := True;
+ btCadUsuario.Enabled := False;
 end;
 
 procedure TForm_Login.Button_ShowPassClick(Sender: TObject);
@@ -167,11 +171,13 @@ begin
 end;
 
 procedure TForm_Login.edCNPJExit(Sender: TObject);
-var
-  fDocumento :String;
+//var
+//  fDocumento :String;
 begin
+ (*
   try
     try
+
       fDM_ACBr := TDM_Acbr.Create(Nil);
 
       if Trim(edCNPJ.Text) = '' then
@@ -196,8 +202,11 @@ begin
       //Verifica se o documento [CNPJ/CPF] já está cadastrado e se já possui usuários...
       Confere_Doc_Existe(edCNPJ.Text);
 
+      if Edit_UserName.CanFocus then
+        Edit_UserName.SetFocus;
+
     finally
-      FreeAndNil(fDM_ACBr);
+      //FreeAndNil(fDM_ACBr);
     end;
   except
     on E :Exception do
@@ -206,9 +215,10 @@ begin
       MessageDlg(E.Message,TMsgDlgType.mtWarning,[mbOK],0);
     end;
   end;
+  *)
 end;
 
-procedure TForm_Login.Confere_Doc_Existe(const aDocumento:String);
+function TForm_Login.Confere_Doc_Existe(const aDocumento:String):Boolean;
 var
   FIniFile :TIniFile;
   FHost :String;
@@ -216,9 +226,37 @@ var
   FRet :String;
   FRetorno :TJSONObject;
   FDados :TJSONArray;
+  fDocumento :String;
 begin
   try
     try
+     Result := True;
+
+     fDM_ACBr := TDM_Acbr.Create(Nil);
+
+     if Trim(edCNPJ.Text) = '' then
+     begin
+       Result := False;
+       Exit;
+     end;
+
+     fDocumento := '';
+     fDocumento := RemoverMascara(edCNPJ.Text);
+
+     case Length(fDocumento) of
+       11:fDM_ACBr.ACBrValidador.TipoDocto := docCPF;
+       14:fDM_ACBr.ACBrValidador.TipoDocto := docCNPJ;
+       else
+         raise Exception.Create('Documento inválido');
+     end;
+
+     fDM_ACBr.ACBrValidador.Documento := edCNPJ.Text;
+     if fDM_ACBr.ACBrValidador.Validar then
+       edCNPJ.Text := fDM_ACBr.ACBrValidador.Formatar
+     else
+       raise Exception.Create('Documento inválido');
+
+
      FHost := '';
      FIniFile := TIniFile.Create(ConfigFile);
      FHost := FIniFile.ReadString('SERVER','HOST','') + ':' + FIniFile.ReadString('SERVER','PORT','');
@@ -246,46 +284,36 @@ begin
      with Emissor.Empresa_Fields do
      begin
        id_empresa := FDados.Objects[0].Integers['idEmpresa'];
-       SaveLog('id_empresa: ' + IntToStr(id_empresa));
        razao_social := FDados.Objects[0].Strings['razaoSocial'];
-       SaveLog('razao_social: ' + razao_social);
        nome_fantasia := FDados.Objects[0].Strings['nomeFantasia'];
-       SaveLog('nome_fantasia: ' + nome_fantasia);
        cnpj := FDados.Objects[0].Strings['cnpj'];
-       SaveLog('cnpj: ' + cnpj);
        inscricao_estadual := FDados.Objects[0].Strings['inscricaoEstadual'];
-       SaveLog('inscricao_estadual: ' + inscricao_estadual);
        inscricao_municipal := FDados.Objects[0].Strings['inscricaoMunicipal'];
-       SaveLog('inscricao_municipal: ' + inscricao_municipal);
        regime_tributario := FDados.Objects[0].Strings['regimeTributario'];
-       SaveLog('regime_tributario: ' + regime_tributario);
        crt := FDados.Objects[0].Strings['crt'];
-       SaveLog('crt: ' + crt);
        email := FDados.Objects[0].Strings['email'];
-       SaveLog('email: ' + email);
        telefone := FDados.Objects[0].Strings['telefone'];
-       SaveLog('telefone: ' + telefone);
        site := FDados.Objects[0].Strings['site'];
-       SaveLog('site: ' + site);
        data_cadastro := StrISOToDateTime(FDados.Objects[0].Strings['dataCadastro']);
-       SaveLog('data_cadastro: ' + DateTimeToStr(data_cadastro));
        ativo := FDados.Objects[0].Integers['ativo'];
-       SaveLog('ativo: ' + IntToStr(ativo));
        celular := FDados.Objects[0].Strings['celular'];
-       SaveLog('celular: ' + celular);
      end;
 
-     SaveLog('qtdUser: ' + IntToStr(FDados.Objects[0].Integers['qtdUser']));
      Edit_UserName.Enabled := (FDados.Objects[0].Integers['qtdUser'] > 0);
      Edit_Password.Enabled := (FDados.Objects[0].Integers['qtdUser'] > 0);
      btCadUsuario.Enabled := (FDados.Objects[0].Integers['qtdUser'] = 0);
 
     except
       on E:Exception do
-        raise Exception.Create('Confere se Documento Existe: ' + E.Message);
+      begin
+        Result := False;
+        SaveLog(Self.Caption + ' [' + Self.Name + '] ' + sLineBreak + '    Valida Documento: ' + E.Message);
+        MessageDlg(E.Message,TMsgDlgType.mtWarning,[mbOK],0);
+      end;
     end;
 
   finally
+    FreeAndNil(fDM_ACBr);
     FreeAndNil(FIniFile);
   end;
 end;
@@ -293,13 +321,33 @@ end;
 procedure TForm_Login.edCNPJKeyPress(Sender: TObject; var Key: char);
 begin
   if Key = #13 then
-     Edit_UserName.SetFocus;;
+  begin
+    if Confere_Doc_Existe(edCNPJ.Text) then
+    begin
+      //PularCompoenente(Edit_UserName)
+      if Edit_UserName.CanFocus then
+      	 Edit_UserName.SetFocus;
+    end;
+  end;
+end;
+
+procedure TForm_Login.Edit_PasswordKeyPress(Sender: TObject; var Key: char);
+begin
+  if Key = #13 then
+  begin
+    if Button_Login.CanFocus then
+       Button_Login.SetFocus;
+
+  end;
 end;
 
 procedure TForm_Login.Edit_UserNameKeyPress(Sender: TObject; var Key: char);
 begin
   if Key = #13 then
-     Edit_Password.SetFocus;;
+  begin
+    if Edit_Password.CanFocus then
+      Edit_Password.SetFocus;
+  end;
 end;
 
 procedure TForm_Login.ExportD2Bridge;
@@ -339,37 +387,47 @@ begin
    with BodyItems.Add do
    begin
     with Row.Items.Add do
-     Col.Add.LCLObj(Label_Login);
+      Col.Add.LCLObj(Label_Login);
 
     with Row.Items.Add do
     begin
-     with Col.Items.Add do
-     begin
-       LCLObj(edCNPJ, 'ValidationLogin', true);
-       LCLObj(btCadEmpresa, CSSClass.Button.add);
-     end;
+      with Col.Items.Add do
+      begin
+        With FormGroup('',CSSClass.Col.colsize12).Items.Add do
+        begin
+          LCLObj(edCNPJ, 'ValidationLogin', true);
+          LCLObj(btCadEmpresa, CSSClass.Button.add);
+        end;
+      end;
     end;
 
     with Row.Items.Add do
     begin
-     with Col.Items.Add() do
-     begin
-       LCLObj(Edit_UserName, 'ValidationLogin', true);
-       LCLObj(btCadUsuario, CSSClass.Button.add);
-     end;
+      with Col.Items.Add() do
+      begin
+        With FormGroup('',CSSClass.Col.colsize12).Items.Add do
+        begin
+          LCLObj(Edit_UserName, 'ValidationLogin', true);
+          LCLObj(btCadUsuario, CSSClass.Button.add);
+        end;
+      end;
     end;
 
     with Row.Items.Add do
     begin
-     with Col.Items.add do //Example Edit + Button same row and col
-     begin
-      LCLObj(Edit_Password, 'ValidationLogin', true);
-      LCLObj(Button_ShowPass, CSSClass.Button.view);
-     end;
+      with Col.Items.add do //Example Edit + Button same row and col
+      begin
+        With FormGroup('',CSSClass.Col.colsize12).Items.Add do
+        begin
+          LCLObj(Edit_Password, 'ValidationLogin', true);
+          LCLObj(Button_ShowPass, CSSClass.Button.view);
+        end;
+      end;
     end;
 
     with Row.Items.Add do
      Col.Add.VCLObj(Button_Login, 'ValidationLogin', false, CSSClass.Col.colsize12);
+
    end;
 
   end;

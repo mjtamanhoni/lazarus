@@ -3,7 +3,7 @@ object frmPrincipal: TfrmPrincipal
   Height = 372
   Top = 250
   Width = 599
-  Caption = 'Menu Principal'
+  Caption = 'Emissor de Documentos Fiscais (NFe, NFCe, CTe)'
   Menu = mmPrincipal
   LCLVersion = '4.4.0.0'
   object mmPrincipal: TMainMenu

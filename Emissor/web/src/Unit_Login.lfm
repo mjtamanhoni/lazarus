@@ -11,6 +11,7 @@ object Form_Login: TForm_Login
   Font.Color = clWindowText
   Font.Height = -12
   Font.Name = 'Segoe UI'
+  KeyPreview = True
   Position = poScreenCenter
   LCLVersion = '4.4.0.0'
   object Image_BackGround: TImage
@@ -166,7 +167,7 @@ object Form_Login: TForm_Login
     object Edit_UserName: TEdit
       Left = 18
       Height = 23
-      Top = 184
+      Top = 185
       Width = 158
       Enabled = False
       TabOrder = 1
@@ -183,6 +184,7 @@ object Form_Login: TForm_Login
       PasswordChar = '*'
       TabOrder = 2
       TextHint = 'Password'
+      OnKeyPress = Edit_PasswordKeyPress
     end
     object Button_Login: TButton
       Cursor = crHandPoint
@@ -197,7 +199,7 @@ object Form_Login: TForm_Login
     object edCNPJ: TEdit
       Left = 18
       Height = 23
-      Top = 152
+      Top = 153
       Width = 158
       TabOrder = 0
       TextHint = 'CNPJ / CPF'
@@ -207,30 +209,33 @@ object Form_Login: TForm_Login
     object btCadUsuario: TButton
       Cursor = crHandPoint
       Left = 179
-      Height = 25
-      Top = 184
+      Height = 23
+      Top = 185
       Width = 35
       Enabled = False
       TabOrder = 4
+      TabStop = False
       OnClick = btCadUsuarioClick
     end
-  end
-  object Button_ShowPass: TButton
-    Cursor = crHandPoint
-    Left = 208
-    Height = 25
-    Top = 236
-    Width = 35
-    TabOrder = 1
-    OnClick = Button_ShowPassClick
-  end
-  object btCadEmpresa: TButton
-    Cursor = crHandPoint
-    Left = 208
-    Height = 25
-    Top = 174
-    Width = 35
-    TabOrder = 2
-    OnClick = btCadEmpresaClick
+    object btCadEmpresa: TButton
+      Cursor = crHandPoint
+      Left = 179
+      Height = 23
+      Top = 153
+      Width = 35
+      TabOrder = 5
+      TabStop = False
+      OnClick = btCadEmpresaClick
+    end
+    object Button_ShowPass: TButton
+      Cursor = crHandPoint
+      Left = 179
+      Height = 23
+      Top = 214
+      Width = 35
+      TabOrder = 6
+      TabStop = False
+      OnClick = Button_ShowPassClick
+    end
   end
 end

@@ -74,7 +74,7 @@ procedure TfrmPrincipal.ExportD2Bridge;
 begin
   inherited;
 
-  Title := 'Emissor de Nota Fiscai e Cupom Fiscal';
+  Title := Self.Caption;// 'Emissor de Nota Fiscai e Cupom Fiscal';
 
   //TemplateClassForm:= TD2BridgeFormTemplate;
   D2Bridge.FrameworkExportType.TemplateMasterHTMLFile := '';
