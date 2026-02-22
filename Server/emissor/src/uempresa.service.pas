@@ -308,7 +308,7 @@ begin
         FJSonobject.Add('success',False);
         FJSonobject.Add('message',E.Message);
         Result := FJSonobject.AsJSON;
-        SaveLog(E.Message);
+        SaveLog('Valida CNPJ ['+ACNPJ+'] da Empresa: ' + sLineBreak + E.Message);
       end;
     end;
   finally

@@ -74,12 +74,12 @@
         <ResourceBaseClass Value="Form"/>
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
-        <TopLine Value="210"/>
-        <CursorPos X="61" Y="229"/>
+        <TopLine Value="253"/>
+        <CursorPos X="34" Y="272"/>
         <UsageCount Value="302"/>
         <Bookmarks Count="2">
-          <Item0 X="6" Y="265" Left="1" Top="198" ID="2"/>
-          <Item1 X="34" Y="229" Left="1" Top="207" ID="1"/>
+          <Item0 X="34" Y="229" Left="1" Top="207" ID="1"/>
+          <Item1 X="33" Y="270" Left="1" Top="238" ID="2"/>
         </Bookmarks>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -123,7 +123,8 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="uBase.Functions"/>
         <EditorIndex Value="12"/>
-        <CursorPos X="24" Y="18"/>
+        <TopLine Value="320"/>
+        <CursorPos X="3" Y="329"/>
         <UsageCount Value="287"/>
         <Loaded Value="True"/>
       </Unit>
@@ -183,8 +184,8 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uEmpresa"/>
         <EditorIndex Value="10"/>
-        <TopLine Value="243"/>
-        <CursorPos X="81" Y="262"/>
+        <TopLine Value="189"/>
+        <CursorPos X="67" Y="206"/>
         <UsageCount Value="267"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -242,7 +243,7 @@
         <UnitName Value="uUsuario"/>
         <EditorIndex Value="6"/>
         <CursorPos X="44" Y="23"/>
-        <UsageCount Value="44"/>
+        <UsageCount Value="45"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
@@ -256,7 +257,7 @@
         <EditorIndex Value="7"/>
         <TopLine Value="64"/>
         <CursorPos X="108" Y="93"/>
-        <UsageCount Value="42"/>
+        <UsageCount Value="43"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
@@ -298,21 +299,6 @@
       </Unit>
     </Units>
     <JumpHistory HistoryIndex="29">
-      <Position>
-        <Filename Value="Unit_Login.pas"/>
-        <Caret Line="52" Column="14" TopLine="32"/>
-      </Position>
-      <Position>
-        <Filename Value="Unit_D2Bridge_Server_Console.pas"/>
-        <Caret Line="309" Column="95" TopLine="295"/>
-      </Position>
-      <Position>
-        <Filename Value="Unit_D2Bridge_Server_Console.pas"/>
-      </Position>
-      <Position>
-        <Filename Value="utype_field_table.pas"/>
-        <Caret Line="38" Column="76" TopLine="11"/>
-      </Position>
       <Position>
         <Filename Value="Unit_Login.pas"/>
         <Caret Line="287" Column="20" TopLine="277"/>
@@ -415,7 +401,23 @@
       </Position>
       <Position>
         <Filename Value="Unit_Login.pas"/>
-        <Caret Line="16" Column="18" TopLine="82"/>
+        <Caret Line="259" Column="33" TopLine="238"/>
+      </Position>
+      <Position>
+        <Filename Value="Unit_Login.pas"/>
+        <Caret Line="252" Column="42" TopLine="229"/>
+      </Position>
+      <Position>
+        <Filename Value="Unit_Login.pas"/>
+        <Caret Line="256" Column="26" TopLine="219"/>
+      </Position>
+      <Position>
+        <Filename Value="Unit_Login.pas"/>
+        <Caret Line="281" Column="48" TopLine="250"/>
+      </Position>
+      <Position>
+        <Filename Value="Unit_Login.pas"/>
+        <Caret Line="264" Column="34" TopLine="245"/>
       </Position>
     </JumpHistory>
     <RunParams>

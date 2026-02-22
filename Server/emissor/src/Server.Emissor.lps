@@ -27,10 +27,9 @@
         <Filename Value="uusuario.service.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uUsuario.Service"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="4"/>
-        <TopLine Value="213"/>
-        <CursorPos X="24" Y="102"/>
+        <TopLine Value="28"/>
+        <CursorPos X="14" Y="46"/>
         <UsageCount Value="214"/>
         <Loaded Value="True"/>
       </Unit>
@@ -72,9 +71,10 @@
         <Filename Value="uempresa.service.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uEmpresa.Service"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="5"/>
-        <TopLine Value="54"/>
-        <CursorPos X="7" Y="93"/>
+        <TopLine Value="286"/>
+        <CursorPos X="39" Y="311"/>
         <UsageCount Value="300"/>
         <Bookmarks Count="2">
           <Item0 X="30" Y="422" Left="1" Top="395" ID="2"/>
@@ -93,18 +93,6 @@
       </Unit>
     </Units>
     <JumpHistory HistoryIndex="29">
-      <Position>
-        <Filename Value="Server.Emissor.lpr"/>
-        <Caret Line="114" TopLine="77"/>
-      </Position>
-      <Position>
-        <Filename Value="Server.Emissor.lpr"/>
-        <Caret Line="14" Column="31" TopLine="6"/>
-      </Position>
-      <Position>
-        <Filename Value="uusuario.service.pas"/>
-        <Caret Line="256" Column="63" TopLine="242"/>
-      </Position>
       <Position>
         <Filename Value="uusuario.service.pas"/>
         <Caret Line="46" Column="22" TopLine="25"/>
@@ -210,6 +198,18 @@
       </Position>
       <Position>
         <Filename Value="uusuario.service.pas"/>
+      </Position>
+      <Position>
+        <Filename Value="uusuario.service.pas"/>
+        <Caret Line="175" Column="48" TopLine="159"/>
+      </Position>
+      <Position>
+        <Filename Value="uempresa.service.pas"/>
+        <Caret Line="84" Column="37" TopLine="54"/>
+      </Position>
+      <Position>
+        <Filename Value="uempresa.service.pas"/>
+        <Caret Line="52" Column="16" TopLine="29"/>
       </Position>
     </JumpHistory>
     <RunParams>

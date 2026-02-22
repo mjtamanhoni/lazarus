@@ -215,7 +215,7 @@ var
   FResp :IResponse;
   FRet :String;
   FRetorno :TJSONObject;
-  FDados :TJSONObject;
+  FDados :TJSONArray;
 begin
   try
     try
@@ -237,31 +237,48 @@ begin
      if FRetorno['success'].AsBoolean = False then
        raise Exception.Create(FRetorno['message'].AsString);
 
-     FDados := TJSONObject(GetJSON(FRetorno['data'].AsJSON));
+
+     FDados := TJSONArray(GetJSON(FRetorno['data'].AsJSON));
+
      if FDados.Count = 0 then
        raise Exception.Create('Empresa não cadastrada');
 
      with Emissor.Empresa_Fields do
      begin
-       id_empresa := FDados.Integers['idEmpresa'];
-       razao_social := FDados.Strings['razaoSocial'];
-       nome_fantasia := FDados.Strings['nomeFantasia'];
-       cnpj := FDados.Strings['cnpj'];
-       inscricao_estadual := FDados.Strings['inscricaoEstadual'];
-       inscricao_municipal := FDados.Strings['inscricaoMunicipal'];
-       regime_tributario := FDados.Strings['regimeTributario'];
-       crt := FDados.Strings['crt'];
-       email := FDados.Strings['email'];
-       telefone := FDados.Strings['telefone'];
-       site := FDados.Strings['site'];
-       data_cadastro := StrISOToDateTime(FDados.Strings['dataCadastro']);
-       ativo := FDados.Integers['ativo'];
-       celular := FDados.Strings['celular'];
+       id_empresa := FDados.Objects[0].Integers['idEmpresa'];
+       SaveLog('id_empresa: ' + IntToStr(id_empresa));
+       razao_social := FDados.Objects[0].Strings['razaoSocial'];
+       SaveLog('razao_social: ' + razao_social);
+       nome_fantasia := FDados.Objects[0].Strings['nomeFantasia'];
+       SaveLog('nome_fantasia: ' + nome_fantasia);
+       cnpj := FDados.Objects[0].Strings['cnpj'];
+       SaveLog('cnpj: ' + cnpj);
+       inscricao_estadual := FDados.Objects[0].Strings['inscricaoEstadual'];
+       SaveLog('inscricao_estadual: ' + inscricao_estadual);
+       inscricao_municipal := FDados.Objects[0].Strings['inscricaoMunicipal'];
+       SaveLog('inscricao_municipal: ' + inscricao_municipal);
+       regime_tributario := FDados.Objects[0].Strings['regimeTributario'];
+       SaveLog('regime_tributario: ' + regime_tributario);
+       crt := FDados.Objects[0].Strings['crt'];
+       SaveLog('crt: ' + crt);
+       email := FDados.Objects[0].Strings['email'];
+       SaveLog('email: ' + email);
+       telefone := FDados.Objects[0].Strings['telefone'];
+       SaveLog('telefone: ' + telefone);
+       site := FDados.Objects[0].Strings['site'];
+       SaveLog('site: ' + site);
+       data_cadastro := StrISOToDateTime(FDados.Objects[0].Strings['dataCadastro']);
+       SaveLog('data_cadastro: ' + DateTimeToStr(data_cadastro));
+       ativo := FDados.Objects[0].Integers['ativo'];
+       SaveLog('ativo: ' + IntToStr(ativo));
+       celular := FDados.Objects[0].Strings['celular'];
+       SaveLog('celular: ' + celular);
      end;
 
-     Edit_UserName.Enabled := (FDados.Integers['qtdUser'] > 0);
-     Edit_Password.Enabled := (FDados.Integers['qtdUser'] > 0);
-     btCadUsuario.Enabled := (FDados.Integers['qtdUser'] = 0);
+     SaveLog('qtdUser: ' + IntToStr(FDados.Objects[0].Integers['qtdUser']));
+     Edit_UserName.Enabled := (FDados.Objects[0].Integers['qtdUser'] > 0);
+     Edit_Password.Enabled := (FDados.Objects[0].Integers['qtdUser'] > 0);
+     btCadUsuario.Enabled := (FDados.Objects[0].Integers['qtdUser'] = 0);
 
     except
       on E:Exception do
