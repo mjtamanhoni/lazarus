@@ -104,16 +104,35 @@ begin
      FRet := '';
      FRet := FResp.Content;
      FRetorno := TJSONObject(GetJSON(FRet));
+
      if FRetorno['success'].AsBoolean = False then
        raise Exception.Create(FRetorno['message'].AsString);
 
      FDados := TJSONObject(GetJSON(FRetorno['data'].AsJSON));
+
      Emissor.CNPJ_Empresa := edCNPJ.Text;
      Emissor.ID_Usuario := FDados['idUsuario'].AsInteger;
      Emissor.Nome_Usuario := FDados['nome'].AsString;
      Emissor.Login_Usuario := FDados['login'].AsString;
      Emissor.Usuario_Ativo := FDados['ativo'].AsInteger;
      Emissor.Token_Server := FDados['token'].AsString;
+
+     with Emissor.Usuario_Fields do
+     begin
+       id_usuario := FDados['idUsuario'].AsInteger;
+       login := FDados['login'].AsString;
+       senha := Descriptografar(FDados['senha'].AsString);
+       nome := FDados['nome'].AsString;
+       email := FDados['email'].AsString;
+       ativo := FDados['ativo'].AsInteger;
+       data_cadastro := StrISOToDateTime(FDados['dataCadastro'].AsString);
+       if not FDados['ultimoAcesso'].IsNull then
+         ultimo_acesso := StrISOToDateTime(FDados['ultimoAcesso'].AsString);
+       id_perfil := FDados['idPerfil'].AsInteger;;
+       id_perfil_desc := '';
+       id_empresa := FDados['idEmpresa'].AsInteger;
+       token := FDados['token'].AsString;
+     end;
 
      if frmPrincipal = nil then
        TfrmPrincipal.CreateInstance;
@@ -123,7 +142,7 @@ begin
      On E:Exception do
      begin
        MessageDlg(E.Message, TMsgDlgType.mtError, [mbok], 0);
-       SaveLog(E.Message);
+       GravarLogJSON(Self,'Button_LoginClick',E);
      end;
    end;
 
@@ -307,7 +326,7 @@ begin
       on E:Exception do
       begin
         Result := False;
-        SaveLog(Self.Caption + ' [' + Self.Name + '] ' + sLineBreak + '    Valida Documento: ' + E.Message);
+        GravarLogJSON(Self,'Confere_Doc_Existe',E);
         MessageDlg(E.Message,TMsgDlgType.mtWarning,[mbOK],0);
       end;
     end;

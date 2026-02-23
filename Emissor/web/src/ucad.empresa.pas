@@ -177,7 +177,7 @@ begin
     except
       on E:Exception do
       begin
-        SaveLog(Self.Caption + ' [' + Self.Name + '] - Adiciona conta bancária: ' + E.Message);
+        GravarLogJSON(Self,'btCB_AddClick',E);
         MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
       end;
     end;
@@ -248,8 +248,6 @@ begin
         if fEmpresa.Count = 0 then
           raise Exception.Create('Não há dados para serem salvos.');
 
-        //SaveLog(fEmpresa.AsJSON);
-
         if StrToIntDef(edid_empresa.Text,0) = 0 then
         begin
           FResp := TRequest.New.BaseURL(FHost)
@@ -283,7 +281,7 @@ begin
     except
       on E: Exception do
       begin
-        SaveLog(Self.Caption + ' [' + Self.Name + '] - Gravar: ' + E.Message);
+        GravarLogJSON(Self,'Gravar',E);
         MessageDlg(E.Message,TMsgDlgType.mtError,[mbOk],0);
       end;
     end;
@@ -313,7 +311,7 @@ begin
     except
       on E:Exception do
       begin
-        SaveLog(Self.Caption + ' [' + Self.Name + '] - Criando DataSet: ' + E.Message);
+        GravarLogJSON(Self,'Create_DataSet',E);
         MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
       end;
     end;
@@ -333,7 +331,7 @@ begin
     except
       on E:Exception do
       begin
-        SaveLog(Self.Caption + ' [' + Self.Name + '] - Adiciona endereço: ' + E.Message);
+        GravarLogJSON(Self,'btEnd_AddClick',E);
         MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
       end;
     end;
@@ -414,7 +412,7 @@ begin
   except
     on E :Exception do
     begin
-      SaveLog(Self.Caption + ' [' + Self.Name + '] - Validando CNPJ: ' + E.Message);
+      GravarLogJSON(Self,'edcnpjExit',E);
       MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
     end;
   end;
@@ -458,7 +456,7 @@ begin
     except
       on E :Exception do
       begin
-        SaveLog(Self.Caption + ' [' + Self.Name + '] - Criando Formulário: ' + E.Message);
+        GravarLogJSON(Self,'FormCreate',E);
         MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
       end;
     end;
@@ -510,7 +508,7 @@ begin
   except
     on E :Exception do
     begin
-      SaveLog(Self.Caption + ' [' + Self.Name + '] - Exclui empresa: ' + E.Message);
+      GravarLogJSON(Self,'OnClick_Delete_End',E);
       MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
     end;
   end;
@@ -531,7 +529,7 @@ begin
   except
     on E:Exception do
     begin
-      SaveLog(Self.Caption + ' [' + Self.Name + '] - Edita conta bancária: ' + E.Message);
+      GravarLogJSON(Self,'OnClick_Edit_CBanco',E);
       MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
     end;
   end;
@@ -566,7 +564,7 @@ begin
   except
     on E :Exception do
     begin
-      SaveLog(Self.Caption + ' [' + Self.Name + '] - Exclui conta bancária: ' + E.Message);
+      GravarLogJSON(Self,'OnClick_Delete_CBanco',E);
       MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
     end;
   end;
@@ -605,7 +603,7 @@ procedure TfrmCadEmpresa.ExportD2Bridge;
 begin
   inherited;
 
-  Title := 'Cadastro de Empresas';
+  Title := Self.Caption;
 
   //TemplateClassForm:= TD2BridgeFormTemplate;
   D2Bridge.FrameworkExportType.TemplateMasterHTMLFile := '';
@@ -876,7 +874,7 @@ begin
   except
     on E:Exception do
     begin
-      SaveLog(Self.Caption + ' [' + Self.Name + '] - Edita endereço: ' + E.Message);
+      GravarLogJSON(Self,'OnClick_Edit_End',E);
       MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
     end;
   end;

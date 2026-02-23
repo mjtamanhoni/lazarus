@@ -13,6 +13,7 @@ type
 
    TUsuario_Fields = class
    private
+     class var Ftoken: String;
      class var Fid_empresa: Integer;
      class var Fativo: Integer;
      class var Fdata_cadastro: TDateTime;
@@ -36,6 +37,7 @@ type
      class property id_perfil :Integer read Fid_perfil write Fid_perfil;
      class property id_perfil_desc :String read Fid_perfil_desc write Fid_perfil_desc;
      class property id_empresa :Integer read Fid_empresa write Fid_empresa;
+     class property token :String read Ftoken write Ftoken;
    end;
 
   { TEmpresa_Fields }

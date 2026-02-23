@@ -90,7 +90,7 @@ begin
   except
     on E: Exception do
     begin
-      SaveLog(Self.Caption + ' [' + Self.Name + '] ' + sLineBreak + '    Fechar formulário: ' + E.Message);
+      GravarLogJSON(Self, 'btCancelarClick', E);
       MessageDlg(E.Message,TMsgDlgType.mtError,[mbOk],0);
     end;
   end;
@@ -105,7 +105,7 @@ begin
   except
     on E: Exception do
     begin
-      SaveLog(Self.Caption + ' [' + Self.Name + '] - Gravar: ' + E.Message);
+      GravarLogJSON(Self,'btConfirmarClick',E);
       MessageDlg(E.Message,TMsgDlgType.mtError,[mbOk],0);
     end;
   end;
@@ -129,7 +129,7 @@ begin
     except
       on E :Exception do
       begin
-        SaveLog(Self.Caption + ' [' + Self.Name + '] - Criando Formulário: ' + E.Message);
+        GravarLogJSON(Self,'FormCreate',E);
         MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
       end;
     end;
@@ -250,7 +250,7 @@ procedure TfrmCad_Usuario.ExportD2Bridge;
 begin
   inherited;
 
-  Title := Self.Caption + ' [' + Self.Name + ']';
+  Title := Self.Caption;
 
   //TemplateClassForm:= TD2BridgeFormTemplate;
   D2Bridge.FrameworkExportType.TemplateMasterHTMLFile := '';

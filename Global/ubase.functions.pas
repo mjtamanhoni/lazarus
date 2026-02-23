@@ -5,7 +5,8 @@ unit uBase.Functions;
 interface
 
 uses
-  Classes, SysUtils, Math, DB, memds, fpjson, jsonparser, Variants, DateUtils;
+  Classes, SysUtils, Math, DB, memds, fpjson, jsonparser, Variants, DateUtils, Forms,
+  FileInfo, winpeimagereader;
 
 {$Region 'Funçoes'}
 function EndPath:String;
@@ -28,8 +29,10 @@ function StrISOToDateTime(const DataStr: string): TDateTime;
 
 {$Region 'Procedures'}
 procedure SaveLog(
-  const aMessage:String;
+  const aMessage: String;
   const ADataHora:Boolean=True);
+function GetVersionValue(const AKey: string): string;
+procedure GravarLogJSON(const ASender: TObject; const AUnit: string; const E: Exception);
 {$EndRegion}
 
 implementation
@@ -73,6 +76,11 @@ end;
 function LogFile: String;
 begin
   Result := EndPath + NameEXE + '.LOG';
+end;
+
+function LogFile_JSon: String;
+begin
+  Result := EndPath + NameEXE + FormatDateTime('ddmmyyyy', Now) + '_Log.json'
 end;
 
 function PreencherEsquerda(const Texto: string; Tamanho: Integer; Caractere: Char): string;
@@ -354,6 +362,89 @@ begin
   end;
 end;
 
+procedure GravarLogJSON(const ASender: TObject; const AUnit: string; const E: Exception);
+var
+  ArquivoLog: TStringList;
+  CaminhoDiretorio, NomeArquivo: string;
+  ArrayJSON: TJSONArray;
+  ObjetoErro: TJSONObject;
+  ConteudoExistente: string;
+  NomeForm, CaptionForm: string;
+begin
+  // Identifica o nome do Form ou do objeto que chamou (se for um TForm)
+  if (ASender is TForm) then
+  begin
+    NomeForm := TForm(ASender).Name;
+    CaptionForm := TForm(ASender).Caption;
+  end
+  else
+  begin
+    NomeForm := 'Objeto desconhecido';
+    CaptionForm := '';
+  end;
+
+
+  //CaminhoDiretorio := ExtractFilePath(ParamStr(0)) + 'logs';
+  //if not DirectoryExists(CaminhoDiretorio) then ForceDirectories(CaminhoDiretorio);
+
+  // Formato: Log_23022026.json
+  //NomeArquivo := CaminhoDiretorio + DirectorySeparator + 'Log_' + FormatDateTime('ddmmyyyy', Now) + '.json';
+  NomeArquivo := LogFile_JSon;
+
+  ArquivoLog := TStringList.Create;
+  try
+    if FileExists(NomeArquivo) then
+    begin
+      ArquivoLog.LoadFromFile(NomeArquivo);
+      ConteudoExistente := ArquivoLog.Text;
+      if ConteudoExistente = '' then ConteudoExistente := '[]';
+      ArrayJSON := GetJSON(ConteudoExistente) as TJSONArray;
+    end
+    else
+      ArrayJSON := TJSONArray.Create;
+
+    try
+      ObjetoErro := TJSONObject.Create;
+      ObjetoErro.Add('timestamp', FormatDateTime('yyyy-mm-dd hh:nn:ss', Now));
+      ObjetoErro.Add('company_name', GetVersionValue('CompanyName'));
+      ObjetoErro.Add('description', GetVersionValue('FileDescription'));
+      ObjetoErro.Add('copyright', GetVersionValue('LegalCopyright'));
+      ObjetoErro.Add('product_name', GetVersionValue('ProductName'));
+      ObjetoErro.Add('version', GetVersionValue('FileVersion'));
+      ObjetoErro.Add('usuario_pc', GetEnvironmentVariable('USERNAME'));
+      ObjetoErro.Add('form_name', NomeForm);
+      ObjetoErro.Add('caption_name',CaptionForm);
+      ObjetoErro.Add('unit', AUnit);
+      ObjetoErro.Add('exception_class', E.ClassName);
+      ObjetoErro.Add('message', E.Message);
+
+      ArrayJSON.Add(ObjetoErro);
+
+      // Salva com indentação para ser legível
+      ArquivoLog.Text := ArrayJSON.FormatJSON();
+      ArquivoLog.SaveToFile(NomeArquivo);
+    finally
+      ArrayJSON.Free;
+    end;
+  finally
+    ArquivoLog.Free;
+  end;
+end;
+
+function GetVersionValue(const AKey: string): string;
+var
+  FileVerInfo: TFileVersionInfo;
+begin
+  Result := 'N/A';
+  FileVerInfo := TFileVersionInfo.Create(nil);
+  try
+    FileVerInfo.ReadFileInfo;
+    // O StringFileInfo retorna os valores baseados nas chaves do projeto
+    Result := FileVerInfo.VersionStrings.Values[AKey];
+  finally
+    FileVerInfo.Free;
+  end;
+end;
 
 end.
 

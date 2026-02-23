@@ -52,7 +52,7 @@ procedure TfrmUsuario.ExportD2Bridge;
 begin
   inherited;
 
-  Title := 'My D2Bridge Form';
+  Title := Self.Caption;
 
   //TemplateClassForm:= TD2BridgeFormTemplate;
   D2Bridge.FrameworkExportType.TemplateMasterHTMLFile := '';

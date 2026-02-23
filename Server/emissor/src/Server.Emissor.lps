@@ -73,8 +73,8 @@
         <UnitName Value="uEmpresa.Service"/>
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="5"/>
-        <TopLine Value="286"/>
-        <CursorPos X="39" Y="311"/>
+        <TopLine Value="281"/>
+        <CursorPos X="50" Y="305"/>
         <UsageCount Value="300"/>
         <Bookmarks Count="2">
           <Item0 X="30" Y="422" Left="1" Top="395" ID="2"/>

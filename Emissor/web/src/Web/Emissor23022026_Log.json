@@ -1,0 +1,81 @@
+[
+  {
+    "timestamp" : "2026-02-23 11:37:37",
+    "unit" : "Confere_Doc_Existe",
+    "form_name" : "Form_Login",
+    "caption_name" : "Form Login",
+    "exception_class" : "Exception",
+    "mensagem" : "Documento inválido",
+    "usuario_pc" : "Marcos Tamanhoni"
+  },
+  {
+    "timestamp" : "2026-02-23 11:55:14",
+    "unit" : "Confere_Doc_Existe",
+    "form_name" : "Form_Login",
+    "caption_name" : "Form Login",
+    "exception_class" : "Exception",
+    "mensagem" : "Documento inválido",
+    "usuario_pc" : "Marcos Tamanhoni"
+  },
+  {
+    "timestamp" : "2026-02-23 11:58:59",
+    "unit" : "Button_LoginClick",
+    "form_name" : "Form_Login",
+    "caption_name" : "Form Login",
+    "exception_class" : "Exception",
+    "mensagem" : "Usuário não localizado.",
+    "usuario_pc" : "Marcos Tamanhoni"
+  },
+  {
+    "timestamp" : "2026-02-23 11:59:05",
+    "unit" : "Button_LoginClick",
+    "form_name" : "Form_Login",
+    "caption_name" : "Form Login",
+    "exception_class" : "Exception",
+    "mensagem" : "Senha não confere.",
+    "usuario_pc" : "Marcos Tamanhoni"
+  },
+  {
+    "timestamp" : "2026-02-23 12:08:14",
+    "company_name" : "MJT Systems",
+    "description" : "Servidor Horse para emissão de Documentos Fiscais",
+    "copyright" : "Marcos Tamanhoni",
+    "product_name" : "HorseFiscal",
+    "version" : "0.0.0.2",
+    "unit" : "Confere_Doc_Existe",
+    "form_name" : "Form_Login",
+    "caption_name" : "Form Login",
+    "exception_class" : "Exception",
+    "mensagem" : "Documento inválido",
+    "usuario_pc" : "Marcos Tamanhoni"
+  },
+  {
+    "timestamp" : "2026-02-23 12:10:24",
+    "company_name" : "MJT Systems",
+    "description" : "Servidor Horse para emissão de Documentos Fiscais",
+    "copyright" : "Marcos Tamanhoni",
+    "product_name" : "HorseFiscal",
+    "version" : "1.0.0.2",
+    "form_name" : "Form_Login",
+    "caption_name" : "Form Login",
+    "unit" : "Button_LoginClick",
+    "exception_class" : "Exception",
+    "mensagem" : "Senha não confere.",
+    "usuario_pc" : "Marcos Tamanhoni"
+  },
+  {
+    "timestamp" : "2026-02-23 13:51:00",
+    "company_name" : "MJT Systems",
+    "description" : "Servidor Horse para emissão de Documentos Fiscais",
+    "copyright" : "Marcos Tamanhoni",
+    "product_name" : "HorseFiscal",
+    "version" : "1.0.0.2",
+    "usuario_pc" : "Marcos Tamanhoni",
+    "form_name" : "Form_Login",
+    "caption_name" : "Form Login",
+    "unit" : "Confere_Doc_Existe",
+    "exception_class" : "Exception",
+    "message" : "Documento inválido",
+    "Parent" : "TObject"
+  }
+]

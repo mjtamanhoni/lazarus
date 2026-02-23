@@ -400,7 +400,7 @@ procedure TfrmEmpresa.ExportD2Bridge;
 begin
   inherited;
 
-  Title := 'Empresas';
+  Title := Self.Caption;
 
   //TemplateClassForm:= TD2BridgeFormTemplate;
   D2Bridge.FrameworkExportType.TemplateMasterHTMLFile := '';
