@@ -142,7 +142,7 @@ begin
      On E:Exception do
      begin
        MessageDlg(E.Message, TMsgDlgType.mtError, [mbok], 0);
-       GravarLogJSON(Self,'Button_LoginClick',E);
+       GravarLogJSON(Self.Name,Self.Caption,'Button_LoginClick',E);
      end;
    end;
 
@@ -326,7 +326,7 @@ begin
       on E:Exception do
       begin
         Result := False;
-        GravarLogJSON(Self,'Confere_Doc_Existe',E);
+        GravarLogJSON(Self.Name,Self.Caption,'Confere_Doc_Existe',E);
         MessageDlg(E.Message,TMsgDlgType.mtWarning,[mbOK],0);
       end;
     end;

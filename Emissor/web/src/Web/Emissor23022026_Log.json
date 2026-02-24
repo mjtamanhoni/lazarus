@@ -77,5 +77,19 @@
     "exception_class" : "Exception",
     "message" : "Documento inválido",
     "Parent" : "TObject"
+  },
+  {
+    "timestamp" : "2026-02-23 15:32:10",
+    "company_name" : "MJT Systems",
+    "description" : "Servidor Horse para emissão de Documentos Fiscais",
+    "copyright" : "Marcos Tamanhoni",
+    "product_name" : "HorseFiscal",
+    "version" : "1.0.0.2",
+    "usuario_pc" : "Marcos Tamanhoni",
+    "form_name" : "Form_Login",
+    "caption_name" : "Form Login",
+    "unit" : "Confere_Doc_Existe",
+    "exception_class" : "Exception",
+    "message" : "Documento inválido"
   }
 ]

@@ -24,11 +24,16 @@ type
     dsRegistro: TDataSource;
     DBGrid_Empresa: TDBGrid;
     edPesquisar: TEdit;
+    miID: TMenuItem;
+    miRazaoSocial: TMenuItem;
+    miFantasia: TMenuItem;
+    miDocumento: TMenuItem;
     pnHeader: TPanel;
     pnDetail: TPanel;
     pnFooter: TPanel;
     pnFiltro: TPanel;
     pnTipoFiltro2: TPanel;
+    pmPesquisar: TPopupMenu;
     procedure btNovoClick(Sender: TObject);
     procedure edPesquisarKeyPress(Sender: TObject; var Key: char);
     procedure FormCreate(Sender: TObject);
@@ -96,7 +101,10 @@ begin
 
     except
       on E :Exception do
-      	 MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
+      begin
+        GravarLogJSON(Self.Name,Self.Caption,'FormCreate',E);
+        MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
+      end;
     end;
   finally
   end;
@@ -140,7 +148,6 @@ begin
     3:edPesquisar.TextHint := 'Pesquisar pela CNPJ/CPF';
   end;
   Pesquisar;
-
 end;
 
 procedure TfrmEmpresa.Create_DataSet;
@@ -167,7 +174,7 @@ begin
     except
       on E:Exception do
       begin
-        SaveLog(E.Message);
+        GravarLogJSON(Self.Name,Self.Caption,'Create_DataSet',E);
         MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
       end;
     end;
@@ -346,8 +353,8 @@ begin
     except
       on E: Exception do
       begin
+        GravarLogJSON(Self.Name,Self.Caption,'Pesquisar',E);
         MessageDlg(E.Message,TMsgDlgType.mtError,[TMsgDlgBtn.mbOK],0);
-        SaveLog(E.Message);
       end;
     end;
   finally
@@ -385,7 +392,7 @@ begin
   except
     on E :Exception do
     begin
-      SaveLog('Excluindo Empresa: ' + E.Message);
+      GravarLogJSON(Self.Name,Self.Caption,'OnClick_Delete',E);
       MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
     end;
   end;
@@ -544,7 +551,7 @@ begin
     except
       on E :Exception do
       begin
-        SaveLog('Editando empresa. ' + E.Message);
+        GravarLogJSON(Self.Name,Self.Caption,'OnClick_Edit',E);
         MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
       end;
     end;

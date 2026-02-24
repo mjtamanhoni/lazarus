@@ -22,6 +22,14 @@ type
     class procedure Criar_DataSet_Certificado(const aDataSet :TBufDataset);
   end;
 
+  { TUsuario }
+
+  TUsuario = class
+  private
+  public
+    class procedure Criar_DataSet_Usuario(const aDataSet :TBufDataset);
+  end;
+
 implementation
 
 procedure ConfigColGridAut(const Grid: TDBGrid; const Dataset: TDataSet);
@@ -262,6 +270,56 @@ begin
   except
     on E:Exception do
       raise Exception.Create('Cria Dataset do Certificado digital da Empresa: ' + E.Message);
+  end;
+end;
+
+{ TUsuario }
+
+class procedure TUsuario.Criar_DataSet_Usuario(const aDataSet: TBufDataset);
+begin
+  try
+    if aDataSet.Active then
+      aDataSet.Close;
+
+    aDataSet.FieldDefs.Clear;
+    aDataSet.FieldDefs.Add('idUsuario',ftInteger,0,True);
+    aDataSet.FieldDefs.Add('login',ftString,50,True);
+    aDataSet.FieldDefs.Add('senha',ftString,255,True);
+    aDataSet.FieldDefs.Add('nome',ftString,255,True);
+    aDataSet.FieldDefs.Add('email',ftString,100);
+    aDataSet.FieldDefs.Add('ativo',ftInteger,0,True);
+    aDataSet.FieldDefs.Add('dataCadastro',ftDateTime,0);
+    aDataSet.FieldDefs.Add('ultimoAcesso',ftDateTime,0);
+    aDataSet.FieldDefs.Add('idPerfil',ftInteger,0);
+    aDataSet.FieldDefs.Add('idEmpresa',ftInteger,0,True);
+    aDataSet.FieldDefs.Add('cnpj',ftString,14);
+    aDataSet.FieldDefs.Add('razaoSocial',ftString,255);
+    aDataSet.FieldDefs.Add('nomeFantasia',ftString,255);
+    aDataSet.FieldDefs.Add('nomePerfil',ftString,50);
+    aDataSet.FieldDefs.Add('descricaoPerfil',ftString,500);
+
+    aDataSet.CreateDataset;
+    aDataSet.Open;
+
+    //Definindo nome das colunas....
+    aDataSet.FieldByName('idUsuario').DisplayLabel := 'Id';
+    aDataSet.FieldByName('login').DisplayLabel := 'Login';
+    aDataSet.FieldByName('senha').DisplayLabel := 'Senha';
+    aDataSet.FieldByName('nome').DisplayLabel := 'Nome';
+    aDataSet.FieldByName('email').DisplayLabel := 'E-Mail';
+    aDataSet.FieldByName('ativo').DisplayLabel := 'Ativo';
+    aDataSet.FieldByName('dataCadastro').DisplayLabel := 'Cadastro';
+    aDataSet.FieldByName('ultimoAcesso').DisplayLabel := 'Último Acesso';
+    aDataSet.FieldByName('idPerfil').DisplayLabel := 'Id. Perfil';
+    aDataSet.FieldByName('idEmpresa').DisplayLabel := 'Id. Empresa';
+    aDataSet.FieldByName('cnpj').DisplayLabel := 'CNPJ/CPF Empresa';
+    aDataSet.FieldByName('razaoSocial').DisplayLabel := 'Razão Social';
+    aDataSet.FieldByName('nomeFantasia').DisplayLabel := 'Nome Fantasia';
+    aDataSet.FieldByName('nomePerfil').DisplayLabel := 'Perfil';
+    aDataSet.FieldByName('descricaoPerfil').DisplayLabel := 'Descrição do Perfil';
+  except
+    on E:Exception do
+      raise Exception.Create('Cria Dataset do Usuário: ' + E.Message);
   end;
 end;
 

@@ -5,7 +5,7 @@ unit uBase.Functions;
 interface
 
 uses
-  Classes, SysUtils, Math, DB, memds, fpjson, jsonparser, Variants, DateUtils, Forms,
+  Classes, SysUtils, Math, DB, memds, fpjson, jsonparser, Variants, DateUtils,
   FileInfo, winpeimagereader;
 
 {$Region 'Funçoes'}
@@ -13,6 +13,7 @@ function EndPath:String;
 function NameEXE(aSemExtensao:Boolean=True):String;
 function ConfigFile:String;
 function LogFile:String;
+function LogFile_JSon: String;
 function PreencherEsquerda(const Texto: string; Tamanho: Integer; Caractere: Char = ' '): string;
 function PreencherDireita(const Texto: string; Tamanho: Integer; Caractere: Char = ' '): string;
 function PreencherCentro(const Texto: string; Tamanho: Integer; Caractere: Char = ' '): string;
@@ -32,7 +33,8 @@ procedure SaveLog(
   const aMessage: String;
   const ADataHora:Boolean=True);
 function GetVersionValue(const AKey: string): string;
-procedure GravarLogJSON(const ASender: TObject; const AUnit: string; const E: Exception);
+procedure GravarLogJSON_(const AForm,ADesc,AUnit: string; const E: Exception);
+procedure GravarLogJSON(const AForm, ADesc, AUnit: string; const E: Exception);
 {$EndRegion}
 
 implementation
@@ -80,7 +82,7 @@ end;
 
 function LogFile_JSon: String;
 begin
-  Result := EndPath + NameEXE + FormatDateTime('ddmmyyyy', Now) + '_Log.json'
+  Result := EndPath + NameEXE + FormatDateTime('yyyymm', Now) + '_Log.json'
 end;
 
 function PreencherEsquerda(const Texto: string; Tamanho: Integer; Caractere: Char): string;
@@ -362,7 +364,7 @@ begin
   end;
 end;
 
-procedure GravarLogJSON(const ASender: TObject; const AUnit: string; const E: Exception);
+procedure GravarLogJSON_(const AForm,ADesc,AUnit: string; const E: Exception);
 var
   ArquivoLog: TStringList;
   CaminhoDiretorio, NomeArquivo: string;
@@ -371,18 +373,8 @@ var
   ConteudoExistente: string;
   NomeForm, CaptionForm: string;
 begin
-  // Identifica o nome do Form ou do objeto que chamou (se for um TForm)
-  if (ASender is TForm) then
-  begin
-    NomeForm := TForm(ASender).Name;
-    CaptionForm := TForm(ASender).Caption;
-  end
-  else
-  begin
-    NomeForm := 'Objeto desconhecido';
-    CaptionForm := '';
-  end;
-
+  NomeForm := AForm;
+  CaptionForm := ADesc;
 
   //CaminhoDiretorio := ExtractFilePath(ParamStr(0)) + 'logs';
   //if not DirectoryExists(CaminhoDiretorio) then ForceDirectories(CaminhoDiretorio);
@@ -445,6 +437,98 @@ begin
     FileVerInfo.Free;
   end;
 end;
+
+procedure GravarLogJSON(const AForm, ADesc, AUnit: string; const E: Exception);
+var
+  ArquivoLog: TStringList;
+  NomeArquivo: string;
+  ArrayRaiz, ArrayLogsDia: TJSONArray;
+  ObjetoDia, ObjetoErro: TJSONObject;
+  ConteudoExistente: string;
+  I: Integer;
+  DataHoje: string;
+  EncontrouData: Boolean;
+begin
+  DataHoje := FormatDateTime('yyyy-mm-dd', Now);
+  NomeArquivo := LogFile_JSon; // Certifique-se que esta variável/constante global existe
+  EncontrouData := False;
+
+  ArquivoLog := TStringList.Create;
+  try
+    // 1. Carregar ou Criar a Raiz (Array principal)
+    if FileExists(NomeArquivo) then
+    begin
+      ArquivoLog.LoadFromFile(NomeArquivo);
+      ConteudoExistente := ArquivoLog.Text;
+      if (ConteudoExistente = '') then ConteudoExistente := '[]';
+      ArrayRaiz := GetJSON(ConteudoExistente) as TJSONArray;
+    end
+    else
+      ArrayRaiz := TJSONArray.Create;
+
+    try
+      // 2. Procurar se já existe um objeto para a data de hoje
+      ObjetoDia := nil;
+      for I := 0 to ArrayRaiz.Count - 1 do
+      begin
+        if ArrayRaiz.Objects[I].Strings['date'] = DataHoje then
+        begin
+          ObjetoDia := ArrayRaiz.Objects[I];
+          EncontrouData := True;
+          Break;
+        end;
+      end;
+
+      // 3. Se não encontrar a data, cria o cabeçalho do dia
+      if not Assigned(ObjetoDia) then
+      begin
+        ObjetoDia := TJSONObject.Create;
+        ObjetoDia.Add('date', DataHoje);
+        ObjetoDia.Add('company_name', GetVersionValue('CompanyName'));
+        ObjetoDia.Add('description', GetVersionValue('FileDescription'));
+        ObjetoDia.Add('copyright', GetVersionValue('LegalCopyright'));
+        ObjetoDia.Add('product_name', GetVersionValue('ProductName'));
+        ObjetoDia.Add('version', GetVersionValue('FileVersion'));
+        ObjetoDia.Add('usuario_pc', GetEnvironmentVariable('USERNAME'));
+
+        // Cria o array onde os erros do dia ficarão
+        ArrayLogsDia := TJSONArray.Create;
+        ObjetoDia.Add('logs', ArrayLogsDia);
+
+        ArrayRaiz.Add(ObjetoDia);
+      end
+      else
+      begin
+        // Se já existe, pegamos o array de logs existente
+        ArrayLogsDia := ObjetoDia.Arrays['logs'];
+      end;
+
+      // 4. Criar o objeto do erro específico
+      ObjetoErro := TJSONObject.Create;
+      ObjetoErro.Add('time', FormatDateTime('hh:nn:ss', Now));
+      ObjetoErro.Add('form_name', AForm);
+      ObjetoErro.Add('caption_name', ADesc);
+      ObjetoErro.Add('unit', AUnit);
+      ObjetoErro.Add('exception_class', E.ClassName);
+      ObjetoErro.Add('message', E.Message);
+
+      // 5. Adicionar o erro ao array do dia
+      ArrayLogsDia.Add(ObjetoErro);
+
+      // 6. Salvar no arquivo
+      ArquivoLog.Text := ArrayRaiz.FormatJSON();
+      ArquivoLog.SaveToFile(NomeArquivo);
+
+    finally
+      ArrayRaiz.Free;
+    end;
+  finally
+    ArquivoLog.Free;
+  end;
+end;
+
+
+
 
 end.
 

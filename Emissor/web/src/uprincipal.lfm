@@ -19,6 +19,7 @@ object frmPrincipal: TfrmPrincipal
         Caption = 'Usuário'
         object mnuCad_Usu_Usuario: TMenuItem
           Caption = 'Usuário'
+          OnClick = mnuCad_Usu_UsuarioClick
         end
         object mnuCad_Usu_Perfil: TMenuItem
           Caption = 'Perfil'

@@ -1,0 +1,101 @@
+[
+  {
+    "date" : "2026-02-24",
+    "company_name" : "MJT Systems",
+    "description" : "Servidor Horse para emissão de Documentos Fiscais",
+    "copyright" : "Marcos Tamanhoni",
+    "product_name" : "HorseFiscal",
+    "version" : "1.0.0.2",
+    "usuario_pc" : "Marcos Tamanhoni",
+    "logs" : [
+      {
+        "time" : "08:42:24",
+        "form_name" : "Form_Login",
+        "caption_name" : "Form Login",
+        "unit" : "Button_LoginClick",
+        "exception_class" : "Exception",
+        "message" : "Senha não confere."
+      },
+      {
+        "time" : "08:43:12",
+        "form_name" : "Form_Login_1",
+        "caption_name" : "Form Login",
+        "unit" : "Confere_Doc_Existe",
+        "exception_class" : "Exception",
+        "message" : "Documento inválido"
+      },
+      {
+        "time" : "08:44:14",
+        "form_name" : "Form_Login",
+        "caption_name" : "Form Login",
+        "unit" : "Button_LoginClick",
+        "exception_class" : "Exception",
+        "message" : "Senha não confere."
+      },
+      {
+        "time" : "10:29:54",
+        "form_name" : "frmEmpresa",
+        "caption_name" : "Empresas",
+        "unit" : "OnClick_Edit",
+        "exception_class" : "EConvertError",
+        "message" : "\"\" is an invalid integer"
+      },
+      {
+        "time" : "20:19:54",
+        "form_name" : "frmUsuario",
+        "caption_name" : "Usuários",
+        "unit" : "Pesquisar",
+        "exception_class" : "Exception",
+        "message" : "Adiciona dados da empresa: \r\nCannot convert data from Null value"
+      },
+      {
+        "time" : "20:20:03",
+        "form_name" : "frmUsuario",
+        "caption_name" : "Usuários",
+        "unit" : "Pesquisar",
+        "exception_class" : "Exception",
+        "message" : "Adiciona dados da empresa: \r\nCannot convert data from Null value"
+      },
+      {
+        "time" : "20:24:18",
+        "form_name" : "frmUsuario",
+        "caption_name" : "Usuários",
+        "unit" : "Pesquisar",
+        "exception_class" : "Exception",
+        "message" : "Adiciona dados da empresa: \r\nCannot convert data from Null value"
+      },
+      {
+        "time" : "20:26:34",
+        "form_name" : "frmUsuario",
+        "caption_name" : "Usuários",
+        "unit" : "Pesquisar",
+        "exception_class" : "Exception",
+        "message" : "Adiciona dados da empresa: \r\nCannot convert data from Null value"
+      },
+      {
+        "time" : "20:28:34",
+        "form_name" : "Form_Login",
+        "caption_name" : "Form Login",
+        "unit" : "Confere_Doc_Existe",
+        "exception_class" : "Exception",
+        "message" : "Documento inválido"
+      },
+      {
+        "time" : "20:28:44",
+        "form_name" : "Form_Login",
+        "caption_name" : "Form Login",
+        "unit" : "Confere_Doc_Existe",
+        "exception_class" : "Exception",
+        "message" : "Documento inválido"
+      },
+      {
+        "time" : "20:29:03",
+        "form_name" : "frmUsuario",
+        "caption_name" : "Usuários",
+        "unit" : "Pesquisar",
+        "exception_class" : "Exception",
+        "message" : "Adiciona dados da empresa: \r\nCannot convert data from Null value"
+      }
+    ]
+  }
+]

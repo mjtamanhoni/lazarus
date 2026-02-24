@@ -90,7 +90,7 @@ begin
   except
     on E: Exception do
     begin
-      GravarLogJSON(Self, 'btCancelarClick', E);
+      GravarLogJSON(Self.Name,Self.Caption, 'btCancelarClick', E);
       MessageDlg(E.Message,TMsgDlgType.mtError,[mbOk],0);
     end;
   end;
@@ -105,7 +105,7 @@ begin
   except
     on E: Exception do
     begin
-      GravarLogJSON(Self,'btConfirmarClick',E);
+      GravarLogJSON(Self.Name,Self.Caption,'btConfirmarClick',E);
       MessageDlg(E.Message,TMsgDlgType.mtError,[mbOk],0);
     end;
   end;
@@ -129,7 +129,7 @@ begin
     except
       on E :Exception do
       begin
-        GravarLogJSON(Self,'FormCreate',E);
+        GravarLogJSON(Self.Name,Self.Caption,'FormCreate',E);
         MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
       end;
     end;

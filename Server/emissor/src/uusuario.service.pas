@@ -151,7 +151,7 @@ begin
     except
       on E:Exception do
       begin
-        SaveLog(E.Message);
+        GravarLogJSON('Usuario.Service','Login', 'Login', E);
         Result := '{"success":false,"message":"'+E.Message+'"}';
       end;
     end;
@@ -180,7 +180,14 @@ begin
 
       FQuery.SQL.Add('select ');
       FQuery.SQL.Add('  u.* ');
+      FQuery.SQL.Add('  ,e.cnpj ');
+      FQuery.SQL.Add('  ,e.razao_social ');
+      FQuery.SQL.Add('  ,e.nome_fantasia ');
+      FQuery.SQL.Add('  ,p.nome_perfil ');
+      FQuery.SQL.Add('  ,p.descricao as descricao_perfil ');
       FQuery.SQL.Add('from public.usuarios u ');
+      FQuery.SQL.Add('	join public.empresa e on e.id_empresa = u.id_empresa ');
+      FQuery.SQL.Add('	join public.perfis p on p.id_perfil = u.id_perfil ');
       FQuery.SQL.Add('where 1=1 ');
       if AId > 0 then
       begin
@@ -222,7 +229,7 @@ begin
         FJSonobject.Add('success',False);
         FJSonobject.Add('message',E.Message);
         Result := FJSonobject.AsJSON;
-        SaveLog(E.Message);
+        GravarLogJSON('Usuario.Service','Metodo GET', 'UsuarioGet', E);
       end;
     end;
   finally
@@ -292,7 +299,7 @@ begin
       on E:Exception do
       begin
         FDm.ZConnection.Rollback;
-        SaveLog(E.Message);
+        GravarLogJSON('Usuario.Service','Método Post', 'UsuarioPost', E);
         Result :='{"success":false,"message":"'+E.Message+'"}';
       end;
     end;
@@ -346,7 +353,7 @@ begin
       on E:Exception do
       begin
         FDm.ZConnection.Rollback;
-        SaveLog(E.Message);
+        GravarLogJSON('Usuario.Service','Método Put', 'UsuarioPut', E);
         Result :='{"success":false,"message":"'+E.Message+'"}';
       end;
     end;
@@ -384,7 +391,7 @@ begin
       on E:Exception do
       begin
         FDm.ZConnection.Rollback;
-        SaveLog(E.Message);
+        GravarLogJSON('Usuario.Service','Método Delete', 'UsuarioDelete', E);
         Result :='{"success":false,"message":"'+E.Message+'"}';
       end;
     end;

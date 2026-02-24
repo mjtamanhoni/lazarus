@@ -28,6 +28,7 @@ type
     mnuCad_Usu_Perfil: TMenuItem;
     mnuCad_Usu_Permissoes: TMenuItem;
     procedure mnuCad_EmpresaClick(Sender: TObject);
+    procedure mnuCad_Usu_UsuarioClick(Sender: TObject);
     procedure mnuDesconectarClick(Sender: TObject);
   private
     { Private declarations }
@@ -45,7 +46,7 @@ function frmPrincipal: TfrmPrincipal;
 implementation
 
 uses
-  EmissorWebApp, uEmpresa;
+  EmissorWebApp, uEmpresa, uUsuario;
 
 {$R *.lfm}
 
@@ -68,6 +69,13 @@ begin
   if frmEmpresa = nil then
     TfrmEmpresa.CreateInstance;
   frmEmpresa.Show;
+end;
+
+procedure TfrmPrincipal.mnuCad_Usu_UsuarioClick(Sender: TObject);
+begin
+  if frmUsuario = nil then
+    TfrmUsuario.CreateInstance;
+  frmUsuario.Show;
 end;
 
 procedure TfrmPrincipal.ExportD2Bridge;

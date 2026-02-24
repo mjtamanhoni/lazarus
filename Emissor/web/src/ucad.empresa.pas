@@ -177,7 +177,7 @@ begin
     except
       on E:Exception do
       begin
-        GravarLogJSON(Self,'btCB_AddClick',E);
+        GravarLogJSON(Self.Name,Self.Caption,'btCB_AddClick',E);
         MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
       end;
     end;
@@ -281,7 +281,7 @@ begin
     except
       on E: Exception do
       begin
-        GravarLogJSON(Self,'Gravar',E);
+        GravarLogJSON(Self.Name,Self.Caption,'Gravar',E);
         MessageDlg(E.Message,TMsgDlgType.mtError,[mbOk],0);
       end;
     end;
@@ -311,7 +311,7 @@ begin
     except
       on E:Exception do
       begin
-        GravarLogJSON(Self,'Create_DataSet',E);
+        GravarLogJSON(Self.Name,Self.Caption,'Create_DataSet',E);
         MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
       end;
     end;
@@ -331,7 +331,7 @@ begin
     except
       on E:Exception do
       begin
-        GravarLogJSON(Self,'btEnd_AddClick',E);
+        GravarLogJSON(Self.Name,Self.Caption,'btEnd_AddClick',E);
         MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
       end;
     end;
@@ -412,7 +412,7 @@ begin
   except
     on E :Exception do
     begin
-      GravarLogJSON(Self,'edcnpjExit',E);
+      GravarLogJSON(Self.Name,Self.Caption,'edcnpjExit',E);
       MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
     end;
   end;
@@ -456,7 +456,7 @@ begin
     except
       on E :Exception do
       begin
-        GravarLogJSON(Self,'FormCreate',E);
+        GravarLogJSON(Self.Name,Self.Caption,'FormCreate',E);
         MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
       end;
     end;
@@ -508,7 +508,7 @@ begin
   except
     on E :Exception do
     begin
-      GravarLogJSON(Self,'OnClick_Delete_End',E);
+      GravarLogJSON(Self.Name,Self.Caption,'OnClick_Delete_End',E);
       MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
     end;
   end;
@@ -529,7 +529,7 @@ begin
   except
     on E:Exception do
     begin
-      GravarLogJSON(Self,'OnClick_Edit_CBanco',E);
+      GravarLogJSON(Self.Name,Self.Caption,'OnClick_Edit_CBanco',E);
       MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
     end;
   end;
@@ -564,7 +564,7 @@ begin
   except
     on E :Exception do
     begin
-      GravarLogJSON(Self,'OnClick_Delete_CBanco',E);
+      GravarLogJSON(Self.Name,Self.Caption,'OnClick_Delete_CBanco',E);
       MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
     end;
   end;
@@ -874,7 +874,7 @@ begin
   except
     on E:Exception do
     begin
-      GravarLogJSON(Self,'OnClick_Edit_End',E);
+      GravarLogJSON(Self.Name,Self.Caption,'OnClick_Edit_End',E);
       MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
     end;
   end;

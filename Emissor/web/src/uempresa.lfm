@@ -45,6 +45,7 @@ inherited frmEmpresa: TfrmEmpresa
         Top = 2
         Width = 38
         Align = alRight
+        PopupMenu = pmPesquisar
         TabOrder = 1
       end
     end
@@ -108,5 +109,28 @@ inherited frmEmpresa: TfrmEmpresa
   object dsRegistro: TDataSource[4]
     Left = 280
     Top = 120
+  end
+  object pmPesquisar: TPopupMenu[5]
+    Left = 408
+    Top = 144
+    object miID: TMenuItem
+      Caption = 'ID'
+      OnClick = miRazaoSocialClick
+    end
+    object miRazaoSocial: TMenuItem
+      Tag = 1
+      Caption = 'Razão Social'
+      OnClick = miRazaoSocialClick
+    end
+    object miFantasia: TMenuItem
+      Tag = 2
+      Caption = 'Nome Fantasia'
+      OnClick = miRazaoSocialClick
+    end
+    object miDocumento: TMenuItem
+      Tag = 3
+      Caption = 'Documento (CNPJ/CPF)'
+      OnClick = miRazaoSocialClick
+    end
   end
 end

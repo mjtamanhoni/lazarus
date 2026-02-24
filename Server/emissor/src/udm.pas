@@ -91,7 +91,7 @@ begin
 
   except
     on E:Exception do
-      SaveLog(E.Message);
+       GravarLogJSON(Self.Name,'Banco de Dados', 'ConectarBanco', E);
   end;
 end;
 

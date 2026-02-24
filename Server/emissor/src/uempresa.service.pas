@@ -257,7 +257,7 @@ begin
         FJSonobject.Add('success',False);
         FJSonobject.Add('message',E.Message);
         Result := FJSonobject.AsJSON;
-        SaveLog(E.Message);
+        GravarLogJSON('Empresa.Service','Método Get', 'EmpresaGet', E);
       end;
     end;
   finally
@@ -308,7 +308,7 @@ begin
         FJSonobject.Add('success',False);
         FJSonobject.Add('message',E.Message);
         Result := FJSonobject.AsJSON;
-        SaveLog('Valida CNPJ ['+ACNPJ+'] da Empresa: ' + sLineBreak + E.Message);
+        GravarLogJSON('Empresa.Service','Valida CNPJ Empresa', 'Valida_CNPJ_Empresa', E);
       end;
     end;
   finally
@@ -525,7 +525,7 @@ begin
       on E:Exception do
       begin
         FDm.ZConnection.Rollback;
-        SaveLog(E.Message);
+        GravarLogJSON('Empresa.Service','Método Post', 'EmpresaPost', E);
         Result :='{"success":false,"message":"'+E.Message+'"}';
       end;
     end;
@@ -759,7 +759,7 @@ begin
       on E:Exception do
       begin
         FDm.ZTransaction.Rollback;
-        SaveLog(E.Message);
+        GravarLogJSON('Empresa.Service','Método Put', 'EmpresaPut', E);
         Result :='{"success":false,"message":"'+E.Message+'"}';
       end;
     end;
@@ -808,7 +808,7 @@ begin
       on E:Exception do
       begin
         FDm.ZConnection.Rollback;
-        SaveLog(E.Message);
+        GravarLogJSON('Empresa.Service','Método Delete', 'EmpresaDelete', E);
         Result :='{"success":false,"message":"'+E.Message+'"}';
       end;
     end;
@@ -848,7 +848,7 @@ begin
       on E:Exception do
       begin
         FDm.ZConnection.Rollback;
-        SaveLog(E.Message);
+        GravarLogJSON('Empresa.Service','Método Delete endereço', 'EmpresaDelete_End', E);
         Result :='{"success":false,"message":"'+E.Message+'"}';
       end;
     end;
@@ -888,7 +888,7 @@ begin
       on E:Exception do
       begin
         FDm.ZConnection.Rollback;
-        SaveLog(E.Message);
+        GravarLogJSON('Empresa.Service','Método Delete Dados Bancários', 'EmpresaDelete_DB', E);
         Result :='{"success":false,"message":"'+E.Message+'"}';
       end;
     end;
