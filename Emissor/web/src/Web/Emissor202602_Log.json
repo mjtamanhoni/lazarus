@@ -97,5 +97,32 @@
         "message" : "Adiciona dados da empresa: \r\nCannot convert data from Null value"
       }
     ]
+  },
+  {
+    "date" : "2026-02-25",
+    "company_name" : "MJT Systems",
+    "description" : "Servidor Horse para emissão de Documentos Fiscais",
+    "copyright" : "Marcos Tamanhoni",
+    "product_name" : "HorseFiscal",
+    "version" : "1.0.0.2",
+    "usuario_pc" : "Marcos Tamanhoni",
+    "logs" : [
+      {
+        "time" : "07:19:39",
+        "form_name" : "frmUsuario",
+        "caption_name" : "Usuários",
+        "unit" : "Pesquisar",
+        "exception_class" : "Exception",
+        "message" : "Adiciona dados da empresa: \r\nRemoção maior que o tamanho da string"
+      },
+      {
+        "time" : "07:27:45",
+        "form_name" : "Form_Login",
+        "caption_name" : "Form Login",
+        "unit" : "Confere_Doc_Existe",
+        "exception_class" : "Exception",
+        "message" : "Documento inválido"
+      }
+    ]
   }
 ]

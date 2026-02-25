@@ -59,6 +59,7 @@ object frmCad_Usuario: TfrmCad_Usuario
           NumbersOnly = True
           ReadOnly = True
           TabOrder = 0
+          OnKeyPress = edidUsuarioKeyPress
         end
       end
       object pnativo: TPanel
@@ -92,6 +93,7 @@ object frmCad_Usuario: TfrmCad_Usuario
             'ATIVO'
           )
           TabOrder = 0
+          OnKeyPress = cbativoKeyPress
         end
       end
     end
@@ -131,6 +133,7 @@ object frmCad_Usuario: TfrmCad_Usuario
           Width = 694
           Align = alClient
           TabOrder = 0
+          OnKeyPress = edloginKeyPress
         end
       end
     end
@@ -172,6 +175,7 @@ object frmCad_Usuario: TfrmCad_Usuario
           EchoMode = emPassword
           PasswordChar = '*'
           TabOrder = 0
+          OnKeyPress = edsenhaKeyPress
         end
       end
     end
@@ -212,6 +216,7 @@ object frmCad_Usuario: TfrmCad_Usuario
           Align = alClient
           CharCase = ecUppercase
           TabOrder = 0
+          OnKeyPress = ednomeKeyPress
         end
       end
     end
@@ -251,6 +256,7 @@ object frmCad_Usuario: TfrmCad_Usuario
           Width = 694
           Align = alClient
           TabOrder = 0
+          OnKeyPress = edemailKeyPress
         end
       end
     end

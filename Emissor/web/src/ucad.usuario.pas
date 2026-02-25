@@ -8,7 +8,8 @@ uses
   Classes, SysUtils, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls,  
   D2Bridge.Forms,
   IniFiles, fpjson, DataSet.Serialize, RESTRequest4D, jsonparser,
-  uDM.ACBr, uBase.Functions, uBase.DataSets,uCripto_Descrito, Forms, Menus;
+  uDM.ACBr, uBase.Functions, uBase.DataSets,uCripto_Descrito, Forms, Menus,
+  ubase.functions.objetos;
 
 type
 
@@ -51,6 +52,12 @@ type
     procedure btCancelarClick(Sender: TObject);
     procedure btConfirmarClick(Sender: TObject);
     procedure btidPerfilClick(Sender: TObject);
+    procedure cbativoKeyPress(Sender: TObject; var Key: char);
+    procedure edemailKeyPress(Sender: TObject; var Key: char);
+    procedure edidUsuarioKeyPress(Sender: TObject; var Key: char);
+    procedure edloginKeyPress(Sender: TObject; var Key: char);
+    procedure ednomeKeyPress(Sender: TObject; var Key: char);
+    procedure edsenhaKeyPress(Sender: TObject; var Key: char);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
   private
@@ -58,10 +65,14 @@ type
     FHost :String;
     FIniFile :TIniFile;
 
+
     procedure Gravar;
     procedure Return_Fields(const aTipo:Integer);
+
   public
     { Public declarations }
+    procedure Clear_Fields;
+
   protected
     procedure ExportD2Bridge; override;
     procedure InitControlsD2Bridge(const PrismControl: TPrismControl); override;
@@ -114,6 +125,36 @@ end;
 procedure TfrmCad_Usuario.btidPerfilClick(Sender: TObject);
 begin
   //
+end;
+
+procedure TfrmCad_Usuario.cbativoKeyPress(Sender: TObject; var Key: char);
+begin
+  if Key = #13 then EnterAsTab(Self.edlogin);
+end;
+
+procedure TfrmCad_Usuario.edemailKeyPress(Sender: TObject; var Key: char);
+begin
+  if Key = #13 then EnterAsTab(Self.edidPerfil);
+end;
+
+procedure TfrmCad_Usuario.edidUsuarioKeyPress(Sender: TObject; var Key: char);
+begin
+  if Key = #13 then EnterAsTab(Self.cbativo);
+end;
+
+procedure TfrmCad_Usuario.edloginKeyPress(Sender: TObject; var Key: char);
+begin
+  if Key = #13 then EnterAsTab(Self.edsenha);
+end;
+
+procedure TfrmCad_Usuario.ednomeKeyPress(Sender: TObject; var Key: char);
+begin
+  if Key = #13 then EnterAsTab(Self.edemail);
+end;
+
+procedure TfrmCad_Usuario.edsenhaKeyPress(Sender: TObject; var Key: char);
+begin
+  if Key = #13 then EnterAsTab(Self.ednome);
 end;
 
 procedure TfrmCad_Usuario.FormCreate(Sender: TObject);
@@ -294,6 +335,18 @@ begin
     end;
   end;
 
+end;
+
+procedure TfrmCad_Usuario.Clear_Fields;
+begin
+  edidUsuario.Clear;
+  cbativo.ItemIndex := -1;
+  edlogin.Clear;
+  edsenha.Clear;
+  ednome.Clear;
+  edemail.Clear;
+  edidPerfil.Clear;
+  edidPerfil_Desc.Clear;
 end;
 
 procedure TfrmCad_Usuario.InitControlsD2Bridge(const PrismControl: TPrismControl);

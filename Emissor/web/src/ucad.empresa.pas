@@ -9,7 +9,8 @@ uses
   StdCtrls, ExtCtrls, ComCtrls, ComboEx, DBGrids, EditBtn, DateTimePicker,
   D2Bridge.Forms, ACBrValidador, IniFiles, fpjson, DataSet.Serialize,
   RESTRequest4D, jsonparser, uCad.Empresa.Endereco, ucad.empresa.DadosBancarios,
-  uDM.ACBr, uBase.Functions, uBase.DataSets, Forms;
+  uDM.ACBr, uBase.Functions, uBase.DataSets, Forms,
+  ubase.functions.objetos;
 
 type
 
@@ -103,6 +104,8 @@ type
     procedure btEnd_AddClick(Sender: TObject);
     procedure cbregime_tributarioChange(Sender: TObject);
     procedure edcnpjExit(Sender: TObject);
+    procedure edcnpjKeyPress(Sender: TObject; var Key: char);
+    procedure edid_empresaKeyPress(Sender: TObject; var Key: char);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -416,6 +419,16 @@ begin
       MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
     end;
   end;
+end;
+
+procedure TfrmCadEmpresa.edcnpjKeyPress(Sender: TObject; var Key: char);
+begin
+  if Key = #13 then EnterAsTab(Self.edinscricao_estadual);
+end;
+
+procedure TfrmCadEmpresa.edid_empresaKeyPress(Sender: TObject; var Key: char);
+begin
+  if Key = #13 then EnterAsTab(Self.edcnpj);
 end;
 
 procedure TfrmCadEmpresa.FormClose(Sender: TObject; var CloseAction: TCloseAction);

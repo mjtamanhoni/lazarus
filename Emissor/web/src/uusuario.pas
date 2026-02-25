@@ -110,6 +110,8 @@ end;
 
 procedure TfrmUsuario.btNovoClick(Sender: TObject);
 begin
+  FfrmCad_Usuario.Clear_Fields;
+  FfrmCad_Usuario.cbativo.ItemIndex := 1;
   ShowPopupModal('Popup' + FfrmCad_Usuario.Name);
   Pesquisar;
 end;
@@ -147,7 +149,15 @@ begin
       FUsuario.Criar_DataSet_Usuario(memD_Ususario);
       dsRegistro.DataSet := memD_Ususario;
       DBGrid_Usuario.DataSource := dsRegistro;
+
+      //Configurando grid...
       ConfigColGridAut(DBGrid_Usuario,memD_Ususario);
+
+      //Escondendo colunas....
+      DBGrid_Usuario.Columns.Items[DBGrid_Usuario.SelectedIndex].Field.DataSet.FieldByName('senha').Visible := False;
+      DBGrid_Usuario.Columns.Items[DBGrid_Usuario.SelectedIndex].Field.DataSet.FieldByName('idPerfil').Visible := False;
+      DBGrid_Usuario.Columns.Items[DBGrid_Usuario.SelectedIndex].Field.DataSet.FieldByName('idEmpresa').Visible := False;
+
     except
       on E:Exception do
       begin
@@ -175,8 +185,6 @@ begin
       if not memD_Ususario.Active then
         Create_DataSet;
 
-      SaveLog(AJSon_Usuario.AsJSON);
-
       //Adicionando dados da empresa...
       for I := 0 to Pred(AJSon_Usuario.Count) do
       begin
@@ -188,7 +196,7 @@ begin
         memD_Ususario.FieldByName('email').AsString := AJSon_Usuario.Objects[I].Strings['email'];
         memD_Ususario.FieldByName('ativo').AsInteger := AJSon_Usuario.Objects[I].Integers['ativo'];
         memD_Ususario.FieldByName('dataCadastro').AsDateTime := ISO8601ToDateDef(AJSon_Usuario.Objects[I].Strings['dataCadastro'],0);
-        if not AJSon_Usuario.Objects[I].Nulls['ultimoAcesso'] then;
+        if not AJSon_Usuario.Objects[I].Nulls['ultimoAcesso'] then
           memD_Ususario.FieldByName('ultimoAcesso').AsDateTime := ISO8601ToDateDef(AJSon_Usuario.Objects[I].Strings['ultimoAcesso'],0);
         memD_Ususario.FieldByName('idPerfil').AsInteger := AJSon_Usuario.Objects[I].Integers['idPerfil'];
         memD_Ususario.FieldByName('idEmpresa').AsInteger := AJSon_Usuario.Objects[I].Integers['idEmpresa'];
@@ -199,8 +207,6 @@ begin
         memD_Ususario.FieldByName('descricaoPerfil').AsString := AJSon_Usuario.Objects[I].Strings['descricaoPerfil'];
         memD_Ususario.Post;
       end;
-      memD_Ususario.EnableControls;
-
     except
       on E:Exception do
         raise Exception.Create('Adiciona dados da empresa: ' + sLineBreak + E.Message);
@@ -279,7 +285,31 @@ end;
 
 procedure TfrmUsuario.OnClick_Edit(const AId: Integer; const ANome: String);
 begin
+  try
+    try
+      //Atualizando dados principais...
+      FfrmCad_Usuario.Clear_Fields;
+      FfrmCad_Usuario.edidUsuario.Text := memD_Ususario.FieldByName('idUsuario').AsString;
+      FfrmCad_Usuario.edlogin.Text := memD_Ususario.FieldByName('login').AsString;
+      FfrmCad_Usuario.edsenha.Text := memD_Ususario.FieldByName('senha').AsString;
+      FfrmCad_Usuario.ednome.Text := memD_Ususario.FieldByName('nome').AsString;
+      FfrmCad_Usuario.cbativo.ItemIndex := memD_Ususario.FieldByName('ativo').AsInteger;
+      FfrmCad_Usuario.edemail.Text := memD_Ususario.FieldByName('email').AsString;
+      FfrmCad_Usuario.edidPerfil.Text := memD_Ususario.FieldByName('idPerfil').AsString;
+      FfrmCad_Usuario.edidPerfil_Desc.Text := memD_Ususario.FieldByName('nomePerfil').AsString;
+      ShowPopupModal('Popup' + FfrmCad_Usuario.Name);
 
+      Pesquisar;
+
+    except
+      on E :Exception do
+      begin
+        GravarLogJSON(Self.Name,Self.Caption,'OnClick_Edit',E);
+        MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
+      end;
+    end;
+  finally
+  end;
 end;
 
 procedure TfrmUsuario.OnClick_Delete(const AId: Integer; const ANome: String);
@@ -320,30 +350,7 @@ end;
 
 procedure TfrmUsuario.OnClick_Print(const AId: Integer; const ANome: String);
 begin
-  try
-    try
-      //Atualizando dados principais...
-      FfrmCad_Usuario.edidUsuario.Text := memD_Ususario.FieldByName('idUsuario').AsString;
-      FfrmCad_Usuario.edlogin.Text := memD_Ususario.FieldByName('login').AsString;
-      FfrmCad_Usuario.edsenha.Text := memD_Ususario.FieldByName('senha').AsString;
-      FfrmCad_Usuario.ednome.Text := memD_Ususario.FieldByName('nome').AsString;
-      FfrmCad_Usuario.cbativo.ItemIndex := memD_Ususario.FieldByName('ativo').AsInteger;
-      FfrmCad_Usuario.edemail.Text := memD_Ususario.FieldByName('email').AsString;
-      FfrmCad_Usuario.edidPerfil.Text := memD_Ususario.FieldByName('idPerfil').AsString;
-      FfrmCad_Usuario.edidPerfil_Desc.Text := memD_Ususario.FieldByName('nomePerfil').AsString;
-      ShowPopupModal('Popup' + FfrmCad_Usuario.Name);
-
-      Pesquisar;
-
-    except
-      on E :Exception do
-      begin
-        GravarLogJSON(Self.Name,Self.Caption,'OnClick_Edit',E);
-        MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
-      end;
-    end;
-  finally
-  end;
+  //
 end;
 
 procedure TfrmUsuario.ExportD2Bridge;
