@@ -131,6 +131,7 @@ object frmCadEmpresa: TfrmCadEmpresa
               Width = 118
               Align = alClient
               TabOrder = 0
+              OnKeyPress = edinscricao_estadualKeyPress
             end
           end
           object pninscricao_municipal: TPanel
@@ -159,6 +160,7 @@ object frmCadEmpresa: TfrmCadEmpresa
               Width = 118
               Align = alClient
               TabOrder = 0
+              OnKeyPress = edinscricao_municipalKeyPress
             end
           end
           object pnativo: TPanel
@@ -192,6 +194,7 @@ object frmCadEmpresa: TfrmCadEmpresa
                 'ATIVO'
               )
               TabOrder = 0
+              OnKeyPress = cbativoKeyPress
             end
           end
         end
@@ -232,6 +235,7 @@ object frmCadEmpresa: TfrmCadEmpresa
               Align = alClient
               CharCase = ecUppercase
               TabOrder = 0
+              OnKeyPress = edrazao_socialKeyPress
             end
           end
         end
@@ -272,6 +276,7 @@ object frmCadEmpresa: TfrmCadEmpresa
               Align = alClient
               CharCase = ecUppercase
               TabOrder = 0
+              OnKeyPress = ednome_fantasiaKeyPress
             end
           end
         end
@@ -320,6 +325,7 @@ object frmCadEmpresa: TfrmCadEmpresa
               )
               TabOrder = 0
               OnChange = cbregime_tributarioChange
+              OnKeyPress = cbregime_tributarioKeyPress
             end
           end
           object pncrt: TPanel
@@ -349,6 +355,7 @@ object frmCadEmpresa: TfrmCadEmpresa
               Align = alClient
               ReadOnly = True
               TabOrder = 0
+              OnKeyPress = edcrtKeyPress
             end
           end
           object pntelefone: TPanel
@@ -377,6 +384,7 @@ object frmCadEmpresa: TfrmCadEmpresa
               Width = 118
               Align = alClient
               TabOrder = 0
+              OnKeyPress = edtelefoneKeyPress
             end
           end
           object pncelular: TPanel
@@ -405,6 +413,7 @@ object frmCadEmpresa: TfrmCadEmpresa
               Width = 118
               Align = alClient
               TabOrder = 0
+              OnKeyPress = edcelularKeyPress
             end
           end
         end
@@ -444,6 +453,7 @@ object frmCadEmpresa: TfrmCadEmpresa
               Width = 686
               Align = alClient
               TabOrder = 0
+              OnKeyPress = edemailKeyPress
             end
           end
         end
@@ -613,6 +623,7 @@ object frmCadEmpresa: TfrmCadEmpresa
               NumbersOnly = True
               ReadOnly = True
               TabOrder = 0
+              OnKeyPress = edid_certificadoKeyPress
             end
           end
           object pntipo: TPanel
@@ -646,6 +657,7 @@ object frmCadEmpresa: TfrmCadEmpresa
                 'A3 - Armazenado em dispositivo físico (token USB ou cartão com chip).  '
               )
               TabOrder = 0
+              OnKeyPress = cbtipoKeyPress
             end
           end
           object pnvalidade: TPanel
@@ -689,6 +701,7 @@ object frmCadEmpresa: TfrmCadEmpresa
               UseDefaultSeparators = True
               HideDateTimeParts = []
               MonthNames = 'Long'
+              OnKeyPress = edvalidadeKeyPress
             end
           end
         end
@@ -729,6 +742,7 @@ object frmCadEmpresa: TfrmCadEmpresa
               Align = alClient
               CharCase = ecUppercase
               TabOrder = 0
+              OnKeyPress = edcaminho_arquivoKeyPress
             end
           end
         end

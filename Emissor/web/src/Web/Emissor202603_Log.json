@@ -1,0 +1,21 @@
+[
+  {
+    "date" : "2026-03-02",
+    "company_name" : "MJT Systems",
+    "description" : "Servidor Horse para emissão de Documentos Fiscais",
+    "copyright" : "Marcos Tamanhoni",
+    "product_name" : "HorseFiscal",
+    "version" : "1.0.0.6",
+    "usuario_pc" : "Marcos Tamanhoni",
+    "logs" : [
+      {
+        "time" : "05:58:57",
+        "form_name" : "frmUsuario",
+        "caption_name" : "Usuários",
+        "unit" : "Create_DataSet",
+        "exception_class" : "Exception",
+        "message" : "Cria Dataset do Usuário: Access violation"
+      }
+    ]
+  }
+]

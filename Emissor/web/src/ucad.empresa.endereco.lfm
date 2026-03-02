@@ -89,6 +89,7 @@ object frmCad_Empresa_Endereco: TfrmCad_Empresa_Endereco
           NumbersOnly = True
           ReadOnly = True
           TabOrder = 0
+          OnKeyPress = edid_enderecoKeyPress
         end
       end
       object pntipo_endereco: TPanel
@@ -128,6 +129,7 @@ object frmCad_Empresa_Endereco: TfrmCad_Empresa_Endereco
             'Endereço Temporário (Eventos, obras)'
           )
           TabOrder = 0
+          OnKeyPress = cbtipo_enderecoKeyPress
         end
       end
       object pncep: TPanel
@@ -156,6 +158,7 @@ object frmCad_Empresa_Endereco: TfrmCad_Empresa_Endereco
           Width = 104
           Align = alClient
           TabOrder = 0
+          OnKeyPress = edcepKeyPress
         end
         object btCep: TButton
           Left = 107
@@ -204,6 +207,7 @@ object frmCad_Empresa_Endereco: TfrmCad_Empresa_Endereco
           Align = alClient
           CharCase = ecUppercase
           TabOrder = 0
+          OnKeyPress = edlogradouroKeyPress
         end
       end
       object pnnumero: TPanel
@@ -233,6 +237,7 @@ object frmCad_Empresa_Endereco: TfrmCad_Empresa_Endereco
           Align = alClient
           CharCase = ecUppercase
           TabOrder = 0
+          OnKeyPress = ednumeroKeyPress
         end
       end
     end
@@ -273,6 +278,7 @@ object frmCad_Empresa_Endereco: TfrmCad_Empresa_Endereco
           Align = alClient
           CharCase = ecUppercase
           TabOrder = 0
+          OnKeyPress = edcomplementoKeyPress
         end
       end
     end
@@ -313,6 +319,7 @@ object frmCad_Empresa_Endereco: TfrmCad_Empresa_Endereco
           Align = alClient
           CharCase = ecUppercase
           TabOrder = 0
+          OnKeyPress = edbairroKeyPress
         end
       end
       object pnmunicipio: TPanel
@@ -342,6 +349,7 @@ object frmCad_Empresa_Endereco: TfrmCad_Empresa_Endereco
           Align = alClient
           CharCase = ecUppercase
           TabOrder = 0
+          OnKeyPress = edmunicipioKeyPress
         end
       end
       object pncodigo_municipio_ibge: TPanel
@@ -371,6 +379,7 @@ object frmCad_Empresa_Endereco: TfrmCad_Empresa_Endereco
           Align = alClient
           NumbersOnly = True
           TabOrder = 0
+          OnKeyPress = edcodigo_municipio_ibgeKeyPress
         end
       end
       object pnuf: TPanel
@@ -400,6 +409,7 @@ object frmCad_Empresa_Endereco: TfrmCad_Empresa_Endereco
           Align = alClient
           CharCase = ecUppercase
           TabOrder = 0
+          OnKeyPress = edufKeyPress
         end
       end
     end
@@ -440,6 +450,7 @@ object frmCad_Empresa_Endereco: TfrmCad_Empresa_Endereco
           Align = alClient
           CharCase = ecUppercase
           TabOrder = 0
+          OnKeyPress = edpaisKeyPress
         end
       end
       object pncodigo_pais_ibge: TPanel

@@ -89,6 +89,7 @@ object frmCad_Empresa_DadosBancarios: TfrmCad_Empresa_DadosBancarios
           NumbersOnly = True
           ReadOnly = True
           TabOrder = 0
+          OnKeyPress = edid_bancoKeyPress
         end
       end
       object pntipo_conta: TPanel
@@ -128,6 +129,7 @@ object frmCad_Empresa_DadosBancarios: TfrmCad_Empresa_DadosBancarios
             'Conjunta (PF) - Compartilhar recursos '
           )
           TabOrder = 0
+          OnKeyPress = cbtipo_contaKeyPress
         end
       end
     end
@@ -168,6 +170,7 @@ object frmCad_Empresa_DadosBancarios: TfrmCad_Empresa_DadosBancarios
           Align = alClient
           CharCase = ecUppercase
           TabOrder = 0
+          OnKeyPress = edbancoKeyPress
         end
       end
       object pnagencia: TPanel
@@ -196,6 +199,7 @@ object frmCad_Empresa_DadosBancarios: TfrmCad_Empresa_DadosBancarios
           Width = 94
           Align = alClient
           TabOrder = 0
+          OnKeyPress = edagenciaKeyPress
         end
       end
       object pnconta: TPanel

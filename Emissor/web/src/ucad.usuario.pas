@@ -5,11 +5,10 @@ unit uCad.Usuario;
 interface
 
 uses
-  Classes, SysUtils, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls,  
-  D2Bridge.Forms,
-  IniFiles, fpjson, DataSet.Serialize, RESTRequest4D, jsonparser,
-  uDM.ACBr, uBase.Functions, uBase.DataSets,uCripto_Descrito, Forms, Menus,
-  ubase.functions.objetos;
+  Classes, SysUtils, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls,
+  D2Bridge.Forms, IniFiles, fpjson, DataSet.Serialize, RESTRequest4D,
+  jsonparser, uDM.ACBr, uBase.Functions, uBase.DataSets, uCripto_Descrito,
+  Forms, Menus, ComCtrls, ComboEx, ubase.functions.objetos;
 
 type
 
@@ -20,6 +19,8 @@ type
     btConfirmar: TButton;
     btidPerfil: TButton;
     cbativo: TComboBox;
+    ComboBox1: TComboBox;
+    ComboBoxEx1: TComboBoxEx;
     edemail: TEdit;
     edidPerfil_Desc: TEdit;
     edidUsuario: TEdit;
@@ -34,6 +35,8 @@ type
     lblogin: TLabel;
     lbnome: TLabel;
     lbidPerfil: TLabel;
+    pnPermissoes: TPanel;
+    pcPrincipal: TPageControl;
     pnativo: TPanel;
     pnDetail: TPanel;
     pnemail: TPanel;
@@ -49,10 +52,27 @@ type
     pnRow006: TPanel;
     pnnome: TPanel;
     pnidPerfil: TPanel;
+    tsCadastro: TTabSheet;
+    tsPermissoes: TTabSheet;
     procedure btCancelarClick(Sender: TObject);
     procedure btConfirmarClick(Sender: TObject);
     procedure btidPerfilClick(Sender: TObject);
+    procedure cbalterarChange(Sender: TObject);
+    procedure cbalterar_situacao_negocioChange(Sender: TObject);
+    procedure cbalterar_statusChange(Sender: TObject);
+    procedure cbanexar_uploadChange(Sender: TObject);
+    procedure cbaprovar_rejeitarChange(Sender: TObject);
     procedure cbativoKeyPress(Sender: TObject; var Key: char);
+    procedure cbauditar_historicoChange(Sender: TObject);
+    procedure cbexcluirChange(Sender: TObject);
+    procedure cbexecutar_processosChange(Sender: TObject);
+    procedure cbexportarChange(Sender: TObject);
+    procedure cbimportarChange(Sender: TObject);
+    procedure cbimprimirChange(Sender: TObject);
+    procedure cbincluirChange(Sender: TObject);
+    procedure cbnotificar_enviarChange(Sender: TObject);
+    procedure cbpesquisar_filtrarChange(Sender: TObject);
+    procedure cbvisualizarChange(Sender: TObject);
     procedure edemailKeyPress(Sender: TObject; var Key: char);
     procedure edidUsuarioKeyPress(Sender: TObject; var Key: char);
     procedure edloginKeyPress(Sender: TObject; var Key: char);
@@ -127,9 +147,140 @@ begin
   //
 end;
 
+procedure TfrmCad_Usuario.cbalterarChange(Sender: TObject);
+begin
+  if cbalterar.Checked then
+    cbalterar.Tag := 1
+  else
+    cbalterar.Tag := 0;
+end;
+
+procedure TfrmCad_Usuario.cbalterar_situacao_negocioChange(Sender: TObject);
+begin
+  if cbalterar_situacao_negocio.Checked then
+    cbalterar_situacao_negocio.Tag := 1
+  else
+    cbalterar_situacao_negocio.Tag := 0;
+
+end;
+
+procedure TfrmCad_Usuario.cbalterar_statusChange(Sender: TObject);
+begin
+  if cbalterar_status.Checked then
+    cbalterar_status.Tag := 1
+  else
+    cbalterar_status.Tag := 0;
+
+end;
+
+procedure TfrmCad_Usuario.cbanexar_uploadChange(Sender: TObject);
+begin
+  if cbanexar_upload.Checked then
+    cbanexar_upload.Tag := 1
+  else
+    cbanexar_upload.Tag := 0;
+
+end;
+
+procedure TfrmCad_Usuario.cbaprovar_rejeitarChange(Sender: TObject);
+begin
+  if cbaprovar_rejeitar.Checked then
+    cbaprovar_rejeitar.Tag := 1
+  else
+    cbaprovar_rejeitar.Tag := 0;
+
+end;
+
 procedure TfrmCad_Usuario.cbativoKeyPress(Sender: TObject; var Key: char);
 begin
   if Key = #13 then EnterAsTab(Self.edlogin);
+end;
+
+procedure TfrmCad_Usuario.cbauditar_historicoChange(Sender: TObject);
+begin
+  if cbauditar_historico.Checked then
+    cbauditar_historico.Tag := 1
+  else
+    cbauditar_historico.Tag := 0;
+
+end;
+
+procedure TfrmCad_Usuario.cbexcluirChange(Sender: TObject);
+begin
+  if cbexcluir.Checked then
+    cbexcluir.Tag := 1
+  else
+    cbexcluir.Tag := 0;
+end;
+
+procedure TfrmCad_Usuario.cbexecutar_processosChange(Sender: TObject);
+begin
+  if cbexecutar_processos.Checked then
+    cbexecutar_processos.Tag := 1
+  else
+    cbexecutar_processos.Tag := 0;
+
+end;
+
+procedure TfrmCad_Usuario.cbexportarChange(Sender: TObject);
+begin
+  if cbexportar.Checked then
+    cbexportar.Tag := 1
+  else
+    cbexportar.Tag := 0;
+
+end;
+
+procedure TfrmCad_Usuario.cbimportarChange(Sender: TObject);
+begin
+  if cbimportar.Checked then
+    cbimportar.Tag := 1
+  else
+    cbimportar.Tag := 0;
+
+end;
+
+procedure TfrmCad_Usuario.cbimprimirChange(Sender: TObject);
+begin
+  if cbimprimir.Checked then
+    cbimprimir.Tag := 1
+  else
+    cbimprimir.Tag := 0;
+
+end;
+
+procedure TfrmCad_Usuario.cbincluirChange(Sender: TObject);
+begin
+  if cbincluir.Checked then
+    cbincluir.Tag := 1
+  else
+    cbincluir.Tag := 0;
+end;
+
+procedure TfrmCad_Usuario.cbnotificar_enviarChange(Sender: TObject);
+begin
+  if cbnotificar_enviar.Checked then
+    cbnotificar_enviar.Tag := 1
+  else
+    cbnotificar_enviar.Tag := 0;
+
+end;
+
+procedure TfrmCad_Usuario.cbpesquisar_filtrarChange(Sender: TObject);
+begin
+  if cbpesquisar_filtrar.Checked then
+    cbpesquisar_filtrar.Tag := 1
+  else
+    cbpesquisar_filtrar.Tag := 0;
+
+end;
+
+procedure TfrmCad_Usuario.cbvisualizarChange(Sender: TObject);
+begin
+  if cbvisualizar.Checked then
+    cbvisualizar.Tag := 1
+  else
+    cbvisualizar.Tag := 0;
 end;
 
 procedure TfrmCad_Usuario.edemailKeyPress(Sender: TObject; var Key: char);
@@ -189,25 +340,26 @@ var
   fRet :String;
   fRetorno :TJSONObject;
   fJson_Usuario :TJSONObject;
+  fJson_Permissao :TJSONObject;
 begin
   try
     try
       fJson_Usuario := TJSONObject.Create;
+      fJson_Permissao := TJSONObject.Create;
 
       if Trim(FHost) = '' then
         raise Exception.Create('Host não informado');
 
-      //Adicionando pares...
+      //Adicionando pares do Usuário...
+      fJson_Usuario.Add('idEmpresa',Emissor.Usuario_Fields.id_empresa);
       fJson_Usuario.Add('idUsuario',StrToIntDef(edidUsuario.Text,0));
+      fJson_Usuario.Add('idPerfil',StrToIntDef(edidPerfil.Text,0));
       fJson_Usuario.Add('login',edlogin.Text);
       fJson_Usuario.Add('senha',Criptografar(edsenha.Text));
       fJson_Usuario.Add('nome',ednome.Text);
       fJson_Usuario.Add('email',edemail.Text);
       fJson_Usuario.Add('ativo',cbativo.ItemIndex);
-      fJson_Usuario.Add('dataCadastro',Now);
-      fJson_Usuario.Add('ultimoAcesso',Now);
-      fJson_Usuario.Add('idPerfil',StrToIntDef(edidPerfil.Text,0));
-      fJson_Usuario.Add('idEmpresa',Emissor.Usuario_Fields.id_empresa);
+
 
       if fJson_Usuario.Count = 0 then
         raise Exception.Create('Não há dados a serem salvos');
@@ -237,7 +389,7 @@ begin
       fRetorno := TJSONObject(GetJSON(fRet));
 
       if fRetorno['success'].AsBoolean = False then
-        raise Exception.Create(fRetorno['message'].AsString);
+        raise Exception.Create('Erro servidor: ' + sLineBreak + fRetorno['message'].AsString);
 
     except
       on E: Exception do
@@ -301,29 +453,73 @@ begin
   begin
     with Row.Items.Add do
     begin
-      with Card.Items.Add do
+      with Tabs('TabControl1') do
       begin
-        with Row.Items.Add do
+        with AddTab(pcPrincipal.Pages[0].Caption).Items.Add do
         begin
-          FormGroup(lbidUsuario.Caption,CSSClass.Col.colsize2).AddLCLObj(edidUsuario);
-          FormGroup(lbativo.Caption,CSSClass.Col.colsize2).AddLCLObj(cbativo,'ValidationGravar',True);
-        end;
-        with Row.Items.Add do
-          FormGroup(lblogin.Caption,CSSClass.Col.colsize12).AddLCLObj(edlogin,'ValidationGravar',True);
-        with Row.Items.Add do
-          FormGroup(lbsenha.Caption,CSSClass.Col.colsize12).AddLCLObj(edsenha,'ValidationGravar',True);
-        with Row.Items.Add do
-          FormGroup(lbnome.Caption,CSSClass.Col.colsize12).AddLCLObj(ednome,'ValidationGravar',True);
-        with Row.Items.Add do
-          FormGroup(lbemail.Caption,CSSClass.Col.colsize12).AddLCLObj(edemail,'ValidationGravar',True);
-        with Row.Items.Add do
-        begin
-          With FormGroup(lbidPerfil.Caption,CSSClass.Col.colsize3).Items.Add do
+          with Card.Items.Add do
           begin
-            LCLObj(edidPerfil,'ValidationGravar',True);
-            LCLObj(btidPerfil,CSSClass.Button.search);
+            with Row.Items.Add do
+            begin
+              FormGroup(lbidUsuario.Caption,CSSClass.Col.colsize2).AddLCLObj(edidUsuario);
+              FormGroup(lbativo.Caption,CSSClass.Col.colsize2).AddLCLObj(cbativo,'ValidationGravar',True);
+            end;
+            with Row.Items.Add do
+              FormGroup(lblogin.Caption,CSSClass.Col.colsize12).AddLCLObj(edlogin,'ValidationGravar',True);
+            with Row.Items.Add do
+              FormGroup(lbsenha.Caption,CSSClass.Col.colsize12).AddLCLObj(edsenha,'ValidationGravar',True);
+            with Row.Items.Add do
+              FormGroup(lbnome.Caption,CSSClass.Col.colsize12).AddLCLObj(ednome,'ValidationGravar',True);
+            with Row.Items.Add do
+              FormGroup(lbemail.Caption,CSSClass.Col.colsize12).AddLCLObj(edemail,'ValidationGravar',True);
+            with Row.Items.Add do
+            begin
+              With FormGroup(lbidPerfil.Caption,CSSClass.Col.colsize3).Items.Add do
+              begin
+                LCLObj(edidPerfil,'ValidationGravar',True);
+                LCLObj(btidPerfil,CSSClass.Button.search);
+              end;
+              FormGroup('',CSSClass.Col.colsize6).AddLCLObj(edidPerfil_Desc);
+              FormGroup('',CSSClass.Col.colsize3).AddLCLObj(ComboBox1);
+            end;
           end;
-          FormGroup('',CSSClass.Col.colsize9).AddLCLObj(edidPerfil_Desc);
+        end;
+
+        with AddTab(pcPrincipal.Pages[1].Caption).Items.Add do
+        begin
+          with Card.Items.Add do
+          begin
+            with Row.Items.Add do
+              LCLObj(cbvisualizar);
+            with Row.Items.Add do
+              LCLObj(cbincluir);
+            with Row.Items.Add do
+              LCLObj(cbalterar);
+            with Row.Items.Add do
+              LCLObj(cbexcluir);
+            with Row.Items.Add do
+              LCLObj(cbimprimir);
+            with Row.Items.Add do
+              LCLObj(cbexportar);
+            with Row.Items.Add do
+              LCLObj(cbimportar);
+            with Row.Items.Add do
+              LCLObj(cbaprovar_rejeitar);
+            with Row.Items.Add do
+              LCLObj(cbanexar_upload);
+            with Row.Items.Add do
+              LCLObj(cbpesquisar_filtrar);
+            with Row.Items.Add do
+              LCLObj(cbnotificar_enviar);
+            with Row.Items.Add do
+              LCLObj(cbauditar_historico);
+            with Row.Items.Add do
+              LCLObj(cbexecutar_processos);
+            with Row.Items.Add do
+              LCLObj(cbalterar_status);
+            with Row.Items.Add do
+              LCLObj(cbalterar_situacao_negocio);
+          end;
         end;
       end;
     end;

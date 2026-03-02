@@ -124,5 +124,72 @@
         "message" : "Documento inválido"
       }
     ]
+  },
+  {
+    "date" : "2026-02-27",
+    "company_name" : "MJT Systems",
+    "description" : "Servidor Horse para emissão de Documentos Fiscais",
+    "copyright" : "Marcos Tamanhoni",
+    "product_name" : "HorseFiscal",
+    "version" : "1.0.0.5",
+    "usuario_pc" : "Marcos Tamanhoni",
+    "logs" : [
+      {
+        "time" : "09:52:11",
+        "form_name" : "frmCad_Usuario",
+        "caption_name" : "Cadastro de Usuário",
+        "unit" : "btConfirmarClick",
+        "exception_class" : "Exception",
+        "message" : "Error at line 2, Pos 122: Expected comma (,) or square bracket (]), got token \"public\"."
+      },
+      {
+        "time" : "09:58:10",
+        "form_name" : "frmCad_Usuario",
+        "caption_name" : "Cadastro de Usuário",
+        "unit" : "btConfirmarClick",
+        "exception_class" : "Exception",
+        "message" : "Error at line 2, Pos 122: Expected comma (,) or square bracket (]), got token \"public\"."
+      },
+      {
+        "time" : "10:02:18",
+        "form_name" : "frmCad_Usuario",
+        "caption_name" : "Cadastro de Usuário",
+        "unit" : "btConfirmarClick",
+        "exception_class" : "Exception",
+        "message" : "Error at line 2, Pos 122: Expected comma (,) or square bracket (]), got token \"public\"."
+      },
+      {
+        "time" : "10:06:00",
+        "form_name" : "frmCad_Usuario",
+        "caption_name" : "Cadastro de Usuário",
+        "unit" : "btConfirmarClick",
+        "exception_class" : "Exception",
+        "message" : "Error at line 2, Pos 122: Expected comma (,) or square bracket (]), got token \"public\"."
+      },
+      {
+        "time" : "10:28:34",
+        "form_name" : "frmCad_Usuario",
+        "caption_name" : "Cadastro de Usuário",
+        "unit" : "btConfirmarClick",
+        "exception_class" : "Exception",
+        "message" : "Gera sequencial.\r\nSQL Error: ERRO:  sintaxe de entrada é inválida para tipo integer: public.usuarios\r\nCONTEXT:  parâmetro de portal sem nome $1 = '...'\r\nERRO 22P02\r\nsintaxe de entrada é inválida para tipo integer: public.usuarios parâmetro de portal sem nome $1 = '...' \r\nCode: 7 SQL: SELECT obter_sequencial($1, $2)"
+      },
+      {
+        "time" : "10:30:25",
+        "form_name" : "frmCad_Usuario",
+        "caption_name" : "Cadastro de Usuário",
+        "unit" : "btConfirmarClick",
+        "exception_class" : "Exception",
+        "message" : "Erro servidor: \r\nGera sequencial.\r\nSQL Error: ERRO:  sintaxe de entrada é inválida para tipo integer: public.usuarios\r\nCONTEXT:  parâmetro de portal sem nome $1 = '...'\r\nERRO 22P02\r\nsintaxe de entrada é inválida para tipo integer: public.usuarios parâmetro de portal sem nome $1 = '...' \r\nCode: 7 SQL: SELECT obter_sequencial($1, $2)"
+      },
+      {
+        "time" : "11:30:45",
+        "form_name" : "Form_Login",
+        "caption_name" : "Form Login",
+        "unit" : "Button_LoginClick",
+        "exception_class" : "Exception",
+        "message" : "Senha não confere."
+      }
+    ]
   }
 ]

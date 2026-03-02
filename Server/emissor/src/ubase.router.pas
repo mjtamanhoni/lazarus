@@ -75,11 +75,13 @@ end;
 
 procedure OnUsuarioDel(Req:THorseRequest; Res:THorseResponse);
 var
-  FId :Integer;
+  FId_Empresa :Integer;
+  FId_Usuario :Integer;
 begin
-  FId := StrToIntDef(Req.Query['id'],0);
+  FId_Empresa := StrToIntDef(Req.Query['idEmpresa'],0);
+  FId_Usuario := StrToIntDef(Req.Query['idUsuario'],0);
   Res.ContentType('application/json')
-      .Send(TUsuarioService.New.UsuarioDelete(FId));
+      .Send(TUsuarioService.New.UsuarioDelete(FId_Empresa,FId_Usuario));
 end;
 {$EndRegion 'Usuário'}
 

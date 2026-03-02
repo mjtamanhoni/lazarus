@@ -322,7 +322,8 @@ begin
     if MessageDlg('Deseja excluir o usuário selecionada?',TMsgDlgType.mtConfirmation,[mbYes,mbNo],0) = mrYes then
     begin
       fResp := TRequest.New.BaseURL(FHost)
-      	       .AddParam('id',memD_Ususario.FieldByName('idUsuario').AsString)
+               .AddParam('idEmpresa',memD_Ususario.FieldByName('idEmpresa').AsString)
+      	       .AddParam('idUsuario',memD_Ususario.FieldByName('idUsuario').AsString)
                .Resource('usuario')
                .Accept('application/json')
                .Delete;

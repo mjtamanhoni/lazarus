@@ -9,7 +9,7 @@ uses
   D2Bridge.Forms,
   uType_Field_Table,
   DataSet.Serialize,
-  uBase.Validation, uBase.Functions;
+  uBase.Validation, uBase.Functions, ubase.functions.objetos;
 
 type
 
@@ -64,6 +64,17 @@ type
     pnuf: TPanel;
     procedure btCancelarClick(Sender: TObject);
     procedure btConfirmarClick(Sender: TObject);
+    procedure cbtipo_enderecoKeyPress(Sender: TObject; var Key: char);
+    procedure edbairroKeyPress(Sender: TObject; var Key: char);
+    procedure edcepKeyPress(Sender: TObject; var Key: char);
+    procedure edcodigo_municipio_ibgeKeyPress(Sender: TObject; var Key: char);
+    procedure edcomplementoKeyPress(Sender: TObject; var Key: char);
+    procedure edid_enderecoKeyPress(Sender: TObject; var Key: char);
+    procedure edlogradouroKeyPress(Sender: TObject; var Key: char);
+    procedure edmunicipioKeyPress(Sender: TObject; var Key: char);
+    procedure ednumeroKeyPress(Sender: TObject; var Key: char);
+    procedure edpaisKeyPress(Sender: TObject; var Key: char);
+    procedure edufKeyPress(Sender: TObject; var Key: char);
   private
     { Private declarations }
   public
@@ -121,6 +132,71 @@ begin
     on E:Exception do
       MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
   end;
+end;
+
+procedure TfrmCad_Empresa_Endereco.cbtipo_enderecoKeyPress(Sender: TObject;
+  var Key: char);
+begin
+  if Key = #13 then EnterAsTab(Self.edcep);
+end;
+
+procedure TfrmCad_Empresa_Endereco.edbairroKeyPress(Sender: TObject;
+  var Key: char);
+begin
+  if Key = #13 then EnterAsTab(Self.edmunicipio);
+end;
+
+procedure TfrmCad_Empresa_Endereco.edcepKeyPress(Sender: TObject; var Key: char
+  );
+begin
+  if Key = #13 then EnterAsTab(Self.edlogradouro);
+end;
+
+procedure TfrmCad_Empresa_Endereco.edcodigo_municipio_ibgeKeyPress(
+  Sender: TObject; var Key: char);
+begin
+  if Key = #13 then EnterAsTab(Self.eduf);
+end;
+
+procedure TfrmCad_Empresa_Endereco.edcomplementoKeyPress(Sender: TObject;
+  var Key: char);
+begin
+  if Key = #13 then EnterAsTab(Self.edbairro);
+end;
+
+procedure TfrmCad_Empresa_Endereco.edid_enderecoKeyPress(Sender: TObject;
+  var Key: char);
+begin
+  if Key = #13 then EnterAsTab(Self.cbtipo_endereco);
+end;
+
+procedure TfrmCad_Empresa_Endereco.edlogradouroKeyPress(Sender: TObject;
+  var Key: char);
+begin
+  if Key = #13 then EnterAsTab(Self.ednumero);
+end;
+
+procedure TfrmCad_Empresa_Endereco.edmunicipioKeyPress(Sender: TObject;
+  var Key: char);
+begin
+  if Key = #13 then EnterAsTab(Self.edcodigo_municipio_ibge);
+end;
+
+procedure TfrmCad_Empresa_Endereco.ednumeroKeyPress(Sender: TObject;
+  var Key: char);
+begin
+  if Key = #13 then EnterAsTab(Self.edcomplemento);
+end;
+
+procedure TfrmCad_Empresa_Endereco.edpaisKeyPress(Sender: TObject; var Key: char
+  );
+begin
+  if Key = #13 then EnterAsTab(Self.edcodigo_pais_ibge);
+end;
+
+procedure TfrmCad_Empresa_Endereco.edufKeyPress(Sender: TObject; var Key: char);
+begin
+  if Key = #13 then EnterAsTab(Self.edpais);
 end;
 
 procedure TfrmCad_Empresa_Endereco.Clear_Fields;

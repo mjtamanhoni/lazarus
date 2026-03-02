@@ -9,7 +9,7 @@ uses
   D2Bridge.Forms,
   uType_Field_Table,
   DataSet.Serialize,
-  uBase.Validation, uBase.Functions;
+  uBase.Validation, uBase.Functions, ubase.functions.objetos;
 
 type
 
@@ -39,6 +39,10 @@ type
     pntipo_conta: TPanel;
     procedure btCancelarClick(Sender: TObject);
     procedure btConfirmarClick(Sender: TObject);
+    procedure cbtipo_contaKeyPress(Sender: TObject; var Key: char);
+    procedure edagenciaKeyPress(Sender: TObject; var Key: char);
+    procedure edbancoKeyPress(Sender: TObject; var Key: char);
+    procedure edid_bancoKeyPress(Sender: TObject; var Key: char);
   private
     { Private declarations }
   public
@@ -88,6 +92,30 @@ begin
     on E:Exception do
       MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
   end;
+end;
+
+procedure TfrmCad_Empresa_DadosBancarios.cbtipo_contaKeyPress(Sender: TObject;
+  var Key: char);
+begin
+  if Key = #13 then EnterAsTab(Self.edbanco);
+end;
+
+procedure TfrmCad_Empresa_DadosBancarios.edagenciaKeyPress(Sender: TObject;
+  var Key: char);
+begin
+  if Key = #13 then EnterAsTab(Self.edconta);
+end;
+
+procedure TfrmCad_Empresa_DadosBancarios.edbancoKeyPress(Sender: TObject;
+  var Key: char);
+begin
+  if Key = #13 then EnterAsTab(Self.edagencia);
+end;
+
+procedure TfrmCad_Empresa_DadosBancarios.edid_bancoKeyPress(Sender: TObject;
+  var Key: char);
+begin
+  if Key = #13 then EnterAsTab(Self.cbtipo_conta);
 end;
 
 procedure TfrmCad_Empresa_DadosBancarios.Clear_Fields;

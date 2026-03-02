@@ -102,10 +102,24 @@ type
     procedure btCB_AddClick(Sender: TObject);
     procedure btConfirmarClick(Sender: TObject);
     procedure btEnd_AddClick(Sender: TObject);
+    procedure cbativoKeyPress(Sender: TObject; var Key: char);
     procedure cbregime_tributarioChange(Sender: TObject);
+    procedure cbregime_tributarioKeyPress(Sender: TObject; var Key: char);
+    procedure cbtipoKeyPress(Sender: TObject; var Key: char);
+    procedure edcaminho_arquivoKeyPress(Sender: TObject; var Key: char);
+    procedure edcelularKeyPress(Sender: TObject; var Key: char);
     procedure edcnpjExit(Sender: TObject);
     procedure edcnpjKeyPress(Sender: TObject; var Key: char);
+    procedure edcrtKeyPress(Sender: TObject; var Key: char);
+    procedure edemailKeyPress(Sender: TObject; var Key: char);
+    procedure edid_certificadoKeyPress(Sender: TObject; var Key: char);
     procedure edid_empresaKeyPress(Sender: TObject; var Key: char);
+    procedure edinscricao_estadualKeyPress(Sender: TObject; var Key: char);
+    procedure edinscricao_municipalKeyPress(Sender: TObject; var Key: char);
+    procedure ednome_fantasiaKeyPress(Sender: TObject; var Key: char);
+    procedure edrazao_socialKeyPress(Sender: TObject; var Key: char);
+    procedure edtelefoneKeyPress(Sender: TObject; var Key: char);
+    procedure edvalidadeKeyPress(Sender: TObject; var Key: char);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -343,6 +357,11 @@ begin
   end;
 end;
 
+procedure TfrmCadEmpresa.cbativoKeyPress(Sender: TObject; var Key: char);
+begin
+  if Key = #13 then EnterAsTab(Self.edrazao_social);
+end;
+
 procedure TfrmCadEmpresa.Clear_Parans(const AClear:Integer);
 begin
   case AClear of
@@ -387,6 +406,28 @@ begin
   end;
 end;
 
+procedure TfrmCadEmpresa.cbregime_tributarioKeyPress(Sender: TObject;
+  var Key: char);
+begin
+  if Key = #13 then EnterAsTab(Self.edcrt);
+end;
+
+procedure TfrmCadEmpresa.cbtipoKeyPress(Sender: TObject; var Key: char);
+begin
+  if Key = #13 then EnterAsTab(Self.edvalidade);
+end;
+
+procedure TfrmCadEmpresa.edcaminho_arquivoKeyPress(Sender: TObject;
+  var Key: char);
+begin
+  if Key = #13 then EnterAsTab(Self.edsenha);
+end;
+
+procedure TfrmCadEmpresa.edcelularKeyPress(Sender: TObject; var Key: char);
+begin
+  if Key = #13 then EnterAsTab(Self.edemail);
+end;
+
 procedure TfrmCadEmpresa.edcnpjExit(Sender: TObject);
 begin
   try
@@ -426,9 +467,58 @@ begin
   if Key = #13 then EnterAsTab(Self.edinscricao_estadual);
 end;
 
+procedure TfrmCadEmpresa.edcrtKeyPress(Sender: TObject; var Key: char);
+begin
+  if Key = #13 then EnterAsTab(Self.edtelefone);
+end;
+
+procedure TfrmCadEmpresa.edemailKeyPress(Sender: TObject; var Key: char);
+begin
+  if Key = #13 then EnterAsTab(Self.edsite);
+end;
+
+procedure TfrmCadEmpresa.edid_certificadoKeyPress(Sender: TObject; var Key: char
+  );
+begin
+  if Key = #13 then EnterAsTab(Self.cbtipo);
+end;
+
 procedure TfrmCadEmpresa.edid_empresaKeyPress(Sender: TObject; var Key: char);
 begin
   if Key = #13 then EnterAsTab(Self.edcnpj);
+end;
+
+procedure TfrmCadEmpresa.edinscricao_estadualKeyPress(Sender: TObject;
+  var Key: char);
+begin
+  if Key = #13 then EnterAsTab(Self.edinscricao_municipal);
+end;
+
+procedure TfrmCadEmpresa.edinscricao_municipalKeyPress(Sender: TObject;
+  var Key: char);
+begin
+  if Key = #13 then EnterAsTab(Self.cbativo);
+end;
+
+procedure TfrmCadEmpresa.ednome_fantasiaKeyPress(Sender: TObject; var Key: char
+  );
+begin
+  if Key = #13 then EnterAsTab(Self.cbregime_tributario);
+end;
+
+procedure TfrmCadEmpresa.edrazao_socialKeyPress(Sender: TObject; var Key: char);
+begin
+  if Key = #13 then EnterAsTab(Self.ednome_fantasia);
+end;
+
+procedure TfrmCadEmpresa.edtelefoneKeyPress(Sender: TObject; var Key: char);
+begin
+  if Key = #13 then EnterAsTab(Self.edcelular);
+end;
+
+procedure TfrmCadEmpresa.edvalidadeKeyPress(Sender: TObject; var Key: char);
+begin
+  if Key = #13 then EnterAsTab(Self.edcaminho_arquivo);
 end;
 
 procedure TfrmCadEmpresa.FormClose(Sender: TObject; var CloseAction: TCloseAction);

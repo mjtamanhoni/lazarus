@@ -17,9 +17,9 @@
         <Filename Value="ubase.router.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uBase.Router"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
-        <CursorPos X="56" Y="21"/>
+        <TopLine Value="52"/>
+        <CursorPos X="70" Y="81"/>
         <UsageCount Value="214"/>
         <Loaded Value="True"/>
       </Unit>
@@ -27,9 +27,10 @@
         <Filename Value="uusuario.service.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uUsuario.Service"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
-        <TopLine Value="165"/>
-        <CursorPos X="64" Y="180"/>
+        <TopLine Value="292"/>
+        <CursorPos X="53" Y="313"/>
         <UsageCount Value="214"/>
         <Loaded Value="True"/>
       </Unit>
@@ -41,7 +42,6 @@
         <CursorPos X="82" Y="3"/>
         <UsageCount Value="213"/>
         <Loaded Value="True"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
         <Filename Value="udm.pas"/>
@@ -51,11 +51,11 @@
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="uDM"/>
         <EditorIndex Value="5"/>
-        <TopLine Value="70"/>
-        <CursorPos X="47" Y="94"/>
+        <TopLine Value="28"/>
+        <CursorPos X="101" Y="28"/>
         <UsageCount Value="204"/>
         <Bookmarks Count="1">
-          <Item0 X="70" Y="94" Left="1" Top="63" ID="1"/>
+          <Item0 X="70" Y="95" Left="1" Top="64" ID="1"/>
         </Bookmarks>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -65,8 +65,8 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="uBase.Functions"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="365"/>
-        <CursorPos X="3" Y="374"/>
+        <TopLine Value="471"/>
+        <CursorPos X="3" Y="452"/>
         <UsageCount Value="204"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
@@ -75,8 +75,8 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="uEmpresa.Service"/>
         <EditorIndex Value="4"/>
-        <TopLine Value="749"/>
-        <CursorPos X="56" Y="765"/>
+        <TopLine Value="695"/>
+        <CursorPos X="45" Y="720"/>
         <UsageCount Value="300"/>
         <Bookmarks Count="1">
           <Item0 X="30" Y="422" Left="1" Top="395" ID="2"/>
@@ -87,130 +87,129 @@
         <Filename Value="..\..\..\Global\ubase.functions.objetos.pas"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="6"/>
-        <UsageCount Value="20"/>
+        <UsageCount Value="16"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
     </Units>
     <JumpHistory HistoryIndex="29">
       <Position>
-        <Filename Value="uempresa.service.pas"/>
-        <Caret Line="57" Column="30" TopLine="37"/>
+        <Filename Value="uusuario.service.pas"/>
+        <Caret Line="182" Column="37" TopLine="165"/>
+      </Position>
+      <Position>
+        <Filename Value="uusuario.service.pas"/>
+        <Caret Line="51" Column="14" TopLine="28"/>
+      </Position>
+      <Position>
+        <Filename Value="uusuario.service.pas"/>
+        <Caret Line="281" Column="10" TopLine="269"/>
       </Position>
       <Position>
         <Filename Value="udm.pas"/>
-        <Caret Line="33" Column="49" TopLine="28"/>
+        <Caret Line="94" Column="47" TopLine="55"/>
       </Position>
       <Position>
         <Filename Value="udm.pas"/>
-        <Caret Line="94" Column="51" TopLine="63"/>
+        <Caret Line="27" Column="14"/>
       </Position>
       <Position>
         <Filename Value="udm.pas"/>
-        <Caret Line="26" Column="28" TopLine="6"/>
+        <Caret Line="101" Column="3" TopLine="71"/>
       </Position>
       <Position>
         <Filename Value="udm.pas"/>
-        <Caret Line="94" Column="15" TopLine="71"/>
+        <Caret Line="28" Column="82" TopLine="8"/>
+      </Position>
+      <Position>
+        <Filename Value="uusuario.service.pas"/>
+        <Caret Line="313" Column="61" TopLine="291"/>
+      </Position>
+      <Position>
+        <Filename Value="uusuario.service.pas"/>
+        <Caret Line="299" Column="97" TopLine="273"/>
+      </Position>
+      <Position>
+        <Filename Value="uusuario.service.pas"/>
+        <Caret Line="290" Column="54" TopLine="276"/>
+      </Position>
+      <Position>
+        <Filename Value="uusuario.service.pas"/>
+        <Caret Line="53" Column="14" TopLine="31"/>
+      </Position>
+      <Position>
+        <Filename Value="uusuario.service.pas"/>
+        <Caret Line="352" Column="69" TopLine="329"/>
+      </Position>
+      <Position>
+        <Filename Value="uusuario.service.pas"/>
+        <Caret Line="55" Column="14" TopLine="34"/>
+      </Position>
+      <Position>
+        <Filename Value="uusuario.service.pas"/>
+        <Caret Line="387" Column="55" TopLine="377"/>
+      </Position>
+      <Position>
+        <Filename Value="uusuario.service.pas"/>
+        <Caret Line="55" Column="17" TopLine="36"/>
+      </Position>
+      <Position>
+        <Filename Value="uusuario.service.pas"/>
+        <Caret Line="386" Column="39" TopLine="354"/>
+      </Position>
+      <Position>
+        <Filename Value="uusuario.service.pas"/>
+      </Position>
+      <Position>
+        <Filename Value="uusuario.service.pas"/>
+        <Caret Line="30" Column="20"/>
+      </Position>
+      <Position>
+        <Filename Value="uusuario.service.pas"/>
+        <Caret Line="56" Column="40" TopLine="23"/>
+      </Position>
+      <Position>
+        <Filename Value="uusuario.service.pas"/>
+        <Caret Line="386" Column="69" TopLine="354"/>
+      </Position>
+      <Position>
+        <Filename Value="uusuario.service.pas"/>
+        <Caret Line="414" Column="73" TopLine="382"/>
+      </Position>
+      <Position>
+        <Filename Value="uusuario.service.pas"/>
+        <Caret Line="30" Column="27" TopLine="10"/>
+      </Position>
+      <Position>
+        <Filename Value="uusuario.service.pas"/>
+        <Caret Line="55" Column="27" TopLine="23"/>
       </Position>
       <Position>
         <Filename Value="ubase.router.pas"/>
-        <Caret Line="21" Column="56"/>
+        <Caret Line="81" Column="70" TopLine="52"/>
+      </Position>
+      <Position>
+        <Filename Value="uusuario.service.pas"/>
+        <Caret Line="409" Column="49" TopLine="377"/>
+      </Position>
+      <Position>
+        <Filename Value="uusuario.service.pas"/>
+        <Caret Line="51" Column="20" TopLine="36"/>
+      </Position>
+      <Position>
+        <Filename Value="uusuario.service.pas"/>
+        <Caret Line="253" Column="3" TopLine="282"/>
+      </Position>
+      <Position>
+        <Filename Value="uusuario.service.pas"/>
+        <Caret Line="300" Column="73" TopLine="268"/>
+      </Position>
+      <Position>
+        <Filename Value="uusuario.service.pas"/>
+        <Caret Line="299" Column="82" TopLine="268"/>
       </Position>
       <Position>
         <Filename Value="udm.pas"/>
-        <Caret Line="94" Column="47" TopLine="80"/>
-      </Position>
-      <Position>
-        <Filename Value="uusuario.service.pas"/>
-        <Caret Line="154" Column="74" TopLine="140"/>
-      </Position>
-      <Position>
-        <Filename Value="uusuario.service.pas"/>
-        <Caret Line="225" Column="9" TopLine="211"/>
-      </Position>
-      <Position>
-        <Filename Value="uusuario.service.pas"/>
-        <Caret Line="154" Column="23" TopLine="130"/>
-      </Position>
-      <Position>
-        <Filename Value="uusuario.service.pas"/>
-        <Caret Line="225" Column="52" TopLine="201"/>
-      </Position>
-      <Position>
-        <Filename Value="uusuario.service.pas"/>
-        <Caret Line="296" Column="23" TopLine="271"/>
-      </Position>
-      <Position>
-        <Filename Value="uusuario.service.pas"/>
-        <Caret Line="349" Column="53" TopLine="325"/>
-      </Position>
-      <Position>
-        <Filename Value="uusuario.service.pas"/>
-        <Caret Line="387" Column="56" TopLine="364"/>
-      </Position>
-      <Position>
-        <Filename Value="uusuario.service.pas"/>
-        <Caret Line="154" Column="47" TopLine="140"/>
-      </Position>
-      <Position>
-        <Filename Value="uusuario.service.pas"/>
-        <Caret Line="225" Column="23" TopLine="201"/>
-      </Position>
-      <Position>
-        <Filename Value="uempresa.service.pas"/>
-        <Caret Line="260" Column="53" TopLine="247"/>
-      </Position>
-      <Position>
-        <Filename Value="uempresa.service.pas"/>
-        <Caret Line="311" Column="61" TopLine="287"/>
-      </Position>
-      <Position>
-        <Filename Value="uempresa.service.pas"/>
-        <Caret Line="528" Column="54" TopLine="504"/>
-      </Position>
-      <Position>
-        <Filename Value="uempresa.service.pas"/>
-        <Caret Line="762" Column="53" TopLine="738"/>
-      </Position>
-      <Position>
-        <Filename Value="uempresa.service.pas"/>
-        <Caret Line="811" Column="56" TopLine="787"/>
-      </Position>
-      <Position>
-        <Filename Value="uempresa.service.pas"/>
-        <Caret Line="852" Column="54" TopLine="827"/>
-      </Position>
-      <Position>
-        <Filename Value="uempresa.service.pas"/>
-        <Caret Line="891" Column="73" TopLine="867"/>
-      </Position>
-      <Position>
-        <Filename Value="uempresa.service.pas"/>
-        <Caret Line="260" Column="32" TopLine="246"/>
-      </Position>
-      <Position>
-        <Filename Value="uempresa.service.pas"/>
-        <Caret Line="311" Column="32" TopLine="287"/>
-      </Position>
-      <Position>
-        <Filename Value="uempresa.service.pas"/>
-        <Caret Line="528" Column="32" TopLine="504"/>
-      </Position>
-      <Position>
-        <Filename Value="uempresa.service.pas"/>
-        <Caret Line="762" Column="32" TopLine="738"/>
-      </Position>
-      <Position>
-        <Filename Value="uempresa.service.pas"/>
-        <Caret Line="811" Column="32" TopLine="787"/>
-      </Position>
-      <Position>
-        <Filename Value="uusuario.service.pas"/>
-        <Caret Line="219" Column="48" TopLine="201"/>
-      </Position>
-      <Position>
-        <Filename Value="uusuario.service.pas"/>
-        <Caret Line="46" Column="14" TopLine="28"/>
+        <Caret Line="109" Column="101" TopLine="102"/>
       </Position>
     </JumpHistory>
     <RunParams>

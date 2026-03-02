@@ -25,6 +25,7 @@ type
   public
     procedure ConectarBanco;
     function GetQuery:TZQuery;
+    function Sequencial(const aTabela:String;const aId_Empresa:Integer=0;const aId_Usuario:Integer=0):Integer;
   end;
 
 var
@@ -102,6 +103,37 @@ begin
   Result.Transaction := ZTransaction;
   Result.Close;
   Result.SQL.Clear;
+end;
+
+function TDM.Sequencial(const aTabela:String;const aId_Empresa:Integer=0;const aId_Usuario:Integer=0):Integer;
+var
+  FQuery :TZQuery;
+begin
+  try
+    try
+      Result := 0;
+
+      if aId_Empresa = 0 then
+        raise Exception.Create('O id da Empresa é obrigatório');
+      if Trim(aTabela) = '' then
+        raise Exception.Create('O nome da Tabela é obrigatório');
+
+      FQuery := GetQuery;
+      FQuery.SQL.Add('SELECT obter_sequencial(:id_empresa, :id_usuario, :nome_tabela)');
+      FQuery.ParamByName('id_empresa').AsInteger := aId_Empresa;
+      FQuery.ParamByName('id_usuario').AsInteger := aId_Usuario;
+      FQuery.ParamByName('nome_tabela').AsString := aTabela;
+      FQuery.Open;
+
+      Result := FQuery.Fields[0].AsInteger;
+
+    except
+      on E:Exception do
+        raise Exception.Create('Gera sequencial.' + sLineBreak + E.Message);
+    end;
+  finally
+    FreeAndNil(FQuery);
+  end;
 end;
 
 end.

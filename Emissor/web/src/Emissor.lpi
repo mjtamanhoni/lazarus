@@ -16,7 +16,7 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="1"/>
-      <BuildNr Value="4"/>
+      <BuildNr Value="6"/>
       <StringTable CompanyName="MJT Systems" FileDescription="Servidor Horse para emissão de Documentos Fiscais" LegalCopyright="Marcos Tamanhoni" ProductName="HorseFiscal"/>
     </VersionInfo>
     <BuildModes>

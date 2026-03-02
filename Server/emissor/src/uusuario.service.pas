@@ -28,7 +28,7 @@ type
     function UsuarioPut(
     	     const AJSon :String):String;
     function UsuarioDelete(
-    	     const AId:Integer):String;
+    	     const AId_Empresa,AId_Usuario:Integer):String;
   end;
 
 
@@ -53,7 +53,7 @@ type
     function UsuarioPut(
     	     const AJSon :String):String;
     function UsuarioDelete(
-    	     const AId:Integer):String;
+    	     const AId_Empresa,AId_Usuario:Integer):String;
 
   end;
 
@@ -248,6 +248,7 @@ var
   FJson :TJSONObject;
   FDm :TDM;
   FQuery :TZQuery;
+  FId :Integer;
 begin
   try
     try
@@ -265,32 +266,51 @@ begin
         raise Exception.Create('Login não informado: este campo é obrigatório.');
       if Trim(FJson['senha'].AsString) = '' then
         raise Exception.Create('Login não informada: este campo é obrigatório.');
+      if FJson['idEmpresa'].AsInteger = 0 then
+        raise Exception.Create('Id da Empresa não informado: este campo é obrigatório.');
 
-      FQuery.SQL.Add('insert into public.usuarios ( ');
-      FQuery.SQL.Add('  login ');
+      //Pegando o próximo ID
+
+      //Inserindo registro...
+      FQuery.Close;
+      FQuery.SQL.Clear;
+      FQuery.SQL.Add('INSERT INTO public.usuarios( ');
+      FQuery.SQL.Add('  id_empresa ');
+      FQuery.SQL.Add('  ,id_usuario ');
+      FQuery.SQL.Add('  ,id_perfil ');
+      FQuery.SQL.Add('  ,login ');
       FQuery.SQL.Add('  ,senha ');
       FQuery.SQL.Add('  ,nome ');
       FQuery.SQL.Add('  ,email ');
-      if not FJson['idPerfil'].IsNull then
-        FQuery.SQL.Add('  ,id_perfil ');
-      FQuery.SQL.Add('  ,id_empresa ');
-      FQuery.SQL.Add(') values( ');
-      FQuery.SQL.Add('  :login ');
+      FQuery.SQL.Add('  ,ativo ');
+      FQuery.SQL.Add('  ,data_cadastro ');
+      FQuery.SQL.Add(') VALUES( ');
+      FQuery.SQL.Add('  :id_empresa ');
+      FQuery.SQL.Add('  ,:id_usuario ');
+      FQuery.SQL.Add('  ,:id_perfil ');
+      FQuery.SQL.Add('  ,:login ');
       FQuery.SQL.Add('  ,:senha ');
       FQuery.SQL.Add('  ,:nome ');
       FQuery.SQL.Add('  ,:email ');
-      if not FJson['idPerfil'].IsNull then
-        FQuery.SQL.Add('  ,:id_perfil ');
-      FQuery.SQL.Add('  ,:id_empresa ');
+      FQuery.SQL.Add('  ,:ativo ');
+      FQuery.SQL.Add('  ,:data_cadastro ');
       FQuery.SQL.Add('); ');
+      FQuery.ParamByName('id_empresa').AsInteger := FJson['idEmpresa'].AsInteger;
+      FQuery.ParamByName('id_usuario').AsInteger := FDm.Sequencial('public.usuarios',FJson['idEmpresa'].AsInteger,0);
+      if not FJson['idPerfil'].IsNull then
+        FQuery.ParamByName('id_perfil').AsInteger := FJson['idPerfil'].AsInteger
+      else
+        FQuery.ParamByName('id_perfil').Clear;
       FQuery.ParamByName('login').AsString := FJson['login'].AsString;
       FQuery.ParamByName('senha').AsString := FJson['senha'].AsString;
       FQuery.ParamByName('nome').AsString := FJson['nome'].AsString;
       FQuery.ParamByName('email').AsString := FJson['email'].AsString;
-      if not FJson['idPerfil'].IsNull then
-        FQuery.ParamByName('id_perfil').AsInteger := FJson['idPerfil'].AsInteger;
-      FQuery.ParamByName('id_empresa').AsInteger := FJson['idEmpresa'].AsInteger;
+      FQuery.ParamByName('ativo').AsInteger := 1;
+      FQuery.ParamByName('data_cadastro').AsDateTime := Now;
       FQuery.ExecSQL;
+
+
+      //Adicionar as permissões para esse usuário...
 
       FDm.ZConnection.Commit;
 
@@ -300,7 +320,7 @@ begin
       begin
         FDm.ZConnection.Rollback;
         GravarLogJSON('Usuario.Service','Método Post', 'UsuarioPost', E);
-        Result :='{"success":false,"message":"'+E.Message+'"}';
+        Result :='{"success":false,"message":"'+StringReplace(E.Message,'"','',[rfReplaceAll])+'"}';
       end;
     end;
   finally
@@ -333,17 +353,20 @@ begin
       FQuery.SQL.Add('  ,nome = :nome ');
       FQuery.SQL.Add('  ,email = :email ');
       FQuery.SQL.Add('  ,ativo = :ativo ');
-      if not FJson['idPerfil'].IsNull then
-        FQuery.SQL.Add('  ,id_perfil = :id_perfil ');
-      FQuery.SQL.Add('where id_usuario = :id_usuario; ');
+      FQuery.SQL.Add('  ,id_perfil = :id_perfil ');
+      FQuery.SQL.Add('where id_empresa = :id_empresa ');
+      FQuery.SQL.Add('  and id_usuario = :id_usuario; ');
       FQuery.ParamByName('id_usuario').AsInteger := FJson['idUsuario'].AsInteger;
+      FQuery.ParamByName('id_empresa').AsInteger := FJson['idEmpresa'].AsInteger;
       FQuery.ParamByName('login').AsString := FJson['login'].AsString;
       FQuery.ParamByName('senha').AsString := FJson['senha'].AsString;
       FQuery.ParamByName('nome').AsString := FJson['nome'].AsString;
       FQuery.ParamByName('email').AsString := FJson['email'].AsString;
       FQuery.ParamByName('ativo').AsInteger := FJson['ativo'].AsInteger;
       if not FJson['idPerfil'].IsNull then
-        FQuery.ParamByName('id_perfil').AsInteger := FJson['idPerfil'].AsInteger;
+        FQuery.ParamByName('id_perfil').AsInteger := FJson['idPerfil'].AsInteger
+      else
+        FQuery.ParamByName('id_perfil').Clear;
       FQuery.ExecSQL;
 
       FDm.ZConnection.Commit;
@@ -363,7 +386,7 @@ begin
   end;
 end;
 
-function TUsuarioService.UsuarioDelete(const AId: Integer): String;
+function TUsuarioService.UsuarioDelete(const AId_Empresa,AId_Usuario: Integer): String;
 var
   FJson :TJSONObject;
   FDm :TDM;
@@ -376,11 +399,14 @@ begin
 
       FDm.ZConnection.StartTransaction;
 
-      if AId = 0 then
+      if AId_Empresa = 0 then
+        raise Exception.Create('Não foi informado o ID da Empresa');
+      if AId_Usuario = 0 then
         raise Exception.Create('Não foi informado o ID do usuário');
 
-      FQuery.SQL.Add('delete from public.usuarios where id_usuario = :id_usuario;');
-      FQuery.ParamByName('id_usuario').AsInteger := AId;
+      FQuery.SQL.Add('delete from public.usuarios where id_usuario = :id_usuario and id_empresa = :id_empresa');
+      FQuery.ParamByName('id_usuario').AsInteger := AId_Usuario;
+      FQuery.ParamByName('id_empresa').AsInteger := AId_Empresa;
       FQuery.ExecSQL;
 
       FDm.ZConnection.Commit;
