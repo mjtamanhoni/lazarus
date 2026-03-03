@@ -17,5 +17,32 @@
         "message" : "Cria Dataset do Usuário: Access violation"
       }
     ]
+  },
+  {
+    "date" : "2026-03-03",
+    "company_name" : "MJT Systems",
+    "description" : "Servidor Horse para emissão de Documentos Fiscais",
+    "copyright" : "Marcos Tamanhoni",
+    "product_name" : "HorseFiscal",
+    "version" : "1.0.0.6",
+    "usuario_pc" : "Marcos Tamanhoni",
+    "logs" : [
+      {
+        "time" : "08:08:04",
+        "form_name" : "frmCad_Usuario_1",
+        "caption_name" : "Cadastro de Usuário",
+        "unit" : "Adiciona_Permissoes",
+        "exception_class" : "EDatabaseError",
+        "message" : " : Field not found : \"exportar\""
+      },
+      {
+        "time" : "09:59:54",
+        "form_name" : "Form_Login",
+        "caption_name" : "Form Login",
+        "unit" : "Confere_Doc_Existe",
+        "exception_class" : "Exception",
+        "message" : "Documento inválido"
+      }
+    ]
   }
 ]

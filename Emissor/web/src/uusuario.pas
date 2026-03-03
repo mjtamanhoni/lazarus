@@ -160,10 +160,7 @@ begin
 
     except
       on E:Exception do
-      begin
-        GravarLogJSON(Self.Name,Self.Caption,'Create_DataSet',E);
-        MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
-      end;
+        raise Exception.Create('Create_DataSet' + sLineBreak + E.Message);
     end;
 
   finally
@@ -209,7 +206,7 @@ begin
       end;
     except
       on E:Exception do
-        raise Exception.Create('Adiciona dados da empresa: ' + sLineBreak + E.Message);
+        raise Exception.Create('Adiciona_Dados' + sLineBreak + E.Message);
     end;
   finally
     memD_Ususario.EnableControls;
@@ -229,8 +226,6 @@ var
 begin
   try
     try
-      Create_DataSet;
-
       FTipoPesquisa := '';
       case edPesquisar.Tag of
         0:begin

@@ -25,7 +25,7 @@ Unit_D2Bridge_Server_Console in 'Unit_D2Bridge_Server_Console.pas',
   unit1, D2Bridge.ServerControllerBase, Prism.Session, uPrincipal,
   uBase.Validation, ubase.functions.objetos, uDM.ACBr, uCad.Empresa, uEmpresa,
   uCad.Empresa.Endereco, ucad.empresa.DadosBancarios, uType_Field_Table,
-  uBase.DataSets, uUsuario, uCad.Usuario;
+  uBase.DataSets, uUsuario, uCad.Usuario, uPermissoes.Lista;
 
 {$R *.res}
 

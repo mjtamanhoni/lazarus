@@ -8,7 +8,9 @@ uses
   Classes, SysUtils, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls,
   D2Bridge.Forms, IniFiles, fpjson, DataSet.Serialize, RESTRequest4D,
   jsonparser, uDM.ACBr, uBase.Functions, uBase.DataSets, uCripto_Descrito,
-  Forms, Menus, ComCtrls, ComboEx, ubase.functions.objetos;
+  Forms, Menus, ComCtrls, ComboEx, Grids, DBGrids, ubase.functions.objetos, DB,
+  BufDataset,
+  uPermissoes.Lista;
 
 type
 
@@ -18,9 +20,12 @@ type
     btCancelar: TButton;
     btConfirmar: TButton;
     btidPerfil: TButton;
+    btPermissao_Editar: TButton;
+    btPermissao_Salvar: TButton;
     cbativo: TComboBox;
     ComboBox1: TComboBox;
-    ComboBoxEx1: TComboBoxEx;
+    dsRegistro: TDataSource;
+    DBGrid_Permissoes: TDBGrid;
     edemail: TEdit;
     edidPerfil_Desc: TEdit;
     edidUsuario: TEdit;
@@ -35,6 +40,7 @@ type
     lblogin: TLabel;
     lbnome: TLabel;
     lbidPerfil: TLabel;
+    pnPermissoes_Acao: TPanel;
     pnPermissoes: TPanel;
     pcPrincipal: TPageControl;
     pnativo: TPanel;
@@ -57,22 +63,7 @@ type
     procedure btCancelarClick(Sender: TObject);
     procedure btConfirmarClick(Sender: TObject);
     procedure btidPerfilClick(Sender: TObject);
-    procedure cbalterarChange(Sender: TObject);
-    procedure cbalterar_situacao_negocioChange(Sender: TObject);
-    procedure cbalterar_statusChange(Sender: TObject);
-    procedure cbanexar_uploadChange(Sender: TObject);
-    procedure cbaprovar_rejeitarChange(Sender: TObject);
     procedure cbativoKeyPress(Sender: TObject; var Key: char);
-    procedure cbauditar_historicoChange(Sender: TObject);
-    procedure cbexcluirChange(Sender: TObject);
-    procedure cbexecutar_processosChange(Sender: TObject);
-    procedure cbexportarChange(Sender: TObject);
-    procedure cbimportarChange(Sender: TObject);
-    procedure cbimprimirChange(Sender: TObject);
-    procedure cbincluirChange(Sender: TObject);
-    procedure cbnotificar_enviarChange(Sender: TObject);
-    procedure cbpesquisar_filtrarChange(Sender: TObject);
-    procedure cbvisualizarChange(Sender: TObject);
     procedure edemailKeyPress(Sender: TObject; var Key: char);
     procedure edidUsuarioKeyPress(Sender: TObject; var Key: char);
     procedure edloginKeyPress(Sender: TObject; var Key: char);
@@ -80,14 +71,20 @@ type
     procedure edsenhaKeyPress(Sender: TObject; var Key: char);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
     FHost :String;
     FIniFile :TIniFile;
 
+    memD_Permissoes :TBufDataset;
+
 
     procedure Gravar;
     procedure Return_Fields(const aTipo:Integer);
+    procedure Create_DataSet;
+    procedure Adiciona_Permissoes;
+    procedure Atualizando_Permissoes(const AJSon_Usuario:TJSONArray);
 
   public
     { Public declarations }
@@ -147,140 +144,9 @@ begin
   //
 end;
 
-procedure TfrmCad_Usuario.cbalterarChange(Sender: TObject);
-begin
-  if cbalterar.Checked then
-    cbalterar.Tag := 1
-  else
-    cbalterar.Tag := 0;
-end;
-
-procedure TfrmCad_Usuario.cbalterar_situacao_negocioChange(Sender: TObject);
-begin
-  if cbalterar_situacao_negocio.Checked then
-    cbalterar_situacao_negocio.Tag := 1
-  else
-    cbalterar_situacao_negocio.Tag := 0;
-
-end;
-
-procedure TfrmCad_Usuario.cbalterar_statusChange(Sender: TObject);
-begin
-  if cbalterar_status.Checked then
-    cbalterar_status.Tag := 1
-  else
-    cbalterar_status.Tag := 0;
-
-end;
-
-procedure TfrmCad_Usuario.cbanexar_uploadChange(Sender: TObject);
-begin
-  if cbanexar_upload.Checked then
-    cbanexar_upload.Tag := 1
-  else
-    cbanexar_upload.Tag := 0;
-
-end;
-
-procedure TfrmCad_Usuario.cbaprovar_rejeitarChange(Sender: TObject);
-begin
-  if cbaprovar_rejeitar.Checked then
-    cbaprovar_rejeitar.Tag := 1
-  else
-    cbaprovar_rejeitar.Tag := 0;
-
-end;
-
 procedure TfrmCad_Usuario.cbativoKeyPress(Sender: TObject; var Key: char);
 begin
   if Key = #13 then EnterAsTab(Self.edlogin);
-end;
-
-procedure TfrmCad_Usuario.cbauditar_historicoChange(Sender: TObject);
-begin
-  if cbauditar_historico.Checked then
-    cbauditar_historico.Tag := 1
-  else
-    cbauditar_historico.Tag := 0;
-
-end;
-
-procedure TfrmCad_Usuario.cbexcluirChange(Sender: TObject);
-begin
-  if cbexcluir.Checked then
-    cbexcluir.Tag := 1
-  else
-    cbexcluir.Tag := 0;
-end;
-
-procedure TfrmCad_Usuario.cbexecutar_processosChange(Sender: TObject);
-begin
-  if cbexecutar_processos.Checked then
-    cbexecutar_processos.Tag := 1
-  else
-    cbexecutar_processos.Tag := 0;
-
-end;
-
-procedure TfrmCad_Usuario.cbexportarChange(Sender: TObject);
-begin
-  if cbexportar.Checked then
-    cbexportar.Tag := 1
-  else
-    cbexportar.Tag := 0;
-
-end;
-
-procedure TfrmCad_Usuario.cbimportarChange(Sender: TObject);
-begin
-  if cbimportar.Checked then
-    cbimportar.Tag := 1
-  else
-    cbimportar.Tag := 0;
-
-end;
-
-procedure TfrmCad_Usuario.cbimprimirChange(Sender: TObject);
-begin
-  if cbimprimir.Checked then
-    cbimprimir.Tag := 1
-  else
-    cbimprimir.Tag := 0;
-
-end;
-
-procedure TfrmCad_Usuario.cbincluirChange(Sender: TObject);
-begin
-  if cbincluir.Checked then
-    cbincluir.Tag := 1
-  else
-    cbincluir.Tag := 0;
-end;
-
-procedure TfrmCad_Usuario.cbnotificar_enviarChange(Sender: TObject);
-begin
-  if cbnotificar_enviar.Checked then
-    cbnotificar_enviar.Tag := 1
-  else
-    cbnotificar_enviar.Tag := 0;
-
-end;
-
-procedure TfrmCad_Usuario.cbpesquisar_filtrarChange(Sender: TObject);
-begin
-  if cbpesquisar_filtrar.Checked then
-    cbpesquisar_filtrar.Tag := 1
-  else
-    cbpesquisar_filtrar.Tag := 0;
-
-end;
-
-procedure TfrmCad_Usuario.cbvisualizarChange(Sender: TObject);
-begin
-  if cbvisualizar.Checked then
-    cbvisualizar.Tag := 1
-  else
-    cbvisualizar.Tag := 0;
 end;
 
 procedure TfrmCad_Usuario.edemailKeyPress(Sender: TObject; var Key: char);
@@ -316,6 +182,8 @@ begin
       FIniFile := TIniFile.Create(ConfigFile);
       FHost := FIniFile.ReadString('SERVER','HOST','') + ':' + FIniFile.ReadString('SERVER','PORT','');
 
+      memD_Permissoes := TBufDataset.Create(Self);
+
       if Trim(FHost) = '' then
         raise Exception.Create('Host de acesso ao servidor não informado.');
     except
@@ -332,6 +200,12 @@ end;
 procedure TfrmCad_Usuario.FormDestroy(Sender: TObject);
 begin
   FreeAndNil(FIniFile);
+  FreeAndNil(memD_Permissoes);
+end;
+
+procedure TfrmCad_Usuario.FormShow(Sender: TObject);
+begin
+  Adiciona_Permissoes;
 end;
 
 procedure TfrmCad_Usuario.Gravar;
@@ -439,6 +313,90 @@ begin
 
 end;
 
+procedure TfrmCad_Usuario.Create_DataSet;
+var
+  FUsuario :TUsuario;
+begin
+  FUsuario := TUsuario.Create;
+  try
+    try
+      //Criando bufdataset - Empresa
+      FUsuario.Criar_DataSet_Permissoes(memD_Permissoes);
+      dsRegistro.DataSet := memD_Permissoes;
+      DBGrid_Permissoes.DataSource := dsRegistro;
+
+      //Configurando grid...
+      ConfigColGridAut(DBGrid_Permissoes,memD_Permissoes);
+
+    except
+      on E:Exception do
+        raise Exception.Create('Create_DataSet' + sLineBreak + E.Message);
+    end;
+
+  finally
+    FreeAndNil(FUsuario)
+  end;
+
+end;
+
+procedure TfrmCad_Usuario.Adiciona_Permissoes;
+var
+  I :Integer;
+  fLista :TStringList;
+begin
+  try
+    try
+      fLista := Get_ListOfPermissions;
+
+      if not memD_Permissoes.Active then
+        Create_DataSet;
+
+      memD_Permissoes.DisableControls;
+
+
+      //Adicionando dados da empresa...
+      for I := 0 to Pred(fLista.Count) do
+      begin
+        SaveLog(fLista.Strings[I]);
+        memD_Permissoes.Append;
+        memD_Permissoes.FieldByName('acao').AsString := fLista.Strings[I];
+        memD_Permissoes.FieldByName('visualizar').AsInteger := 0;
+        memD_Permissoes.FieldByName('incluir').AsInteger := 0;
+        memD_Permissoes.FieldByName('alterar').AsInteger := 0;
+        memD_Permissoes.FieldByName('excluir').AsInteger := 0;
+        memD_Permissoes.FieldByName('imprimir').AsInteger := 0;
+        {
+        memD_Permissoes.FieldByName('exportar').AsInteger := 0;
+        memD_Permissoes.FieldByName('importar').AsInteger := 0;
+        memD_Permissoes.FieldByName('aprovar_rejeitar').AsInteger := 0;
+        memD_Permissoes.FieldByName('anexar_upload').AsInteger := 0;
+        memD_Permissoes.FieldByName('pesquisar_filtrar').AsInteger := 0;
+        memD_Permissoes.FieldByName('notificar_enviar').AsInteger := 0;
+        memD_Permissoes.FieldByName('auditar_historico').AsInteger := 0;
+        memD_Permissoes.FieldByName('executar_processos').AsInteger := 0;
+        memD_Permissoes.FieldByName('alterar_status').AsInteger := 0;
+        memD_Permissoes.FieldByName('alterar_situacao_negocio').AsInteger := 0;
+        }
+        memD_Permissoes.Post;
+      end;
+    except
+      on E:Exception do
+      begin
+        GravarLogJSON(Self.Name,Self.Caption,'Adiciona_Permissoes',E);
+        MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
+      end;
+    end;
+  finally
+    memD_Permissoes.EnableControls;
+    FreeAndNIl(fLista);
+  end;
+end;
+
+procedure TfrmCad_Usuario.Atualizando_Permissoes(const AJSon_Usuario: TJSONArray );
+begin
+  //
+end;
+
 procedure TfrmCad_Usuario.ExportD2Bridge;
 begin
   inherited;
@@ -489,36 +447,7 @@ begin
         begin
           with Card.Items.Add do
           begin
-            with Row.Items.Add do
-              LCLObj(cbvisualizar);
-            with Row.Items.Add do
-              LCLObj(cbincluir);
-            with Row.Items.Add do
-              LCLObj(cbalterar);
-            with Row.Items.Add do
-              LCLObj(cbexcluir);
-            with Row.Items.Add do
-              LCLObj(cbimprimir);
-            with Row.Items.Add do
-              LCLObj(cbexportar);
-            with Row.Items.Add do
-              LCLObj(cbimportar);
-            with Row.Items.Add do
-              LCLObj(cbaprovar_rejeitar);
-            with Row.Items.Add do
-              LCLObj(cbanexar_upload);
-            with Row.Items.Add do
-              LCLObj(cbpesquisar_filtrar);
-            with Row.Items.Add do
-              LCLObj(cbnotificar_enviar);
-            with Row.Items.Add do
-              LCLObj(cbauditar_historico);
-            with Row.Items.Add do
-              LCLObj(cbexecutar_processos);
-            with Row.Items.Add do
-              LCLObj(cbalterar_status);
-            with Row.Items.Add do
-              LCLObj(cbalterar_situacao_negocio);
+            LCLObj(DBGrid_Permissoes);
           end;
         end;
       end;

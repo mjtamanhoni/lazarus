@@ -10,6 +10,7 @@ object frmCad_Usuario: TfrmCad_Usuario
   LCLVersion = '4.4.0.0'
   OnCreate = FormCreate
   OnDestroy = FormDestroy
+  OnShow = FormShow
   object pnDetail: TPanel
     Left = 0
     Height = 387
@@ -324,7 +325,7 @@ object frmCad_Usuario: TfrmCad_Usuario
               Left = 99
               Height = 22
               Top = 18
-              Width = 609
+              Width = 749
               Align = alClient
               CharCase = ecUppercase
               TabOrder = 2
@@ -345,29 +346,6 @@ object frmCad_Usuario: TfrmCad_Usuario
               TabOrder = 3
               Text = 'ADMINISTRADOR'
             end
-            object ComboBoxEx1: TComboBoxEx
-              Left = 708
-              Height = 26
-              Top = 18
-              Width = 140
-              Align = alRight
-              ItemHeight = 20
-              ItemsEx = <              
-                item
-                  Caption = 'ADMINISTRADOR'
-                  Indent = 1
-                end              
-                item
-                  Caption = 'GERENTE'
-                  Indent = 2
-                end              
-                item
-                  Caption = 'OPERADOR'
-                  Indent = 3
-                end>
-              ItemIndex = 0
-              TabOrder = 4
-            end
           end
         end
       end
@@ -377,12 +355,55 @@ object frmCad_Usuario: TfrmCad_Usuario
         ClientWidth = 998
         object pnPermissoes: TPanel
           Left = 0
-          Height = 359
-          Top = 0
+          Height = 313
+          Top = 46
           Width = 998
           Align = alClient
           BorderWidth = 5
+          ClientHeight = 313
+          ClientWidth = 998
           TabOrder = 0
+          object DBGrid_Permissoes: TDBGrid
+            Left = 6
+            Height = 301
+            Top = 6
+            Width = 986
+            Align = alClient
+            Color = clWindow
+            Columns = <>
+            TabOrder = 0
+          end
+        end
+        object pnPermissoes_Acao: TPanel
+          Left = 0
+          Height = 46
+          Top = 0
+          Width = 998
+          Align = alTop
+          BorderWidth = 5
+          ClientHeight = 46
+          ClientWidth = 998
+          TabOrder = 1
+          object btPermissao_Editar: TButton
+            Cursor = crHandPoint
+            Left = 6
+            Height = 34
+            Top = 6
+            Width = 75
+            Align = alLeft
+            Caption = 'Editar'
+            TabOrder = 0
+          end
+          object btPermissao_Salvar: TButton
+            Cursor = crHandPoint
+            Left = 81
+            Height = 34
+            Top = 6
+            Width = 75
+            Align = alLeft
+            Caption = 'Salvar'
+            TabOrder = 1
+          end
         end
       end
     end
@@ -419,5 +440,9 @@ object frmCad_Usuario: TfrmCad_Usuario
       TabOrder = 1
       OnClick = btConfirmarClick
     end
+  end
+  object dsRegistro: TDataSource
+    Left = 208
+    Top = 216
   end
 end

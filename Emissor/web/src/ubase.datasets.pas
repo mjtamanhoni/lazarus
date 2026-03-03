@@ -28,6 +28,7 @@ type
   private
   public
     class procedure Criar_DataSet_Usuario(const aDataSet :TBufDataset);
+    class procedure Criar_DataSet_Permissoes(const aDataSet :TBufDataset);
   end;
 
 implementation
@@ -105,7 +106,7 @@ begin
 
   except
     on E:Exception do
-      raise Exception.Create('Configurando DbGrid: ' + E.Message);
+      raise Exception.Create('Configurando DbGrid ['+Grid.Name+']: ' + E.Message);
   end;
 
 end;
@@ -320,6 +321,59 @@ begin
   except
     on E:Exception do
       raise Exception.Create('Cria Dataset do Usuário: ' + E.Message);
+  end;
+end;
+
+class procedure TUsuario.Criar_DataSet_Permissoes(const aDataSet: TBufDataset);
+begin
+  try
+    if aDataSet.Active then
+      aDataSet.Close;
+
+    aDataSet.FieldDefs.Clear;
+    aDataSet.FieldDefs.Add('acao',ftString,100,True);
+    aDataSet.FieldDefs.Add('visualizar',ftInteger,0,True);
+    aDataSet.FieldDefs.Add('incluir',ftInteger,0,True);
+    aDataSet.FieldDefs.Add('alterar',ftInteger,0,True);
+    aDataSet.FieldDefs.Add('excluir',ftInteger,0,True);
+    aDataSet.FieldDefs.Add('imprimir',ftInteger,0,True);
+    {
+    aDataSet.FieldDefs.Add('exportar',ftInteger,0,True);
+    aDataSet.FieldDefs.Add('importar',ftInteger,0,True);
+    aDataSet.FieldDefs.Add('aprovar_rejeitar',ftInteger,0,True);
+    aDataSet.FieldDefs.Add('anexar_upload',ftInteger,0,True);
+    aDataSet.FieldDefs.Add('pesquisar_filtrar',ftInteger,0,True);
+    aDataSet.FieldDefs.Add('notificar_enviar',ftInteger,0,True);
+    aDataSet.FieldDefs.Add('auditar_historico',ftInteger,0,True);
+    aDataSet.FieldDefs.Add('executar_processos',ftInteger,0,True);
+    aDataSet.FieldDefs.Add('alterar_status',ftInteger,0,True);
+    aDataSet.FieldDefs.Add('alterar_situacao_negocio',ftInteger,0,True);
+    }
+    aDataSet.CreateDataset;
+    aDataSet.Open;
+
+    //Definindo nome das colunas....
+    aDataSet.FieldByName('acao').DisplayLabel := 'Ação';
+    aDataSet.FieldByName('visualizar').DisplayLabel := 'Visualizar';
+    aDataSet.FieldByName('incluir').DisplayLabel := 'Incluir';
+    aDataSet.FieldByName('alterar').DisplayLabel := 'Alterar';
+    aDataSet.FieldByName('excluir').DisplayLabel := 'Excluir';
+    aDataSet.FieldByName('imprimir').DisplayLabel := 'Imprimir';
+    {
+    aDataSet.FieldByName('exportar').DisplayLabel := 'Exportar';
+    aDataSet.FieldByName('importar').DisplayLabel := 'Importar';
+    aDataSet.FieldByName('aprovar_rejeitar').DisplayLabel := 'Aprovar/Rejeitar';
+    aDataSet.FieldByName('anexar_upload').DisplayLabel := 'Anexar/Upload';
+    aDataSet.FieldByName('pesquisar_filtrar').DisplayLabel := 'Pesquisar/Filtrar';
+    aDataSet.FieldByName('notificar_enviar').DisplayLabel := 'Notificar/Enviar';
+    aDataSet.FieldByName('auditar_historico').DisplayLabel := 'Auditar Histórico';
+    aDataSet.FieldByName('executar_processos').DisplayLabel := 'Executar Processos';
+    aDataSet.FieldByName('alterar_status').DisplayLabel := 'Alterar Status';
+    aDataSet.FieldByName('alterar_situacao_negocio').DisplayLabel := 'Alterar Situação de Negócio';
+    }
+  except
+    on E:Exception do
+      raise Exception.Create('Cria Dataset das permissões do Usuário: ' + E.Message);
   end;
 end;
 

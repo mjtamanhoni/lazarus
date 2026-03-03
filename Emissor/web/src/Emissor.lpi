@@ -250,6 +250,11 @@
         <Filename Value="../../../Global/ubase.functions.objetos.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit>
+      <Unit>
+        <Filename Value="upermissoes.lista.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uPermissoes.Lista"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

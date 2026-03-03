@@ -5,9 +5,7 @@ unit uDM;
 interface
 
 uses
-  Classes, SysUtils, IniFiles,
-  ZConnection, ZDataset,
-
+  Classes, SysUtils, IniFiles, ZConnection, ZDataset, Variants,
   uBase.Functions;
 
 type
@@ -26,6 +24,7 @@ type
     procedure ConectarBanco;
     function GetQuery:TZQuery;
     function Sequencial(const aTabela:String;const aId_Empresa:Integer=0;const aId_Usuario:Integer=0):Integer;
+    function Sequencial_Dinamico(const aTabela: String; const aFields: array of String; const aValues: array of Variant): Integer;
   end;
 
 var
@@ -134,6 +133,33 @@ begin
   finally
     FreeAndNil(FQuery);
   end;
+end;
+
+function TDM.Sequencial_Dinamico(
+  const aTabela: String;
+  const aFields: array of String;
+  const aValues: array of Variant): Integer;
+var
+  i: Integer;
+  SQL: String;
+begin
+  // SQL base
+  SQL := 'SELECT COALESCE(MAX(CODIGO), 0) + 1 FROM ' + aTabela + ' WHERE 1=1';
+
+  // Adiciona os filtros dinamicamente
+  for i := 0 to High(aFields) do
+  begin
+    // Tratando o valor para SQL (VarToStr ou tratamento de tipos)
+    //SQL := SQL + ' AND ' + aFields[i] + ' = ' + VarToSQLStr(aValues[i]);
+  end;
+
+  // Execução no componente de Query (Ex: SQLQuery1)
+  //SQLQuery1.Close;
+  //SQLQuery1.SQL.Text := SQL;
+  //SQLQuery1.Open;
+
+  //Result := SQLQuery1.Fields[0].AsInteger;
+
 end;
 
 end.
