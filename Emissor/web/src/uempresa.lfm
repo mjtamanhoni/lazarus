@@ -91,6 +91,7 @@ inherited frmEmpresa: TfrmEmpresa
       Align = alClient
       Color = clWindow
       Columns = <>
+      DataSource = dsRegistro
       Options = [dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit]
       TabOrder = 0
     end
@@ -107,6 +108,7 @@ inherited frmEmpresa: TfrmEmpresa
   inherited mmPrincipal: TMainMenu[3]
   end
   object dsRegistro: TDataSource[4]
+    DataSet = ZMT_Registro
     Left = 280
     Top = 120
   end
@@ -132,5 +134,10 @@ inherited frmEmpresa: TfrmEmpresa
       Caption = 'Documento (CNPJ/CPF)'
       OnClick = miRazaoSocialClick
     end
+  end
+  object ZMT_Registro: TZMemTable[6]
+    ControlsCodePage = cDynamic
+    Left = 280
+    Top = 184
   end
 end

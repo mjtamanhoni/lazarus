@@ -5,10 +5,9 @@ unit udm;
 interface
 
 uses
-  Classes, SysUtils, Controls, Graphics, Dialogs, StdCtrls, ZConnection,
+  Classes, SysUtils, Controls, Graphics, Dialogs, StdCtrls, ZConnection, DateUtils,
   ZDataset, IniFiles, Variants, uBase.Functions,
   fpjson, DataSet.Serialize, RESTRequest4D, jsonparser;
-;
 
 type
 
@@ -34,18 +33,19 @@ type
     function Sequencial_Dinamico(const aTabela: String; const aFields: array of String; const aValues: array of Variant): Integer;
   end;
 
-  { TEmpresa }
+  { TDM_Empresa }
 
-  TEmpresa = class
+  TDM_Empresa = class
   private
   public
     function Empresa_Delete(const aId_Empresa: Integer): Boolean;
-    function Empresa_PostPut(const aJSon:TJSONArray): Boolean;
-    function Empresa_Get(
+    function Empresa_PostPut(const aJSon:TJSONObject): Boolean;
+    procedure Empresa_Get(
+      const FQuery :TZQuery;
       const aId_Empresa:Integer=0;
       const aRazao_Social:String='';
       const aFantasia:String='';
-      const aCNPJ:String=''):TZQuery;
+      const aCNPJ:String='');
   end;
 
 
@@ -199,9 +199,9 @@ begin
 
 end;
 
-{ TEmpresa }
+{ TDM_Empresa }
 
-function TEmpresa.Empresa_Delete(const aId_Empresa: Integer): Boolean;
+function TDM_Empresa.Empresa_Delete(const aId_Empresa: Integer): Boolean;
 var
   FDM :TDM;
   FQuery :TZQuery;
@@ -231,7 +231,7 @@ begin
   end;
 end;
 
-function TEmpresa.Empresa_PostPut(const aJSon: TJSONArray): Boolean;
+function TDM_Empresa.Empresa_PostPut(const aJSon: TJSONObject): Boolean;
 var
   FDM :TDM;
   FQuery :TZQuery;
@@ -256,12 +256,13 @@ begin
       FJSon_DBanco := TJSONArray(GetJSON(aJSon['contaBancaria'].AsJSON));
       FJSon_Certificado := TJSONArray(GetJSON(aJSon['certificadoDigital'].AsJSON));
 
-      //Excluindo empresa e tabelas associadas...
-      Empresa_Delete(0);
 
       //Inserindo empresa...
-      for I := 0 to Pred(AJSon_Empresa.Count) do
+      for I := 0 to Pred(FJSon_Empresa.Count) do
       begin
+        //Excluindo empresa e tabelas associadas...
+        Empresa_Delete(FJSon_Empresa.Objects[I].Integers['idEmpresa']);
+
         FQuery.Close;
         FQuery.Sql.Clear;
         FQuery.Sql.Add('INSERT INTO public.empresa ( ');
@@ -295,25 +296,25 @@ begin
         FQuery.Sql.Add('	,:ativo ');
         FQuery.Sql.Add('	,:celular ');
         FQuery.Sql.Add('); ');
-        FQuery.ParamByName('id_empresa').AsInteger := AJSon_Empresa.Objects[I].Integers['idEmpresa'];
-        FQuery.ParamByName('razao_social').AsString := AJSon_Empresa.Objects[I].Strings['razaoSocial'];
-        FQuery.ParamByName('nome_fantasia').AsString := AJSon_Empresa.Objects[I].Strings['nomeFantasia'];
-        FQuery.ParamByName('cnpj').AsString := AJSon_Empresa.Objects[I].Strings['cnpj'];
-        FQuery.ParamByName('inscricao_estadual').AsString := AJSon_Empresa.Objects[I].Strings['inscricaoEstadual'];
-        FQuery.ParamByName('inscricao_municipal').AsString := AJSon_Empresa.Objects[I].Strings['inscricaoMunicipal'];
-        FQuery.ParamByName('regime_tributario').AsString := AJSon_Empresa.Objects[I].Strings['regimeTributario'];
-        FQuery.ParamByName('crt').AsString := AJSon_Empresa.Objects[I].Strings['crt'];
-        FQuery.ParamByName('email').AsString := AJSon_Empresa.Objects[I].Strings['email'];
-        FQuery.ParamByName('telefone').AsString := AJSon_Empresa.Objects[I].Strings['telefone'];
-        FQuery.ParamByName('site').AsString := AJSon_Empresa.Objects[I].Strings['site'];
-        FQuery.ParamByName('data_cadastro').AsDateTime := ISO8601ToDateDef(AJSon_Empresa.Objects[I].Strings['dataCadastro'],0);
-        FQuery.ParamByName('ativo').AsInteger := AJSon_Empresa.Objects[I].Integers['ativo'];
-        FQuery.ParamByName('celular').AsString := AJSon_Empresa.Objects[I].Strings['celular'];
+        FQuery.ParamByName('id_empresa').AsInteger := FJSon_Empresa.Objects[I].Integers['idEmpresa'];
+        FQuery.ParamByName('razao_social').AsString := FJSon_Empresa.Objects[I].Strings['razaoSocial'];
+        FQuery.ParamByName('nome_fantasia').AsString := FJSon_Empresa.Objects[I].Strings['nomeFantasia'];
+        FQuery.ParamByName('cnpj').AsString := FJSon_Empresa.Objects[I].Strings['cnpj'];
+        FQuery.ParamByName('inscricao_estadual').AsString := FJSon_Empresa.Objects[I].Strings['inscricaoEstadual'];
+        FQuery.ParamByName('inscricao_municipal').AsString := FJSon_Empresa.Objects[I].Strings['inscricaoMunicipal'];
+        FQuery.ParamByName('regime_tributario').AsString := FJSon_Empresa.Objects[I].Strings['regimeTributario'];
+        FQuery.ParamByName('crt').AsString := FJSon_Empresa.Objects[I].Strings['crt'];
+        FQuery.ParamByName('email').AsString := FJSon_Empresa.Objects[I].Strings['email'];
+        FQuery.ParamByName('telefone').AsString := FJSon_Empresa.Objects[I].Strings['telefone'];
+        FQuery.ParamByName('site').AsString := FJSon_Empresa.Objects[I].Strings['site'];
+        FQuery.ParamByName('data_cadastro').AsDateTime := ISO8601ToDateDef(FJSon_Empresa.Objects[I].Strings['dataCadastro'],0);
+        FQuery.ParamByName('ativo').AsInteger := FJSon_Empresa.Objects[I].Integers['ativo'];
+        FQuery.ParamByName('celular').AsString := FJSon_Empresa.Objects[I].Strings['celular'];
         FQuery.ExecSQL;
       end;
 
       //Inserindo endereço da empresa...
-      for I := 0 to Pred(AJSon_Endereco.Count) do
+      for I := 0 to Pred(FJSon_Endereco.Count) do
       begin
         FQuery.Close;
         FQuery.SQL.Clear;
@@ -346,24 +347,24 @@ begin
         FQuery.Sql.Add('	,:codigo_pais_ibge ');
         FQuery.Sql.Add('	,:tipo_endereco ');
         FQuery.Sql.Add('); ');
-        FQuery.ParamByName('id_endereco').AsInteger := AJSon_Endereco.Objects[I].Integers['idEndereco'];
-        FQuery.ParamByName('id_empresa').AsInteger := AJSon_Endereco.Objects[I].Integers['idEmpresa'];
-        FQuery.ParamByName('logradouro').AsString := AJSon_Endereco.Objects[I].Strings['logradouro'];
-        FQuery.ParamByName('numero').AsString := AJSon_Endereco.Objects[I].Strings['numero'];
-        FQuery.ParamByName('complemento').AsString := AJSon_Endereco.Objects[I].Strings['complemento'];
-        FQuery.ParamByName('bairro').AsString := AJSon_Endereco.Objects[I].Strings['bairro'];
-        FQuery.ParamByName('municipio').AsString := AJSon_Endereco.Objects[I].Strings['municipio'];
-        FQuery.ParamByName('codigo_municipio_ibge').AsString := AJSon_Endereco.Objects[I].Strings['codigoMunicipioIbge'];
-        FQuery.ParamByName('uf').AsString := AJSon_Endereco.Objects[I].Strings['uf'];
-        FQuery.ParamByName('cep').AsString := AJSon_Endereco.Objects[I].Strings['cep'];
-        FQuery.ParamByName('pais').AsString := AJSon_Endereco.Objects[I].Strings['pais'];
-        FQuery.ParamByName('codigo_pais_ibge').AsString := AJSon_Endereco.Objects[I].Strings['codigoPaisIbge'];
-        FQuery.ParamByName('tipo_endereco').AsInteger := AJSon_Endereco.Objects[I].Integers['tipoEndereco'];
+        FQuery.ParamByName('id_endereco').AsInteger := FJSon_Endereco.Objects[I].Integers['idEndereco'];
+        FQuery.ParamByName('id_empresa').AsInteger := FJSon_Endereco.Objects[I].Integers['idEmpresa'];
+        FQuery.ParamByName('logradouro').AsString := FJSon_Endereco.Objects[I].Strings['logradouro'];
+        FQuery.ParamByName('numero').AsString := FJSon_Endereco.Objects[I].Strings['numero'];
+        FQuery.ParamByName('complemento').AsString := FJSon_Endereco.Objects[I].Strings['complemento'];
+        FQuery.ParamByName('bairro').AsString := FJSon_Endereco.Objects[I].Strings['bairro'];
+        FQuery.ParamByName('municipio').AsString := FJSon_Endereco.Objects[I].Strings['municipio'];
+        FQuery.ParamByName('codigo_municipio_ibge').AsString := FJSon_Endereco.Objects[I].Strings['codigoMunicipioIbge'];
+        FQuery.ParamByName('uf').AsString := FJSon_Endereco.Objects[I].Strings['uf'];
+        FQuery.ParamByName('cep').AsString := FJSon_Endereco.Objects[I].Strings['cep'];
+        FQuery.ParamByName('pais').AsString := FJSon_Endereco.Objects[I].Strings['pais'];
+        FQuery.ParamByName('codigo_pais_ibge').AsString := FJSon_Endereco.Objects[I].Strings['codigoPaisIbge'];
+        FQuery.ParamByName('tipo_endereco').AsInteger := FJSon_Endereco.Objects[I].Integers['tipoEndereco'];
         FQuery.ExecSQL;
       end;
 
       //Inserindo dados bancários da empresa...
-      for I := 0 to Pred(AJSon_CBanco.Count) do
+      for I := 0 to Pred(FJSon_DBanco.Count) do
       begin
         FQuery.Close;
         FQuery.SQL.Clear;
@@ -382,17 +383,17 @@ begin
         FQuery.Sql.Add('	,:conta ');
         FQuery.Sql.Add('	,:tipo_conta ');
         FQuery.Sql.Add('); ');
-        FQuery.ParamByName('id_banco').AsInteger := AJSon_CBanco.Objects[I].Integers['idBanco'];
-        FQuery.ParamByName('id_empresa').AsInteger := AJSon_CBanco.Objects[I].Integers['idEmpresa'];
-        FQuery.ParamByName('banco').AsString := AJSon_CBanco.Objects[I].Strings['banco'];
-        FQuery.ParamByName('agencia').AsString := AJSon_CBanco.Objects[I].Strings['agencia'];
-        FQuery.ParamByName('conta').AsString := AJSon_CBanco.Objects[I].Strings['conta'];
-        FQuery.ParamByName('tipo_conta').AsInteger := AJSon_CBanco.Objects[I].Integers['tipoConta'];
+        FQuery.ParamByName('id_banco').AsInteger := FJSon_DBanco.Objects[I].Integers['idBanco'];
+        FQuery.ParamByName('id_empresa').AsInteger := FJSon_DBanco.Objects[I].Integers['idEmpresa'];
+        FQuery.ParamByName('banco').AsString := FJSon_DBanco.Objects[I].Strings['banco'];
+        FQuery.ParamByName('agencia').AsString := FJSon_DBanco.Objects[I].Strings['agencia'];
+        FQuery.ParamByName('conta').AsString := FJSon_DBanco.Objects[I].Strings['conta'];
+        FQuery.ParamByName('tipo_conta').AsInteger := FJSon_DBanco.Objects[I].Integers['tipoConta'];
         FQuery.ExecSQL;
       end;
 
       //Inserindo dados do certificado...
-      for I := 0 to Pred(AJSon_Certificado.Count) do
+      for I := 0 to Pred(FJSon_Certificado.Count) do
       begin
         FQuery.Close;
         FQuery.SQL.Clear;
@@ -411,12 +412,12 @@ begin
         FQuery.Sql.Add('	,:caminho_arquivo ');
         FQuery.Sql.Add('	,:senha ');
         FQuery.Sql.Add('); ');
-        FQuery.ParamByName('id_certificado').AsInteger := AJSon_Certificado.Objects[I].Integers['idCertificado'];
-        FQuery.ParamByName('id_empresa').AsInteger := AJSon_Certificado.Objects[I].Integers['idEmpresa'];
-        FQuery.ParamByName('tipo').AsString := AJSon_Certificado.Objects[I].Strings['tipo'];
-        FQuery.ParamByName('validade').AsDateTime := StrISOToDateTime(AJSon_Certificado.Objects[I].Strings['validade']);
-        FQuery.ParamByName('caminho_arquivo').AsString := AJSon_Certificado.Objects[I].Strings['caminhoArquivo'];
-        FQuery.ParamByName('senha').AsString := AJSon_Certificado.Objects[I].Strings['senha'];
+        FQuery.ParamByName('id_certificado').AsInteger := FJSon_Certificado.Objects[I].Integers['idCertificado'];
+        FQuery.ParamByName('id_empresa').AsInteger := FJSon_Certificado.Objects[I].Integers['idEmpresa'];
+        FQuery.ParamByName('tipo').AsString := FJSon_Certificado.Objects[I].Strings['tipo'];
+        FQuery.ParamByName('validade').AsDateTime := StrISOToDateTime(FJSon_Certificado.Objects[I].Strings['validade']);
+        FQuery.ParamByName('caminho_arquivo').AsString := FJSon_Certificado.Objects[I].Strings['caminhoArquivo'];
+        FQuery.ParamByName('senha').AsString := FJSon_Certificado.Objects[I].Strings['senha'];
         FQuery.ExecSQL;
       end;
 
@@ -433,11 +434,50 @@ begin
   end;
 end;
 
-function TEmpresa.Empresa_Get(const aId_Empresa: Integer;
-  const aRazao_Social: String; const aFantasia: String; const aCNPJ: String
-  ): TZQuery;
+procedure TDM_Empresa.Empresa_Get(
+  const FQuery :TZQuery;
+  const aId_Empresa: Integer;
+  const aRazao_Social: String;
+  const aFantasia: String;
+  const aCNPJ: String);
 begin
+  try
+    try
+      FQuery.DisableControls;
 
+      FQuery.Close;
+      FQuery.Sql.Clear;
+      FQuery.Sql.Add('SELECT ');
+      FQuery.Sql.Add('  e.* ');
+      FQuery.Sql.Add('  ,case e.crt ');
+      FQuery.Sql.Add('    when ''1'' then ''Simples Nacional'' ');
+      FQuery.Sql.Add('    when ''2'' then ''Simples Nacional - excesso de sublimite de receita bruta'' ');
+      FQuery.Sql.Add('    when ''3'' then ''Regime Normal (Lucro Presumido ou Real)'' ');
+      FQuery.Sql.Add('    when ''4'' then ''Microempreendedor Individual (MEI)'' ');
+      FQuery.Sql.Add('  end crt_desc ');
+      FQuery.Sql.Add('  ,case e.ativo ');
+      FQuery.Sql.Add('    when 0 then ''Inativo'' ');
+      FQuery.Sql.Add('    when 1 then ''Ativo'' ');
+      FQuery.Sql.Add('  end ativo_desc ');
+      FQuery.Sql.Add('FROM public.empresa e ');
+      FQuery.Sql.Add('where 1=1 ');
+      if aId_Empresa > 0 then
+        FQuery.Sql.Add('  and e.id_empresa = ' + aId_Empresa.ToString);
+      if Trim(aRazao_Social) <> '' then
+        FQuery.Sql.Add('  and e.razao_social = ' + QuotedStr(aRazao_Social));
+      if Trim(aFantasia) <> '' then
+        FQuery.Sql.Add('  and e.nome_fantasia = ' + QuotedStr(aFantasia));
+      if Trim(aCNPJ) <> '' then
+        FQuery.Sql.Add('  and e.cnpj = ' + QuotedStr(RemoverMascara(aCNPJ)));
+      FQuery.Open;
+    except
+      On E:Exception do
+        raise Exception.Create(E.Message);
+    end;
+  finally
+    FQuery.EnableControls;
+    //FreeAndNil(FQuery);
+  end;
 end;
 
 end.

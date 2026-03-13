@@ -5,14 +5,11 @@ unit uEmpresa;
 interface
 
 uses
-  Classes, SysUtils, DB, memds, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls, DateUtils,
-  DBGrids, EditBtn, Menus, ZDataset, D2Bridge.Forms, Forms, IniFiles, BufDataset,
-  fpjson,
-  DataSet.Serialize,
-  RESTRequest4D,
-  jsonparser,
-  uBase.Functions, uDM.ACBr,
-  uPrincipal, uCad.Empresa, uBase.DataSets;
+  Classes, SysUtils, DB, memds, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls,
+  DateUtils, DBGrids, EditBtn, Menus, ZDataset, ZAbstractRODataset,
+  D2Bridge.Forms, Forms, IniFiles, BufDataset, fpjson, DataSet.Serialize,
+  RESTRequest4D, jsonparser, uBase.Functions, uDM.ACBr, uPrincipal,
+  uCad.Empresa, uBase.DataSets, uDM;
 
 type
 
@@ -34,6 +31,7 @@ type
     pnFiltro: TPanel;
     pnTipoFiltro2: TPanel;
     pmPesquisar: TPopupMenu;
+    ZMT_Registro: TZMemTable;
     procedure btNovoClick(Sender: TObject);
     procedure edPesquisarKeyPress(Sender: TObject; var Key: char);
     procedure FormCreate(Sender: TObject);
@@ -43,18 +41,12 @@ type
   private
     { Private declarations }
     FfrmCadEmpresa :TfrmCadEmpresa;
+    FDM :TDM;
 
     FHost :String;
     FIniFile :TIniFile;
 
-    memD_Empresas :TBufDataset;
-    memD_Endereco :TBufDataset;
-    memD_CBanco :TBufDataset;
-    memD_Certificado :TBufDataset;
-
-    procedure Create_DataSet;
-    procedure Adiciona_Dados(const AJSon_Empresa,AJSon_Endereco,AJSon_CBanco,AJSon_Certificado:TJSONArray);
-
+    procedure AjustarColunas(DBGrid: TDBGrid);
     procedure Pesquisar;
     procedure OnClick_Edit(const AId: Integer; const ANome:String);
     procedure OnClick_Delete(const AId: Integer; const ANome:String);
@@ -90,11 +82,8 @@ begin
     FIniFile := TIniFile.Create(ConfigFile);
     FHost := FIniFile.ReadString('SERVER','HOST','') + ':' + FIniFile.ReadString('SERVER','PORT','');
 
-    //CriaDataset_Empresa;
-    memD_Empresas := TBufDataset.Create(Self);
-    memD_Endereco := TBufDataset.Create(Self);
-    memD_CBanco := TBufDataset.Create(Self);
-    memD_Certificado := TBufDataset.Create(Self);
+    FDM := TDM.Create(Self);
+    //ZQRegistro.Connection := FDM.ZConnection;
 
     if Trim(FHost) = '' then
       raise Exception.Create('Host de acesso ao servidor não informado.');
@@ -112,10 +101,7 @@ end;
 
 procedure TfrmEmpresa.FormDestroy(Sender: TObject);
 begin
-  FreeAndNil(memD_Empresas);
-  FreeAndNil(memD_Endereco);
-  FreeAndNil(memD_CBanco);
-  FreeAndNil(memD_Certificado);
+  FreeAndNil(FDM);
   FreeAndNil(FIniFile);
 end;
 
@@ -150,160 +136,23 @@ begin
   Pesquisar;
 end;
 
-procedure TfrmEmpresa.Create_DataSet;
-var
-  FEmpresa :TEmpresa;
-begin
-  FEmpresa := TEmpresa.Create;
-  try
-    try
-      //Criando bufdataset - Empresa
-      FEmpresa.Criar_DataSet_Empresa(memD_Empresas);
-      dsRegistro.DataSet := memD_Empresas;
-      DBGrid_Empresa.DataSource := dsRegistro;
-      ConfigColGridAut(DBGrid_Empresa,memD_Empresas);
-
-      //Criando bufdataset - Endereço
-      FEmpresa.Criar_DataSet_Endereco(memD_Endereco);
-
-      //Criando bufdataset - Conta bancária
-      FEmpresa.Criar_DataSet_CBanco(memD_CBanco);
-
-      //Criando bufdataset - Certificado digital
-      FEmpresa.Criar_DataSet_Certificado(memD_Certificado);
-    except
-      on E:Exception do
-      begin
-        GravarLogJSON(Self.Name,Self.Caption,'Create_DataSet',E);
-        MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
-      end;
-    end;
-
-  finally
-    FreeAndNil(FEmpresa)
-  end;
-end;
-
-procedure TfrmEmpresa.Adiciona_Dados(const AJSon_Empresa,AJSon_Endereco,AJSon_CBanco,AJSon_Certificado: TJSONArray);
-var
-  I :Integer;
-begin
-  try
-    try
-      memD_Empresas.DisableControls;
-      memD_Endereco.DisableControls;
-      memD_CBanco.DisableControls;
-
-      if AJSon_Empresa.Count = 0 then
-        raise Exception.Create('Não há empresas para listar.');
-
-      if not memD_Empresas.Active then
-        Create_DataSet;
-
-      //Adicionando dados da empresa...
-      for I := 0 to Pred(AJSon_Empresa.Count) do
-      begin
-        memD_Empresas.Append;
-        memD_Empresas.FieldByName('idEmpresa').AsInteger := AJSon_Empresa.Objects[I].Integers['idEmpresa'];
-        memD_Empresas.FieldByName('razaoSocial').AsString := AJSon_Empresa.Objects[I].Strings['razaoSocial'];
-        memD_Empresas.FieldByName('nomeFantasia').AsString := AJSon_Empresa.Objects[I].Strings['nomeFantasia'];
-        memD_Empresas.FieldByName('cnpj').AsString := AJSon_Empresa.Objects[I].Strings['cnpj'];
-        memD_Empresas.FieldByName('inscricaoEstadual').AsString := AJSon_Empresa.Objects[I].Strings['inscricaoEstadual'];
-        memD_Empresas.FieldByName('inscricaoMunicipal').AsString := AJSon_Empresa.Objects[I].Strings['inscricaoMunicipal'];
-        memD_Empresas.FieldByName('regimeTributario').AsString := AJSon_Empresa.Objects[I].Strings['regimeTributario'];
-        memD_Empresas.FieldByName('crt').AsString := AJSon_Empresa.Objects[I].Strings['crt'];
-        memD_Empresas.FieldByName('email').AsString := AJSon_Empresa.Objects[I].Strings['email'];
-        memD_Empresas.FieldByName('telefone').AsString := AJSon_Empresa.Objects[I].Strings['telefone'];
-        memD_Empresas.FieldByName('site').AsString := AJSon_Empresa.Objects[I].Strings['site'];
-        memD_Empresas.FieldByName('dataCadastro').AsDateTime := ISO8601ToDateDef(AJSon_Empresa.Objects[I].Strings['dataCadastro'],0);
-        memD_Empresas.FieldByName('ativo').AsInteger := AJSon_Empresa.Objects[I].Integers['ativo'];
-        memD_Empresas.FieldByName('celular').AsString := AJSon_Empresa.Objects[I].Strings['celular'];
-        memD_Empresas.FieldByName('crtDesc').AsString := AJSon_Empresa.Objects[I].Strings['crtDesc'];
-        memD_Empresas.Post;
-      end;
-      memD_Empresas.EnableControls;
-
-      //Adicionando dados do endereço...
-      for I := 0 to Pred(AJSon_Endereco.Count) do
-      begin
-        memD_Endereco.Append;
-        memD_Endereco.FieldByName('idEndereco').AsInteger := AJSon_Endereco.Objects[I].Integers['idEndereco'];
-        memD_Endereco.FieldByName('idEmpresa').AsInteger := AJSon_Endereco.Objects[I].Integers['idEmpresa'];
-        memD_Endereco.FieldByName('logradouro').AsString := AJSon_Endereco.Objects[I].Strings['logradouro'];
-        memD_Endereco.FieldByName('numero').AsString := AJSon_Endereco.Objects[I].Strings['numero'];
-        memD_Endereco.FieldByName('complemento').AsString := AJSon_Endereco.Objects[I].Strings['complemento'];
-        memD_Endereco.FieldByName('bairro').AsString := AJSon_Endereco.Objects[I].Strings['bairro'];
-        memD_Endereco.FieldByName('municipio').AsString := AJSon_Endereco.Objects[I].Strings['municipio'];
-        memD_Endereco.FieldByName('codigoMunicipioIbge').AsString := AJSon_Endereco.Objects[I].Strings['codigoMunicipioIbge'];
-        memD_Endereco.FieldByName('uf').AsString := AJSon_Endereco.Objects[I].Strings['uf'];
-        memD_Endereco.FieldByName('cep').AsString := AJSon_Endereco.Objects[I].Strings['cep'];
-        memD_Endereco.FieldByName('pais').AsString := AJSon_Endereco.Objects[I].Strings['pais'];
-        memD_Endereco.FieldByName('codigoPaisIbge').AsString := AJSon_Endereco.Objects[I].Strings['codigoPaisIbge'];
-        memD_Endereco.FieldByName('tipoEndereco').AsInteger := AJSon_Endereco.Objects[I].Integers['tipoEndereco'];
-        memD_Endereco.FieldByName('tipoEnderecoDesc').AsString := AJSon_Endereco.Objects[I].Strings['tipoEnderecoDesc'];
-        memD_Endereco.Post;
-      end;
-
-      //Adicionando dados da conta bancária...
-      for I := 0 to Pred(AJSon_CBanco.Count) do
-      begin
-        memD_CBanco.Append;
-        memD_CBanco.FieldByName('idBanco').AsInteger := AJSon_CBanco.Objects[I].Integers['idBanco'];
-        memD_CBanco.FieldByName('idEmpresa').AsInteger := AJSon_CBanco.Objects[I].Integers['idEmpresa'];
-        memD_CBanco.FieldByName('banco').AsString := AJSon_CBanco.Objects[I].Strings['banco'];
-        memD_CBanco.FieldByName('agencia').AsString := AJSon_CBanco.Objects[I].Strings['agencia'];
-        memD_CBanco.FieldByName('conta').AsString := AJSon_CBanco.Objects[I].Strings['conta'];
-        memD_CBanco.FieldByName('tipoConta').AsInteger := AJSon_CBanco.Objects[I].Integers['tipoConta'];
-        memD_CBanco.FieldByName('tipoContaDesc').AsString := AJSon_CBanco.Objects[I].Strings['tipoContaDesc'];
-        memD_CBanco.Post;
-      end;
-
-      //Adicionando dados do certificado...
-      memD_Certificado.DisableControls;
-      for I := 0 to Pred(AJSon_Certificado.Count) do
-      begin
-        memD_Certificado.Append;
-        memD_Certificado.FieldByName('idCertificado').AsInteger := AJSon_Certificado.Objects[I].Integers['idCertificado'];
-        memD_Certificado.FieldByName('idEmpresa').AsInteger := AJSon_Certificado.Objects[I].Integers['idEmpresa'];
-        memD_Certificado.FieldByName('tipo').AsString := AJSon_Certificado.Objects[I].Strings['tipo'];
-        memD_Certificado.FieldByName('validade').AsDateTime := StrISOToDateTime(AJSon_Certificado.Objects[I].Strings['validade']);
-        memD_Certificado.FieldByName('caminhoArquivo').AsString := AJSon_Certificado.Objects[I].Strings['caminhoArquivo'];
-        memD_Certificado.FieldByName('senha').AsString := AJSon_Certificado.Objects[I].Strings['senha'];
-        memD_Certificado.FieldByName('tipoDesc').AsString := AJSon_Certificado.Objects[I].Strings['tipoDesc'];
-        memD_Certificado.Post;
-      end;
-
-    except
-      on E:Exception do
-        raise Exception.Create('Adiciona dados da empresa: ' + sLineBreak + E.Message);
-    end;
-  finally
-    memD_Empresas.EnableControls;
-    memD_Endereco.EnableControls;
-    memD_CBanco.EnableControls;
-    memD_Certificado.EnableControls;
-  end;
-end;
-
 procedure TfrmEmpresa.Pesquisar;
 var
   FResp :IResponse;
   FRet :String;
   FBody :TJSONObject;
 
-  FJSon_Empresa :TJSONArray;
-  FJSon_Endereco :TJSONArray;
-  FJSon_DBanco :TJSONArray;
-  FJSon_Certificado :TJSONArray;
-
   FTipoPesquisa:String;
   x:Integer;
 
   FId :Integer;
+  FDM_Empresa :TDM_Empresa;
+
+  FJSon_Empresa :TJSONArray;
 begin
   try
     try
-      Create_DataSet;
+      FDM_Empresa := TDM_Empresa.Create;
 
       FTipoPesquisa := '';
       case edPesquisar.Tag of
@@ -343,12 +192,13 @@ begin
         raise Exception.Create(FBody['message'].AsString);
 
       FJSon_Empresa := TJSONArray(GetJSON(FBody['data'].AsJSON));
-      FJSon_Endereco := TJSONArray(GetJSON(FBody['endereco'].AsJSON));
-      FJSon_DBanco := TJSONArray(GetJSON(FBody['contaBancaria'].AsJSON));
-      FJSon_Certificado := TJSONArray(GetJSON(FBody['certificadoDigital'].AsJSON));
+      //ZQuery1.Close;
+      ZMT_Registro.LoadFromJSON(FJSon_Empresa);
 
-      //Inserindo informações...
-      Adiciona_Dados(FJSon_Empresa,FJSon_Endereco,FJSon_DBanco,FJSon_Certificado);
+      //Gravando informação...
+      //FDM_Empresa.Empresa_PostPut(FBody);
+      //Listando informação...
+      //FDM_Empresa.Empresa_Get(ZQRegistro);
 
     except
       on E: Exception do
@@ -358,9 +208,9 @@ begin
       end;
     end;
   finally
+    FreeAndNil(FDM_Empresa);
   end;
 end;
-
 
 procedure TfrmEmpresa.OnClick_Delete(const AId: Integer; const ANome:String);
 var
@@ -372,7 +222,7 @@ begin
     if MessageDlg('Deseja excluir a Empresa selecionada?',TMsgDlgType.mtConfirmation,[mbYes,mbNo],0) = mrYes then
     begin
       fResp := TRequest.New.BaseURL(FHost)
-      	       .AddParam('id',memD_Empresas.FieldByName('idEmpresa').AsString)
+      	       .AddParam('id',ZMT_Registro.FieldByName('idEmpresa').AsString)
                .Resource('empresa')
                .Accept('application/json')
                .Delete;
@@ -466,28 +316,31 @@ begin
   try
     try
       //Atualizando dados principais...
+      {
       FfrmCadEmpresa.Clear_Fields;
-      FfrmCadEmpresa.edid_empresa.Text := memD_Empresas.FieldByName('idEmpresa').AsString;
-      FfrmCadEmpresa.edcnpj.Text := memD_Empresas.FieldByName('cnpj').AsString;
-      FfrmCadEmpresa.edinscricao_estadual.Text := memD_Empresas.FieldByName('inscricaoEstadual').AsString;
-      FfrmCadEmpresa.edinscricao_municipal.Text := memD_Empresas.FieldByName('inscricaoMunicipal').AsString;
-      FfrmCadEmpresa.cbativo.ItemIndex := memD_Empresas.FieldByName('ativo').AsInteger;
-      FfrmCadEmpresa.edrazao_social.Text := memD_Empresas.FieldByName('razaoSocial').AsString;
-      FfrmCadEmpresa.ednome_fantasia.Text := memD_Empresas.FieldByName('nomeFantasia').AsString;
-      FfrmCadEmpresa.cbregime_tributario.ItemIndex := FfrmCadEmpresa.cbregime_tributario.Items.IndexOf(memD_Empresas.FieldByName('regimeTributario').AsString);
-      FfrmCadEmpresa.edcrt.Text := memD_Empresas.FieldByName('crt').AsString;
-      FfrmCadEmpresa.edtelefone.Text := memD_Empresas.FieldByName('telefone').AsString;
-      FfrmCadEmpresa.edcelular.Text := memD_Empresas.FieldByName('celular').AsString;
-      FfrmCadEmpresa.edemail.Text := memD_Empresas.FieldByName('email').AsString;
-      FfrmCadEmpresa.edsite.Text := memD_Empresas.FieldByName('site').AsString;
+      FfrmCadEmpresa.edid_empresa.Text := ZQRegistro.FieldByName('idEmpresa').AsString;
+      FfrmCadEmpresa.edcnpj.Text := ZQRegistro.FieldByName('cnpj').AsString;
+      FfrmCadEmpresa.edinscricao_estadual.Text := ZQRegistro.FieldByName('inscricaoEstadual').AsString;
+      FfrmCadEmpresa.edinscricao_municipal.Text := ZQRegistro.FieldByName('inscricaoMunicipal').AsString;
+      FfrmCadEmpresa.cbativo.ItemIndex := ZQRegistro.FieldByName('ativo').AsInteger;
+      FfrmCadEmpresa.edrazao_social.Text := ZQRegistro.FieldByName('razaoSocial').AsString;
+      FfrmCadEmpresa.ednome_fantasia.Text := ZQRegistro.FieldByName('nomeFantasia').AsString;
+      FfrmCadEmpresa.cbregime_tributario.ItemIndex := FfrmCadEmpresa.cbregime_tributario.Items.IndexOf(ZQRegistro.FieldByName('regimeTributario').AsString);
+      FfrmCadEmpresa.edcrt.Text := ZQRegistro.FieldByName('crt').AsString;
+      FfrmCadEmpresa.edtelefone.Text := ZQRegistro.FieldByName('telefone').AsString;
+      FfrmCadEmpresa.edcelular.Text := ZQRegistro.FieldByName('celular').AsString;
+      FfrmCadEmpresa.edemail.Text := ZQRegistro.FieldByName('email').AsString;
+      FfrmCadEmpresa.edsite.Text := ZQRegistro.FieldByName('site').AsString;
 
-      if not memD_Empresas.IsEmpty then
+      if not ZQRegistro.IsEmpty then
       begin
+
         FfrmCadEmpresa.Create_DataSet;
 
         //Endereço...
         FfrmCadEmpresa.memD_Endereco.DisableControls;
-        memD_Endereco.Filter := 'idEmpresa = ' + memD_Empresas.FieldByName('idEmpresa').AsString;
+
+        memD_Endereco.Filter := 'idEmpresa = ' + ZQRegistro.FieldByName('idEmpresa').AsString;
         memD_Endereco.Filtered := True;
         memD_Endereco.First;
 	while not memD_Endereco.EOF do
@@ -516,7 +369,7 @@ begin
 
         //Contas bancárias...
         FfrmCadEmpresa.memD_CBanco.DisableControls;
-        memD_CBanco.Filter := 'idEmpresa = ' + memD_Empresas.FieldByName('idEmpresa').AsString;
+        memD_CBanco.Filter := 'idEmpresa = ' + ZQRegistro.FieldByName('idEmpresa').AsString;
         memD_CBanco.Filtered := True;
         memD_CBanco.First;
         while not memD_CBanco.EOF do
@@ -547,7 +400,7 @@ begin
 
       //Informações atualizadas pelos registros da tela de cadastro...
       Pesquisar;
-
+      }
     except
       on E :Exception do
       begin
@@ -556,8 +409,8 @@ begin
       end;
     end;
   finally
-    memD_Endereco.Filtered := False;
-    memD_CBanco.Filtered := False;
+    //memD_Endereco.Filtered := False;
+    //memD_CBanco.Filtered := False;
   end;
 end;
 
@@ -648,5 +501,83 @@ begin
                     APrismDBGrid.DataSource.DataSet.FieldByName('razaoSocial').AsString);
   end;
 end;
+
+procedure TfrmEmpresa.AjustarColunas(DBGrid: TDBGrid);
+var
+  i: Integer;
+begin
+  for i := 0 to DBGrid.Columns.Count - 1 do
+  begin
+    if DBGrid.Columns[i].FieldName = 'idEmpresa' then
+      Conf_Coluna_DBGrid(DBGrid,'Id',65,I)
+    else if DBGrid.Columns[i].FieldName = 'razaoSocial' then
+      Conf_Coluna_DBGrid(DBGrid,'Razão Social',300,I);
+
+
+    (*
+    // Exemplo: alterar o caption com base no FieldName
+    if DBGrid.Columns[i].FieldName = 'idEmpresa' then
+    begin
+      DBGrid.Columns[i].Title.Caption := 'Id';
+      DBGrid.Columns[i].Width := 65;
+    end
+    else if DBGrid.Columns[i].FieldName = 'razaoSocial' then
+    begin
+      DBGrid.Columns[i].Title.Caption := 'Razão Social';
+      DBGrid.Columns[i].Width := 300;
+    end
+    else if DBGrid.Columns[i].FieldName = 'nomeFantasia' then
+    begin
+      DBGrid.Columns[i].Title.Caption := 'Nome Fantasia';
+      DBGrid.Columns[i].Width := 250;
+    end
+    else if DBGrid.Columns[i].FieldName = 'cnpj' then
+    begin
+      DBGrid.Columns[i].Title.Caption := 'CNPJ/CPF';
+      DBGrid.Columns[i].Width := 200;
+    end
+    else if DBGrid.Columns[i].FieldName = 'inscricaoEstadual' then
+    begin
+      DBGrid.Columns[i].Title.Caption := 'Insc. Estadual';
+      DBGrid.Columns[i].Width := 200;
+    end
+    else if DBGrid.Columns[i].FieldName = 'inscricaoMunicipal' then
+    begin
+      DBGrid.Columns[i].Title.Caption := 'Insc. Municipal';
+      DBGrid.Columns[i].Width := 200;
+    end
+    else if DBGrid.Columns[i].FieldName = 'regimeTributario' then
+    begin
+      DBGrid.Columns[i].Title.Caption := 'Regime Tributário';
+      DBGrid.Columns[i].Width := 200;
+    end
+    else if DBGrid.Columns[i].FieldName = 'crt' then
+    begin
+      DBGrid.Columns[i].Title.Caption := 'Cód. CRT';
+      DBGrid.Columns[i].Width := 65;
+    end
+    else if DBGrid.Columns[i].FieldName = 'email' then
+    begin
+      DBGrid.Columns[i].Title.Caption := 'E-Mail';
+      DBGrid.Columns[i].Width := 200;
+    end;
+
+  end;
+  {
+  "": "4",
+  "": "mjtamanhoni@gmail.com",
+  "telefone": "",
+  "site": "",
+  "dataCadastro": "2026-02-20T13:26:41.308Z",
+  "ativo": 1,
+  "celular": "27988337323",
+  "crtDesc": "Microempreendedor Individual (MEI)"
+
+
+  }
+
+
+end;
+
 
 end.

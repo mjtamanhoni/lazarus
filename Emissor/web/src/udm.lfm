@@ -16,7 +16,7 @@ object DM: TDM
     DisableSavepoints = False
     HostName = 'localhost'
     Port = 5432
-    Database = 'emissor'
+    Database = 'emissorWeb'
     User = 'postgres'
     Password = 'Cs@#1519'
     Protocol = 'postgresql'

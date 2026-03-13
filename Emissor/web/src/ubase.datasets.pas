@@ -8,6 +8,11 @@ uses
   Classes, SysUtils, DB, BufDataset,DBGrids;
 
 procedure ConfigColGridAut(const Grid: TDBGrid; const Dataset: TDataSet);
+procedure Conf_Coluna_DBGrid(
+  const aDBGrid: TDBGrid;
+  const aCaption: String;
+  const AWidth: Integer;
+  const aPos :INteger);
 
 type
 
@@ -32,6 +37,29 @@ type
   end;
 
 implementation
+
+procedure Conf_Coluna_DBGrid(
+  const aDBGrid: TDBGrid;
+  const aCaption: String;
+  const aWidth: Integer;
+  const aPos :INteger);
+begin
+  try
+    try
+       aDBGrid.Columns[aPos].Title.Caption := aCaption;
+       aDBGrid.Columns[aPos].Width := aWidth;
+       aDBGrid.Columns[aPos].Title.Alignment := taCenter;
+    except
+      On E:Exception do
+      begin
+        raise Exception.Create(E.Message);
+      end;
+    end;
+  finally
+
+  end;
+end;
+
 
 procedure ConfigColGridAut(const Grid: TDBGrid; const Dataset: TDataSet);
 var

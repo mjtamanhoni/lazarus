@@ -153,5 +153,106 @@
         "message" : "Access violation"
       }
     ]
+  },
+  {
+    "date" : "2026-03-13",
+    "company_name" : "MJT Systems",
+    "description" : "Servidor Horse para emissão de Documentos Fiscais",
+    "copyright" : "Marcos Tamanhoni",
+    "product_name" : "HorseFiscal",
+    "version" : "1.0.0.6",
+    "usuario_pc" : "Marcos Tamanhoni",
+    "logs" : [
+      {
+        "time" : "09:52:20",
+        "form_name" : "DM",
+        "caption_name" : "Banco de Dados",
+        "unit" : "ConectarBanco",
+        "exception_class" : "EZSQLException",
+        "exception_description" : "Erro de Banco de Dados: Falha em operação de dataset, campo não encontrado ou erro SQL.",
+        "message" : "SQL Error: FATAL:  banco de dados \"emissorweb\" não existe\n \r\nCode: 7 Message: Connect to \"emissorweb\" as user \"postgres\""
+      },
+      {
+        "time" : "09:52:20",
+        "form_name" : "DM",
+        "caption_name" : "Banco de Dados",
+        "unit" : "ConectarBanco",
+        "exception_class" : "EZSQLException",
+        "exception_description" : "Erro de Banco de Dados: Falha em operação de dataset, campo não encontrado ou erro SQL.",
+        "message" : "SQL Error: FATAL:  banco de dados \"emissorweb\" não existe\n \r\nCode: 7 Message: Connect to \"emissorweb\" as user \"postgres\""
+      },
+      {
+        "time" : "09:52:20",
+        "form_name" : "DM_1",
+        "caption_name" : "Banco de Dados",
+        "unit" : "ConectarBanco",
+        "exception_class" : "EZSQLException",
+        "exception_description" : "Erro de Banco de Dados: Falha em operação de dataset, campo não encontrado ou erro SQL.",
+        "message" : "SQL Error: FATAL:  banco de dados \"emissorweb\" não existe\n \r\nCode: 7 Message: Connect to \"emissorweb\" as user \"postgres\""
+      },
+      {
+        "time" : "09:52:20",
+        "form_name" : "DM_1",
+        "caption_name" : "Banco de Dados",
+        "unit" : "ConectarBanco",
+        "exception_class" : "EZSQLException",
+        "exception_description" : "Erro de Banco de Dados: Falha em operação de dataset, campo não encontrado ou erro SQL.",
+        "message" : "SQL Error: FATAL:  banco de dados \"emissorweb\" não existe\n \r\nCode: 7 Message: Connect to \"emissorweb\" as user \"postgres\""
+      },
+      {
+        "time" : "09:52:20",
+        "form_name" : "frmEmpresa",
+        "caption_name" : "Empresas",
+        "unit" : "Pesquisar",
+        "exception_class" : "Exception",
+        "exception_description" : "Exceção Genérica: Erro não classificado especificamente pelo mapeador de log.",
+        "message" : "SQL Error: FATAL:  banco de dados \"emissorweb\" não existe\n \r\nCode: 7 Message: Connect to \"emissorweb\" as user \"postgres\""
+      },
+      {
+        "time" : "11:26:57",
+        "form_name" : "frmEmpresa",
+        "caption_name" : "Empresas",
+        "unit" : "Pesquisar",
+        "exception_class" : "EAccessViolation",
+        "exception_description" : "Violação de Acesso: O sistema tentou ler ou gravar em uma memória inválida (Objeto NIL ou já liberado).",
+        "message" : "Access violation"
+      },
+      {
+        "time" : "11:33:21",
+        "form_name" : "frmEmpresa",
+        "caption_name" : "Empresas",
+        "unit" : "Pesquisar",
+        "exception_class" : "Exception",
+        "exception_description" : "Exceção Genérica: Erro não classificado especificamente pelo mapeador de log.",
+        "message" : "SQL Error: ERRO:  não é possível inserir múltiplos comandos no comando preparado\nERRO 42601\r\nnão é possível inserir múltiplos comandos no comando preparado \r\nCode: 7 SQL: SELECT \r\n  e.*\r\n  ,case e.crt \r\n    when '1' then 'Simples Nacional'\r\n    when '2' then 'Simples Nacional - excesso de sublimite de receita bruta'\r\n    when '3' then 'Regime Normal (Lucro Presumido ou Real)'\r\n    when '4' then 'Microempreendedor Individual (MEI)'\r\n  end crt_desc\r\n  ,case e.ativo \r\n    when 0 then 'Inativo'\r\n    when 1 then 'Ativo'\r\n  end ativo_desc\r\nFROM public.empresa e\r\nwhere 1=1;\r\nSELECT \r\n  e.* \r\n  ,case e.crt \r\n    when '1' then 'Simples Nacional' \r\n    when '2' then 'Simples Nacional - excesso de sublimite de receita bruta' \r\n    when '3' then 'Regime Normal (Lucro Presumido ou Real)' \r\n    when '4' then 'Microempreendedor Individual (MEI)' \r\n  end crt_desc \r\n  ,case e.ativo \r\n    when 0 then 'Inativo' \r\n    when 1 then 'Ativo' \r\n  end ativo_desc \r\nFROM public.empresa e \r\nwhere 1=1 \r\n"
+      },
+      {
+        "time" : "17:21:47",
+        "form_name" : "frmEmpresa",
+        "caption_name" : "Empresas",
+        "unit" : "Pesquisar",
+        "exception_class" : "EZDatabaseError",
+        "exception_description" : "Erro de Banco de Dados: Falha em operação de dataset, campo não encontrado ou erro SQL.",
+        "message" : "SQL Query is empty"
+      },
+      {
+        "time" : "17:23:27",
+        "form_name" : "frmEmpresa",
+        "caption_name" : "Empresas",
+        "unit" : "Pesquisar",
+        "exception_class" : "EZDatabaseError",
+        "exception_description" : "Erro de Banco de Dados: Falha em operação de dataset, campo não encontrado ou erro SQL.",
+        "message" : "SQL Query is empty"
+      },
+      {
+        "time" : "17:25:31",
+        "form_name" : "frmEmpresa",
+        "caption_name" : "Empresas",
+        "unit" : "Pesquisar",
+        "exception_class" : "EZDatabaseError",
+        "exception_description" : "Erro de Banco de Dados: Falha em operação de dataset, campo não encontrado ou erro SQL.",
+        "message" : "SQL Query is empty"
+      }
+    ]
   }
 ]
