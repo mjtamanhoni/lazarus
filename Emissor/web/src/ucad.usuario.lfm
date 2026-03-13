@@ -371,6 +371,7 @@ object frmCad_Usuario: TfrmCad_Usuario
             Align = alClient
             Color = clWindow
             Columns = <>
+            DataSource = dsRegistro
             TabOrder = 0
           end
         end

@@ -44,5 +44,114 @@
         "message" : "Documento inválido"
       }
     ]
+  },
+  {
+    "date" : "2026-03-04",
+    "company_name" : "MJT Systems",
+    "description" : "Servidor Horse para emissão de Documentos Fiscais",
+    "copyright" : "Marcos Tamanhoni",
+    "product_name" : "HorseFiscal",
+    "version" : "1.0.0.6",
+    "usuario_pc" : "Marcos Tamanhoni",
+    "logs" : [
+      {
+        "time" : "06:41:22",
+        "form_name" : "frmCad_Usuario_1",
+        "caption_name" : "Cadastro de Usuário",
+        "unit" : "Adiciona_Permissoes",
+        "exception_class" : "EDatabaseError",
+        "message" : "Operation cannot be performed on an inactive dataset"
+      },
+      {
+        "time" : "06:42:53",
+        "form_name" : "frmCad_Usuario_1",
+        "caption_name" : "Cadastro de Usuário",
+        "unit" : "Adiciona_Permissoes",
+        "exception_class" : "EDatabaseError",
+        "message" : "memPermissoes : Field not found : \"acao\""
+      },
+      {
+        "time" : "06:48:49",
+        "form_name" : "frmCad_Usuario_1",
+        "caption_name" : "Cadastro de Usuário",
+        "unit" : "Adiciona_Permissoes",
+        "exception_class" : "EDatabaseError",
+        "message" : "memPermissoes : Field not found : \"acao\""
+      },
+      {
+        "time" : "06:58:09",
+        "form_name" : "frmCad_Usuario_1",
+        "caption_name" : "Cadastro de Usuário",
+        "unit" : "Adiciona_Permissoes",
+        "exception_class" : "EObjectCheck",
+        "message" : "Object reference is Nil"
+      },
+      {
+        "time" : "07:16:13",
+        "form_name" : "frmCad_Usuario_1",
+        "caption_name" : "Cadastro de Usuário",
+        "unit" : "Adiciona_Permissoes",
+        "exception_class" : "EDatabaseError",
+        "message" : "ZMemTable : Field not found : \"acao\""
+      },
+      {
+        "time" : "08:27:41",
+        "form_name" : "Form_Login",
+        "caption_name" : "Form Login",
+        "unit" : "Confere_Doc_Existe",
+        "exception_class" : "Exception",
+        "exception_description" : "Exceção Genérica: Erro não classificado especificamente pelo mapeador de log.",
+        "message" : "Documento inválido"
+      }
+    ]
+  },
+  {
+    "date" : "2026-03-05",
+    "company_name" : "MJT Systems",
+    "description" : "Servidor Horse para emissão de Documentos Fiscais",
+    "copyright" : "Marcos Tamanhoni",
+    "product_name" : "HorseFiscal",
+    "version" : "1.0.0.6",
+    "usuario_pc" : "Marcos Tamanhoni",
+    "logs" : [
+      {
+        "time" : "09:34:32",
+        "form_name" : "Form_Login",
+        "caption_name" : "Form Login",
+        "unit" : "Confere_Doc_Existe",
+        "exception_class" : "Exception",
+        "exception_description" : "Exceção Genérica: Erro não classificado especificamente pelo mapeador de log.",
+        "message" : "Documento inválido"
+      },
+      {
+        "time" : "09:35:51",
+        "form_name" : "frmEmpresa",
+        "caption_name" : "Empresas",
+        "unit" : "OnClick_Edit",
+        "exception_class" : "EConvertError",
+        "exception_description" : "Erro de Conversão: Falha ao converter tipos de dados (ex: Texto para Número).",
+        "message" : "\"\" is an invalid integer"
+      }
+    ]
+  },
+  {
+    "date" : "2026-03-09",
+    "company_name" : "MJT Systems",
+    "description" : "Servidor Horse para emissão de Documentos Fiscais",
+    "copyright" : "Marcos Tamanhoni",
+    "product_name" : "HorseFiscal",
+    "version" : "1.0.0.6",
+    "usuario_pc" : "Marcos Tamanhoni",
+    "logs" : [
+      {
+        "time" : "07:05:54",
+        "form_name" : "frmCad_Usuario_1",
+        "caption_name" : "Cadastro de Usuário",
+        "unit" : "Adiciona_Permissoes",
+        "exception_class" : "EAccessViolation",
+        "exception_description" : "Violação de Acesso: O sistema tentou ler ou gravar em uma memória inválida (Objeto NIL ou já liberado).",
+        "message" : "Access violation"
+      }
+    ]
   }
 ]

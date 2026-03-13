@@ -14,6 +14,7 @@ object Form_Login: TForm_Login
   KeyPreview = True
   Position = poScreenCenter
   LCLVersion = '4.4.0.0'
+  OnCreate = FormCreate
   object Image_BackGround: TImage
     Left = 0
     Height = 367

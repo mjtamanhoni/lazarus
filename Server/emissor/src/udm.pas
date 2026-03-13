@@ -81,7 +81,7 @@ begin
     ZConnection.Database := Trim(FIniFile.ReadString('DataBase','Database',''));
     ZConnection.User     := Trim(FIniFile.ReadString('DataBase','User',''));
     ZConnection.Password := Trim(FIniFile.ReadString('DataBase','Password',''));
-    ZConnection.LibraryLocation:= Trim(FIniFile.ReadString('DataBase','LibraryLocation',''));
+    ZConnection.LibraryLocation := Trim(FIniFile.ReadString('DataBase','LibraryLocation',''));
     ZConnection.LoginPrompt := False;
 
     ZConnection.Connect; // tenta conectar

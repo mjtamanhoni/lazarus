@@ -442,75 +442,93 @@ procedure GravarLogJSON(const AForm, ADesc, AUnit: string; const E: Exception);
 var
   ArquivoLog: TStringList;
   NomeArquivo: string;
-  RootJSON, DataObj: TJSONObject;
-  ErrosArray: TJSONArray;
-  ErroObj: TJSONObject;
+  ArrayRaiz, ArrayLogsDia: TJSONArray;
+  ObjetoDia, ObjetoErro: TJSONObject;
   ConteudoExistente: string;
-  DataAtual: string;
+  I: Integer;
+  DataHoje: string;
+  EncontrouData: Boolean;
 begin
-  NomeArquivo := LogFile_JSon;
+  DataHoje := FormatDateTime('yyyy-mm-dd', Now);
+  NomeArquivo := LogFile_JSon; // Certifique-se que esta variável/constante global existe
+  EncontrouData := False;
 
   ArquivoLog := TStringList.Create;
   try
+    // 1. Carregar ou Criar a Raiz (Array principal)
     if FileExists(NomeArquivo) then
     begin
       ArquivoLog.LoadFromFile(NomeArquivo);
-      ConteudoExistente := Trim(ArquivoLog.Text);
-      if ConteudoExistente = '' then ConteudoExistente := '{}';
-      RootJSON := GetJSON(ConteudoExistente) as TJSONObject;
+      ConteudoExistente := ArquivoLog.Text;
+      if (ConteudoExistente = '') then ConteudoExistente := '[]';
+      ArrayRaiz := GetJSON(ConteudoExistente) as TJSONArray;
     end
     else
-      RootJSON := TJSONObject.Create;
+      ArrayRaiz := TJSONArray.Create;
 
     try
-      DataAtual := FormatDateTime('yyyy-mm-dd', Date);
-
-      DataObj := RootJSON.GetValue<TJSONObject>(DataAtual);
-      if DataObj = nil then
+      // 2. Procurar se já existe um objeto para a data de hoje
+      ObjetoDia := nil;
+      for I := 0 to ArrayRaiz.Count - 1 do
       begin
-        DataObj := TJSONObject.Create;
-        RootJSON.Add(DataAtual, DataObj);
-
-        DataObj.Add('date', DataAtual);
-        DataObj.Add('company_name', GetVersionValue('CompanyName'));
-        DataObj.Add('description', GetVersionValue('FileDescription'));
-        DataObj.Add('copyright', GetVersionValue('LegalCopyright'));
-        DataObj.Add('product_name', GetVersionValue('ProductName'));
-        DataObj.Add('version', GetVersionValue('FileVersion'));
-        DataObj.Add('usuario_pc', GetEnvironmentVariable('USERNAME'));
-
-        DataObj.Add('erros', TJSONArray.Create);
+        if ArrayRaiz.Objects[I].Strings['date'] = DataHoje then
+        begin
+          ObjetoDia := ArrayRaiz.Objects[I];
+          EncontrouData := True;
+          Break;
+        end;
       end;
 
-      ErrosArray := DataObj.GetValue<TJSONArray>('erros');
+      // 3. Se não encontrar a data, cria o cabeçalho do dia
+      if not Assigned(ObjetoDia) then
+      begin
+        ObjetoDia := TJSONObject.Create;
+        ObjetoDia.Add('date', DataHoje);
+        ObjetoDia.Add('company_name', GetVersionValue('CompanyName'));
+        ObjetoDia.Add('description', GetVersionValue('FileDescription'));
+        ObjetoDia.Add('copyright', GetVersionValue('LegalCopyright'));
+        ObjetoDia.Add('product_name', GetVersionValue('ProductName'));
+        ObjetoDia.Add('version', GetVersionValue('FileVersion'));
+        ObjetoDia.Add('usuario_pc', GetEnvironmentVariable('USERNAME'));
 
-      ErroObj := TJSONObject.Create;
-      try
-        ErroObj.Add('time', TimeToStr(Time));
-        ErroObj.Add('form_name', AForm);
-        ErroObj.Add('caption_name', ADesc);
-        ErroObj.Add('unit', AUnit);
-        ErroObj.Add('exception_class', E.ClassName);
-        ErroObj.Add('message', E.Message);
+        // Cria o array onde os erros do dia ficarão
+        ArrayLogsDia := TJSONArray.Create;
+        ObjetoDia.Add('logs', ArrayLogsDia);
 
-        ErrosArray.Add(ErroObj);
-      except
-        ErroObj.Free;
-        raise;
+        ArrayRaiz.Add(ObjetoDia);
+      end
+      else
+      begin
+        // Se já existe, pegamos o array de logs existente
+        ArrayLogsDia := ObjetoDia.Arrays['logs'];
       end;
 
-      // Salva com indentação
-      ArquivoLog.Text := RootJSON.FormatJSON();
+      // 4. Criar o objeto do erro específico
+      ObjetoErro := TJSONObject.Create;
+      ObjetoErro.Add('time', FormatDateTime('hh:nn:ss', Now));
+      ObjetoErro.Add('form_name', AForm);
+      ObjetoErro.Add('caption_name', ADesc);
+      ObjetoErro.Add('unit', AUnit);
+      ObjetoErro.Add('exception_class', E.ClassName);
+      ObjetoErro.Add('message', E.Message);
+
+      // 5. Adicionar o erro ao array do dia
+      ArrayLogsDia.Add(ObjetoErro);
+
+      // 6. Salvar no arquivo
+      ArquivoLog.Text := ArrayRaiz.FormatJSON();
       ArquivoLog.SaveToFile(NomeArquivo);
 
     finally
-      RootJSON.Free;
+      ArrayRaiz.Free;
     end;
-
   finally
     ArquivoLog.Free;
   end;
 end;
+
+
+
 
 end.
 

@@ -14,7 +14,9 @@ uses
   uCad.Empresa,
   uCad.Usuario,
   uBase.Functions,
-  uCripto_Descrito, uDM.ACBr; //Declare D2Bridge.Forms always in the last unit
+  uCripto_Descrito,
+  uDM.ACBr,
+  uEstrutura.Database; //Declare D2Bridge.Forms always in the last unit
 
 type
 
@@ -40,6 +42,7 @@ type
     procedure edCNPJKeyPress(Sender: TObject; var Key: char);
     procedure Edit_PasswordKeyPress(Sender: TObject; var Key: char);
     procedure Edit_UserNameKeyPress(Sender: TObject; var Key: char);
+    procedure FormCreate(Sender: TObject);
   private
     fDM_ACBr :TDM_Acbr;
     FfrmCadEmpresa :TfrmCadEmpresa;
@@ -366,6 +369,23 @@ begin
   begin
     if Edit_Password.CanFocus then
       Edit_Password.SetFocus;
+  end;
+end;
+
+procedure TForm_Login.FormCreate(Sender: TObject);
+var
+  FCreateDatabase :TCreateDatabase;
+begin
+  try
+    FCreateDatabase := TCreateDatabase.Create('emissor_web','postgres','Cs@#1519');
+    FCreateDatabase.EnsureDatabaseExists;
+
+  except
+    On E:Exception do
+    begin
+      MessageDlg(E.Message, TMsgDlgType.mtError, [mbok], 0);
+      GravarLogJSON(Self.Name,Self.Caption,'FormCreate',E);
+    end;
   end;
 end;
 

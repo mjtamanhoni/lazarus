@@ -8,9 +8,8 @@ uses
   Classes, SysUtils, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls,
   D2Bridge.Forms, IniFiles, fpjson, DataSet.Serialize, RESTRequest4D,
   jsonparser, uDM.ACBr, uBase.Functions, uBase.DataSets, uCripto_Descrito,
-  Forms, Menus, ComCtrls, ComboEx, Grids, DBGrids, ubase.functions.objetos, DB,
-  BufDataset,
-  uPermissoes.Lista;
+  Forms, Menus, ComCtrls, ComboEx, Grids, DBGrids, ZDataset,
+  ubase.functions.objetos, DB, BufDataset, memds, uPermissoes.Lista;
 
 type
 
@@ -182,7 +181,7 @@ begin
       FIniFile := TIniFile.Create(ConfigFile);
       FHost := FIniFile.ReadString('SERVER','HOST','') + ':' + FIniFile.ReadString('SERVER','PORT','');
 
-      memD_Permissoes := TBufDataset.Create(Self);
+      //Create_DataSet;
 
       if Trim(FHost) = '' then
         raise Exception.Create('Host de acesso ao servidor não informado.');
@@ -205,6 +204,7 @@ end;
 
 procedure TfrmCad_Usuario.FormShow(Sender: TObject);
 begin
+  //Create_DataSet;
   Adiciona_Permissoes;
 end;
 
@@ -321,6 +321,9 @@ begin
   try
     try
       //Criando bufdataset - Empresa
+      if not Assigned(memD_Permissoes) then
+        memD_Permissoes := TBufDataset.Create(Nil);
+
       FUsuario.Criar_DataSet_Permissoes(memD_Permissoes);
       dsRegistro.DataSet := memD_Permissoes;
       DBGrid_Permissoes.DataSource := dsRegistro;
@@ -343,21 +346,19 @@ procedure TfrmCad_Usuario.Adiciona_Permissoes;
 var
   I :Integer;
   fLista :TStringList;
+  fAcao :String;
 begin
   try
     try
       fLista := Get_ListOfPermissions;
-
-      if not memD_Permissoes.Active then
+      if not Assigned(memD_Permissoes) then
         Create_DataSet;
 
       memD_Permissoes.DisableControls;
 
-
       //Adicionando dados da empresa...
       for I := 0 to Pred(fLista.Count) do
       begin
-        SaveLog(fLista.Strings[I]);
         memD_Permissoes.Append;
         memD_Permissoes.FieldByName('acao').AsString := fLista.Strings[I];
         memD_Permissoes.FieldByName('visualizar').AsInteger := 0;
@@ -388,6 +389,7 @@ begin
     end;
   finally
     memD_Permissoes.EnableControls;
+    memD_Permissoes.Open;
     FreeAndNIl(fLista);
   end;
 end;
