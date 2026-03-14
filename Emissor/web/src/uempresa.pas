@@ -194,6 +194,7 @@ begin
       FJSon_Empresa := TJSONArray(GetJSON(FBody['data'].AsJSON));
       //ZQuery1.Close;
       ZMT_Registro.LoadFromJSON(FJSon_Empresa);
+      AjustarColunas(DBGrid_Empresa);
 
       //Gravando informação...
       //FDM_Empresa.Empresa_PostPut(FBody);
@@ -422,6 +423,13 @@ begin
       with PrismControl.AsDBGrid do
       begin
         PrismControl.AsDBGrid.RecordsPerPage := 10;
+        with Columns.ColumnByDataField('ATIVO') do
+        begin
+	  //HTML := '<span class="badge ${value === 1 ? ''bg-success'' : ''bg-danger''} rounded-pill p-2" style="width: 5em;">${value}</span>';
+	  //HTML := '<span class="badge ${value === 1 ? ''fa-solid fa-diagram-successor text-success fa-2x'' : ''bg-danger''} rounded-pill p-2" style="width: 7em;">${value}</span>';
+	  HTML := '<span class="badge ${value === 1 ? ''fa-solid fa-circle-check text-success fa-1x'' : ''fa-sharp fa-solid fa-circle-xmark text-danger fa-1x''} rounded-pill p-2" style="width: 7em;">${value}</span>';
+        end;
+
         with Columns.Add do
         begin
           ColumnIndex := 0;
@@ -506,77 +514,45 @@ procedure TfrmEmpresa.AjustarColunas(DBGrid: TDBGrid);
 var
   i: Integer;
 begin
-  for i := 0 to DBGrid.Columns.Count - 1 do
-  begin
-    if DBGrid.Columns[i].FieldName = 'idEmpresa' then
-      Conf_Coluna_DBGrid(DBGrid,'Id',65,I)
-    else if DBGrid.Columns[i].FieldName = 'razaoSocial' then
-      Conf_Coluna_DBGrid(DBGrid,'Razão Social',300,I);
-
-
-    (*
-    // Exemplo: alterar o caption com base no FieldName
-    if DBGrid.Columns[i].FieldName = 'idEmpresa' then
+  try
+    for i := 0 to DBGrid.Columns.Count - 1 do
     begin
-      DBGrid.Columns[i].Title.Caption := 'Id';
-      DBGrid.Columns[i].Width := 65;
-    end
-    else if DBGrid.Columns[i].FieldName = 'razaoSocial' then
-    begin
-      DBGrid.Columns[i].Title.Caption := 'Razão Social';
-      DBGrid.Columns[i].Width := 300;
-    end
-    else if DBGrid.Columns[i].FieldName = 'nomeFantasia' then
-    begin
-      DBGrid.Columns[i].Title.Caption := 'Nome Fantasia';
-      DBGrid.Columns[i].Width := 250;
-    end
-    else if DBGrid.Columns[i].FieldName = 'cnpj' then
-    begin
-      DBGrid.Columns[i].Title.Caption := 'CNPJ/CPF';
-      DBGrid.Columns[i].Width := 200;
-    end
-    else if DBGrid.Columns[i].FieldName = 'inscricaoEstadual' then
-    begin
-      DBGrid.Columns[i].Title.Caption := 'Insc. Estadual';
-      DBGrid.Columns[i].Width := 200;
-    end
-    else if DBGrid.Columns[i].FieldName = 'inscricaoMunicipal' then
-    begin
-      DBGrid.Columns[i].Title.Caption := 'Insc. Municipal';
-      DBGrid.Columns[i].Width := 200;
-    end
-    else if DBGrid.Columns[i].FieldName = 'regimeTributario' then
-    begin
-      DBGrid.Columns[i].Title.Caption := 'Regime Tributário';
-      DBGrid.Columns[i].Width := 200;
-    end
-    else if DBGrid.Columns[i].FieldName = 'crt' then
-    begin
-      DBGrid.Columns[i].Title.Caption := 'Cód. CRT';
-      DBGrid.Columns[i].Width := 65;
-    end
-    else if DBGrid.Columns[i].FieldName = 'email' then
-    begin
-      DBGrid.Columns[i].Title.Caption := 'E-Mail';
-      DBGrid.Columns[i].Width := 200;
+      //SaveLog(DBGrid.Columns[i].FieldName);
+      if DBGrid.Columns[i].FieldName = 'ID_EMPRESA' then
+        Conf_Coluna_DBGrid(DBGrid,'Id',65,I)
+      else if DBGrid.Columns[i].FieldName = 'RAZAO_SOCIAL' then
+        Conf_Coluna_DBGrid(DBGrid,'Razão Social',300,I)
+      else if DBGrid.Columns[i].FieldName = 'NOME_FANTASIA' then
+        Conf_Coluna_DBGrid(DBGrid,'Nome Fantasia',300,I)
+      else if DBGrid.Columns[i].FieldName = 'CNPJ' then
+        Conf_Coluna_DBGrid(DBGrid,'CNPJ / CPF',200,I)
+      else if DBGrid.Columns[i].FieldName = 'INSCRICAO_ESTADUAL' then
+        Conf_Coluna_DBGrid(DBGrid,'Insnc. Estadual',150,I)
+      else if DBGrid.Columns[i].FieldName = 'INSCRICAO_MUNICIPAL' then
+        Conf_Coluna_DBGrid(DBGrid,'Insnc. Municipal',150,I)
+      else if DBGrid.Columns[i].FieldName = 'REGIME_TRIBUTARIO' then
+        Conf_Coluna_DBGrid(DBGrid,'Regime Tributário',200,I)
+      else if DBGrid.Columns[i].FieldName = 'CRT' then
+        Conf_Coluna_DBGrid(DBGrid,'Cod. CRT',100,I)
+      else if DBGrid.Columns[i].FieldName = 'EMAIL' then
+        Conf_Coluna_DBGrid(DBGrid,'E-Mail',300,I)
+      else if DBGrid.Columns[i].FieldName = 'TELEFONE' then
+        Conf_Coluna_DBGrid(DBGrid,'Telefone',150,I)
+      else if DBGrid.Columns[i].FieldName = 'SITE' then
+        Conf_Coluna_DBGrid(DBGrid,'Site',300,I)
+      else if DBGrid.Columns[i].FieldName = 'DATA_CADASTRO' then
+        Conf_Coluna_DBGrid(DBGrid,'Cadastro',150,I)
+      else if DBGrid.Columns[i].FieldName = 'ATIVO' then
+        Conf_Coluna_DBGrid(DBGrid,'Ativo',65,I)
+      else if DBGrid.Columns[i].FieldName = 'CELULAR' then
+        Conf_Coluna_DBGrid(DBGrid,'Celular',150,I)
+      else if DBGrid.Columns[i].FieldName = 'CRT_DESC' then
+        Conf_Coluna_DBGrid(DBGrid,'Descrição CRT',200,I);
     end;
-
+  except
+    On E:Exception do
+      raise Exception.Create(E.Message);
   end;
-  {
-  "": "4",
-  "": "mjtamanhoni@gmail.com",
-  "telefone": "",
-  "site": "",
-  "dataCadastro": "2026-02-20T13:26:41.308Z",
-  "ativo": 1,
-  "celular": "27988337323",
-  "crtDesc": "Microempreendedor Individual (MEI)"
-
-
-  }
-
-
 end;
 
 

@@ -49,10 +49,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="uDM"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="5"/>
-        <TopLine Value="109"/>
-        <CursorPos X="34" Y="127"/>
+        <TopLine Value="98"/>
+        <CursorPos X="39" Y="126"/>
         <UsageCount Value="204"/>
         <Bookmarks Count="1">
           <Item0 X="32" Y="84" Left="1" Top="58" ID="1"/>
@@ -74,9 +73,10 @@
         <Filename Value="uempresa.service.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uEmpresa.Service"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="4"/>
-        <TopLine Value="695"/>
-        <CursorPos X="45" Y="720"/>
+        <TopLine Value="83"/>
+        <CursorPos X="3" Y="95"/>
         <UsageCount Value="300"/>
         <Bookmarks Count="1">
           <Item0 X="30" Y="422" Left="1" Top="395" ID="2"/>
@@ -87,19 +87,11 @@
         <Filename Value="..\..\..\Global\ubase.functions.objetos.pas"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="6"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
     </Units>
     <JumpHistory HistoryIndex="29">
-      <Position>
-        <Filename Value="ubase.router.pas"/>
-        <Caret Line="81" Column="70" TopLine="52"/>
-      </Position>
-      <Position>
-        <Filename Value="uusuario.service.pas"/>
-        <Caret Line="409" Column="49" TopLine="377"/>
-      </Position>
       <Position>
         <Filename Value="uusuario.service.pas"/>
         <Caret Line="51" Column="20" TopLine="36"/>
@@ -211,6 +203,14 @@
       <Position>
         <Filename Value="udm.pas"/>
         <Caret Line="25" Column="15" TopLine="6"/>
+      </Position>
+      <Position>
+        <Filename Value="uempresa.service.pas"/>
+        <Caret Line="634" Column="41" TopLine="620"/>
+      </Position>
+      <Position>
+        <Filename Value="uempresa.service.pas"/>
+        <Caret Line="46" Column="16" TopLine="36"/>
       </Position>
     </JumpHistory>
     <RunParams>

@@ -5,14 +5,15 @@ unit uBase.DataSets;
 interface
 
 uses
-  Classes, SysUtils, DB, BufDataset,DBGrids;
+  Classes, SysUtils, DB, BufDataset,DBGrids, uBase.Functions;
 
 procedure ConfigColGridAut(const Grid: TDBGrid; const Dataset: TDataSet);
 procedure Conf_Coluna_DBGrid(
   const aDBGrid: TDBGrid;
   const aCaption: String;
-  const AWidth: Integer;
-  const aPos :INteger);
+  const aWidth: Integer;
+  const aPos :INteger;
+  const aAlignment:Integer=0);
 
 type
 
@@ -42,24 +43,25 @@ procedure Conf_Coluna_DBGrid(
   const aDBGrid: TDBGrid;
   const aCaption: String;
   const aWidth: Integer;
-  const aPos :INteger);
+  const aPos :INteger;
+  const aAlignment:Integer=0);
 begin
   try
-    try
-       aDBGrid.Columns[aPos].Title.Caption := aCaption;
-       aDBGrid.Columns[aPos].Width := aWidth;
-       aDBGrid.Columns[aPos].Title.Alignment := taCenter;
-    except
-      On E:Exception do
-      begin
-        raise Exception.Create(E.Message);
-      end;
-    end;
-  finally
+    aDBGrid.Columns[aPos].Title.Caption := aCaption;
+    aDBGrid.Columns[aPos].Width := aWidth;
+    aDBGrid.Columns[aPos].Title.Alignment := taCenter;
 
+    case aAlignment of
+      0:aDBGrid.Columns[aPos].Alignment := taLeftJustify;
+      1:aDBGrid.Columns[aPos].Alignment := taCenter;
+      2:aDBGrid.Columns[aPos].Alignment := taRightJustify;
+    end;
+
+  except
+    On E:Exception do
+      raise Exception.Create(E.Message);
   end;
 end;
-
 
 procedure ConfigColGridAut(const Grid: TDBGrid; const Dataset: TDataSet);
 var

@@ -254,5 +254,34 @@
         "message" : "SQL Query is empty"
       }
     ]
+  },
+  {
+    "date" : "2026-03-14",
+    "company_name" : "MJT Systems",
+    "description" : "Servidor Horse para emissão de Documentos Fiscais",
+    "copyright" : "Marcos Tamanhoni",
+    "product_name" : "HorseFiscal",
+    "version" : "1.0.0.6",
+    "usuario_pc" : "Marcos Tamanhoni",
+    "logs" : [
+      {
+        "time" : "11:56:59",
+        "form_name" : "Form_Login",
+        "caption_name" : "Form Login",
+        "unit" : "Confere_Doc_Existe",
+        "exception_class" : "ESocketError",
+        "exception_description" : "Exceção Genérica: Erro não classificado especificamente pelo mapeador de log.",
+        "message" : "Connection to localhost:9095 timed out."
+      },
+      {
+        "time" : "12:06:35",
+        "form_name" : "Form_Login",
+        "caption_name" : "Form Login",
+        "unit" : "Button_LoginClick",
+        "exception_class" : "Exception",
+        "exception_description" : "Exceção Genérica: Erro não classificado especificamente pelo mapeador de log.",
+        "message" : "Senha não confere."
+      }
+    ]
   }
 ]

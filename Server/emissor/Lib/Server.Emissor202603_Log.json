@@ -1,0 +1,22 @@
+[
+  {
+    "date" : "2026-03-14",
+    "company_name" : "MJT Systems",
+    "description" : "Servidor Horse para emitir Documentos Fiscais",
+    "copyright" : "Marcos Tamanhoni",
+    "product_name" : "HorserFiscal",
+    "version" : "1.0.0.1",
+    "usuario_pc" : "Marcos Tamanhoni",
+    "logs" : [
+      {
+        "time" : "12:06:34",
+        "form_name" : "Usuario.Service",
+        "caption_name" : "Login",
+        "unit" : "Login",
+        "exception_class" : "Exception",
+        "exception_description" : "Exceção Genérica: Erro não classificado especificamente pelo mapeador de log.",
+        "message" : "Senha não confere."
+      }
+    ]
+  }
+]
