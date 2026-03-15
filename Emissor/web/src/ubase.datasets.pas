@@ -13,7 +13,9 @@ procedure Conf_Coluna_DBGrid(
   const aCaption: String;
   const aWidth: Integer;
   const aPos :INteger;
-  const aAlignment:Integer=0);
+  const aAlignment :Integer=0;
+  const aVisible :Boolean=True;
+  const aIndex :Integer=-1);
 
 type
 
@@ -44,12 +46,22 @@ procedure Conf_Coluna_DBGrid(
   const aCaption: String;
   const aWidth: Integer;
   const aPos :INteger;
-  const aAlignment:Integer=0);
+  const aAlignment:Integer=0;
+  const aVisible :Boolean=True;
+  const aIndex :Integer=-1);
+//var
+//  fCol :TColumn;
 begin
   try
     aDBGrid.Columns[aPos].Title.Caption := aCaption;
     aDBGrid.Columns[aPos].Width := aWidth;
     aDBGrid.Columns[aPos].Title.Alignment := taCenter;
+    aDBGrid.Columns[aPos].Visible := aVisible;
+    if aIndex >= 0 then
+      aDBGrid.Columns[aPos].Index := aIndex;
+
+    //fCol := aDBGrid.Columns[aPos];
+    //fCol.Layout := ;
 
     case aAlignment of
       0:aDBGrid.Columns[aPos].Alignment := taLeftJustify;

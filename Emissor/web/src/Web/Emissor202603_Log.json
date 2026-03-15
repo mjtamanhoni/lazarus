@@ -283,5 +283,43 @@
         "message" : "Senha não confere."
       }
     ]
+  },
+  {
+    "date" : "2026-03-15",
+    "company_name" : "MJT Systems",
+    "description" : "Servidor Horse para emissão de Documentos Fiscais",
+    "copyright" : "Marcos Tamanhoni",
+    "product_name" : "HorseFiscal",
+    "version" : "1.0.0.6",
+    "usuario_pc" : "Marcos Tamanhoni",
+    "logs" : [
+      {
+        "time" : "07:04:26",
+        "form_name" : "frmEmpresa",
+        "caption_name" : "Empresas",
+        "unit" : "Pesquisar",
+        "exception_class" : "Exception",
+        "exception_description" : "Exceção Genérica: Erro não classificado especificamente pelo mapeador de log.",
+        "message" : "SQL Error: ERRO:  erro de sintaxe em ou próximo a \",\"\nLINE 1: ...hen '4' then 'Microempreendedor Individual (MEI)' ,case e.at...\n                                                             ^\nERRO 42601\r\nerro de sintaxe em ou próximo a \",\"\r\nposition: 242 \r\nCode: 7 SQL: select e.* ,cast(case e.crt when '1' then 'Simples Nacional' when '2' then 'Simples Nacional - excesso de sublimite de receita bruta' when '3' then 'Regime Normal (Lucro Presumido ou Real)' when '4' then 'Microempreendedor Individual (MEI)' ,case e.ativo when 0 then 'Inativo' when 1 then 'Ativo' end ativo_desc end as varchar(255)) as crt_desc from public.empresa e where 1=1 and e.ativo = $1 order by e.id_empresa;"
+      },
+      {
+        "time" : "07:12:05",
+        "form_name" : "frmEmpresa",
+        "caption_name" : "Empresas",
+        "unit" : "Pesquisar",
+        "exception_class" : "Exception",
+        "exception_description" : "Exceção Genérica: Erro não classificado especificamente pelo mapeador de log.",
+        "message" : "SQL Error: ERRO:  erro de sintaxe em ou próximo a \",\"\nLINE 1: ...hen '4' then 'Microempreendedor Individual (MEI)' ,case e.at...\n                                                             ^\nERRO 42601\r\nerro de sintaxe em ou próximo a \",\"\r\nposition: 242 \r\nCode: 7 SQL: select e.* ,cast(case e.crt when '1' then 'Simples Nacional' when '2' then 'Simples Nacional - excesso de sublimite de receita bruta' when '3' then 'Regime Normal (Lucro Presumido ou Real)' when '4' then 'Microempreendedor Individual (MEI)' ,case e.ativo when 0 then 'Inativo' when 1 then 'Ativo' end ativo_desc end as varchar(255)) as crt_desc from public.empresa e where 1=1 and e.ativo = $1 order by e.id_empresa;"
+      },
+      {
+        "time" : "07:13:40",
+        "form_name" : "frmEmpresa",
+        "caption_name" : "Empresas",
+        "unit" : "Pesquisar",
+        "exception_class" : "Exception",
+        "exception_description" : "Exceção Genérica: Erro não classificado especificamente pelo mapeador de log.",
+        "message" : "SQL Error: ERRO:  erro de sintaxe em ou próximo a \",\"\nLINE 1: ...hen '4' then 'Microempreendedor Individual (MEI)' ,case e.at...\n                                                             ^\nERRO 42601\r\nerro de sintaxe em ou próximo a \",\"\r\nposition: 242 \r\nCode: 7 SQL: select e.* ,cast(case e.crt when '1' then 'Simples Nacional' when '2' then 'Simples Nacional - excesso de sublimite de receita bruta' when '3' then 'Regime Normal (Lucro Presumido ou Real)' when '4' then 'Microempreendedor Individual (MEI)' ,case e.ativo when 0 then 'Inativo' when 1 then 'Ativo' end ativo_desc end as varchar(255)) as crt_desc from public.empresa e where 1=1 and e.ativo = $1 order by e.id_empresa;"
+      }
+    ]
   }
 ]

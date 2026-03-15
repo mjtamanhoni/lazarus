@@ -140,4 +140,19 @@ inherited frmEmpresa: TfrmEmpresa
     Left = 280
     Top = 184
   end
+  object ZMT_Endereco: TZMemTable[7]
+    ControlsCodePage = cDynamic
+    Left = 280
+    Top = 240
+  end
+  object ZMT_ContaBancaria: TZMemTable[8]
+    ControlsCodePage = cDynamic
+    Left = 280
+    Top = 296
+  end
+  object ZMT_Certificado: TZMemTable[9]
+    ControlsCodePage = cDynamic
+    Left = 280
+    Top = 352
+  end
 end

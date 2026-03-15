@@ -8,8 +8,8 @@
       <Unit>
         <Filename Value="Server.Emissor.lpr"/>
         <IsPartOfProject Value="True"/>
-        <TopLine Value="83"/>
-        <CursorPos X="46" Y="105"/>
+        <TopLine Value="65"/>
+        <CursorPos X="63" Y="75"/>
         <UsageCount Value="214"/>
         <Loaded Value="True"/>
       </Unit>
@@ -75,11 +75,11 @@
         <UnitName Value="uEmpresa.Service"/>
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="4"/>
-        <TopLine Value="83"/>
-        <CursorPos X="3" Y="95"/>
+        <TopLine Value="91"/>
+        <CursorPos Y="110"/>
         <UsageCount Value="300"/>
         <Bookmarks Count="1">
-          <Item0 X="30" Y="422" Left="1" Top="395" ID="2"/>
+          <Item0 X="30" Y="426" Left="1" Top="399" ID="2"/>
         </Bookmarks>
         <Loaded Value="True"/>
       </Unit>
@@ -90,20 +90,16 @@
         <UsageCount Value="8"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
+      <Unit>
+        <Filename Value="C:\Users\Marcos Tamanhoni\AppData\Local\lazarus\onlinepackagemanager\packages\zeosdbo\src\dbc\ZDbcMySql.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="42"/>
+        <CursorPos X="58" Y="66"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit>
     </Units>
     <JumpHistory HistoryIndex="29">
-      <Position>
-        <Filename Value="uusuario.service.pas"/>
-        <Caret Line="51" Column="20" TopLine="36"/>
-      </Position>
-      <Position>
-        <Filename Value="uusuario.service.pas"/>
-        <Caret Line="300" Column="73" TopLine="268"/>
-      </Position>
-      <Position>
-        <Filename Value="uusuario.service.pas"/>
-        <Caret Line="299" Column="82" TopLine="268"/>
-      </Position>
       <Position>
         <Filename Value="udm.pas"/>
         <Caret Line="109" Column="101" TopLine="102"/>
@@ -212,6 +208,18 @@
         <Filename Value="uempresa.service.pas"/>
         <Caret Line="46" Column="16" TopLine="36"/>
       </Position>
+      <Position>
+        <Filename Value="uempresa.service.pas"/>
+        <Caret Line="97" Column="31" TopLine="91"/>
+      </Position>
+      <Position>
+        <Filename Value="Server.Emissor.lpr"/>
+        <Caret Line="116" TopLine="80"/>
+      </Position>
+      <Position>
+        <Filename Value="Server.Emissor.lpr"/>
+        <Caret Line="75" Column="63" TopLine="65"/>
+      </Position>
     </JumpHistory>
     <RunParams>
       <FormatVersion Value="2"/>
@@ -225,7 +233,7 @@
         <WatchScope Value="wpsLocal"/>
         <WatchKind Value="wpkWrite"/>
         <Source Value="uempresa.service.pas"/>
-        <Line Value="334"/>
+        <Line Value="338"/>
       </Item>
     </BreakPoints>
   </Debugging>

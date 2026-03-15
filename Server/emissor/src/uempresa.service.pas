@@ -107,6 +107,10 @@ begin
       FQuery.SQL.Add('     when ''3'' then ''Regime Normal (Lucro Presumido ou Real)'' ');
       FQuery.SQL.Add('     when ''4'' then ''Microempreendedor Individual (MEI)'' ');
       FQuery.SQL.Add('  end as varchar(255)) as crt_desc ');
+      FQuery.SQL.Add('  ,case e.ativo ');
+      FQuery.SQL.Add('    when 0 then ''Inativo'' ');
+      FQuery.SQL.Add('    when 1 then ''Ativo'' ');
+      FQuery.SQL.Add('  end ativo_desc ');
       FQuery.SQL.Add('from public.empresa e ');
       FQuery.SQL.Add('where 1=1 ');
       if AId > 0 then

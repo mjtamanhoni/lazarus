@@ -32,6 +32,9 @@ type
     pnTipoFiltro2: TPanel;
     pmPesquisar: TPopupMenu;
     ZMT_Registro: TZMemTable;
+    ZMT_Endereco: TZMemTable;
+    ZMT_ContaBancaria: TZMemTable;
+    ZMT_Certificado: TZMemTable;
     procedure btNovoClick(Sender: TObject);
     procedure edPesquisarKeyPress(Sender: TObject; var Key: char);
     procedure FormCreate(Sender: TObject);
@@ -83,7 +86,6 @@ begin
     FHost := FIniFile.ReadString('SERVER','HOST','') + ':' + FIniFile.ReadString('SERVER','PORT','');
 
     FDM := TDM.Create(Self);
-    //ZQRegistro.Connection := FDM.ZConnection;
 
     if Trim(FHost) = '' then
       raise Exception.Create('Host de acesso ao servidor não informado.');
@@ -146,13 +148,15 @@ var
   x:Integer;
 
   FId :Integer;
-  FDM_Empresa :TDM_Empresa;
 
   FJSon_Empresa :TJSONArray;
+  FJSon_Endereco :TJSONArray;
+  FJSon_ContaBancaria :TJSONArray;
+  FJSon_Certificado :TJSONArray;
+
 begin
   try
     try
-      FDM_Empresa := TDM_Empresa.Create;
 
       FTipoPesquisa := '';
       case edPesquisar.Tag of
@@ -191,15 +195,22 @@ begin
       if FBody['success'].AsBoolean = False then
         raise Exception.Create(FBody['message'].AsString);
 
+      //Empresa...
       FJSon_Empresa := TJSONArray(GetJSON(FBody['data'].AsJSON));
-      //ZQuery1.Close;
       ZMT_Registro.LoadFromJSON(FJSon_Empresa);
       AjustarColunas(DBGrid_Empresa);
 
-      //Gravando informação...
-      //FDM_Empresa.Empresa_PostPut(FBody);
-      //Listando informação...
-      //FDM_Empresa.Empresa_Get(ZQRegistro);
+      //Endereço...
+      FJSon_Endereco := TJSONArray(GetJSON(FBody['endereco'].AsJSON));
+      ZMT_Endereco.LoadFromJSON(FJSon_Endereco);
+
+      //Dados bancários...
+      FJSon_ContaBancaria := TJSONArray(GetJSON(FBody['contaBancaria'].AsJSON));
+      ZMT_ContaBancaria.LoadFromJSON(FJSon_ContaBancaria);
+
+      //Certificado Digital...
+      FJSon_Certificado := TJSONArray(GetJSON(FBody['certificadoDigital'].AsJSON));
+      ZMT_Certificado.LoadFromJSON(FJSon_Certificado);
 
     except
       on E: Exception do
@@ -209,7 +220,6 @@ begin
       end;
     end;
   finally
-    FreeAndNil(FDM_Empresa);
   end;
 end;
 
@@ -317,23 +327,23 @@ begin
   try
     try
       //Atualizando dados principais...
-      {
-      FfrmCadEmpresa.Clear_Fields;
-      FfrmCadEmpresa.edid_empresa.Text := ZQRegistro.FieldByName('idEmpresa').AsString;
-      FfrmCadEmpresa.edcnpj.Text := ZQRegistro.FieldByName('cnpj').AsString;
-      FfrmCadEmpresa.edinscricao_estadual.Text := ZQRegistro.FieldByName('inscricaoEstadual').AsString;
-      FfrmCadEmpresa.edinscricao_municipal.Text := ZQRegistro.FieldByName('inscricaoMunicipal').AsString;
-      FfrmCadEmpresa.cbativo.ItemIndex := ZQRegistro.FieldByName('ativo').AsInteger;
-      FfrmCadEmpresa.edrazao_social.Text := ZQRegistro.FieldByName('razaoSocial').AsString;
-      FfrmCadEmpresa.ednome_fantasia.Text := ZQRegistro.FieldByName('nomeFantasia').AsString;
-      FfrmCadEmpresa.cbregime_tributario.ItemIndex := FfrmCadEmpresa.cbregime_tributario.Items.IndexOf(ZQRegistro.FieldByName('regimeTributario').AsString);
-      FfrmCadEmpresa.edcrt.Text := ZQRegistro.FieldByName('crt').AsString;
-      FfrmCadEmpresa.edtelefone.Text := ZQRegistro.FieldByName('telefone').AsString;
-      FfrmCadEmpresa.edcelular.Text := ZQRegistro.FieldByName('celular').AsString;
-      FfrmCadEmpresa.edemail.Text := ZQRegistro.FieldByName('email').AsString;
-      FfrmCadEmpresa.edsite.Text := ZQRegistro.FieldByName('site').AsString;
 
-      if not ZQRegistro.IsEmpty then
+      FfrmCadEmpresa.Clear_Fields;
+      FfrmCadEmpresa.edid_empresa.Text := ZMT_Registro.FieldByName('ID_EMPRESA').AsString;
+      FfrmCadEmpresa.edcnpj.Text := ZMT_Registro.FieldByName('CNPJ').AsString;
+      FfrmCadEmpresa.edinscricao_estadual.Text := ZMT_Registro.FieldByName('INSCRICAO_ESTADUAL').AsString;
+      FfrmCadEmpresa.edinscricao_municipal.Text := ZMT_Registro.FieldByName('INSCRICAO_MUNICIPAL').AsString;
+      FfrmCadEmpresa.cbativo.ItemIndex := ZMT_Registro.FieldByName('ATIVO').AsInteger;
+      FfrmCadEmpresa.edrazao_social.Text := ZMT_Registro.FieldByName('RAZAO_SOCIAL').AsString;
+      FfrmCadEmpresa.ednome_fantasia.Text := ZMT_Registro.FieldByName('NOME_FANTASIA').AsString;
+      FfrmCadEmpresa.cbregime_tributario.ItemIndex := FfrmCadEmpresa.cbregime_tributario.Items.IndexOf(ZMT_Registro.FieldByName('REGIME_TRIBUTARIO').AsString);
+      FfrmCadEmpresa.edcrt.Text := ZMT_Registro.FieldByName('CRT').AsString;
+      FfrmCadEmpresa.edtelefone.Text := ZMT_Registro.FieldByName('TELEFONE').AsString;
+      FfrmCadEmpresa.edcelular.Text := ZMT_Registro.FieldByName('CELULAR').AsString;
+      FfrmCadEmpresa.edemail.Text := ZMT_Registro.FieldByName('EMAIL').AsString;
+      FfrmCadEmpresa.edsite.Text := ZMT_Registro.FieldByName('SITE').AsString;
+      {
+      if not ZMT_Registro.IsEmpty then
       begin
 
         FfrmCadEmpresa.Create_DataSet;
@@ -396,12 +406,13 @@ begin
         FfrmCadEmpresa.edsenha.Text := memD_Certificado.FieldByName('senha').AsString;;
 
       end;
+      }
       FfrmCadEmpresa.pcPrincipal.ActivePageIndex := 0;
       ShowPopupModal('Popup' + FfrmCadEmpresa.Name);
 
       //Informações atualizadas pelos registros da tela de cadastro...
       Pesquisar;
-      }
+
     except
       on E :Exception do
       begin
@@ -423,11 +434,11 @@ begin
       with PrismControl.AsDBGrid do
       begin
         PrismControl.AsDBGrid.RecordsPerPage := 10;
-        with Columns.ColumnByDataField('ATIVO') do
+        with Columns.ColumnByDataField('ATIVO_DESC') do
         begin
-	  //HTML := '<span class="badge ${value === 1 ? ''bg-success'' : ''bg-danger''} rounded-pill p-2" style="width: 5em;">${value}</span>';
+	  HTML := '<span class="badge ${value === ''Ativo'' ? ''bg-success'' : ''bg-danger''} rounded-pill p-2" style="width: 5em;">${value}</span>';
 	  //HTML := '<span class="badge ${value === 1 ? ''fa-solid fa-diagram-successor text-success fa-2x'' : ''bg-danger''} rounded-pill p-2" style="width: 7em;">${value}</span>';
-	  HTML := '<span class="badge ${value === 1 ? ''fa-solid fa-circle-check text-success fa-1x'' : ''fa-sharp fa-solid fa-circle-xmark text-danger fa-1x''} rounded-pill p-2" style="width: 7em;">${value}</span>';
+	  //HTML := '<span class="badge ${value === 1 ? ''fa-solid fa-circle-check text-success fa-1x'' : ''fa-sharp fa-solid fa-circle-xmark text-danger fa-1x''} rounded-pill p-2" style="width: 7em;">${value}</span>';
         end;
 
         with Columns.Add do
@@ -517,7 +528,7 @@ begin
   try
     for i := 0 to DBGrid.Columns.Count - 1 do
     begin
-      //SaveLog(DBGrid.Columns[i].FieldName);
+      SaveLog(DBGrid.Columns[i].FieldName);
       if DBGrid.Columns[i].FieldName = 'ID_EMPRESA' then
         Conf_Coluna_DBGrid(DBGrid,'Id',65,I)
       else if DBGrid.Columns[i].FieldName = 'RAZAO_SOCIAL' then
@@ -543,11 +554,13 @@ begin
       else if DBGrid.Columns[i].FieldName = 'DATA_CADASTRO' then
         Conf_Coluna_DBGrid(DBGrid,'Cadastro',150,I)
       else if DBGrid.Columns[i].FieldName = 'ATIVO' then
-        Conf_Coluna_DBGrid(DBGrid,'Ativo',65,I)
+        Conf_Coluna_DBGrid(DBGrid,'Ativo',65,I,0,False)
       else if DBGrid.Columns[i].FieldName = 'CELULAR' then
         Conf_Coluna_DBGrid(DBGrid,'Celular',150,I)
       else if DBGrid.Columns[i].FieldName = 'CRT_DESC' then
-        Conf_Coluna_DBGrid(DBGrid,'Descrição CRT',200,I);
+        Conf_Coluna_DBGrid(DBGrid,'Descrição CRT',200,I)
+      else if DBGrid.Columns[i].FieldName = 'ATIVO_DESC' then
+        Conf_Coluna_DBGrid(DBGrid,'Status',65,I,1);
     end;
   except
     On E:Exception do

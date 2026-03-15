@@ -552,7 +552,7 @@ begin
       memD_Endereco := TBufDataset.Create(Self);
       memD_CBanco := TBufDataset.Create(Self);
 
-      Create_DataSet;
+      //Create_DataSet;
 
       if Trim(FHost) = '' then
         raise Exception.Create('Host de acesso ao servidor não informado.');
@@ -692,7 +692,7 @@ begin
   edsite.Clear;
 
   //Endereço - Dados Bancários...
-  Create_DataSet;
+  //Create_DataSet;
 
   //Certificado digital...
   edid_certificado.Clear;
