@@ -6,7 +6,7 @@ interface
 
 uses
   SysUtils, Variants, Classes, Graphics, Controls, Dialogs, ComCtrls, Menus,
-  ExtCtrls, StdCtrls, ACBrValidador, IniFiles, D2Bridge.Forms,
+  ExtCtrls, StdCtrls, ZDataset, ACBrValidador, IniFiles, D2Bridge.Forms,
   fpjson,
   DataSet.Serialize,
   RESTRequest4D,
@@ -16,6 +16,7 @@ uses
   uBase.Functions,
   uCripto_Descrito,
   uDM.ACBr,
+  udm,
   uEstrutura.Database; //Declare D2Bridge.Forms always in the last unit
 
 type
@@ -43,8 +44,11 @@ type
     procedure Edit_PasswordKeyPress(Sender: TObject; var Key: char);
     procedure Edit_UserNameKeyPress(Sender: TObject; var Key: char);
     procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
   private
     fDM_ACBr :TDM_Acbr;
+    fDM :TDM;
+
     FfrmCadEmpresa :TfrmCadEmpresa;
     FfrmCad_Usuario :TfrmCad_Usuario;
     function Confere_Doc_Existe(const aDocumento: String):Boolean;
@@ -74,7 +78,9 @@ end;
 { TForm_Login }
 
 procedure TForm_Login.Button_LoginClick(Sender: TObject);
+{
 var
+
   FIniFile :TIniFile;
   FHost :String;
   FResp :IResponse;
@@ -82,10 +88,20 @@ var
   FRetorno :TJSONObject;
   FDados :TJSONObject;
   FJSon :TJSONObject;
+  }
 begin
   //Validando campos...
   try
    try
+    if fDM.ValidaUser(Emissor.Empresa_Fields.id_empresa, Edit_UserName.Text, Edit_Password.Text) then
+    begin
+      if frmPrincipal = nil then
+        TfrmPrincipal.CreateInstance;
+      frmPrincipal.Show;
+    end;
+
+
+     (* ROTINA USADA COM SERVIDOR HORSE...
      FHost := '';
      FIniFile := TIniFile.Create(ConfigFile);
      FHost := FIniFile.ReadString('SERVER','HOST','') + ':' + FIniFile.ReadString('SERVER','PORT','');
@@ -140,7 +156,7 @@ begin
      if frmPrincipal = nil then
        TfrmPrincipal.CreateInstance;
      frmPrincipal.Show;
-
+     *)
    except
      On E:Exception do
      begin
@@ -150,8 +166,8 @@ begin
    end;
 
   finally
-    FreeAndNil(FJSon);
-    FreeAndNil(FIniFile);
+    //FreeAndNil(FJSon);
+    //FreeAndNil(FIniFile);
   end;
 end;
 
@@ -242,19 +258,19 @@ end;
 
 function TForm_Login.Confere_Doc_Existe(const aDocumento:String):Boolean;
 var
-  FIniFile :TIniFile;
-  FHost :String;
-  FResp :IResponse;
-  FRet :String;
-  FRetorno :TJSONObject;
-  FDados :TJSONArray;
+  //FIniFile :TIniFile;
+  //FHost :String;
+  //FResp :IResponse;
+  //FRet :String;
+  //FRetorno :TJSONObject;
+  //FDados :TJSONArray;
   fDocumento :String;
+  fQuery :TZQuery;
 begin
   try
     try
      Result := True;
-
-     fDM_ACBr := TDM_Acbr.Create(Nil);
+     fQuery := fDM.GetQuery;
 
      if Trim(edCNPJ.Text) = '' then
      begin
@@ -277,6 +293,61 @@ begin
        edCNPJ.Text := fDM_ACBr.ACBrValidador.Formatar
      else
        raise Exception.Create('Documento inválido');
+
+     {Conectando ao banco de dados de forma direra}
+     fQuery.SQL.Add('SELECT ');
+     fQuery.SQL.Add('  e.* ');
+     fQuery.SQL.Add('  ,case e.crt ');
+     fQuery.SQL.Add('    when ''1'' then ''Simples Nacional'' ');
+     fQuery.SQL.Add('    when ''2'' then ''Simples Nacional - excesso de sublimite de receita bruta'' ');
+     fQuery.SQL.Add('    when ''3'' then ''Regime Normal (Lucro Presumido ou Real)'' ');
+     fQuery.SQL.Add('    when ''4'' then ''Microempreendedor Individual (MEI)'' ');
+     fQuery.SQL.Add('  end crt_desc ');
+     fQuery.SQL.Add('  ,case e.ativo ');
+     fQuery.SQL.Add('    when 0 then ''Inativo'' ');
+     fQuery.SQL.Add('    when 1 then ''Ativo'' ');
+     fQuery.SQL.Add('  end ativo_desc ');
+     fQuery.SQL.Add('  ,coalesce(u.qtd_user,0) as qtd_user ');
+     fQuery.SQL.Add('from  public.empresa e ');
+     fQuery.SQL.Add('  left join (select ');
+     fQuery.SQL.Add('               u.id_empresa ');
+     fQuery.SQL.Add('               ,count(u.id_usuario) as qtd_user ');
+     fQuery.SQL.Add('             from public.usuarios u ');
+     fQuery.SQL.Add('             group by 1) u on u.id_empresa = e.id_empresa ');
+     fQuery.SQL.Add('where 1=1 ');
+     fQuery.SQL.Add('  and e.cnpj = ' + QuotedStr(RemoverMascara(edCNPJ.Text)));
+     fQuery.Open;
+     if fQuery.IsEmpty then
+       raise Exception.Create('Empresa não cadastrada');
+
+     with Emissor.Empresa_Fields do
+     begin
+       id_empresa := fQuery.FieldByName('id_empresa').AsInteger;
+       razao_social := fQuery.FieldByName('razao_social').AsString;
+       nome_fantasia := fQuery.FieldByName('nome_fantasia').AsString;
+       fDM_ACBr.ACBrValidador.Documento := fQuery.FieldByName('cnpj').AsString;
+       cnpj := fDM_ACBr.ACBrValidador.Formatar;
+       inscricao_estadual := fQuery.FieldByName('inscricao_estadual').AsString;
+       inscricao_municipal := fQuery.FieldByName('inscricao_municipal').AsString;
+       regime_tributario := fQuery.FieldByName('regime_tributario').AsString;
+       crt := fQuery.FieldByName('crt').AsString;
+       email := fQuery.FieldByName('email').AsString;
+       telefone := fQuery.FieldByName('telefone').AsString;
+       site := fQuery.FieldByName('site').AsString;
+       data_cadastro := fQuery.FieldByName('data_cadastro').AsDateTime;
+       ativo := fQuery.FieldByName('ativo').AsInteger;
+       celular := fQuery.FieldByName('celular').AsString;
+       ativo_desc := fQuery.FieldByName('ativo_desc').AsString;
+       crt_desc := fQuery.FieldByName('crt_desc').AsString;
+     end;
+
+     Edit_UserName.Enabled := (fQuery.FieldByName('qtd_user').AsInteger > 0);
+     Edit_Password.Enabled := (fQuery.FieldByName('qtd_user').AsInteger > 0);
+     btCadUsuario.Enabled := (fQuery.FieldByName('qtd_user').AsInteger = 0);
+
+     (*
+     ****************Usando anteriormente para acessar o banco de dados via Servidor Horse*******************
+
 
 
      FHost := '';
@@ -324,7 +395,7 @@ begin
      Edit_UserName.Enabled := (FDados.Objects[0].Integers['qtdUser'] > 0);
      Edit_Password.Enabled := (FDados.Objects[0].Integers['qtdUser'] > 0);
      btCadUsuario.Enabled := (FDados.Objects[0].Integers['qtdUser'] = 0);
-
+    *)
     except
       on E:Exception do
       begin
@@ -335,8 +406,10 @@ begin
     end;
 
   finally
-    FreeAndNil(fDM_ACBr);
-    FreeAndNil(FIniFile);
+    if Assigned(fQuery) then
+      FreeAndNil(fQuery);
+
+    //FreeAndNil(FIniFile);
   end;
 end;
 
@@ -377,9 +450,8 @@ var
   FCreateDatabase :TCreateDatabase;
 begin
   try
-    FCreateDatabase := TCreateDatabase.Create('emissor_web','postgres','Cs@#1519');
-    FCreateDatabase.EnsureDatabaseExists;
-
+    fDM_ACBr := TDM_Acbr.Create(Nil);
+    fDM := TDM.Create(Nil);
   except
     On E:Exception do
     begin
@@ -387,6 +459,14 @@ begin
       GravarLogJSON(Self.Name,Self.Caption,'FormCreate',E);
     end;
   end;
+end;
+
+procedure TForm_Login.FormDestroy(Sender: TObject);
+begin
+  if Assigned(fDM) then
+    FreeAndNil(fDM);
+  if Assigned(fDM_ACBr) then
+    FreeAndNil(fDM_ACBr);
 end;
 
 procedure TForm_Login.ExportD2Bridge;

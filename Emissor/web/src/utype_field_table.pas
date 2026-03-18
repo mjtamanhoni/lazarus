@@ -13,6 +13,8 @@ type
 
    TUsuario_Fields = class
    private
+     class var Fperfil_nome: String;
+     class var Fativo_desc: String;
      class var Ftoken: String;
      class var Fid_empresa: Integer;
      class var Fativo: Integer;
@@ -36,14 +38,18 @@ type
      class property ultimo_acesso :TDateTime read Fultimo_acesso write Fultimo_acesso;
      class property id_perfil :Integer read Fid_perfil write Fid_perfil;
      class property id_perfil_desc :String read Fid_perfil_desc write Fid_perfil_desc;
+     class property perfil_nome :String read Fperfil_nome write Fperfil_nome;
      class property id_empresa :Integer read Fid_empresa write Fid_empresa;
      class property token :String read Ftoken write Ftoken;
+     class property ativo_desc :String read Fativo_desc write Fativo_desc;
    end;
 
   { TEmpresa_Fields }
 
   TEmpresa_Fields = class
   private
+    class var Fativo_desc: String;
+    class var Fcrt_desc: String;
     class var Fativo: Integer;
     class var Fcelular: String;
     class var Fcnpj: String;
@@ -73,6 +79,8 @@ type
     class property data_cadastro: TDateTime read Fdata_cadastro write Fdata_cadastro;
     class property ativo: Integer read Fativo write Fativo;
     class property celular: String read Fcelular write Fcelular;
+    class property ativo_desc: String read Fativo_desc write Fativo_desc;
+    class property crt_desc: String read Fcrt_desc write Fcrt_desc;
   end;
 
   { TEmpEnd_Fields }

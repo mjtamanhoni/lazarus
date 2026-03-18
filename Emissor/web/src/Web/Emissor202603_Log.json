@@ -424,5 +424,133 @@
         "message" : "Access violation"
       }
     ]
+  },
+  {
+    "date" : "2026-03-18",
+    "company_name" : "MJT Systems",
+    "description" : "Servidor Horse para emissão de Documentos Fiscais",
+    "copyright" : "Marcos Tamanhoni",
+    "product_name" : "HorseFiscal",
+    "version" : "1.0.0.7",
+    "usuario_pc" : "Marcos Tamanhoni",
+    "logs" : [
+      {
+        "time" : "07:24:03",
+        "form_name" : "Form_Login",
+        "caption_name" : "Form Login",
+        "unit" : "Confere_Doc_Existe",
+        "exception_class" : "EAccessViolation",
+        "exception_description" : "Violação de Acesso: O sistema tentou ler ou gravar em uma memória inválida (Objeto NIL ou já liberado).",
+        "message" : "Access violation"
+      },
+      {
+        "time" : "07:24:07",
+        "form_name" : "Form_Login",
+        "caption_name" : "Form Login",
+        "unit" : "Confere_Doc_Existe",
+        "exception_class" : "EAccessViolation",
+        "exception_description" : "Violação de Acesso: O sistema tentou ler ou gravar em uma memória inválida (Objeto NIL ou já liberado).",
+        "message" : "Access violation"
+      },
+      {
+        "time" : "07:26:37",
+        "form_name" : "Form_Login",
+        "caption_name" : "Form Login",
+        "unit" : "Confere_Doc_Existe",
+        "exception_class" : "EZSQLException",
+        "exception_description" : "Erro de Banco de Dados: Falha em operação de dataset, campo não encontrado ou erro SQL.",
+        "message" : "SQL Error: ERRO:  erro de sintaxe em ou próximo a \"FROM\"\nLINE 1: ...os u group by 1) u on u.id_empresa = e.id_empresa FROM publi...\n                                                             ^\nERRO 42601\r\nerro de sintaxe em ou próximo a \"FROM\"\r\nposition: 511 \r\nCode: 7 SQL: SELECT e.* ,case e.crt when '1' then 'Simples Nacional' when '2' then 'Simples Nacional - excesso de sublimite de receita bruta' when '3' then 'Regime Normal (Lucro Presumido ou Real)' when '4' then 'Microempreendedor Individual (MEI)' end crt_desc ,case e.ativo when 0 then 'Inativo' when 1 then 'Ativo' end ativo_desc ,coalesce(u.qtd_user,0) as qtd_user from public.empresa e left join (select u.id_empresa ,count(u.id_usuario) as qtd_user from public.usuarios u group by 1) u on u.id_empresa = e.id_empresa FROM public.empresa e where 1=1 and e.cnpj = $1"
+      },
+      {
+        "time" : "07:26:54",
+        "form_name" : "Form_Login",
+        "caption_name" : "Form Login",
+        "unit" : "Confere_Doc_Existe",
+        "exception_class" : "Exception",
+        "exception_description" : "Exceção Genérica: Erro não classificado especificamente pelo mapeador de log.",
+        "message" : "Documento inválido"
+      },
+      {
+        "time" : "07:29:19",
+        "form_name" : "Form_Login",
+        "caption_name" : "Form Login",
+        "unit" : "Confere_Doc_Existe",
+        "exception_class" : "Exception",
+        "exception_description" : "Exceção Genérica: Erro não classificado especificamente pelo mapeador de log.",
+        "message" : "Documento inválido"
+      },
+      {
+        "time" : "07:29:24",
+        "form_name" : "Form_Login",
+        "caption_name" : "Form Login",
+        "unit" : "Confere_Doc_Existe",
+        "exception_class" : "EZSQLException",
+        "exception_description" : "Erro de Banco de Dados: Falha em operação de dataset, campo não encontrado ou erro SQL.",
+        "message" : "SQL Error: ERRO:  erro de sintaxe em ou próximo a \"FROM\"\nLINE 20: FROM public.empresa e \n         ^\nERRO 42601\r\nerro de sintaxe em ou próximo a \"FROM\"\r\nposition: 644 \r\nCode: 7 SQL: SELECT \r\n  e.* \r\n  ,case e.crt \r\n    when '1' then 'Simples Nacional' \r\n    when '2' then 'Simples Nacional - excesso de sublimite de receita bruta' \r\n    when '3' then 'Regime Normal (Lucro Presumido ou Real)' \r\n    when '4' then 'Microempreendedor Individual (MEI)' \r\n  end crt_desc \r\n  ,case e.ativo \r\n    when 0 then 'Inativo' \r\n    when 1 then 'Ativo' \r\n  end ativo_desc \r\n  ,coalesce(u.qtd_user,0) as qtd_user \r\nfrom  public.empresa e \r\n  left join (select \r\n               u.id_empresa \r\n               ,count(u.id_usuario) as qtd_user \r\n             from public.usuarios u \r\n             group by 1) u on u.id_empresa = e.id_empresa \r\nFROM public.empresa e \r\nwhere 1=1 \r\n  and e.cnpj = '56134688000157'\r\n"
+      },
+      {
+        "time" : "10:11:34",
+        "form_name" : "frmCad_Usuario",
+        "caption_name" : "Cadastro de Usuário",
+        "unit" : "Gravar",
+        "exception_class" : "EZSQLException",
+        "exception_description" : "Erro de Banco de Dados: Falha em operação de dataset, campo não encontrado ou erro SQL.",
+        "message" : "SQL Error: ERRO:  erro de sintaxe em ou próximo a \"CONFLICT\"\nLINE 1: ...VALUES( $1 ,$2 ,$3 ,$4 ,$5 ,$6 ,$7 ,$8 ,$9 ,$10 ) CONFLICT (...\n                                                             ^\nERRO 42601\r\nerro de sintaxe em ou próximo a \"CONFLICT\"\r\nposition: 181 \r\nCode: 7 SQL: INSERT INTO public.usuarios ( id_empresa ,id_usuario ,id_perfil ,login ,senha ,nome ,email ,ativo ,data_cadastro ,ultimo_acesso ) VALUES( $1 ,$2 ,$3 ,$4 ,$5 ,$6 ,$7 ,$8 ,$9 ,$10 ) CONFLICT (id_empresa, id_usuario) DO UPDATE SET id_perfil = $3 ,login = $4 ,senha = $5 ,nome = $6 ,email = $7 ,ativo = $8 ,data_cadastro = $9 ,ultimo_acesso = $10;"
+      },
+      {
+        "time" : "10:16:13",
+        "form_name" : "frmCad_Usuario",
+        "caption_name" : "Cadastro de Usuário",
+        "unit" : "Gravar",
+        "exception_class" : "EZSQLException",
+        "exception_description" : "Erro de Banco de Dados: Falha em operação de dataset, campo não encontrado ou erro SQL.",
+        "message" : "SQL Error: ERRO:  inserção ou atualização em tabela \"usuarios\" viola restrição de chave estrangeira \"usuarios_perfis_fk\"\nDETAIL:  Chave (id_perfil)=(1) não está presente na tabela \"perfis\".\nERRO 23503\r\ninserção ou atualização em tabela \"usuarios\" viola restrição de chave estrangeira \"usuarios_perfis_fk\"\r\ndetail: Chave (id_perfil)=(1) não está presente na tabela \"perfis\". \r\nCode: 7 SQL: INSERT INTO public.usuarios ( id_empresa ,id_usuario ,id_perfil ,login ,senha ,nome ,email ,ativo ,data_cadastro ,ultimo_acesso ) VALUES( $1 ,$2 ,$3 ,$4 ,$5 ,$6 ,$7 ,$8 ,$9 ,$10 ) ON CONFLICT (id_empresa, id_usuario) DO UPDATE SET id_perfil = $3 ,login = $4 ,senha = $5 ,nome = $6 ,email = $7 ,ativo = $8 ,data_cadastro = $9 ,ultimo_acesso = $10;"
+      },
+      {
+        "time" : "10:57:11",
+        "form_name" : "Form_Login",
+        "caption_name" : "Form Login",
+        "unit" : "Button_LoginClick",
+        "exception_class" : "Exception",
+        "exception_description" : "Exceção Genérica: Erro não classificado especificamente pelo mapeador de log.",
+        "message" : "Validando usuário: \r\nUsuário ou Empresa não encontrados, ou senha incorreta. Verifique suas credenciais e tente novamente."
+      },
+      {
+        "time" : "11:03:02",
+        "form_name" : "Form_Login",
+        "caption_name" : "Form Login",
+        "unit" : "Button_LoginClick",
+        "exception_class" : "Exception",
+        "exception_description" : "Exceção Genérica: Erro não classificado especificamente pelo mapeador de log.",
+        "message" : "Validando usuário: \r\nUsuário ou Empresa não encontrados, ou senha incorreta. Verifique suas credenciais e tente novamente."
+      },
+      {
+        "time" : "11:09:39",
+        "form_name" : "Form_Login",
+        "caption_name" : "Form Login",
+        "unit" : "Confere_Doc_Existe",
+        "exception_class" : "Exception",
+        "exception_description" : "Exceção Genérica: Erro não classificado especificamente pelo mapeador de log.",
+        "message" : "Documento inválido"
+      },
+      {
+        "time" : "11:09:54",
+        "form_name" : "Form_Login",
+        "caption_name" : "Form Login",
+        "unit" : "Button_LoginClick",
+        "exception_class" : "Exception",
+        "exception_description" : "Exceção Genérica: Erro não classificado especificamente pelo mapeador de log.",
+        "message" : "Validando usuário: \r\nUsuário ou Empresa não encontrados. Verifique suas credenciais e tente novamente."
+      },
+      {
+        "time" : "11:10:06",
+        "form_name" : "Form_Login",
+        "caption_name" : "Form Login",
+        "unit" : "Button_LoginClick",
+        "exception_class" : "Exception",
+        "exception_description" : "Exceção Genérica: Erro não classificado especificamente pelo mapeador de log.",
+        "message" : "Validando usuário: \r\nSenha inválida. Verifica suas credenciais e tente novamente."
+      }
+    ]
   }
 ]

@@ -90,7 +90,109 @@ inherited frmEmpresa: TfrmEmpresa
       Width = 796
       Align = alClient
       Color = clWindow
-      Columns = <>
+      Columns = <      
+        item
+          Title.Alignment = taCenter
+          Title.Caption = 'Id'
+          Width = 50
+          FieldName = 'id_empresa'
+        end      
+        item
+          Title.Alignment = taCenter
+          Title.Caption = 'Razão Social'
+          Width = 300
+          FieldName = 'razao_social'
+        end      
+        item
+          Title.Alignment = taCenter
+          Title.Caption = 'Nome Fantasia'
+          Width = 300
+          FieldName = 'nome_fantasia'
+        end      
+        item
+          Title.Alignment = taCenter
+          Title.Caption = 'CNPJ/CPF'
+          Width = 120
+          FieldName = 'cnpj'
+        end      
+        item
+          Title.Alignment = taCenter
+          Title.Caption = 'Inscrição Estadual'
+          Width = 110
+          FieldName = 'inscricao_estadual'
+        end      
+        item
+          Title.Alignment = taCenter
+          Title.Caption = 'Inscrição Municipal'
+          Width = 110
+          FieldName = 'inscricao_municipal'
+        end      
+        item
+          Title.Alignment = taCenter
+          Title.Caption = 'Regime Tributário'
+          Width = 300
+          FieldName = 'regime_tributario'
+        end      
+        item
+          Title.Alignment = taCenter
+          Title.Caption = 'CRT'
+          Width = 50
+          FieldName = 'crt'
+        end      
+        item
+          Title.Alignment = taCenter
+          Title.Caption = 'E-Mail'
+          Width = 300
+          FieldName = 'email'
+        end      
+        item
+          Title.Alignment = taCenter
+          Title.Caption = 'Telefone'
+          Width = 100
+          FieldName = 'telefone'
+        end      
+        item
+          Title.Alignment = taCenter
+          Title.Caption = 'Site'
+          Width = 300
+          FieldName = 'site'
+        end      
+        item
+          Title.Alignment = taCenter
+          Title.Caption = 'Cadastro'
+          Width = 100
+          FieldName = 'data_cadastro'
+        end      
+        item
+          Title.Alignment = taCenter
+          Title.Caption = 'Ativo'
+          Width = 65
+          FieldName = 'ativo'
+        end      
+        item
+          Title.Alignment = taCenter
+          Title.Caption = 'Celular'
+          Width = 100
+          FieldName = 'celular'
+        end      
+        item
+          Title.Alignment = taCenter
+          Title.Caption = 'CRT Descrição'
+          Width = 300
+          FieldName = 'crt_desc'
+        end      
+        item
+          Title.Alignment = taCenter
+          Title.Caption = 'Ativo'
+          Width = 100
+          FieldName = 'ativo_desc'
+        end      
+        item
+          Title.Alignment = taCenter
+          Title.Caption = 'qtd_user'
+          Visible = False
+          FieldName = 'qtd_user'
+        end>
       DataSource = dsRegistro
       Options = [dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit]
       TabOrder = 0
@@ -108,9 +210,9 @@ inherited frmEmpresa: TfrmEmpresa
   inherited mmPrincipal: TMainMenu[3]
   end
   object dsRegistro: TDataSource[4]
-    DataSet = ZMT_Registro
-    Left = 280
-    Top = 120
+    DataSet = ZQRegistros
+    Left = 80
+    Top = 240
   end
   object pmPesquisar: TPopupMenu[5]
     Left = 408
@@ -154,5 +256,197 @@ inherited frmEmpresa: TfrmEmpresa
     ControlsCodePage = cDynamic
     Left = 280
     Top = 352
+  end
+  object ZQRegistros: TZQuery[10]
+    Connection = DM.ZConnection
+    SQL.Strings = (
+      'SELECT '
+      '  e.* '
+      '  ,case e.crt '
+      '    when ''1'' then ''Simples Nacional'' '
+      '    when ''2'' then ''Simples Nacional - excesso de sublimite de receita bruta'' '
+      '    when ''3'' then ''Regime Normal (Lucro Presumido ou Real)'' '
+      '    when ''4'' then ''Microempreendedor Individual (MEI)'' '
+      '  end crt_desc '
+      '  ,case e.ativo '
+      '    when 0 then ''Inativo'' '
+      '    when 1 then ''Ativo'' '
+      '  end ativo_desc '
+      '  ,coalesce(u.qtd_user,0) as qtd_user '
+      'from  public.empresa e '
+      '  left join (select '
+      '               u.id_empresa '
+      '               ,count(u.id_usuario) as qtd_user '
+      '             from public.usuarios u '
+      '             group by 1) u on u.id_empresa = e.id_empresa '
+      'where 1=1 '
+    )
+    Params = <>
+    Left = 88
+    Top = 184
+    object ZQRegistrosid_empresa: TZIntegerField
+      FieldKind = fkData
+      FieldName = 'id_empresa'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object ZQRegistrosrazao_social: TZRawStringField
+      FieldKind = fkData
+      FieldName = 'razao_social'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      Size = 255
+    end
+    object ZQRegistrosnome_fantasia: TZRawStringField
+      FieldKind = fkData
+      FieldName = 'nome_fantasia'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object ZQRegistroscnpj: TZRawStringField
+      FieldKind = fkData
+      FieldName = 'cnpj'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 14
+    end
+    object ZQRegistrosinscricao_estadual: TZRawStringField
+      FieldKind = fkData
+      FieldName = 'inscricao_estadual'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object ZQRegistrosinscricao_municipal: TZRawStringField
+      FieldKind = fkData
+      FieldName = 'inscricao_municipal'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object ZQRegistrosregime_tributario: TZRawStringField
+      FieldKind = fkData
+      FieldName = 'regime_tributario'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 50
+    end
+    object ZQRegistroscrt: TZRawStringField
+      FieldKind = fkData
+      FieldName = 'crt'
+      Index = 7
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 1
+    end
+    object ZQRegistrosemail: TZRawStringField
+      FieldKind = fkData
+      FieldName = 'email'
+      Index = 8
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object ZQRegistrostelefone: TZRawStringField
+      FieldKind = fkData
+      FieldName = 'telefone'
+      Index = 9
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object ZQRegistrossite: TZRawStringField
+      FieldKind = fkData
+      FieldName = 'site'
+      Index = 10
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object ZQRegistrosdata_cadastro: TZDateTimeField
+      FieldKind = fkData
+      FieldName = 'data_cadastro'
+      Index = 11
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object ZQRegistrosativo: TZIntegerField
+      FieldKind = fkData
+      FieldName = 'ativo'
+      Index = 12
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object ZQRegistroscelular: TZRawStringField
+      FieldKind = fkData
+      FieldName = 'celular'
+      Index = 13
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object ZQRegistroscrt_desc: TZRawCLobField
+      FieldKind = fkData
+      FieldName = 'crt_desc'
+      Index = 14
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = True
+      Required = False
+      BlobType = ftMemo
+      Transliterate = False
+    end
+    object ZQRegistrosativo_desc: TZRawCLobField
+      FieldKind = fkData
+      FieldName = 'ativo_desc'
+      Index = 15
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = True
+      Required = False
+      BlobType = ftMemo
+      Transliterate = False
+    end
+    object ZQRegistrosqtd_user: TZInt64Field
+      FieldKind = fkData
+      FieldName = 'qtd_user'
+      Index = 16
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = True
+      Required = False
+    end
   end
 end

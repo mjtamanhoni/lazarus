@@ -35,6 +35,24 @@ type
     ZMT_Endereco: TZMemTable;
     ZMT_ContaBancaria: TZMemTable;
     ZMT_Certificado: TZMemTable;
+    ZQRegistros: TZQuery;
+    ZQRegistrosativo: TZIntegerField;
+    ZQRegistrosativo_desc: TZRawCLobField;
+    ZQRegistroscelular: TZRawStringField;
+    ZQRegistroscnpj: TZRawStringField;
+    ZQRegistroscrt: TZRawStringField;
+    ZQRegistroscrt_desc: TZRawCLobField;
+    ZQRegistrosdata_cadastro: TZDateTimeField;
+    ZQRegistrosemail: TZRawStringField;
+    ZQRegistrosid_empresa: TZIntegerField;
+    ZQRegistrosinscricao_estadual: TZRawStringField;
+    ZQRegistrosinscricao_municipal: TZRawStringField;
+    ZQRegistrosnome_fantasia: TZRawStringField;
+    ZQRegistrosqtd_user: TZInt64Field;
+    ZQRegistrosrazao_social: TZRawStringField;
+    ZQRegistrosregime_tributario: TZRawStringField;
+    ZQRegistrossite: TZRawStringField;
+    ZQRegistrostelefone: TZRawStringField;
     procedure btNovoClick(Sender: TObject);
     procedure edPesquisarKeyPress(Sender: TObject; var Key: char);
     procedure FormCreate(Sender: TObject);
@@ -166,6 +184,41 @@ var
 begin
   try
     try
+      ZQRegistros.Close;
+      ZQRegistros.SQL.Clear;
+      ZQRegistros.SQL.Add('SELECT ');
+      ZQRegistros.SQL.Add('  e.* ');
+      ZQRegistros.SQL.Add('  ,case e.crt ');
+      ZQRegistros.SQL.Add('    when ''1'' then ''Simples Nacional'' ');
+      ZQRegistros.SQL.Add('    when ''2'' then ''Simples Nacional - excesso de sublimite de receita bruta'' ');
+      ZQRegistros.SQL.Add('    when ''3'' then ''Regime Normal (Lucro Presumido ou Real)'' ');
+      ZQRegistros.SQL.Add('    when ''4'' then ''Microempreendedor Individual (MEI)'' ');
+      ZQRegistros.SQL.Add('  end crt_desc ');
+      ZQRegistros.SQL.Add('  ,case e.ativo ');
+      ZQRegistros.SQL.Add('    when 0 then ''Inativo'' ');
+      ZQRegistros.SQL.Add('    when 1 then ''Ativo'' ');
+      ZQRegistros.SQL.Add('  end ativo_desc ');
+      ZQRegistros.SQL.Add('  ,coalesce(u.qtd_user,0) as qtd_user ');
+      ZQRegistros.SQL.Add('from  public.empresa e ');
+      ZQRegistros.SQL.Add('  left join (select ');
+      ZQRegistros.SQL.Add('               u.id_empresa ');
+      ZQRegistros.SQL.Add('               ,count(u.id_usuario) as qtd_user ');
+      ZQRegistros.SQL.Add('             from public.usuarios u ');
+      ZQRegistros.SQL.Add('             group by 1) u on u.id_empresa = e.id_empresa ');
+      ZQRegistros.SQL.Add('where 1=1 ');
+      case edPesquisar.Tag of
+        0:begin
+          if not ApenasNumeros(edPesquisar.Text) then
+            raise Exception.Create('Para realizar o filtro usando o ID,  não pode haver letras no texto da pesquisa');
+          ZQRegistros.SQL.Add('  and e.id_empresa = ' + edPesquisar.Text);
+        end;
+        1:ZQRegistros.SQL.Add('  and e.razao_social like ' + QuotedStr('%'+edPesquisar.Text+'%'));
+        2:ZQRegistros.SQL.Add('  and e.nome_fantasia like ' + QuotedStr('%'+edPesquisar.Text+'%'));
+        3:ZQRegistros.SQL.Add('  and e.cnpj = ' + edPesquisar.Text);
+      end;
+      ZQRegistros.SQL.Add('order by e.id_empresa ');
+      ZQRegistros.Open;
+    (* PESQUISA REALIZADA USANDO SERVIDOR HORSE
 
       ZMT_Registro.Close;
 
@@ -222,7 +275,7 @@ begin
       //Certificado Digital...
       FJSon_Certificado := TJSONArray(GetJSON(FBody['certificadoDigital'].AsJSON));
       ZMT_Certificado.LoadFromJSON(FJSon_Certificado);
-
+      *)
     except
       on E: Exception do
       begin
@@ -338,7 +391,7 @@ begin
   try
     try
       //Atualizando dados principais...
-
+      (*
       FfrmCadEmpresa.Clear_Fields;
       FfrmCadEmpresa.edid_empresa.Text := ZMT_Registro.FieldByName('ID_EMPRESA').AsString;
       FfrmCadEmpresa.edcnpj.Text := ZMT_Registro.FieldByName('CNPJ').AsString;
@@ -423,7 +476,7 @@ begin
 
       //Informações atualizadas pelos registros da tela de cadastro...
       Pesquisar;
-
+      *)
     except
       on E :Exception do
       begin

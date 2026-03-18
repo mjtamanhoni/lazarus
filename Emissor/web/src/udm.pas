@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, Controls, Graphics, Dialogs, StdCtrls, ZConnection, DateUtils,
   ZDataset, IniFiles, Variants, uBase.Functions,
-  fpjson, DataSet.Serialize, RESTRequest4D, jsonparser;
+  fpjson, DataSet.Serialize, RESTRequest4D, jsonparser, uCripto_Descrito;
 
 type
 
@@ -31,6 +31,11 @@ type
     function GetQuery:TZQuery;
     function Sequencial(const aTabela:String;const aId_Empresa:Integer=0;const aId_Usuario:Integer=0):Integer;
     function Sequencial_Dinamico(const aTabela: String; const aFields: array of String; const aValues: array of Variant): Integer;
+
+
+    function ValidaUser(const aIdEmpresa :Integer; const aLogin, aSenha :String):Boolean;
+
+
   end;
 
 
@@ -146,9 +151,22 @@ begin
         raise Exception.Create('O nome da Tabela é obrigatório');
 
       FQuery := GetQuery;
-      FQuery.SQL.Add('SELECT obter_sequencial(:id_empresa, :id_usuario, :nome_tabela)');
-      FQuery.ParamByName('id_empresa').AsInteger := aId_Empresa;
-      FQuery.ParamByName('id_usuario').AsInteger := aId_Usuario;
+      if ((aId_Empresa > 0) and (aId_Usuario > 0)) then
+      begin
+        FQuery.SQL.Add('SELECT obter_sequencial(:id_empresa, :id_usuario, :nome_tabela)');
+        FQuery.ParamByName('id_empresa').AsInteger := aId_Empresa;
+        FQuery.ParamByName('id_usuario').AsInteger := aId_Usuario;
+      end
+      else
+      if aId_Empresa > 0 then
+      begin
+        FQuery.SQL.Add('SELECT obter_sequencial(:id_empresa, :nome_tabela)');
+        FQuery.ParamByName('id_empresa').AsInteger := aId_Empresa;
+      end
+      else
+      begin
+        FQuery.SQL.Add('SELECT obter_sequencial(:nome_tabela)');
+      end;
       FQuery.ParamByName('nome_tabela').AsString := aTabela;
       FQuery.Open;
 
@@ -186,6 +204,71 @@ begin
 
   //Result := SQLQuery1.Fields[0].AsInteger;
 
+end;
+
+function TDM.ValidaUser(const aIdEmpresa: Integer; const aLogin, aSenha: String): Boolean;
+var
+  fQuery :TZQuery;
+begin
+  try
+    try
+      Result := True;
+
+      fQuery := GetQuery;
+      fQuery.SQL.Add('select ');
+      fQuery.SQL.Add('  u.* ');
+      fQuery.SQL.Add('  ,case u.ativo ');
+      fQuery.SQL.Add('    when 0 then ''Inativo'' ');
+      fQuery.SQL.Add('    when 1 then ''Ativo'' ');
+      fQuery.SQL.Add('  end ativo_desc ');
+      fQuery.SQL.Add('  ,p.nome_perfil ');
+      fQuery.SQL.Add('  ,p.descricao as perfil_desc ');
+      fQuery.SQL.Add('from public.usuarios u ');
+      fQuery.SQL.Add('  join public.perfis p on p.id_perfil = u.id_perfil ');
+      fQuery.SQL.Add('where u.login = ' + QuotedStr(aLogin));
+      fQuery.SQL.Add('  and u.id_empresa = ' + aIdEmpresa.ToString);
+      SaveLog(fQuery.SQL.Text);
+      fQuery.Open;
+      if fQuery.IsEmpty then
+        raise Exception.Create('Usuário ou Empresa não encontrados. Verifique suas credenciais e tente novamente.');
+
+      if Descriptografar(fQuery.FieldByName('senha').AsString) <> aSenha then
+        raise Exception.Create('Senha inválida. Verifica suas credenciais e tente novamente.');
+
+      Emissor.CNPJ_Empresa := Emissor.Empresa_Fields.cnpj;
+      Emissor.ID_Usuario := fQuery.FieldByName('id_usuario').AsInteger;
+      Emissor.Nome_Usuario := fQuery.FieldByName('nome').AsString;
+      Emissor.Login_Usuario := fQuery.FieldByName('login').AsString;
+      Emissor.Usuario_Ativo := fQuery.FieldByName('ativo').AsInteger;
+
+      with Emissor.Usuario_Fields do
+      begin
+        id_usuario := fQuery.FieldByName('id_usuario').AsInteger;
+        login := fQuery.FieldByName('login').AsString;
+        senha := fQuery.FieldByName('senha').AsString;
+        nome := fQuery.FieldByName('nome').AsString;
+        email := fQuery.FieldByName('email').AsString;
+        ativo := fQuery.FieldByName('ativo').AsInteger;
+        data_cadastro := fQuery.FieldByName('data_cadastro').AsDateTime;
+        if not fQuery.FieldByName('ultimo_acesso').IsNull then
+          ultimo_acesso := fQuery.FieldByName('ultimo_acesso').AsDateTime;
+        id_perfil := fQuery.FieldByName('id_perfil').AsInteger;
+        id_perfil_desc := fQuery.FieldByName('perfil_desc').AsString;
+        id_empresa := fQuery.FieldByName('id_empresa').AsInteger;
+        ativo_desc := fQuery.FieldByName('ativo_desc').AsString;
+        perfil_nome := fQuery.FieldByName('nome_perfil').AsString;
+      end;
+    except
+      On E:Exception do
+      begin
+        Result := False;
+        raise Exception.Create('Validando usuário: ' + sLineBreak + E.Message);
+      end;
+    end;
+  finally
+    if Assigned(fQuery) then
+      FreeAndNil(fQuery);
+  end;
 end;
 
 end.

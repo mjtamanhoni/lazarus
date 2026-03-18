@@ -9,7 +9,7 @@ uses
   D2Bridge.Forms, IniFiles, fpjson, DataSet.Serialize, RESTRequest4D,
   jsonparser, uDM.ACBr, uBase.Functions, uBase.DataSets, uCripto_Descrito,
   Forms, Menus, ComCtrls, ComboEx, Grids, DBGrids, ZDataset,
-  ubase.functions.objetos, DB, BufDataset, memds, uPermissoes.Lista;
+  ubase.functions.objetos, DB, BufDataset, memds, uPermissoes.Lista, udm;
 
 type
 
@@ -78,6 +78,7 @@ type
 
     memD_Permissoes :TBufDataset;
 
+    FDm :TDM;
 
     procedure Gravar;
     procedure Return_Fields(const aTipo:Integer);
@@ -181,6 +182,8 @@ begin
       FIniFile := TIniFile.Create(ConfigFile);
       FHost := FIniFile.ReadString('SERVER','HOST','') + ':' + FIniFile.ReadString('SERVER','PORT','');
 
+      FDm := TDM.Create(Nil);
+
       //Create_DataSet;
 
       if Trim(FHost) = '' then
@@ -198,26 +201,85 @@ end;
 
 procedure TfrmCad_Usuario.FormDestroy(Sender: TObject);
 begin
-  FreeAndNil(FIniFile);
+  if Assigned(FIniFile) then
+    FreeAndNil(FIniFile);
+  if Assigned(FDm) then
+    FreeAndNil(FDm);
+
   FreeAndNil(memD_Permissoes);
 end;
 
 procedure TfrmCad_Usuario.FormShow(Sender: TObject);
 begin
   //Create_DataSet;
-  Adiciona_Permissoes;
+  //Adiciona_Permissoes;
 end;
 
 procedure TfrmCad_Usuario.Gravar;
 var
+  {Usado para conectar ao banco via servidor Horse
   fResp :IResponse;
   fRet :String;
   fRetorno :TJSONObject;
   fJson_Usuario :TJSONObject;
   fJson_Permissao :TJSONObject;
+  }
+  fQuery :TZQuery;
+  fIdUsuario :Integer;
 begin
   try
     try
+
+      fIdUsuario := 0;
+      fIdUsuario := FDm.Sequencial('public.usuarios',Emissor.Empresa_Fields.id_empresa);
+
+      fQuery := FDm.GetQuery;
+      fQuery.SQL.Add('INSERT INTO public.usuarios ( ');
+      fQuery.SQL.Add('  id_empresa ');
+      fQuery.SQL.Add('  ,id_usuario ');
+      fQuery.SQL.Add('  ,id_perfil ');
+      fQuery.SQL.Add('  ,login ');
+      fQuery.SQL.Add('  ,senha ');
+      fQuery.SQL.Add('  ,nome ');
+      fQuery.SQL.Add('  ,email ');
+      fQuery.SQL.Add('  ,ativo ');
+      fQuery.SQL.Add('  ,data_cadastro ');
+      fQuery.SQL.Add('  ,ultimo_acesso ');
+      fQuery.SQL.Add(') VALUES( ');
+      fQuery.SQL.Add('  :id_empresa ');
+      fQuery.SQL.Add('  ,:id_usuario ');
+      fQuery.SQL.Add('  ,:id_perfil ');
+      fQuery.SQL.Add('  ,:login ');
+      fQuery.SQL.Add('  ,:senha ');
+      fQuery.SQL.Add('  ,:nome ');
+      fQuery.SQL.Add('  ,:email ');
+      fQuery.SQL.Add('  ,:ativo ');
+      fQuery.SQL.Add('  ,:data_cadastro ');
+      fQuery.SQL.Add('  ,:ultimo_acesso ');
+      fQuery.SQL.Add(') ON CONFLICT (id_empresa, id_usuario) ');
+      fQuery.SQL.Add('DO UPDATE SET ');
+      fQuery.SQL.Add('  id_perfil = :id_perfil ');
+      fQuery.SQL.Add('  ,login = :login ');
+      fQuery.SQL.Add('  ,senha = :senha ');
+      fQuery.SQL.Add('  ,nome = :nome ');
+      fQuery.SQL.Add('  ,email = :email ');
+      fQuery.SQL.Add('  ,ativo = :ativo ');
+      fQuery.SQL.Add('  ,data_cadastro = :data_cadastro ');
+      fQuery.SQL.Add('  ,ultimo_acesso = :ultimo_acesso; ');
+      fQuery.ParamByName('id_empresa').AsInteger := Emissor.Empresa_Fields.id_empresa;
+      fQuery.ParamByName('id_usuario').AsInteger := fIdUsuario;
+      fQuery.ParamByName('id_perfil').AsInteger := StrToIntDef(edidPerfil.Text,0);
+      fQuery.ParamByName('login').AsString := edlogin.Text;
+      fQuery.ParamByName('senha').AsString := Criptografar(edsenha.Text);
+      fQuery.ParamByName('nome').AsString := ednome.Text;
+      fQuery.ParamByName('email').AsString := edemail.Text;
+      fQuery.ParamByName('ativo').AsInteger := cbativo.ItemIndex;
+      fQuery.ParamByName('data_cadastro').AsDateTime := Now;
+      fQuery.ParamByName('ultimo_acesso').AsDateTime := Now;
+      fQuery.ExecSQL;
+
+
+      (*Comentado inclusão via Server Horse
       fJson_Usuario := TJSONObject.Create;
       fJson_Permissao := TJSONObject.Create;
 
@@ -264,10 +326,13 @@ begin
 
       if fRetorno['success'].AsBoolean = False then
         raise Exception.Create('Erro servidor: ' + sLineBreak + fRetorno['message'].AsString);
-
+      *)
     except
       on E: Exception do
-        raise Exception.Create(E.Message);
+      begin
+        GravarLogJSON(Self.Name,Self.Caption,'Gravar',E);
+        MessageDlg(E.Message,TMsgDlgType.mtWarning,[mbOK],0);
+      end;
     end;
   finally
   end;
@@ -350,6 +415,7 @@ var
 begin
   try
     try
+      (*
       fLista := Get_ListOfPermissions;
       if not Assigned(memD_Permissoes) then
         Create_DataSet;
@@ -380,6 +446,7 @@ begin
         }
         memD_Permissoes.Post;
       end;
+      *)
     except
       on E:Exception do
       begin

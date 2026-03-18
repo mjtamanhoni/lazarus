@@ -15,6 +15,7 @@ object Form_Login: TForm_Login
   Position = poScreenCenter
   LCLVersion = '4.4.0.0'
   OnCreate = FormCreate
+  OnDestroy = FormDestroy
   object Image_BackGround: TImage
     Left = 0
     Height = 367
