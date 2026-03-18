@@ -56,5 +56,61 @@
         "message" : "SQL Error: ERRO:  erro de sintaxe em ou prÃ³ximo a \",\"\nLINE 1: ...hen '4' then 'Microempreendedor Individual (MEI)' ,case e.at...\n                                                             ^\nERRO 42601\r\nerro de sintaxe em ou prÃ³ximo a \",\"\r\nposition: 242 \r\nCode: 7 SQL: select e.* ,cast(case e.crt when '1' then 'Simples Nacional' when '2' then 'Simples Nacional - excesso de sublimite de receita bruta' when '3' then 'Regime Normal (Lucro Presumido ou Real)' when '4' then 'Microempreendedor Individual (MEI)' ,case e.ativo when 0 then 'Inativo' when 1 then 'Ativo' end ativo_desc end as varchar(255)) as crt_desc from public.empresa e where 1=1 and e.ativo = $1 order by e.id_empresa;"
       }
     ]
+  },
+  {
+    "date" : "2026-03-17",
+    "company_name" : "MJT Systems",
+    "description" : "Servidor Horse para emitir Documentos Fiscais",
+    "copyright" : "Marcos Tamanhoni",
+    "product_name" : "HorserFiscal",
+    "version" : "1.0.0.2",
+    "usuario_pc" : "Marcos Tamanhoni",
+    "logs" : [
+      {
+        "time" : "07:24:45",
+        "form_name" : "Empresa.Service",
+        "caption_name" : "MÃ©todo Get",
+        "unit" : "EmpresaEnd_Get",
+        "exception_class" : "EZSQLException",
+        "exception_description" : "Erro de Banco de Dados: Falha em operaÃ§Ã£o de dataset, campo nÃ£o encontrado ou erro SQL.",
+        "message" : "SQL Error: ERRO:  sequÃªncia de bytes Ã© invÃ¡lida para codificaÃ§Ã£o \"UTF8\": 0xe7 0x61 0x2f\nERRO 22021\r\nsequÃªncia de bytes Ã© invÃ¡lida para codificaÃ§Ã£o \"UTF8\": 0xe7 0x61 0x2f \r\nCode: 7 SQL: select \r\n  ee.* \r\n  ,cast(case ee.tipo_endereco \r\n     when 0 then 'Comercial' \r\n     when 1 then 'Residencial' \r\n     when 2 then 'Entrega (Shipping)' \r\n     when 3 then 'Cobrança/Faturamento' \r\n     when 4 then 'Correspondência' \r\n     when 5 then 'Endereço de Instalação (quando envolve serviços técnicos), endereço rural' \r\n     when 6 then 'Endereço Rural (para produtores)' \r\n     when 7 then 'Endereço Temporário (Eventos, obras)' \r\n  end as varchar(255)) as tipo_endereco_desc \r\nfrom public.endereco_empresa ee \r\nwhere ee.id_empresa 1\r\norder by \r\n  ee.id_empresa \r\n  ,ee.id_endereco; \r\n"
+      },
+      {
+        "time" : "07:28:05",
+        "form_name" : "Empresa.Service",
+        "caption_name" : "MÃ©todo Get",
+        "unit" : "EmpresaEnd_Get",
+        "exception_class" : "EZSQLException",
+        "exception_description" : "Erro de Banco de Dados: Falha em operaÃ§Ã£o de dataset, campo nÃ£o encontrado ou erro SQL.",
+        "message" : "SQL Error: ERRO:  sequÃªncia de bytes Ã© invÃ¡lida para codificaÃ§Ã£o \"UTF8\": 0xe7 0x61 0x2f\nERRO 22021\r\nsequÃªncia de bytes Ã© invÃ¡lida para codificaÃ§Ã£o \"UTF8\": 0xe7 0x61 0x2f \r\nCode: 7 SQL: select \r\n  ee.* \r\n  ,cast(case ee.tipo_endereco \r\n     when 0 then 'Comercial' \r\n     when 1 then 'Residencial' \r\n     when 2 then 'Entrega (Shipping)' \r\n     when 3 then 'Cobrança/Faturamento' \r\n     when 4 then 'Correspondência' \r\n     when 5 then 'Endereço de Instalação (quando envolve serviços técnicos), endereço rural' \r\n     when 6 then 'Endereço Rural (para produtores)' \r\n     when 7 then 'Endereço Temporário (Eventos, obras)' \r\n  end as varchar(255)) as tipo_endereco_desc \r\nfrom public.endereco_empresa ee \r\nwhere ee.id_empresa 1\r\norder by \r\n  ee.id_empresa \r\n  ,ee.id_endereco; \r\n"
+      },
+      {
+        "time" : "07:31:06",
+        "form_name" : "Empresa.Service",
+        "caption_name" : "MÃ©todo Get",
+        "unit" : "EmpresaEnd_Get",
+        "exception_class" : "EZSQLException",
+        "exception_description" : "Erro de Banco de Dados: Falha em operaÃ§Ã£o de dataset, campo nÃ£o encontrado ou erro SQL.",
+        "message" : "SQL Error: ERRO:  sequÃªncia de bytes Ã© invÃ¡lida para codificaÃ§Ã£o \"UTF8\": 0xe7 0x61 0x2f\nERRO 22021\r\nsequÃªncia de bytes Ã© invÃ¡lida para codificaÃ§Ã£o \"UTF8\": 0xe7 0x61 0x2f \r\nCode: 7 SQL: select \r\n  ee.* \r\n  ,cast(case ee.tipo_endereco \r\n     when 0 then 'Comercial' \r\n     when 1 then 'Residencial' \r\n     when 2 then 'Entrega (Shipping)' \r\n     when 3 then 'Cobrança/Faturamento' \r\n     when 4 then 'Correspondência' \r\n     when 5 then 'Endereço de Instalação (quando envolve serviços técnicos), endereço rural' \r\n     when 6 then 'Endereço Rural (para produtores)' \r\n     when 7 then 'Endereço Temporário (Eventos, obras)' \r\n  end as varchar(255)) as tipo_endereco_desc \r\nfrom public.endereco_empresa ee \r\nwhere ee.id_empresa 1\r\norder by \r\n  ee.id_empresa \r\n  ,ee.id_endereco; \r\n"
+      },
+      {
+        "time" : "07:31:48",
+        "form_name" : "Empresa.Service",
+        "caption_name" : "MÃ©todo Get",
+        "unit" : "EmpresaEnd_Get",
+        "exception_class" : "EZSQLException",
+        "exception_description" : "Erro de Banco de Dados: Falha em operaÃ§Ã£o de dataset, campo nÃ£o encontrado ou erro SQL.",
+        "message" : "SQL Error: ERRO:  sequÃªncia de bytes Ã© invÃ¡lida para codificaÃ§Ã£o \"UTF8\": 0xe7 0x61 0x2f\nERRO 22021\r\nsequÃªncia de bytes Ã© invÃ¡lida para codificaÃ§Ã£o \"UTF8\": 0xe7 0x61 0x2f \r\nCode: 7 SQL: select \r\n  ee.* \r\n  ,cast(case ee.tipo_endereco \r\n     when 0 then 'Comercial' \r\n     when 1 then 'Residencial' \r\n     when 2 then 'Entrega (Shipping)' \r\n     when 3 then 'Cobrança/Faturamento' \r\n     when 4 then 'Correspondência' \r\n     when 5 then 'Endereço de Instalação (quando envolve serviços técnicos), endereço rural' \r\n     when 6 then 'Endereço Rural (para produtores)' \r\n     when 7 then 'Endereço Temporário (Eventos, obras)' \r\n  end as varchar(255)) as tipo_endereco_desc \r\nfrom public.endereco_empresa ee \r\nwhere ee.id_empresa = 1\r\norder by \r\n  ee.id_empresa \r\n  ,ee.id_endereco; \r\n"
+      },
+      {
+        "time" : "07:33:59",
+        "form_name" : "Empresa.Service",
+        "caption_name" : "MÃ©todo Get",
+        "unit" : "EmpresaEnd_Get",
+        "exception_class" : "EZSQLException",
+        "exception_description" : "Erro de Banco de Dados: Falha em operaÃ§Ã£o de dataset, campo nÃ£o encontrado ou erro SQL.",
+        "message" : "SQL Error: ERRO:  sequÃªncia de bytes Ã© invÃ¡lida para codificaÃ§Ã£o \"UTF8\": 0xe7 0x61 0x2f\nERRO 22021\r\nsequÃªncia de bytes Ã© invÃ¡lida para codificaÃ§Ã£o \"UTF8\": 0xe7 0x61 0x2f \r\nCode: 7 SQL: select \r\n  ee.* \r\n  ,cast(case ee.tipo_endereco \r\n     when 0 then 'Comercial' \r\n     when 1 then 'Residencial' \r\n     when 2 then 'Entrega (Shipping)' \r\n     when 3 then 'Cobrança/Faturamento' \r\n     when 4 then 'Correspondência' \r\n     when 5 then 'Endereço de Instalação (quando envolve serviços técnicos), endereço rural' \r\n     when 6 then 'Endereço Rural (para produtores)' \r\n     when 7 then 'Endereço Temporário (Eventos, obras)' \r\n  end as varchar(255)) as tipo_endereco_desc \r\nfrom public.endereco_empresa ee \r\nwhere ee.id_empresa = 1\r\norder by \r\n  ee.id_empresa \r\n  ,ee.id_endereco; \r\n"
+      }
+    ]
   }
 ]

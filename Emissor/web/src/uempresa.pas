@@ -49,6 +49,11 @@ type
     FHost :String;
     FIniFile :TIniFile;
 
+    FJSon_Empresa :TJSONArray;
+    FJSon_Certificado :TJSONArray;
+    FJSon_Endereco :TJSONArray;
+    FJSon_ContaBancaria :TJSONArray;
+
     procedure AjustarColunas(DBGrid: TDBGrid);
     procedure Pesquisar;
     procedure OnClick_Edit(const AId: Integer; const ANome:String);
@@ -120,9 +125,18 @@ end;
 
 procedure TfrmEmpresa.btNovoClick(Sender: TObject);
 begin
-  FfrmCadEmpresa.Clear_Fields;
-  FfrmCadEmpresa.pcPrincipal.ActivePageIndex := 0;
-  ShowPopupModal('Popup' + FfrmCadEmpresa.Name);
+  try
+    FfrmCadEmpresa.Clear_Fields;
+    FfrmCadEmpresa.pcPrincipal.ActivePageIndex := 0;
+    ShowPopupModal('Popup' + FfrmCadEmpresa.Name);
+  except
+    On E:Exception do
+    begin
+      MessageDlg(E.Message, TMsgDlgType.mtError, [mbok], 0);
+      GravarLogJSON(Self.Name,Self.Caption,'btNovoClick',E);
+    end;
+  end;
+
   Pesquisar;
 end;
 
@@ -149,14 +163,11 @@ var
 
   FId :Integer;
 
-  FJSon_Empresa :TJSONArray;
-  FJSon_Endereco :TJSONArray;
-  FJSon_ContaBancaria :TJSONArray;
-  FJSon_Certificado :TJSONArray;
-
 begin
   try
     try
+
+      ZMT_Registro.Close;
 
       FTipoPesquisa := '';
       case edPesquisar.Tag of
@@ -342,7 +353,7 @@ begin
       FfrmCadEmpresa.edcelular.Text := ZMT_Registro.FieldByName('CELULAR').AsString;
       FfrmCadEmpresa.edemail.Text := ZMT_Registro.FieldByName('EMAIL').AsString;
       FfrmCadEmpresa.edsite.Text := ZMT_Registro.FieldByName('SITE').AsString;
-      {
+
       if not ZMT_Registro.IsEmpty then
       begin
 
@@ -377,7 +388,7 @@ begin
             memD_Endereco.Next;
         end;
         FfrmCadEmpresa.memD_Endereco.EnableControls;
-
+        {
         //Contas bancárias...
         FfrmCadEmpresa.memD_CBanco.DisableControls;
         memD_CBanco.Filter := 'idEmpresa = ' + ZQRegistro.FieldByName('idEmpresa').AsString;
@@ -404,9 +415,9 @@ begin
         FfrmCadEmpresa.edvalidade.Date := memD_Certificado.FieldByName('validade').AsDateTime;
         FfrmCadEmpresa.edcaminho_arquivo.Text := memD_Certificado.FieldByName('caminhoArquivo').AsString;
         FfrmCadEmpresa.edsenha.Text := memD_Certificado.FieldByName('senha').AsString;;
-
+        }
       end;
-      }
+
       FfrmCadEmpresa.pcPrincipal.ActivePageIndex := 0;
       ShowPopupModal('Popup' + FfrmCadEmpresa.Name);
 
@@ -505,19 +516,28 @@ procedure TfrmEmpresa.CellButtonClick(APrismDBGrid: TPrismDBGrid;
   APrismCellButton: TPrismDBGridColumnButton; AColIndex: Integer; ARow: Integer  );
 begin
   //inherited CellButtonClick(APrismDBGrid, APrismCellButton, AColIndex, ARow);
-  if APrismDBGrid.VCLComponent = DBGrid_Empresa then
-  begin
-    if APrismCellButton.Identify = TButtonModel.Edit.Identity then
-      OnClick_Edit(APrismDBGrid.DataSource.DataSet.FieldByName('idEmpresa').AsInteger,
-                   APrismDBGrid.DataSource.DataSet.FieldByName('razaoSocial').AsString);
+  try
 
-    if APrismCellButton.Identify = TButtonModel.Delete.Identity then
-      OnClick_Delete(APrismDBGrid.DataSource.DataSet.FieldByName('idEmpresa').AsInteger,
-                     APrismDBGrid.DataSource.DataSet.FieldByName('razaoSocial').AsString);
+      if APrismDBGrid.VCLComponent = DBGrid_Empresa then
+      begin
+        if APrismCellButton.Identify = TButtonModel.Edit.Identity then
+          OnClick_Edit(APrismDBGrid.DataSource.DataSet.FieldByName('ID_EMPRESA').AsInteger,
+                       APrismDBGrid.DataSource.DataSet.FieldByName('RAZAO_SOCIAL').AsString);
 
-    if APrismCellButton.Identify = TButtonModel.Print.Identity then
-      OnClick_Print(APrismDBGrid.DataSource.DataSet.FieldByName('idEmpresa').AsInteger,
-                    APrismDBGrid.DataSource.DataSet.FieldByName('razaoSocial').AsString);
+        if APrismCellButton.Identify = TButtonModel.Delete.Identity then
+          OnClick_Delete(APrismDBGrid.DataSource.DataSet.FieldByName('ID_EMPRESA').AsInteger,
+                         APrismDBGrid.DataSource.DataSet.FieldByName('RAZAO_SOCIAL').AsString);
+
+        if APrismCellButton.Identify = TButtonModel.Print.Identity then
+          OnClick_Print(APrismDBGrid.DataSource.DataSet.FieldByName('ID_EMPRESA').AsInteger,
+                        APrismDBGrid.DataSource.DataSet.FieldByName('RAZAO_SOCIAL').AsString);
+      end;
+  except
+    On E:Exception do
+    begin
+      MessageDlg(E.Message, TMsgDlgType.mtError, [mbok], 0);
+      GravarLogJSON(Self.Name,Self.Caption,'CellButtonClick',E);
+    end;
   end;
 end;
 
@@ -528,7 +548,7 @@ begin
   try
     for i := 0 to DBGrid.Columns.Count - 1 do
     begin
-      SaveLog(DBGrid.Columns[i].FieldName);
+      //SaveLog(DBGrid.Columns[i].FieldName);
       if DBGrid.Columns[i].FieldName = 'ID_EMPRESA' then
         Conf_Coluna_DBGrid(DBGrid,'Id',65,I)
       else if DBGrid.Columns[i].FieldName = 'RAZAO_SOCIAL' then

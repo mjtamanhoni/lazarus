@@ -9,7 +9,7 @@ uses
   StdCtrls, ExtCtrls, ComCtrls, ComboEx, DBGrids, EditBtn, DateTimePicker,
   D2Bridge.Forms, ACBrValidador, IniFiles, fpjson, DataSet.Serialize,
   RESTRequest4D, jsonparser, uCad.Empresa.Endereco, ucad.empresa.DadosBancarios,
-  uDM.ACBr, uBase.Functions, uBase.DataSets, Forms,
+  uDM.ACBr, uBase.Functions, uBase.DataSets, Forms, ZDataset,
   ubase.functions.objetos;
 
 type
@@ -98,6 +98,9 @@ type
     tsEndereco: TTabSheet;
     tsDadosBancarios: TTabSheet;
     tsCertificadoDigital: TTabSheet;
+    ZMT_ContaBancaria: TZMemTable;
+    ZMT_Endereco: TZMemTable;
+    ZQ_Endereco1: TZQuery;
     procedure btCancelarClick(Sender: TObject);
     procedure btCB_AddClick(Sender: TObject);
     procedure btConfirmarClick(Sender: TObject);
@@ -145,18 +148,16 @@ type
     procedure Gravar;
     procedure Retorna_DBanco;
     procedure Retorna_Endereco;
+    procedure AjustarColunas_Endereco(DBGrid: TDBGrid);
+    procedure AjustarColunas_DadosBancarios(DBGrid: TDBGrid);
 
   public
     { Public declarations }
-    memD_Endereco :TBufDataset;
-    memD_CBanco :TBufDataset;
 
     property id_endereco :Integer read Fid_endereco write Fid_endereco;
     property logradouro :String read Flogradouro write Flogradouro;
 
-    procedure Create_DataSet;
     procedure Clear_Fields;
-
   protected
     procedure ExportD2Bridge; override;
     procedure InitControlsD2Bridge(const PrismControl: TPrismControl); override;
@@ -186,6 +187,7 @@ end;
 
 procedure TfrmCadEmpresa.btCB_AddClick(Sender: TObject);
 begin
+  {
   try
     try
       FfrmCad_Empresa_DadosBancarios.Clear_Fields;
@@ -202,6 +204,7 @@ begin
     Clear_Parans(1);
     memD_CBanco.EnableControls;
   end;
+  }
 end;
 
 procedure TfrmCadEmpresa.btConfirmarClick(Sender: TObject);
@@ -221,6 +224,7 @@ var
 begin
   try
     try
+      (*
       fEmpresa := TJSONObject.Create;
       fCertificado := TJSONObject.Create;
 
@@ -293,7 +297,7 @@ begin
           raise Exception.Create(fRetorno['message'].AsString);
 
       {$EndRegion 'Enviando dados para o Servidor'}
-
+      *)
       Close;
     except
       on E: Exception do
@@ -303,38 +307,6 @@ begin
       end;
     end;
   finally
-  end;
-end;
-
-procedure TfrmCadEmpresa.Create_DataSet;
-var
-  FEmpresa :TEmpresa;
-begin
-  FEmpresa := TEmpresa.Create;
-  try
-    try
-      //Criando bufdataset - Endereço
-      FEmpresa.Criar_DataSet_Endereco(memD_Endereco);
-      dsEndereco.DataSet := memD_Endereco;
-      DBGrid_End.DataSource := dsEndereco;
-      ConfigColGridAut(DBGrid_End,memD_Endereco);
-
-      //Criando bufdataset - Conta bancária
-      FEmpresa.Criar_DataSet_CBanco(memD_CBanco);
-      dsConta.DataSet := memD_CBanco;
-      DBGrid_DB.DataSource := dsConta;
-      ConfigColGridAut(DBGrid_DB,memD_CBanco);
-
-    except
-      on E:Exception do
-      begin
-        GravarLogJSON(Self.Name,Self.Caption,'Create_DataSet',E);
-        MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
-      end;
-    end;
-
-  finally
-    FreeAndNil(FEmpresa)
   end;
 end;
 
@@ -549,13 +521,9 @@ begin
       FIniFile := TIniFile.Create(ConfigFile);
       FHost := FIniFile.ReadString('SERVER','HOST','') + ':' + FIniFile.ReadString('SERVER','PORT','');
 
-      memD_Endereco := TBufDataset.Create(Self);
-      memD_CBanco := TBufDataset.Create(Self);
-
-      //Create_DataSet;
-
       if Trim(FHost) = '' then
         raise Exception.Create('Host de acesso ao servidor não informado.');
+
     except
       on E :Exception do
       begin
@@ -569,8 +537,8 @@ end;
 
 procedure TfrmCadEmpresa.FormDestroy(Sender: TObject);
 begin
-  FreeAndNil(memD_Endereco);
-  FreeAndNil(memD_CBanco);
+  //FreeAndNil(memD_Endereco);
+  //FreeAndNil(memD_CBanco);
   FreeAndNil(FIniFile);
 end;
 
@@ -583,6 +551,7 @@ begin
   try
     if MessageDlg('Deseja excluir o Endereço selecionado?',TMsgDlgType.mtConfirmation,[mbYes,mbNo],0) = mrYes then
     begin
+      {
       fResp := TRequest.New.BaseURL(FHost)
       	       .AddParam('idEmpresa',memD_Endereco.FieldByName('idempresa').AsString)
       	       .AddParam('idEndereco',memD_Endereco.FieldByName('idendereco').AsString)
@@ -607,6 +576,7 @@ begin
         DBGrid_End.Refresh;
         memD_Endereco.EnableControls;
       end;
+      }
     end;
   except
     on E :Exception do
@@ -619,6 +589,7 @@ end;
 
 procedure TfrmCadEmpresa.OnClick_Edit_CBanco;
 begin
+  {
   try
     FfrmCad_Empresa_DadosBancarios.edid_banco.Text := IntToStr(memD_CBanco.FieldByName('idbanco').AsInteger);
     FfrmCad_Empresa_DadosBancarios.cbtipo_conta.ItemIndex := memD_CBanco.FieldByName('tipoconta').AsInteger;
@@ -636,7 +607,7 @@ begin
       MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
     end;
   end;
-
+  }
 end;
 
 procedure TfrmCadEmpresa.OnClick_Delete_CBanco(const AId_Endereco: Integer);
@@ -648,6 +619,7 @@ begin
   try
     if MessageDlg('Deseja excluir a Conta Bancária selecionada?',TMsgDlgType.mtConfirmation,[mbYes,mbNo],0) = mrYes then
     begin
+      {
       fResp := TRequest.New.BaseURL(FHost)
       	       .AddParam('idEmpresa',memD_Endereco.FieldByName('idempresa').AsString)
       	       .AddParam('idDBanco',memD_Endereco.FieldByName('idbanco').AsString)
@@ -663,6 +635,7 @@ begin
       else
         MessageDlg(fBody['message'].AsString,TMsgDlgType.mtInformation,[mbOK],0);
       memD_CBanco.Delete;
+      }
     end;
   except
     on E :Exception do
@@ -691,8 +664,11 @@ begin
   edemail.Clear;
   edsite.Clear;
 
-  //Endereço - Dados Bancários...
-  //Create_DataSet;
+  //Endereço
+  ZMT_Endereco.Close;
+
+  //Dados Bancários...
+  ZMT_ContaBancaria.Close;
 
   //Certificado digital...
   edid_certificado.Clear;
@@ -700,6 +676,63 @@ begin
   edvalidade.Date := Date;
   edcaminho_arquivo.Clear;
   edsenha.Clear;
+end;
+
+procedure TfrmCadEmpresa.AjustarColunas_Endereco(DBGrid: TDBGrid);
+var
+  i: Integer;
+begin
+  try
+    for i := 0 to DBGrid.Columns.Count - 1 do
+    begin
+      SaveLog(DBGrid.Columns[i].FieldName);
+      {
+      if DBGrid.Columns[i].FieldName = 'ID_EMPRESA' then
+        Conf_Coluna_DBGrid(DBGrid,'Id',65,I)
+      else if DBGrid.Columns[i].FieldName = 'RAZAO_SOCIAL' then
+        Conf_Coluna_DBGrid(DBGrid,'Razão Social',300,I)
+      else if DBGrid.Columns[i].FieldName = 'NOME_FANTASIA' then
+        Conf_Coluna_DBGrid(DBGrid,'Nome Fantasia',300,I)
+      else if DBGrid.Columns[i].FieldName = 'CNPJ' then
+        Conf_Coluna_DBGrid(DBGrid,'CNPJ / CPF',200,I)
+      else if DBGrid.Columns[i].FieldName = 'INSCRICAO_ESTADUAL' then
+        Conf_Coluna_DBGrid(DBGrid,'Insnc. Estadual',150,I)
+      else if DBGrid.Columns[i].FieldName = 'INSCRICAO_MUNICIPAL' then
+        Conf_Coluna_DBGrid(DBGrid,'Insnc. Municipal',150,I)
+      else if DBGrid.Columns[i].FieldName = 'REGIME_TRIBUTARIO' then
+        Conf_Coluna_DBGrid(DBGrid,'Regime Tributário',200,I)
+      else if DBGrid.Columns[i].FieldName = 'CRT' then
+        Conf_Coluna_DBGrid(DBGrid,'Cod. CRT',100,I)
+      else if DBGrid.Columns[i].FieldName = 'EMAIL' then
+        Conf_Coluna_DBGrid(DBGrid,'E-Mail',300,I)
+      else if DBGrid.Columns[i].FieldName = 'TELEFONE' then
+        Conf_Coluna_DBGrid(DBGrid,'Telefone',150,I)
+      else if DBGrid.Columns[i].FieldName = 'SITE' then
+        Conf_Coluna_DBGrid(DBGrid,'Site',300,I)
+      else if DBGrid.Columns[i].FieldName = 'DATA_CADASTRO' then
+        Conf_Coluna_DBGrid(DBGrid,'Cadastro',150,I)
+      else if DBGrid.Columns[i].FieldName = 'ATIVO' then
+        Conf_Coluna_DBGrid(DBGrid,'Ativo',65,I,0,False)
+      else if DBGrid.Columns[i].FieldName = 'CELULAR' then
+        Conf_Coluna_DBGrid(DBGrid,'Celular',150,I)
+      else if DBGrid.Columns[i].FieldName = 'CRT_DESC' then
+        Conf_Coluna_DBGrid(DBGrid,'Descrição CRT',200,I)
+      else if DBGrid.Columns[i].FieldName = 'ATIVO_DESC' then
+        Conf_Coluna_DBGrid(DBGrid,'Status',65,I,1);
+        }
+    end;
+  except
+    On E:Exception do
+    begin
+      raise Exception.Create(E.Message);
+    end;
+  end;
+
+end;
+
+procedure TfrmCadEmpresa.AjustarColunas_DadosBancarios(DBGrid: TDBGrid);
+begin
+
 end;
 
 procedure TfrmCadEmpresa.ExportD2Bridge;
@@ -943,13 +976,13 @@ begin
   if APrismDBGrid.VCLComponent = DBGrid_End then
   begin
     if APrismCellButton.Identify = TButtonModel.Edit.Identity then OnClick_Edit_End;
-    if APrismCellButton.Identify = TButtonModel.Delete.Identity then OnClick_Delete_End(memD_Endereco.FieldByName('idendereco').AsInteger);
+    //if APrismCellButton.Identify = TButtonModel.Delete.Identity then OnClick_Delete_End(memD_Endereco.FieldByName('idendereco').AsInteger);
   end;
 
   if APrismDBGrid.VCLComponent = DBGrid_DB then
   begin
     if APrismCellButton.Identify = TButtonModel.Edit.Identity then OnClick_Edit_CBanco;
-    if APrismCellButton.Identify = TButtonModel.Delete.Identity then OnClick_Delete_CBanco(memD_CBanco.FieldByName('idbanco').AsInteger);
+    //if APrismCellButton.Identify = TButtonModel.Delete.Identity then OnClick_Delete_CBanco(memD_CBanco.FieldByName('idbanco').AsInteger);
   end;
 
 end;
@@ -957,6 +990,7 @@ end;
 procedure TfrmCadEmpresa.OnClick_Edit_End;
 begin
   try
+    {
     FfrmCad_Empresa_Endereco.edid_endereco.Text := IntToStr(memD_Endereco.FieldByName('idendereco').AsInteger);
     FfrmCad_Empresa_Endereco.cbtipo_endereco.ItemIndex := memD_Endereco.FieldByName('tipoendereco').AsInteger;
     FfrmCad_Empresa_Endereco.edcep.Text := memD_Endereco.FieldByName('cep').AsString;
@@ -973,7 +1007,7 @@ begin
     ShowPopupModal('Popup' + FfrmCad_Empresa_Endereco.Name);
     memD_Endereco.Delete;
     Retorna_Endereco;
-
+    }
   except
     on E:Exception do
     begin
@@ -986,6 +1020,7 @@ end;
 procedure TfrmCadEmpresa.Retorna_Endereco;
 begin
   try
+    {
     memD_Endereco.DisableControls;
     with Emissor.EmpEnd_Fields do
     begin
@@ -1010,7 +1045,7 @@ begin
       end;
     end;
     memD_Endereco.EnableControls;
-
+    }
   except
     on E:Exception do
       raise Exception.Create('Retorna Endereço: ' + E.Message);
@@ -1020,6 +1055,7 @@ end;
 procedure TfrmCadEmpresa.Retorna_DBanco;
 begin
   try
+    {
     memD_CBanco.DisableControls;
     with Emissor.EmpCB_Fields do
     begin
@@ -1038,6 +1074,7 @@ begin
     end;
 
     memD_CBanco.EnableControls;
+    }
   except
     on E:Exception do
       raise Exception.Create('Retorna dados Bancários: ' + E.Message);

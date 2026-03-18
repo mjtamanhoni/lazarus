@@ -321,5 +321,108 @@
         "message" : "SQL Error: ERRO:  erro de sintaxe em ou próximo a \",\"\nLINE 1: ...hen '4' then 'Microempreendedor Individual (MEI)' ,case e.at...\n                                                             ^\nERRO 42601\r\nerro de sintaxe em ou próximo a \",\"\r\nposition: 242 \r\nCode: 7 SQL: select e.* ,cast(case e.crt when '1' then 'Simples Nacional' when '2' then 'Simples Nacional - excesso de sublimite de receita bruta' when '3' then 'Regime Normal (Lucro Presumido ou Real)' when '4' then 'Microempreendedor Individual (MEI)' ,case e.ativo when 0 then 'Inativo' when 1 then 'Ativo' end ativo_desc end as varchar(255)) as crt_desc from public.empresa e where 1=1 and e.ativo = $1 order by e.id_empresa;"
       }
     ]
+  },
+  {
+    "date" : "2026-03-16",
+    "company_name" : "MJT Systems",
+    "description" : "Servidor Horse para emissão de Documentos Fiscais",
+    "copyright" : "Marcos Tamanhoni",
+    "product_name" : "HorseFiscal",
+    "version" : "1.0.0.7",
+    "usuario_pc" : "Marcos Tamanhoni",
+    "logs" : [
+      {
+        "time" : "06:32:24",
+        "form_name" : "frmEmpresa",
+        "caption_name" : "Empresas",
+        "unit" : "CellButtonClick",
+        "exception_class" : "EDatabaseError",
+        "exception_description" : "Erro de Banco de Dados: Falha em operação de dataset, campo não encontrado ou erro SQL.",
+        "message" : "ZMT_Registro : Field not found : \"razaoSocial\""
+      },
+      {
+        "time" : "06:50:29",
+        "form_name" : "frmEmpresa",
+        "caption_name" : "Empresas",
+        "unit" : "btNovoClick",
+        "exception_class" : "EAccessViolation",
+        "exception_description" : "Violação de Acesso: O sistema tentou ler ou gravar em uma memória inválida (Objeto NIL ou já liberado).",
+        "message" : "Access violation"
+      },
+      {
+        "time" : "06:52:04",
+        "form_name" : "frmEmpresa",
+        "caption_name" : "Empresas",
+        "unit" : "btNovoClick",
+        "exception_class" : "EAccessViolation",
+        "exception_description" : "Violação de Acesso: O sistema tentou ler ou gravar em uma memória inválida (Objeto NIL ou já liberado).",
+        "message" : "Access violation"
+      },
+      {
+        "time" : "06:56:45",
+        "form_name" : "frmEmpresa",
+        "caption_name" : "Empresas",
+        "unit" : "btNovoClick",
+        "exception_class" : "EAccessViolation",
+        "exception_description" : "Violação de Acesso: O sistema tentou ler ou gravar em uma memória inválida (Objeto NIL ou já liberado).",
+        "message" : "Access violation"
+      },
+      {
+        "time" : "06:58:54",
+        "form_name" : "frmEmpresa",
+        "caption_name" : "Empresas",
+        "unit" : "btNovoClick",
+        "exception_class" : "EAccessViolation",
+        "exception_description" : "Violação de Acesso: O sistema tentou ler ou gravar em uma memória inválida (Objeto NIL ou já liberado).",
+        "message" : "Access violation"
+      },
+      {
+        "time" : "06:58:59",
+        "form_name" : "frmEmpresa",
+        "caption_name" : "Empresas",
+        "unit" : "btNovoClick",
+        "exception_class" : "EAccessViolation",
+        "exception_description" : "Violação de Acesso: O sistema tentou ler ou gravar em uma memória inválida (Objeto NIL ou já liberado).",
+        "message" : "Access violation"
+      },
+      {
+        "time" : "07:58:45",
+        "form_name" : "frmEmpresa",
+        "caption_name" : "Empresas",
+        "unit" : "btNovoClick",
+        "exception_class" : "Exception",
+        "exception_description" : "Exceção Genérica: Erro não classificado especificamente pelo mapeador de log.",
+        "message" : "TfrmCadEmpresa.Alimentar_Endereco: \r\nAccess violation"
+      },
+      {
+        "time" : "08:03:49",
+        "form_name" : "frmEmpresa",
+        "caption_name" : "Empresas",
+        "unit" : "btNovoClick",
+        "exception_class" : "EAccessViolation",
+        "exception_description" : "Violação de Acesso: O sistema tentou ler ou gravar em uma memória inválida (Objeto NIL ou já liberado).",
+        "message" : "Access violation"
+      }
+    ]
+  },
+  {
+    "date" : "2026-03-17",
+    "company_name" : "MJT Systems",
+    "description" : "Servidor Horse para emissão de Documentos Fiscais",
+    "copyright" : "Marcos Tamanhoni",
+    "product_name" : "HorseFiscal",
+    "version" : "1.0.0.7",
+    "usuario_pc" : "Marcos Tamanhoni",
+    "logs" : [
+      {
+        "time" : "06:34:59",
+        "form_name" : "frmEmpresa",
+        "caption_name" : "Empresas",
+        "unit" : "btNovoClick",
+        "exception_class" : "EAccessViolation",
+        "exception_description" : "Violação de Acesso: O sistema tentou ler ou gravar em uma memória inválida (Objeto NIL ou já liberado).",
+        "message" : "Access violation"
+      }
+    ]
   }
 ]

@@ -104,6 +104,26 @@ begin
       .Send(TEmpresaService.New.EmpresaGet(FId,FRazaoSocial,FNomeFantasia,FCNPJ,FStatus));
 end;
 
+procedure OnEmpresaEndGet(Req:THorseRequest; Res:THorseResponse);
+var
+  FId_Empresa :Integer;
+begin
+  FId_Empresa := StrToIntDef(Req.Query['idEmpresa'],0);
+
+  Res.ContentType('application/json')
+      .Send(TEmpresaService.New.EmpresaEnd_Get(FId_Empresa));
+end;
+
+procedure OnEmpresaCBGet(Req:THorseRequest; Res:THorseResponse);
+var
+  FId_Empresa :Integer;
+begin
+  FId_Empresa := StrToIntDef(Req.Query['idEmpresa'],0);
+
+  Res.ContentType('application/json')
+      .Send(TEmpresaService.New.EmpresaContaBanco_Get(FId_Empresa));
+end;
+
 procedure OnValida_CNPJ_Empresa(Req:THorseRequest; Res:THorseResponse);
 var
   FCNPJ :String;
@@ -178,7 +198,9 @@ begin
 
 {$Region 'Empresa'}
   THorse.Get('/empresa',OnEmpresaGet)
-        .Get('empresa/validaCnpj',OnValida_CNPJ_Empresa)
+        .Get('/empresa/validaCnpj',OnValida_CNPJ_Empresa)
+        .Get('/empresa/endereco',OnEmpresaEndGet)
+        .Get('/empresa/contaBancaria',OnEmpresaCBGet)
         .Post('/empresa',OnEmpresaPost)
         .Put('/empresa',OnEmpresaPut)
         .Delete('/empresa',OnEmpresaDel)
