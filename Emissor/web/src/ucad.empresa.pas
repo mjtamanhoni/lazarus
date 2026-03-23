@@ -10,14 +10,14 @@ uses
   D2Bridge.Forms, ACBrValidador, IniFiles, fpjson, DataSet.Serialize,
   RESTRequest4D, jsonparser, uCad.Empresa.Endereco, ucad.empresa.DadosBancarios,
   uDM.ACBr, uBase.Functions, uBase.DataSets, Forms, ZDataset,
-  ubase.functions.objetos;
+  ZAbstractRODataset, ubase.functions.objetos, udm, LCLType;
 
 type
 
   { TfrmCadEmpresa }
 
   TfrmCadEmpresa = class(TD2BridgeForm)
-    btCancelar: TButton;
+    btFechar: TButton;
     btConfirmar: TButton;
     btEnd_Add: TButton;
     btCB_Add: TButton;
@@ -98,10 +98,31 @@ type
     tsEndereco: TTabSheet;
     tsDadosBancarios: TTabSheet;
     tsCertificadoDigital: TTabSheet;
-    ZMT_ContaBancaria: TZMemTable;
-    ZMT_Endereco: TZMemTable;
+    ZQContaBancariaagencia: TZRawStringField;
+    ZQContaBancariabanco: TZRawStringField;
+    ZQContaBancariaconta: TZRawStringField;
+    ZQContaBancariaid_banco: TZIntegerField;
+    ZQContaBancariaid_empresa: TZIntegerField;
+    ZQContaBancariatipo_conta: TZIntegerField;
+    ZQContaBancariatipo_conta_desc: TZRawCLobField;
+    ZQEndereco: TZQuery;
+    ZQContaBancaria: TZQuery;
+    ZQEnderecobairro: TZRawStringField;
+    ZQEnderecocep: TZRawStringField;
+    ZQEnderecocodigo_municipio_ibge: TZRawStringField;
+    ZQEnderecocodigo_pais_ibge: TZRawStringField;
+    ZQEnderecocomplemento: TZRawStringField;
+    ZQEnderecoid_empresa: TZIntegerField;
+    ZQEnderecoid_endereco: TZIntegerField;
+    ZQEnderecologradouro: TZRawStringField;
+    ZQEnderecomunicipio: TZRawStringField;
+    ZQEndereconumero: TZRawStringField;
+    ZQEnderecopais: TZRawStringField;
+    ZQEnderecotipo_endereco: TZIntegerField;
+    ZQEnderecotipo_endereco_desc: TZRawCLobField;
+    ZQEnderecouf: TZRawStringField;
     ZQ_Endereco1: TZQuery;
-    procedure btCancelarClick(Sender: TObject);
+    procedure btFecharClick(Sender: TObject);
     procedure btCB_AddClick(Sender: TObject);
     procedure btConfirmarClick(Sender: TObject);
     procedure btEnd_AddClick(Sender: TObject);
@@ -131,6 +152,7 @@ type
     FfrmCad_Empresa_Endereco :TfrmCad_Empresa_Endereco;
     FfrmCad_Empresa_DadosBancarios :TfrmCad_Empresa_DadosBancarios;
     fDM_ACBr :TDM_Acbr;
+    fDmPrincipal :TDM;
 
     FHost :String;
     FIniFile :TIniFile;
@@ -139,17 +161,13 @@ type
     Flogradouro: String;
 
     procedure OnClick_Edit_End;
-    procedure OnClick_Delete_End(const AId_Endereco: Integer);
+    procedure OnClick_Delete_End(const aId_Empresa,aId_Endereco: Integer);
     procedure OnClick_Edit_CBanco;
-    procedure OnClick_Delete_CBanco(const AId_Endereco: Integer);
+    procedure OnClick_Delete_CBanco(const aId_Empresa,aId_CBando: Integer);
 
 
     procedure Clear_Parans(const AClear:Integer);
     procedure Gravar;
-    procedure Retorna_DBanco;
-    procedure Retorna_Endereco;
-    procedure AjustarColunas_Endereco(DBGrid: TDBGrid);
-    procedure AjustarColunas_DadosBancarios(DBGrid: TDBGrid);
 
   public
     { Public declarations }
@@ -158,6 +176,8 @@ type
     property logradouro :String read Flogradouro write Flogradouro;
 
     procedure Clear_Fields;
+    procedure Listar_Endereco(const aIdEmpresa:String);
+    procedure Listar_DadosBancarios(const aIdEmpresa:String);
   protected
     procedure ExportD2Bridge; override;
     procedure InitControlsD2Bridge(const PrismControl: TPrismControl); override;
@@ -180,50 +200,197 @@ begin
   result := (TfrmCadEmpresa.GetInstance as TfrmCadEmpresa);
 end;
 
-procedure TfrmCadEmpresa.btCancelarClick(Sender: TObject);
+procedure TfrmCadEmpresa.btFecharClick(Sender: TObject);
 begin
   Close;
 end;
 
 procedure TfrmCadEmpresa.btCB_AddClick(Sender: TObject);
 begin
-  {
   try
-    try
-      FfrmCad_Empresa_DadosBancarios.Clear_Fields;
-      ShowPopupModal('Popup' + FfrmCad_Empresa_DadosBancarios.Name);
-      Retorna_DBanco;
-    except
-      on E:Exception do
-      begin
-        GravarLogJSON(Self.Name,Self.Caption,'btCB_AddClick',E);
-        MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
-      end;
+    FfrmCad_Empresa_DadosBancarios.Clear_Fields;
+    Emissor.Empresa_Fields.id_empresa := StrToIntDef(edid_empresa.Text,0);
+    ShowPopupModal('Popup' + FfrmCad_Empresa_DadosBancarios.Name);
+    Listar_DadosBancarios(edid_empresa.Text);
+  except
+    on E:Exception do
+    begin
+      GravarLogJSON(Self.Name,Self.Caption,'btCB_AddClick',E);
+      MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
     end;
-  finally
-    Clear_Parans(1);
-    memD_CBanco.EnableControls;
   end;
-  }
 end;
 
 procedure TfrmCadEmpresa.btConfirmarClick(Sender: TObject);
 begin
   Gravar;
-  Close;
+  //Close;
 end;
 
 procedure TfrmCadEmpresa.Gravar;
 var
+  {
   fResp :IResponse;
   fRet :String;
   fRetorno :TJSONObject;
 
   fEmpresa :TJSONObject;
   fCertificado :TJSONObject;
+  }
+  fId_Empresa :Integer;
+  FQuery :TZQuery;
+  fId_Certificado :Integer;
+  fDm :TDM;
+
 begin
   try
     try
+      fDm := TDM.Create(Self);
+
+      //Inserindo dados da empresa...
+      FQuery := fDm.GetQuery;
+      fId_Empresa := 0;
+      if StrToIntDef(edid_empresa.Text,0) = 0 then
+        fId_Empresa := fDm.Sequencial('public.empresa')
+      else
+        fId_Empresa := StrToIntDef(edid_empresa.Text,0);
+
+      FQuery.Sql.Add('INSERT INTO public.empresa ( ');
+      FQuery.Sql.Add('  id_empresa ');
+      FQuery.Sql.Add('  ,razao_social ');
+      FQuery.Sql.Add('  ,nome_fantasia ');
+      FQuery.Sql.Add('  ,cnpj ');
+      FQuery.Sql.Add('  ,inscricao_estadual ');
+      FQuery.Sql.Add('  ,inscricao_municipal ');
+      FQuery.Sql.Add('  ,regime_tributario ');
+      FQuery.Sql.Add('  ,crt ');
+      FQuery.Sql.Add('  ,email ');
+      FQuery.Sql.Add('  ,telefone ');
+      FQuery.Sql.Add('  ,site ');
+      FQuery.Sql.Add('  ,data_cadastro ');
+      FQuery.Sql.Add('  ,ativo ');
+      FQuery.Sql.Add('  ,celular ');
+      FQuery.Sql.Add(') VALUES ( ');
+      FQuery.Sql.Add('  :id_empresa ');
+      FQuery.Sql.Add('  ,:razao_social ');
+      FQuery.Sql.Add('  ,:nome_fantasia ');
+      FQuery.Sql.Add('  ,:cnpj ');
+      FQuery.Sql.Add('  ,:inscricao_estadual ');
+      FQuery.Sql.Add('  ,:inscricao_municipal ');
+      FQuery.Sql.Add('  ,:regime_tributario ');
+      FQuery.Sql.Add('  ,:crt ');
+      FQuery.Sql.Add('  ,:email ');
+      FQuery.Sql.Add('  ,:telefone ');
+      FQuery.Sql.Add('  ,:site ');
+      FQuery.Sql.Add('  ,:data_cadastro ');
+      FQuery.Sql.Add('  ,:ativo ');
+      FQuery.Sql.Add('  ,:celular ');
+      FQuery.Sql.Add(') ON CONFLICT (id_empresa) ');
+      FQuery.Sql.Add('DO UPDATE SET ');
+      FQuery.Sql.Add('  razao_social = :razao_social ');
+      FQuery.Sql.Add('  ,nome_fantasia = :nome_fantasia ');
+      FQuery.Sql.Add('  ,cnpj = :cnpj ');
+      FQuery.Sql.Add('  ,inscricao_estadual = :inscricao_estadual ');
+      FQuery.Sql.Add('  ,inscricao_municipal = :inscricao_municipal ');
+      FQuery.Sql.Add('  ,regime_tributario = :regime_tributario ');
+      FQuery.Sql.Add('  ,crt = :crt ');
+      FQuery.Sql.Add('  ,email = :email ');
+      FQuery.Sql.Add('  ,telefone = :telefone ');
+      FQuery.Sql.Add('  ,site = :site ');
+      FQuery.Sql.Add('  ,data_cadastro = :data_cadastro ');
+      FQuery.Sql.Add('  ,ativo = :ativo ');
+      FQuery.Sql.Add('  ,celular = :celular; ');
+      FQuery.ParamByName('id_empresa').AsInteger := fId_Empresa;
+      FQuery.ParamByName('razao_social').AsString := edrazao_social.Text;
+      if Trim(ednome_fantasia.Text) = '' then
+        FQuery.ParamByName('nome_fantasia').Clear
+      else
+        FQuery.ParamByName('nome_fantasia').AsString := ednome_fantasia.Text;
+      FQuery.ParamByName('cnpj').AsString := edcnpj.Text;
+      if Trim(edinscricao_estadual.Text) = '' then
+        FQuery.ParamByName('inscricao_estadual').Clear
+      else
+        FQuery.ParamByName('inscricao_estadual').AsString := edinscricao_estadual.Text;
+      if Trim(edinscricao_municipal.Text) = '' then
+        FQuery.ParamByName('inscricao_municipal').Clear
+      else
+        FQuery.ParamByName('inscricao_municipal').AsString := edinscricao_municipal.Text;
+      if Trim(cbregime_tributario.Text) = '' then
+        FQuery.ParamByName('regime_tributario').Clear
+      else
+        FQuery.ParamByName('regime_tributario').AsString := cbregime_tributario.Text;
+      if Trim(edcrt.Text) = '' then
+        FQuery.ParamByName('crt').Clear
+      else
+        FQuery.ParamByName('crt').AsString := edcrt.Text;
+      if Trim(edemail.Text) = '' then
+        FQuery.ParamByName('email').Clear
+      else
+        FQuery.ParamByName('email').AsString := edemail.Text;
+      if Trim(edtelefone.Text) = '' then
+        FQuery.ParamByName('telefone').Clear
+      else
+        FQuery.ParamByName('telefone').AsString := edtelefone.Text;
+      if Trim(edsite.Text) = '' then
+        FQuery.ParamByName('site').Clear
+      else
+        FQuery.ParamByName('site').AsString := edsite.Text;
+      FQuery.ParamByName('data_cadastro').AsDateTime := Now;
+      FQuery.ParamByName('ativo').AsInteger := cbativo.ItemIndex;
+      if Trim(edcelular.Text) = '' then
+        FQuery.ParamByName('celular').Clear
+      else
+        FQuery.ParamByName('celular').AsString := edcelular.Text;
+      FQuery.ExecSQL;
+      edid_empresa.Text := fId_Empresa.ToString;
+
+
+      //Salvando certificado digital...
+      fId_Certificado := 0;
+      if Trim(edcaminho_arquivo.Text) <> '' then
+      begin
+        //Sequencial certificado
+        if StrToIntDef(edid_certificado.Text,0) = 0 then
+          fId_Certificado := fDm.Sequencial('public.certificado_digital',fId_Empresa)
+        else
+          fId_Certificado := StrToIntDef(edid_certificado.Text,0);
+
+        //Inserindo informações
+        FQuery.Close;
+        FQuery.Sql.Clear;
+        FQuery.Sql.Add('INSERT INTO public.certificado_digital ( ');
+        FQuery.Sql.Add('  id_certificado ');
+        FQuery.Sql.Add('  ,id_empresa ');
+        FQuery.Sql.Add('  ,tipo ');
+        FQuery.Sql.Add('  ,validade ');
+        FQuery.Sql.Add('  ,caminho_arquivo ');
+        FQuery.Sql.Add('  ,senha ');
+        FQuery.Sql.Add(') VALUES( ');
+        FQuery.Sql.Add('  :id_certificado ');
+        FQuery.Sql.Add('  ,:id_empresa ');
+        FQuery.Sql.Add('  ,:tipo ');
+        FQuery.Sql.Add('  ,:validade ');
+        FQuery.Sql.Add('  ,:caminho_arquivo ');
+        FQuery.Sql.Add('  ,:senha ');
+        FQuery.Sql.Add(') ON CONFLICT (id_empresa,id_certificado) DO ');
+        FQuery.Sql.Add('UPDATE  SET ');
+        FQuery.Sql.Add('  tipo =  :tipo ');
+        FQuery.Sql.Add('  ,validade = :validade ');
+        FQuery.Sql.Add('  ,caminho_arquivo = :caminho_arquivo ');
+        FQuery.Sql.Add('  ,senha = :senha; ');
+        FQuery.ParamByName('id_empresa').AsInteger := fId_Empresa;
+        FQuery.ParamByName('id_certificado').AsInteger := fId_Certificado;
+        FQuery.ParamByName('tipo').AsInteger := cbativo.ItemIndex;
+        FQuery.ParamByName('validade').AsDate := edvalidade.Date;
+        FQuery.ParamByName('caminho_arquivo').AsString := edcaminho_arquivo.Text;
+        FQuery.ParamByName('senha').AsString := edsenha.Text;
+        FQuery.ExecSQL;
+      end;
+
+      if MessageDlg('O cadastro da empresa foi concluído com êxito. Gostaria de atualizar os dados de Endereço e Bancários neste momento?',TMsgDlgType.mtConfirmation,[mbYes,mbNo],0) = mrNo then
+        Close;
+
+
       (*
       fEmpresa := TJSONObject.Create;
       fCertificado := TJSONObject.Create;
@@ -298,7 +465,6 @@ begin
 
       {$EndRegion 'Enviando dados para o Servidor'}
       *)
-      Close;
     except
       on E: Exception do
       begin
@@ -307,25 +473,26 @@ begin
       end;
     end;
   finally
+    if Assigned(FQuery) then
+      FreeAndNil(FQuery);
+    if Assigned(fDm) then
+      FreeAndNil(fDm);
   end;
 end;
 
 procedure TfrmCadEmpresa.btEnd_AddClick(Sender: TObject);
 begin
   try
-    try
-      FfrmCad_Empresa_Endereco.Clear_Fields;
-      ShowPopupModal('Popup' + FfrmCad_Empresa_Endereco.Name);
-      Retorna_Endereco;
-    except
-      on E:Exception do
-      begin
-        GravarLogJSON(Self.Name,Self.Caption,'btEnd_AddClick',E);
-        MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
-      end;
+    FfrmCad_Empresa_Endereco.Clear_Fields;
+    Emissor.Empresa_Fields.id_empresa := StrToIntDef(edid_empresa.Text,0);
+    ShowPopupModal('Popup' + FfrmCad_Empresa_Endereco.Name);
+    Listar_Endereco(edid_empresa.Text);
+  except
+    on E:Exception do
+    begin
+      GravarLogJSON(Self.Name,Self.Caption,'btEnd_AddClick',E);
+      MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
     end;
-  finally
-    Clear_Parans(0);
   end;
 end;
 
@@ -517,12 +684,19 @@ procedure TfrmCadEmpresa.FormCreate(Sender: TObject);
 begin
   try
     try
-      FHost := '';
-      FIniFile := TIniFile.Create(ConfigFile);
-      FHost := FIniFile.ReadString('SERVER','HOST','') + ':' + FIniFile.ReadString('SERVER','PORT','');
 
+      FIniFile := TIniFile.Create(ConfigFile);
+      fDmPrincipal := TDM.Create(Self);
+
+      {
+      FHost := '';
+      FHost := FIniFile.ReadString('SERVER','HOST','') + ':' + FIniFile.ReadString('SERVER','PORT','');
       if Trim(FHost) = '' then
         raise Exception.Create('Host de acesso ao servidor não informado.');
+      }
+
+      ZQContaBancaria.Connection := fDmPrincipal.ZConnection;
+      ZQEndereco.Connection := fDmPrincipal.ZConnection;
 
     except
       on E :Exception do
@@ -537,69 +711,90 @@ end;
 
 procedure TfrmCadEmpresa.FormDestroy(Sender: TObject);
 begin
-  //FreeAndNil(memD_Endereco);
-  //FreeAndNil(memD_CBanco);
+  if Assigned(fDmPrincipal) then
+    FreeAndNil(fDmPrincipal);
+
   FreeAndNil(FIniFile);
 end;
 
-procedure TfrmCadEmpresa.OnClick_Delete_End(const AId_Endereco: Integer);
+procedure TfrmCadEmpresa.OnClick_Delete_End(const aId_Empresa,aId_Endereco: Integer);
 var
+{
   fResp :IResponse;
   fRet :String;
   fBody :TJSONObject;
+}
+  fQuery :TZQuery;
+  fDm :TDM;
 begin
   try
-    if MessageDlg('Deseja excluir o Endereço selecionado?',TMsgDlgType.mtConfirmation,[mbYes,mbNo],0) = mrYes then
-    begin
-      {
-      fResp := TRequest.New.BaseURL(FHost)
-      	       .AddParam('idEmpresa',memD_Endereco.FieldByName('idempresa').AsString)
-      	       .AddParam('idEndereco',memD_Endereco.FieldByName('idendereco').AsString)
-               .Resource('empresa/endereco')
-               .Accept('application/json')
-               .Delete;
+    try
+      fDm := TDM.Create(Self);
 
-      fRet := '';
-      fRet := fResp.Content;
-      fBody := TJSONObject(GetJSON(fRet));
-      if fBody['success'].AsBoolean = False then
-        raise Exception.Create(fBody['message'].AsString)
-      else
-        MessageDlg(fBody['message'].AsString,TMsgDlgType.mtInformation,[mbOK],0);
+      if MessageDlg('Deseja excluir o Endereço selecionado?',TMsgDlgType.mtConfirmation,[mbYes,mbNo],0) = mrYes then
+      begin
+        fQuery := fDm.GetQuery;
+        fQuery.Sql.Add('DELETE FROM public.endereco_empresa ');
+        fQuery.Sql.Add('WHERE id_empresa = ' + edid_empresa.Text);
+        fQuery.Sql.Add('  AND id_endereco = ' + ZQEndereco.FieldByName('id_endereco').AsString);
+        fQuery.ExecSQL;
 
-      memD_Endereco.DisableControls;
-      try
-      	 memD_Endereco.Delete;
-         memD_Endereco.Open;
-         //memD_Endereco.Refresh;
-      finally
-        DBGrid_End.Refresh;
-        memD_Endereco.EnableControls;
+        Listar_Endereco(edid_empresa.Text);
+        {
+        fResp := TRequest.New.BaseURL(FHost)
+      	         .AddParam('idEmpresa',memD_Endereco.FieldByName('idempresa').AsString)
+      	         .AddParam('idEndereco',memD_Endereco.FieldByName('idendereco').AsString)
+                 .Resource('empresa/endereco')
+                 .Accept('application/json')
+                 .Delete;
+
+        fRet := '';
+        fRet := fResp.Content;
+        fBody := TJSONObject(GetJSON(fRet));
+        if fBody['success'].AsBoolean = False then
+          raise Exception.Create(fBody['message'].AsString)
+        else
+          MessageDlg(fBody['message'].AsString,TMsgDlgType.mtInformation,[mbOK],0);
+
+        memD_Endereco.DisableControls;
+        try
+      	   memD_Endereco.Delete;
+           memD_Endereco.Open;
+           //memD_Endereco.Refresh;
+        finally
+          DBGrid_End.Refresh;
+          memD_Endereco.EnableControls;
+        end;
+        }
       end;
-      }
+    except
+      on E :Exception do
+      begin
+        GravarLogJSON(Self.Name,Self.Caption,'OnClick_Delete_End',E);
+        MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
+      end;
     end;
-  except
-    on E :Exception do
-    begin
-      GravarLogJSON(Self.Name,Self.Caption,'OnClick_Delete_End',E);
-      MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
-    end;
+
+  finally
+    if Assigned(fQuery) then
+      FreeAndNil(fQuery);
+    if Assigned(fDm) then
+      FreeAndNil(fDm);
   end;
 end;
 
 procedure TfrmCadEmpresa.OnClick_Edit_CBanco;
 begin
-  {
   try
-    FfrmCad_Empresa_DadosBancarios.edid_banco.Text := IntToStr(memD_CBanco.FieldByName('idbanco').AsInteger);
-    FfrmCad_Empresa_DadosBancarios.cbtipo_conta.ItemIndex := memD_CBanco.FieldByName('tipoconta').AsInteger;
-    FfrmCad_Empresa_DadosBancarios.edbanco.Text := memD_CBanco.FieldByName('banco').AsString;
-    FfrmCad_Empresa_DadosBancarios.edagencia.Text := memD_CBanco.FieldByName('agencia').AsString;
-    FfrmCad_Empresa_DadosBancarios.edconta.Text := memD_CBanco.FieldByName('conta').AsString;
-
+    FfrmCad_Empresa_DadosBancarios.edid_banco.Text := ZQContaBancaria.FieldByName('id_banco').AsString;
+    FfrmCad_Empresa_DadosBancarios.cbtipo_conta.ItemIndex := ZQContaBancaria.FieldByName('tipo_conta').AsInteger;
+    FfrmCad_Empresa_DadosBancarios.edbanco.Text := ZQContaBancaria.FieldByName('banco').AsString;
+    FfrmCad_Empresa_DadosBancarios.edagencia.Text := ZQContaBancaria.FieldByName('agencia').AsString;;
+    FfrmCad_Empresa_DadosBancarios.edconta.Text := ZQContaBancaria.FieldByName('conta').AsString;
+    Emissor.Empresa_Fields.id_empresa := StrToIntDef(edid_empresa.Text,0);
     ShowPopupModal('Popup' + FfrmCad_Empresa_DadosBancarios.Name);
-    memD_CBanco.Delete;
-    Retorna_DBanco;
+
+    Listar_DadosBancarios(edid_empresa.Text);
   except
     on E:Exception do
     begin
@@ -607,42 +802,62 @@ begin
       MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
     end;
   end;
-  }
 end;
 
-procedure TfrmCadEmpresa.OnClick_Delete_CBanco(const AId_Endereco: Integer);
+procedure TfrmCadEmpresa.OnClick_Delete_CBanco(const aId_Empresa,aId_CBando: Integer);
 var
+  {
   fResp :IResponse;
   fRet :String;
   fBody :TJSONObject;
+  }
+  fQuery :TZQuery;
+  fDm :TDM;
 begin
   try
-    if MessageDlg('Deseja excluir a Conta Bancária selecionada?',TMsgDlgType.mtConfirmation,[mbYes,mbNo],0) = mrYes then
-    begin
-      {
-      fResp := TRequest.New.BaseURL(FHost)
-      	       .AddParam('idEmpresa',memD_Endereco.FieldByName('idempresa').AsString)
-      	       .AddParam('idDBanco',memD_Endereco.FieldByName('idbanco').AsString)
-               .Resource('empresa/dBanco')
-               .Accept('application/json')
-               .Delete;
+    try
+      fDm := TDM.Create(Self);
 
-      fRet := '';
-      fRet := fResp.Content;
-      fBody := TJSONObject(GetJSON(fRet));
-      if fBody['success'].AsBoolean = False then
-        raise Exception.Create(fBody['message'].AsString)
-      else
-        MessageDlg(fBody['message'].AsString,TMsgDlgType.mtInformation,[mbOK],0);
-      memD_CBanco.Delete;
-      }
+      if MessageDlg('Deseja excluir a Conta Bancária selecionada?',TMsgDlgType.mtConfirmation,[mbYes,mbNo],0) = mrYes then
+      begin
+        fQuery := fDm.GetQuery;
+        fQuery.SQL.Add('DELETE FROM public.dados_bancarios ');
+        fQuery.SQL.Add('WHERE id_empresa = ' + edid_empresa.Text);
+        fQuery.SQL.Add('  AND id_banco = ' + ZQContaBancaria.FieldByName('id_banco').AsString);
+        fQuery.ExecSQL;
+
+        Listar_DadosBancarios(edid_empresa.Text);
+
+        {
+        fResp := TRequest.New.BaseURL(FHost)
+      	         .AddParam('idEmpresa',memD_Endereco.FieldByName('idempresa').AsString)
+      	         .AddParam('idDBanco',memD_Endereco.FieldByName('idbanco').AsString)
+                 .Resource('empresa/dBanco')
+                 .Accept('application/json')
+                 .Delete;
+
+        fRet := '';
+        fRet := fResp.Content;
+        fBody := TJSONObject(GetJSON(fRet));
+        if fBody['success'].AsBoolean = False then
+          raise Exception.Create(fBody['message'].AsString)
+        else
+          MessageDlg(fBody['message'].AsString,TMsgDlgType.mtInformation,[mbOK],0);
+        memD_CBanco.Delete;
+        }
+      end;
+    except
+      on E :Exception do
+      begin
+        GravarLogJSON(Self.Name,Self.Caption,'OnClick_Delete_CBanco',E);
+        MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
+      end;
     end;
-  except
-    on E :Exception do
-    begin
-      GravarLogJSON(Self.Name,Self.Caption,'OnClick_Delete_CBanco',E);
-      MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
-    end;
+  finally
+    if Assigned(fQuery) then
+      FreeAndNil(fQuery);
+    if Assigned(fDm) then
+      FreeAndNil(fDm);
   end;
 
 end;
@@ -665,10 +880,10 @@ begin
   edsite.Clear;
 
   //Endereço
-  ZMT_Endereco.Close;
+  ZQEndereco.Close;
 
   //Dados Bancários...
-  ZMT_ContaBancaria.Close;
+  ZQContaBancaria.Close;
 
   //Certificado digital...
   edid_certificado.Clear;
@@ -678,61 +893,63 @@ begin
   edsenha.Clear;
 end;
 
-procedure TfrmCadEmpresa.AjustarColunas_Endereco(DBGrid: TDBGrid);
-var
-  i: Integer;
+procedure TfrmCadEmpresa.Listar_Endereco(const aIdEmpresa: String);
 begin
   try
-    for i := 0 to DBGrid.Columns.Count - 1 do
-    begin
-      SaveLog(DBGrid.Columns[i].FieldName);
-      {
-      if DBGrid.Columns[i].FieldName = 'ID_EMPRESA' then
-        Conf_Coluna_DBGrid(DBGrid,'Id',65,I)
-      else if DBGrid.Columns[i].FieldName = 'RAZAO_SOCIAL' then
-        Conf_Coluna_DBGrid(DBGrid,'Razão Social',300,I)
-      else if DBGrid.Columns[i].FieldName = 'NOME_FANTASIA' then
-        Conf_Coluna_DBGrid(DBGrid,'Nome Fantasia',300,I)
-      else if DBGrid.Columns[i].FieldName = 'CNPJ' then
-        Conf_Coluna_DBGrid(DBGrid,'CNPJ / CPF',200,I)
-      else if DBGrid.Columns[i].FieldName = 'INSCRICAO_ESTADUAL' then
-        Conf_Coluna_DBGrid(DBGrid,'Insnc. Estadual',150,I)
-      else if DBGrid.Columns[i].FieldName = 'INSCRICAO_MUNICIPAL' then
-        Conf_Coluna_DBGrid(DBGrid,'Insnc. Municipal',150,I)
-      else if DBGrid.Columns[i].FieldName = 'REGIME_TRIBUTARIO' then
-        Conf_Coluna_DBGrid(DBGrid,'Regime Tributário',200,I)
-      else if DBGrid.Columns[i].FieldName = 'CRT' then
-        Conf_Coluna_DBGrid(DBGrid,'Cod. CRT',100,I)
-      else if DBGrid.Columns[i].FieldName = 'EMAIL' then
-        Conf_Coluna_DBGrid(DBGrid,'E-Mail',300,I)
-      else if DBGrid.Columns[i].FieldName = 'TELEFONE' then
-        Conf_Coluna_DBGrid(DBGrid,'Telefone',150,I)
-      else if DBGrid.Columns[i].FieldName = 'SITE' then
-        Conf_Coluna_DBGrid(DBGrid,'Site',300,I)
-      else if DBGrid.Columns[i].FieldName = 'DATA_CADASTRO' then
-        Conf_Coluna_DBGrid(DBGrid,'Cadastro',150,I)
-      else if DBGrid.Columns[i].FieldName = 'ATIVO' then
-        Conf_Coluna_DBGrid(DBGrid,'Ativo',65,I,0,False)
-      else if DBGrid.Columns[i].FieldName = 'CELULAR' then
-        Conf_Coluna_DBGrid(DBGrid,'Celular',150,I)
-      else if DBGrid.Columns[i].FieldName = 'CRT_DESC' then
-        Conf_Coluna_DBGrid(DBGrid,'Descrição CRT',200,I)
-      else if DBGrid.Columns[i].FieldName = 'ATIVO_DESC' then
-        Conf_Coluna_DBGrid(DBGrid,'Status',65,I,1);
-        }
-    end;
+    ZQEndereco.Close;
+    ZQEndereco.Sql.Clear;
+    ZQEndereco.Sql.Add('SELECT ');
+    ZQEndereco.Sql.Add('  ee.* ');
+    ZQEndereco.Sql.Add('  ,case ee.tipo_endereco ');
+    ZQEndereco.Sql.Add('    when 0 then ''Comercial'' ');
+    ZQEndereco.Sql.Add('    when 1 then ''Residencial'' ');
+    ZQEndereco.Sql.Add('    when 2 then ''Entrega (Shipping)'' ');
+    ZQEndereco.Sql.Add('    when 3 then ''Cobrança/Faturamento'' ');
+    ZQEndereco.Sql.Add('    when 4 then ''Correspondência'' ');
+    ZQEndereco.Sql.Add('    when 5 then ''Endereço de Instalação (quando envolve serviços técnicos), endereço rural'' ');
+    ZQEndereco.Sql.Add('    when 6 then ''Endereço Rural (para produtores)'' ');
+    ZQEndereco.Sql.Add('    when 7 then ''Endereço Temporário (Eventos, obras)'' ');
+    ZQEndereco.Sql.Add('  end tipo_endereco_desc ');
+    ZQEndereco.Sql.Add('FROM public.endereco_empresa ee ');
+    ZQEndereco.Sql.Add('where ee.id_empresa = ' + aIdEmpresa);
+    ZQEndereco.Sql.Add('order by ee.id_endereco; ');
+    ZQEndereco.Open;
   except
     On E:Exception do
     begin
-      raise Exception.Create(E.Message);
+      raise Exception.Create('Listar endereço:' +sLineBreak+ E.Message);
     end;
   end;
-
 end;
 
-procedure TfrmCadEmpresa.AjustarColunas_DadosBancarios(DBGrid: TDBGrid);
+procedure TfrmCadEmpresa.Listar_DadosBancarios(const aIdEmpresa: String);
 begin
-
+  try
+    ZQContaBancaria.Close;
+    ZQContaBancaria.SQL.Clear;
+    ZQContaBancaria.SQL.Add('select ');
+    ZQContaBancaria.SQL.Add('  db.* ');
+    ZQContaBancaria.SQL.Add('  ,case db.tipo_conta ');
+    ZQContaBancaria.SQL.Add('    when 0 then ''Corrente (PF/PJ) - Movimentação diária'' ');
+    ZQContaBancaria.SQL.Add('    when 1 then ''Poupança (PF) - Guardar e render dinheiro'' ');
+    ZQContaBancaria.SQL.Add('    when 2 then ''Salário (PF) - Receber salário/benefícios'' ');
+    ZQContaBancaria.SQL.Add('    when 3 then ''Universitária/Jovem (Estudantes/jovens) - Condições especiais'' ');
+    ZQContaBancaria.SQL.Add('    when 4 then ''PJ/MEI (Empresas/autônomos) - Gestão financeira empresarial'' ');
+    ZQContaBancaria.SQL.Add('    when 5 then ''Digital (PF/PJ) - Movimentação online'' ');
+    ZQContaBancaria.SQL.Add('    when 6 then ''Investimento (PF/PJ) - Aplicações financeiras'' ');
+    ZQContaBancaria.SQL.Add('    when 7 then ''Conjunta (PF) - Compartilhar recursos'' ');
+    ZQContaBancaria.SQL.Add('  end tipo_conta_desc ');
+    ZQContaBancaria.SQL.Add('from public.dados_bancarios db ');
+    ZQContaBancaria.SQL.Add('where db.id_empresa = ' + aIdEmpresa);
+    ZQContaBancaria.SQL.Add('order by ');
+    ZQContaBancaria.SQL.Add('  db.id_banco; ');
+    ZQContaBancaria.Open;
+  except
+    On E:Exception do
+    begin
+      raise Exception.Create('Listar dados bancários:' +sLineBreak+ E.Message);
+    end;
+  end;
 end;
 
 procedure TfrmCadEmpresa.ExportD2Bridge;
@@ -847,7 +1064,7 @@ begin
     with Row(CSSClass.DivHtml.Align_Center).Items.Add do
     begin
       VCLObj(btConfirmar, 'ValidationGravar',False, CSSClass.Button.save + CSSClass.Col.colsize2);
-      VCLObj(btCancelar, CSSClass.Button.cancel + CSSClass.Col.colsize2);
+      VCLObj(btFechar, CSSClass.Button.cancel + CSSClass.Col.colsize2);
     end;
 
     with Popup('Popup' + FfrmCad_Empresa_Endereco.Name,'Endereço da Empresa',True,CSSClass.Popup.ExtraLarge).Items.Add do
@@ -990,94 +1207,32 @@ end;
 procedure TfrmCadEmpresa.OnClick_Edit_End;
 begin
   try
-    {
-    FfrmCad_Empresa_Endereco.edid_endereco.Text := IntToStr(memD_Endereco.FieldByName('idendereco').AsInteger);
-    FfrmCad_Empresa_Endereco.cbtipo_endereco.ItemIndex := memD_Endereco.FieldByName('tipoendereco').AsInteger;
-    FfrmCad_Empresa_Endereco.edcep.Text := memD_Endereco.FieldByName('cep').AsString;
-    FfrmCad_Empresa_Endereco.edlogradouro.Text := memD_Endereco.FieldByName('logradouro').AsString;
-    FfrmCad_Empresa_Endereco.ednumero.Text := memD_Endereco.FieldByName('numero').AsString;
-    FfrmCad_Empresa_Endereco.edcomplemento.Text := memD_Endereco.FieldByName('complemento').AsString;
-    FfrmCad_Empresa_Endereco.edbairro.Text := memD_Endereco.FieldByName('bairro').AsString;
-    FfrmCad_Empresa_Endereco.edmunicipio.Text := memD_Endereco.FieldByName('municipio').AsString;
-    FfrmCad_Empresa_Endereco.edcodigo_municipio_ibge.Text := memD_Endereco.FieldByName('codigomunicipioibge').AsString;
-    FfrmCad_Empresa_Endereco.eduf.Text := memD_Endereco.FieldByName('uf').AsString;
-    FfrmCad_Empresa_Endereco.edpais.Text := memD_Endereco.FieldByName('pais').AsString;
-    FfrmCad_Empresa_Endereco.edcodigo_pais_ibge.Text := memD_Endereco.FieldByName('codigopaisibge').AsString;
+    if not ZQEndereco.IsEmpty then
+    begin
+      FfrmCad_Empresa_Endereco.edid_endereco.Text := ZQEndereco.FieldByName('id_endereco').AsString;
+      FfrmCad_Empresa_Endereco.cbtipo_endereco.ItemIndex := ZQEndereco.FieldByName('tipo_endereco').AsInteger;
+      FfrmCad_Empresa_Endereco.edcep.Text := ZQEndereco.FieldByName('cep').AsString;
+      FfrmCad_Empresa_Endereco.edlogradouro.Text := ZQEndereco.FieldByName('logradouro').AsString;
+      FfrmCad_Empresa_Endereco.ednumero.Text := ZQEndereco.FieldByName('numero').AsString;
+      FfrmCad_Empresa_Endereco.edcomplemento.Text := ZQEndereco.FieldByName('complemento').AsString;
+      FfrmCad_Empresa_Endereco.edbairro.Text := ZQEndereco.FieldByName('bairro').AsString;
+      FfrmCad_Empresa_Endereco.edmunicipio.Text := ZQEndereco.FieldByName('municipio').AsString;
+      FfrmCad_Empresa_Endereco.edcodigo_municipio_ibge.Text := ZQEndereco.FieldByName('codigo_municipio_ibge').AsString;
+      FfrmCad_Empresa_Endereco.eduf.Text := ZQEndereco.FieldByName('uf').AsString;
+      FfrmCad_Empresa_Endereco.edpais.Text := ZQEndereco.FieldByName('pais').AsString;
+      FfrmCad_Empresa_Endereco.edcodigo_pais_ibge.Text := ZQEndereco.FieldByName('codigo_pais_ibge').AsString;
+      Emissor.Empresa_Fields.id_empresa := StrToIntDef(edid_empresa.Text,0);
+      ShowPopupModal('Popup' + FfrmCad_Empresa_Endereco.Name);
 
-    ShowPopupModal('Popup' + FfrmCad_Empresa_Endereco.Name);
-    memD_Endereco.Delete;
-    Retorna_Endereco;
-    }
+      Listar_Endereco(edid_empresa.Text);
+    end;
+
   except
     on E:Exception do
     begin
       GravarLogJSON(Self.Name,Self.Caption,'OnClick_Edit_End',E);
       MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
     end;
-  end;
-end;
-
-procedure TfrmCadEmpresa.Retorna_Endereco;
-begin
-  try
-    {
-    memD_Endereco.DisableControls;
-    with Emissor.EmpEnd_Fields do
-    begin
-      if Trim(logradouro) <> '' then
-      begin
-        memD_Endereco.Append;
-        memD_Endereco.FieldByName('idEndereco').AsInteger := id_endereco;
-        memD_Endereco.FieldByName('idEmpresa').AsInteger := StrToIntDef(edid_empresa.Text,0);
-        memD_Endereco.FieldByName('logradouro').AsString := logradouro;
-        memD_Endereco.FieldByName('numero').AsString := numero;
-        memD_Endereco.FieldByName('complemento').AsString := complemento;
-        memD_Endereco.FieldByName('bairro').AsString := bairro;
-        memD_Endereco.FieldByName('municipio').AsString := municipio;
-        memD_Endereco.FieldByName('codigoMunicipioIbge').AsString := codigo_municipio_ibge;
-        memD_Endereco.FieldByName('uf').AsString := uf;
-        memD_Endereco.FieldByName('cep').AsString := cep;
-        memD_Endereco.FieldByName('pais').AsString := pais;
-        memD_Endereco.FieldByName('codigoPaisIbge').AsString := codigo_pais_ibge;
-        memD_Endereco.FieldByName('tipoEndereco').AsInteger := tipo_endereco;
-        memD_Endereco.FieldByName('tipoEnderecoDesc').AsString := tipo_endereco_desc;
-        memD_Endereco.Post;
-      end;
-    end;
-    memD_Endereco.EnableControls;
-    }
-  except
-    on E:Exception do
-      raise Exception.Create('Retorna Endereço: ' + E.Message);
-  end;
-end;
-
-procedure TfrmCadEmpresa.Retorna_DBanco;
-begin
-  try
-    {
-    memD_CBanco.DisableControls;
-    with Emissor.EmpCB_Fields do
-    begin
-      if Trim(conta) <> '' then
-      begin
-        memD_CBanco.Append;
-        memD_CBanco.FieldByName('idBanco').AsInteger := id_banco;
-        memD_CBanco.FieldByName('idEmpresa').AsInteger := StrToIntDef(edid_empresa.Text,0);
-        memD_CBanco.FieldByName('banco').AsString := banco;
-        memD_CBanco.FieldByName('agencia').AsString := agencia;
-        memD_CBanco.FieldByName('conta').AsString := conta;
-        memD_CBanco.FieldByName('tipoConta').AsInteger := tipo_conta;
-        memD_CBanco.FieldByName('tipoContaDesc').AsString := tipo_conta_desc;
-        memD_CBanco.Post;
-      end;
-    end;
-
-    memD_CBanco.EnableControls;
-    }
-  except
-    on E:Exception do
-      raise Exception.Create('Retorna dados Bancários: ' + E.Message);
   end;
 end;
 

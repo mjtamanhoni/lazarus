@@ -6,9 +6,12 @@ interface
 
 uses
   Classes, SysUtils, Math, DB, memds, fpjson, jsonparser, Variants, DateUtils,
-  FileInfo, winpeimagereader;
+  FileInfo, winpeimagereader, Forms, LCLType;
 
-{$Region 'Funçoes'}
+type
+  TTipoMensagem = (tnSucesso, tnAtencao, tnErro, tnSimNao, tnCancelarConfirmar);
+
+
 function EndPath:String;
 function NameEXE(aSemExtensao:Boolean=True):String;
 function ConfigFile:String;
@@ -25,10 +28,6 @@ procedure PreencherDataSetDeJSONArray(
   const IgnorarCampos: array of string); // campos opcionais para ignorar
 procedure PopularMemDataDoJSON(FDados: TJSONArray; mdRegistro: TMemDataset);
 function StrISOToDateTime(const DataStr: string): TDateTime;
-
-{$EndRegion}
-
-{$Region 'Procedures'}
 procedure SaveLog(
   const aMessage: String;
   const ADataHora:Boolean=True);
@@ -36,7 +35,7 @@ function GetVersionValue(const AKey: string): string;
 procedure GravarLogJSON_(const AForm,ADesc,AUnit: string; const E: Exception);
 function GetExceptionDescription(E: Exception): string;
 procedure GravarLogJSON(const AForm, ADesc, AUnit: string; const E: Exception);
-{$EndRegion}
+function MostrarMensagem(Tipo: TTipoMensagem; Titulo, Texto: string): Integer;
 
 implementation
 
@@ -527,6 +526,23 @@ begin
   finally
     ArquivoLog.Free;
   end;
+end;
+
+function MostrarMensagem(Tipo: TTipoMensagem; Titulo, Texto: string): Integer;
+begin
+  case Tipo of
+    tnSucesso: Result := Application.MessageBox(PChar(Texto), PChar(Titulo), MB_OK + MB_ICONINFORMATION);
+    tnAtencao: Result := Application.MessageBox(PChar(Texto), PChar(Titulo), MB_OK + MB_ICONWARNING);
+    tnErro: Result := Application.MessageBox(PChar(Texto), PChar(Titulo), MB_OK + MB_ICONERROR);
+    tnSimNao: Result := Application.MessageBox(PChar(Texto), PChar(Titulo), MB_YESNO + MB_ICONQUESTION);
+    tnCancelarConfirmar: Result := Application.MessageBox(PChar(Texto), PChar(Titulo), MB_OKCANCEL + MB_ICONQUESTION);
+  else
+    Result := -1; // Tipo inválido
+  end;
+
+  {
+  - O retorno é um inteiro (IDYES, IDNO, IDOK, IDCANCEL), que você pode usar em If...Then...Else ou Case...Of.
+  }
 end;
 
 function GetExceptionDescription(E: Exception): string;

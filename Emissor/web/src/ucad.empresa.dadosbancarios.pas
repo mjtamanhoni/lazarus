@@ -5,11 +5,9 @@ unit ucad.empresa.DadosBancarios;
 interface
 
 uses
-  Classes, SysUtils, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls,  
-  D2Bridge.Forms,
-  uType_Field_Table,
-  DataSet.Serialize,
-  uBase.Validation, uBase.Functions, ubase.functions.objetos;
+  Classes, SysUtils, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls, ZDataset,
+  D2Bridge.Forms, uType_Field_Table, DataSet.Serialize, uBase.Validation,
+  uBase.Functions, ubase.functions.objetos, udm;
 
 type
 
@@ -75,22 +73,63 @@ begin
 end;
 
 procedure TfrmCad_Empresa_DadosBancarios.btConfirmarClick(Sender: TObject);
+var
+  fDm :TDM;
+  fQuery :TZQuery;
+  fId_DadosBanco :Integer;
 begin
   try
-    with Emissor.EmpCB_Fields do
-    begin
-      id_banco := StrToIntDef(edid_banco.Text,0);
-      id_empresa := 0;
-      banco := edbanco.Text;
-      agencia := edagencia.Text;
-      conta := edconta.Text;
-      tipo_conta := cbtipo_conta.ItemIndex;
-      tipo_conta_desc := cbtipo_conta.Text;
+    try
+      fDm := TDM.Create(Self);
+      fQuery := fDm.GetQuery;
+
+      fId_DadosBanco := 0;
+      if StrToIntDef(edid_banco.Text,0) = 0 then
+        fId_DadosBanco := fDm.Sequencial('public.dados_bancarios',Emissor.Empresa_Fields.id_empresa)
+      else
+        fId_DadosBanco := StrToIntDef(edid_banco.Text,0);
+
+      fQuery.Sql.Add('INSERT INTO public.dados_bancarios ( ');
+      fQuery.Sql.Add('  id_banco ');
+      fQuery.Sql.Add('  ,id_empresa ');
+      fQuery.Sql.Add('  ,banco ');
+      fQuery.Sql.Add('  ,agencia ');
+      fQuery.Sql.Add('  ,conta ');
+      fQuery.Sql.Add('  ,tipo_conta ');
+      fQuery.Sql.Add(') VALUES( ');
+      fQuery.Sql.Add('  :id_banco ');
+      fQuery.Sql.Add('  ,:id_empresa ');
+      fQuery.Sql.Add('  ,:banco ');
+      fQuery.Sql.Add('  ,:agencia ');
+      fQuery.Sql.Add('  ,:conta ');
+      fQuery.Sql.Add('  ,:tipo_conta ');
+      fQuery.Sql.Add(') ON CONFLICT (id_empresa, id_banco) DO ');
+      fQuery.Sql.Add('UPDATE SET ');
+      fQuery.Sql.Add('  banco = :banco ');
+      fQuery.Sql.Add('  ,agencia = :agencia ');
+      fQuery.Sql.Add('  ,conta = :conta ');
+      fQuery.Sql.Add('  ,tipo_conta = :tipo_conta; ');
+      fQuery.ParamByName('id_banco').AsInteger := fId_DadosBanco;
+      fQuery.ParamByName('id_empresa').AsInteger := Emissor.Empresa_Fields.id_empresa;
+      fQuery.ParamByName('banco').AsString := edbanco.Text;
+      fQuery.ParamByName('agencia').AsString := edagencia.Text;
+      fQuery.ParamByName('conta').AsString := edconta.Text;
+      fQuery.ParamByName('tipo_conta').AsInteger := cbtipo_conta.ItemIndex;
+      fQuery.ExecSQL;
+
+      Close;
+    except
+      on E:Exception do
+      begin
+        GravarLogJSON(Self.Name,Self.Caption,'Gravar',E);
+        MessageDlg(E.Message,TMsgDlgType.mtError,[mbOk],0);
+      end;
     end;
-    Close;
-  except
-    on E:Exception do
-      MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
+  finally
+    if Assigned(fQuery) then
+      FreeAndNil(fQuery);
+    if Assigned(fDm) then
+      FreeAndNil(fDm);
   end;
 end;
 
@@ -145,19 +184,19 @@ begin
       with Row.Items.Add do
       begin
         FormGroup(lbid_banco.Caption,CSSClass.Col.colsize1).AddLCLObj(edid_banco);
-        FormGroup(lbtipo_conta.Caption,CSSClass.Col.colsize11).AddLCLObj(cbtipo_conta);
+        FormGroup(lbtipo_conta.Caption,CSSClass.Col.colsize11).AddLCLObj(cbtipo_conta,'ValidationGravar',True);
       end;
       with Row.Items.Add do
       begin
-        FormGroup(lbbanco.Caption,CSSClass.Col.colsize7).AddLCLObj(edbanco);
-        FormGroup(lbagencia.Caption,CSSClass.Col.colsize2).AddLCLObj(edagencia);
-        FormGroup(lbconta.Caption,CSSClass.Col.colsize3).AddLCLObj(edconta);
+        FormGroup(lbbanco.Caption,CSSClass.Col.colsize7).AddLCLObj(edbanco,'ValidationGravar',True);
+        FormGroup(lbagencia.Caption,CSSClass.Col.colsize2).AddLCLObj(edagencia,'ValidationGravar',True);
+        FormGroup(lbconta.Caption,CSSClass.Col.colsize3).AddLCLObj(edconta,'ValidationGravar',True);
       end;
     end;
 
     with Row(CSSClass.DivHtml.Align_Center).Items.Add do
     begin
-      VCLObj(btConfirmar, CSSClass.Button.save + CSSClass.Col.colsize2);
+      VCLObj(btConfirmar,'ValidationGravar',False, CSSClass.Button.save + CSSClass.Col.colsize2);
       VCLObj(btCancelar, CSSClass.Button.cancel + CSSClass.Col.colsize2);
     end;
   end;

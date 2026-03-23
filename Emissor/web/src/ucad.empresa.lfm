@@ -25,9 +25,9 @@ object frmCadEmpresa: TfrmCadEmpresa
       Height = 462
       Top = 0
       Width = 700
-      ActivePage = tsEmpresa
+      ActivePage = tsDadosBancarios
       Align = alClient
-      TabIndex = 0
+      TabIndex = 2
       TabOrder = 0
       object tsEmpresa: TTabSheet
         Caption = 'Empresa'
@@ -538,7 +538,93 @@ object frmCadEmpresa: TfrmCadEmpresa
             Width = 692
             Align = alClient
             Color = clWindow
-            Columns = <>
+            Columns = <            
+              item
+                Alignment = taRightJustify
+                Title.Alignment = taCenter
+                Title.Caption = 'Id'
+                Width = 65
+                FieldName = 'id_endereco'
+              end            
+              item
+                Alignment = taRightJustify
+                Title.Caption = 'id_empresa'
+                Visible = False
+                FieldName = 'id_empresa'
+              end            
+              item
+                Title.Alignment = taCenter
+                Title.Caption = 'Logradouro'
+                Width = 300
+                FieldName = 'logradouro'
+              end            
+              item
+                Title.Alignment = taCenter
+                Title.Caption = 'Nr.'
+                Width = 65
+                FieldName = 'numero'
+              end            
+              item
+                Title.Alignment = taCenter
+                Title.Caption = 'Complemento'
+                Width = 300
+                FieldName = 'complemento'
+              end            
+              item
+                Title.Alignment = taCenter
+                Title.Caption = 'Bairro'
+                Width = 250
+                FieldName = 'bairro'
+              end            
+              item
+                Title.Alignment = taCenter
+                Title.Caption = 'Município'
+                Width = 250
+                FieldName = 'municipio'
+              end            
+              item
+                Alignment = taRightJustify
+                Title.Alignment = taCenter
+                Title.Caption = 'IBGE'
+                Width = 100
+                FieldName = 'codigo_municipio_ibge'
+              end            
+              item
+                Title.Alignment = taCenter
+                Title.Caption = 'UF'
+                Width = 65
+                FieldName = 'uf'
+              end            
+              item
+                Title.Alignment = taCenter
+                Title.Caption = 'CEP'
+                Width = 100
+                FieldName = 'cep'
+              end            
+              item
+                Title.Alignment = taCenter
+                Title.Caption = 'Pais'
+                Width = 200
+                FieldName = 'pais'
+              end            
+              item
+                Alignment = taRightJustify
+                Title.Alignment = taCenter
+                Title.Caption = 'IBGE'
+                Width = 100
+                FieldName = 'codigo_pais_ibge'
+              end            
+              item
+                Title.Caption = 'tipo_endereco'
+                Visible = False
+                FieldName = 'tipo_endereco'
+              end            
+              item
+                Title.Alignment = taCenter
+                Title.Caption = 'Tipo'
+                Width = 200
+                FieldName = 'tipo_endereco_desc'
+              end>
             DataSource = dsEndereco
             Options = [dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit]
             TabOrder = 1
@@ -556,7 +642,49 @@ object frmCadEmpresa: TfrmCadEmpresa
           Width = 692
           Align = alClient
           Color = clWindow
-          Columns = <>
+          Columns = <          
+            item
+              Alignment = taRightJustify
+              Title.Alignment = taCenter
+              Title.Caption = 'Id'
+              Width = 65
+              FieldName = 'id_banco'
+            end          
+            item
+              Title.Caption = 'id_empresa'
+              Visible = False
+              FieldName = 'id_empresa'
+            end          
+            item
+              Title.Alignment = taCenter
+              Title.Caption = 'Banco'
+              Width = 250
+              FieldName = 'banco'
+            end          
+            item
+              Title.Alignment = taCenter
+              Title.Caption = 'Agência'
+              Width = 100
+              FieldName = 'agencia'
+            end          
+            item
+              Title.Alignment = taCenter
+              Title.Caption = 'Conta'
+              Width = 150
+              FieldName = 'conta'
+            end          
+            item
+              Title.Caption = 'tipo_conta'
+              Visible = False
+              FieldName = 'tipo_conta'
+            end          
+            item
+              Title.Alignment = taCenter
+              Title.Caption = 'Tipo'
+              Width = 250
+              FieldName = 'tipo_conta_desc'
+            end>
+          DataSource = dsConta
           Options = [dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit]
           TabOrder = 0
         end
@@ -801,16 +929,16 @@ object frmCadEmpresa: TfrmCadEmpresa
     ClientHeight = 38
     ClientWidth = 700
     TabOrder = 1
-    object btCancelar: TButton
+    object btFechar: TButton
       Cursor = crHandPoint
       Left = 625
       Height = 38
       Top = 0
       Width = 75
       Align = alRight
-      Caption = 'Cancelar'
+      Caption = 'Fechar'
       TabOrder = 0
-      OnClick = btCancelarClick
+      OnClick = btFecharClick
     end
     object btConfirmar: TButton
       Cursor = crHandPoint
@@ -825,23 +953,264 @@ object frmCadEmpresa: TfrmCadEmpresa
     end
   end
   object dsEndereco: TDataSource
-    DataSet = ZMT_Endereco
+    DataSet = ZQEndereco
     Left = 344
     Top = 320
   end
   object dsConta: TDataSource
-    DataSet = ZMT_ContaBancaria
+    DataSet = ZQContaBancaria
     Left = 456
     Top = 320
   end
-  object ZMT_Endereco: TZMemTable
-    ControlsCodePage = cDynamic
+  object ZQEndereco: TZQuery
+    SQL.Strings = (
+      'select '
+      '  ee.*'
+      '  ,case ee.tipo_endereco'
+      '    when 0 then ''Comercial'''
+      '    when 1 then ''Residencial'''
+      '    when 2 then ''Entrega (Shipping)'''
+      '    when 3 then ''Cobrança/Faturamento'''
+      '    when 4 then ''Correspondência'''
+      '    when 5 then ''Endereço de Instalação (quando envolve serviços técnicos), endereço rural'''
+      '    when 6 then ''Endereço Rural (para produtores)'''
+      '    when 7 then ''Endereço Temporário (Eventos, obras).'''
+      '  end tipo_endereco_desc'
+      'from public.endereco_empresa ee'
+      'where 1=1'
+      'order by '
+      '  ee.id_empresa '
+      '  ,ee.id_endereco; '
+    )
+    Params = <>
     Left = 344
     Top = 272
+    object ZQEnderecoid_endereco: TZIntegerField
+      FieldKind = fkData
+      FieldName = 'id_endereco'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object ZQEnderecoid_empresa: TZIntegerField
+      FieldKind = fkData
+      FieldName = 'id_empresa'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object ZQEnderecologradouro: TZRawStringField
+      FieldKind = fkData
+      FieldName = 'logradouro'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      Size = 255
+    end
+    object ZQEndereconumero: TZRawStringField
+      FieldKind = fkData
+      FieldName = 'numero'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object ZQEnderecocomplemento: TZRawStringField
+      FieldKind = fkData
+      FieldName = 'complemento'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 100
+    end
+    object ZQEnderecobairro: TZRawStringField
+      FieldKind = fkData
+      FieldName = 'bairro'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 100
+    end
+    object ZQEnderecomunicipio: TZRawStringField
+      FieldKind = fkData
+      FieldName = 'municipio'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      Size = 100
+    end
+    object ZQEnderecocodigo_municipio_ibge: TZRawStringField
+      FieldKind = fkData
+      FieldName = 'codigo_municipio_ibge'
+      Index = 7
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 7
+    end
+    object ZQEnderecouf: TZRawStringField
+      FieldKind = fkData
+      FieldName = 'uf'
+      Index = 8
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      Size = 2
+    end
+    object ZQEnderecocep: TZRawStringField
+      FieldKind = fkData
+      FieldName = 'cep'
+      Index = 9
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      Size = 8
+    end
+    object ZQEnderecopais: TZRawStringField
+      FieldKind = fkData
+      FieldName = 'pais'
+      Index = 10
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 100
+    end
+    object ZQEnderecocodigo_pais_ibge: TZRawStringField
+      FieldKind = fkData
+      FieldName = 'codigo_pais_ibge'
+      Index = 11
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 4
+    end
+    object ZQEnderecotipo_endereco: TZIntegerField
+      FieldKind = fkData
+      FieldName = 'tipo_endereco'
+      Index = 12
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object ZQEnderecotipo_endereco_desc: TZRawCLobField
+      FieldKind = fkData
+      FieldName = 'tipo_endereco_desc'
+      Index = 13
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = True
+      Required = False
+      BlobType = ftMemo
+      Transliterate = False
+    end
   end
-  object ZMT_ContaBancaria: TZMemTable
-    ControlsCodePage = cDynamic
+  object ZQContaBancaria: TZQuery
+    SQL.Strings = (
+      'select '
+      '  db.*'
+      '  ,case db.tipo_conta '
+      '    when 0 then ''Corrente (PF/PJ) - Movimentação diária'''
+      '    when 1 then ''Poupança (PF) - Guardar e render dinheiro'''
+      '    when 2 then ''Salário (PF) - Receber salário/benefícios'''
+      '    when 3 then ''Universitária/Jovem (Estudantes/jovens) - Condições especiais'''
+      '    when 4 then ''PJ/MEI (Empresas/autônomos) - Gestão financeira empresarial'''
+      '    when 5 then ''Digital (PF/PJ) - Movimentação online'''
+      '    when 6 then ''Investimento (PF/PJ) - Aplicações financeiras'''
+      '    when 7 then ''Conjunta (PF) - Compartilhar recursos'''
+      '  end tipo_conta_desc'
+      'from public.dados_bancarios db '
+      'where 1=1'
+      'order by'
+      '  db.id_empresa '
+      '  ,db.id_banco;'
+    )
+    Params = <>
     Left = 456
     Top = 272
+    object ZQContaBancariaid_banco: TZIntegerField
+      FieldKind = fkData
+      FieldName = 'id_banco'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object ZQContaBancariaid_empresa: TZIntegerField
+      FieldKind = fkData
+      FieldName = 'id_empresa'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object ZQContaBancariabanco: TZRawStringField
+      FieldKind = fkData
+      FieldName = 'banco'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 100
+    end
+    object ZQContaBancariaagencia: TZRawStringField
+      FieldKind = fkData
+      FieldName = 'agencia'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object ZQContaBancariaconta: TZRawStringField
+      FieldKind = fkData
+      FieldName = 'conta'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object ZQContaBancariatipo_conta: TZIntegerField
+      FieldKind = fkData
+      FieldName = 'tipo_conta'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object ZQContaBancariatipo_conta_desc: TZRawCLobField
+      FieldKind = fkData
+      FieldName = 'tipo_conta_desc'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = True
+      Required = False
+      BlobType = ftMemo
+      Transliterate = False
+    end
   end
 end

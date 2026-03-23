@@ -5,11 +5,9 @@ unit uCad.Empresa.Endereco;
 interface
 
 uses
-  Classes, SysUtils, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls,  
-  D2Bridge.Forms,
-  uType_Field_Table,
-  DataSet.Serialize,
-  uBase.Validation, uBase.Functions, ubase.functions.objetos;
+  Classes, SysUtils, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls, ZDataset,
+  D2Bridge.Forms, uType_Field_Table, DataSet.Serialize, uBase.Validation,
+  uBase.Functions, ubase.functions.objetos, udm, Forms;
 
 type
 
@@ -107,30 +105,129 @@ begin
 end;
 
 procedure TfrmCad_Empresa_Endereco.btConfirmarClick(Sender: TObject);
+var
+  fQuery :TZQuery;
+  fId_Endereco :Integer;
+  fDm :TDM;
+
 begin
   try
-    //Incluir em variávies e depois inserir no mdEndereco
-    with Emissor.EmpEnd_Fields do
-    begin
-      id_endereco := StrToIntDef(edid_endereco.Text,0);
-      logradouro := edlogradouro.Text;
-      numero := ednumero.Text;
-      complemento := edcomplemento.Text;
-      bairro := edbairro.Text;
-      municipio := edmunicipio.Text;
-      codigo_municipio_ibge := edcodigo_municipio_ibge.Text;
-      uf := eduf.Text;
-      cep := RemoverMascara(edcep.Text);
-      pais := edpais.Text;
-      codigo_pais_ibge := edcodigo_pais_ibge.Text;
-      tipo_endereco := cbtipo_endereco.ItemIndex;
-      tipo_endereco_desc := cbtipo_endereco.Text;
-    end;
+    try
+      fDm := TDM.Create(Self);
 
-    Close;
-  except
-    on E:Exception do
-      MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
+      //Selecionando sequencial...
+      if StrToIntDef(edid_endereco.Text,0) = 0 then
+        fId_Endereco := fDm.Sequencial('public.endereco_empresa',Emissor.Empresa_Fields.id_empresa,0)
+      else
+        fId_Endereco := StrToIntDef(edid_endereco.Text,0);
+
+      //Incluir em variávies e depois inserir no mdEndereco
+      fQuery := fDm.GetQuery;
+      fQuery.SQL.Add('INSERT INTO public.endereco_empresa ( ');
+      fQuery.SQL.Add('	id_endereco ');
+      fQuery.SQL.Add('  ,id_empresa ');
+      fQuery.SQL.Add('  ,logradouro ');
+      fQuery.SQL.Add('  ,numero ');
+      fQuery.SQL.Add('  ,complemento ');
+      fQuery.SQL.Add('  ,bairro ');
+      fQuery.SQL.Add('  ,municipio ');
+      fQuery.SQL.Add('  ,codigo_municipio_ibge ');
+      fQuery.SQL.Add('  ,uf ');
+      fQuery.SQL.Add('  ,cep ');
+      fQuery.SQL.Add('  ,pais ');
+      fQuery.SQL.Add('  ,codigo_pais_ibge ');
+      fQuery.SQL.Add('  ,tipo_endereco ');
+      fQuery.SQL.Add(') VALUES ( ');
+      fQuery.SQL.Add('	:id_endereco ');
+      fQuery.SQL.Add('  ,:id_empresa ');
+      fQuery.SQL.Add('  ,:logradouro ');
+      fQuery.SQL.Add('  ,:numero ');
+      fQuery.SQL.Add('  ,:complemento ');
+      fQuery.SQL.Add('  ,:bairro ');
+      fQuery.SQL.Add('  ,:municipio ');
+      fQuery.SQL.Add('  ,:codigo_municipio_ibge ');
+      fQuery.SQL.Add('  ,:uf ');
+      fQuery.SQL.Add('  ,:cep ');
+      fQuery.SQL.Add('  ,:pais ');
+      fQuery.SQL.Add('  ,:codigo_pais_ibge ');
+      fQuery.SQL.Add('  ,:tipo_endereco ');
+      fQuery.SQL.Add(') ON CONFLICT (id_endereco,id_empresa) DO ');
+      fQuery.SQL.Add('UPDATE SET ');
+      fQuery.SQL.Add('  logradouro = :logradouro ');
+      fQuery.SQL.Add('  ,numero = :numero ');
+      fQuery.SQL.Add('  ,complemento = :complemento ');
+      fQuery.SQL.Add('  ,bairro = :bairro ');
+      fQuery.SQL.Add('  ,municipio = :municipio ');
+      fQuery.SQL.Add('  ,codigo_municipio_ibge = :codigo_municipio_ibge ');
+      fQuery.SQL.Add('  ,uf = :uf ');
+      fQuery.SQL.Add('  ,cep = :cep ');
+      fQuery.SQL.Add('  ,pais = :pais ');
+      fQuery.SQL.Add('  ,codigo_pais_ibge = :codigo_pais_ibge ');
+      fQuery.SQL.Add('  ,tipo_endereco = :tipo_endereco; ');
+      fQuery.ParamByName('id_endereco').AsInteger := fId_Endereco;
+      fQuery.ParamByName('id_empresa').AsInteger := Emissor.Empresa_Fields.id_empresa;
+      fQuery.ParamByName('logradouro').AsString := edlogradouro.Text;
+      if Trim(ednumero.Text) = '' then
+        fQuery.ParamByName('numero').Clear
+      else
+        fQuery.ParamByName('numero').AsString := ednumero.Text;
+      if Trim(edcomplemento.Text) = '' then
+        fQuery.ParamByName('complemento').Clear
+      else
+        fQuery.ParamByName('complemento').AsString := edcomplemento.Text;
+      if Trim(edbairro.Text) = '' then
+        fQuery.ParamByName('bairro').Clear
+      else
+        fQuery.ParamByName('bairro').AsString := edbairro.Text;
+      fQuery.ParamByName('municipio').AsString := edmunicipio.Text;
+      if Trim(edcodigo_municipio_ibge.Text) = '' then
+        fQuery.ParamByName('codigo_municipio_ibge').Clear
+      else
+        fQuery.ParamByName('codigo_municipio_ibge').AsString := edcodigo_municipio_ibge.Text;
+      fQuery.ParamByName('uf').AsString := eduf.Text;
+      fQuery.ParamByName('cep').AsString := RemoverMascara(edcep.Text);
+      if Trim(edpais.Text) = '' then
+        fQuery.ParamByName('pais').Clear
+      else
+        fQuery.ParamByName('pais').AsString := edpais.Text;
+      if Trim(edcodigo_pais_ibge.Text) = '' then
+        fQuery.ParamByName('codigo_pais_ibge').Clear
+      else
+        fQuery.ParamByName('codigo_pais_ibge').AsString := edcodigo_pais_ibge.Text;
+      fQuery.ParamByName('tipo_endereco').AsInteger := cbtipo_endereco.ItemIndex;
+      fQuery.ExecSQL;
+
+      {
+      with Emissor.EmpEnd_Fields do
+      begin
+        id_endereco := StrToIntDef(edid_endereco.Text,0);
+        logradouro := edlogradouro.Text;
+        numero := ednumero.Text;
+        complemento := edcomplemento.Text;
+        bairro := edbairro.Text;
+        municipio := edmunicipio.Text;
+        codigo_municipio_ibge := edcodigo_municipio_ibge.Text;
+        uf := eduf.Text;
+        cep := RemoverMascara(edcep.Text);
+        pais := edpais.Text;
+        codigo_pais_ibge := edcodigo_pais_ibge.Text;
+        tipo_endereco := cbtipo_endereco.ItemIndex;
+        tipo_endereco_desc := cbtipo_endereco.Text;
+      end;
+      }
+      Close;
+    except
+      on E:Exception do
+      begin
+        MessageDlg(E.Message, TMsgDlgType.mtError, [mbok], 0);
+        GravarLogJSON(Self.Name,Self.Caption,'btConfirmarClick',E);
+      end;
+    end;
+  finally
+    if Assigned(fDm) then
+      FreeAndNil(fDm);
+    if Assigned(fQuery) then
+      FreeAndNil(fQuery);
   end;
 end;
 
@@ -236,13 +333,13 @@ begin
         FormGroup(lbtipo_endereco.Caption,CSSClass.Col.colsize8).AddLCLObj(cbtipo_endereco);
         With FormGroup(lbcep.Caption,CSSClass.Col.colsize3).Items.Add do
         begin
-          LCLObj(edcep);
+          LCLObj(edcep,'ValidationGravar',True);
           LCLObj(btCep, PopupMenu, CSSClass.Button.search);
         end;
       end;
       with Row.Items.Add do
       begin
-        FormGroup(lblogradouro.Caption,CSSClass.Col.colsize10).AddLCLObj(edlogradouro);
+        FormGroup(lblogradouro.Caption,CSSClass.Col.colsize10).AddLCLObj(edlogradouro,'ValidationGravar',True);
         FormGroup(lbnumero.Caption,CSSClass.Col.colsize2).AddLCLObj(ednumero);
       end;
       with Row.Items.Add do
@@ -250,9 +347,9 @@ begin
       with Row.Items.Add do
       begin
         FormGroup(lbbairro.Caption,CSSClass.Col.colsize5).AddLCLObj(edbairro);
-        FormGroup(lbmunicipio.Caption,CSSClass.Col.colsize4).AddLCLObj(edmunicipio);
+        FormGroup(lbmunicipio.Caption,CSSClass.Col.colsize4).AddLCLObj(edmunicipio,'ValidationGravar',True);
         FormGroup(lbcodigo_municipio_ibge.Caption,CSSClass.Col.colsize2).AddLCLObj(edcodigo_municipio_ibge);
-        FormGroup(lbuf.Caption,CSSClass.Col.colsize1).AddLCLObj(eduf);
+        FormGroup(lbuf.Caption,CSSClass.Col.colsize1).AddLCLObj(eduf,'ValidationGravar',True);
       end;
       with Row.Items.Add do
       begin
@@ -263,7 +360,7 @@ begin
 
     with Row(CSSClass.DivHtml.Align_Center).Items.Add do
     begin
-      VCLObj(btConfirmar, CSSClass.Button.save + CSSClass.Col.colsize2);
+      VCLObj(btConfirmar,'ValidationGravar',False, CSSClass.Button.save + CSSClass.Col.colsize2);
       VCLObj(btCancelar, CSSClass.Button.cancel + CSSClass.Col.colsize2);
     end;
   end;

@@ -31,10 +31,6 @@ type
     pnFiltro: TPanel;
     pnTipoFiltro2: TPanel;
     pmPesquisar: TPopupMenu;
-    ZMT_Registro: TZMemTable;
-    ZMT_Endereco: TZMemTable;
-    ZMT_ContaBancaria: TZMemTable;
-    ZMT_Certificado: TZMemTable;
     ZQRegistros: TZQuery;
     ZQRegistrosativo: TZIntegerField;
     ZQRegistrosativo_desc: TZRawCLobField;
@@ -109,6 +105,7 @@ begin
     FHost := FIniFile.ReadString('SERVER','HOST','') + ':' + FIniFile.ReadString('SERVER','PORT','');
 
     FDM := TDM.Create(Self);
+    ZQRegistros.Connection := FDM.ZConnection;
 
     if Trim(FHost) = '' then
       raise Exception.Create('Host de acesso ao servidor não informado.');
@@ -146,6 +143,9 @@ begin
   try
     FfrmCadEmpresa.Clear_Fields;
     FfrmCadEmpresa.pcPrincipal.ActivePageIndex := 0;
+    FfrmCadEmpresa.tsEndereco.Enabled := False;
+    FfrmCadEmpresa.tsDadosBancarios.Enabled := False;
+    FfrmCadEmpresa.tsCertificadoDigital.Enabled := False;
     ShowPopupModal('Popup' + FfrmCadEmpresa.Name);
   except
     On E:Exception do
@@ -220,7 +220,7 @@ begin
       ZQRegistros.Open;
     (* PESQUISA REALIZADA USANDO SERVIDOR HORSE
 
-      ZMT_Registro.Close;
+      ZQRegistros.Close;
 
       FTipoPesquisa := '';
       case edPesquisar.Tag of
@@ -261,7 +261,7 @@ begin
 
       //Empresa...
       FJSon_Empresa := TJSONArray(GetJSON(FBody['data'].AsJSON));
-      ZMT_Registro.LoadFromJSON(FJSon_Empresa);
+      ZQRegistros.LoadFromJSON(FJSon_Empresa);
       AjustarColunas(DBGrid_Empresa);
 
       //Endereço...
@@ -297,7 +297,7 @@ begin
     if MessageDlg('Deseja excluir a Empresa selecionada?',TMsgDlgType.mtConfirmation,[mbYes,mbNo],0) = mrYes then
     begin
       fResp := TRequest.New.BaseURL(FHost)
-      	       .AddParam('id',ZMT_Registro.FieldByName('idEmpresa').AsString)
+      	       .AddParam('id',ZQRegistros.FieldByName('idEmpresa').AsString)
                .Resource('empresa')
                .Accept('application/json')
                .Delete;
@@ -387,96 +387,65 @@ begin
 end;
 
 procedure TfrmEmpresa.OnClick_Edit(const AId: Integer; const ANome:String);
+var
+  fQuery :TZQuery;
 begin
   try
     try
+      fQuery := FDM.GetQuery;
+
       //Atualizando dados principais...
-      (*
       FfrmCadEmpresa.Clear_Fields;
-      FfrmCadEmpresa.edid_empresa.Text := ZMT_Registro.FieldByName('ID_EMPRESA').AsString;
-      FfrmCadEmpresa.edcnpj.Text := ZMT_Registro.FieldByName('CNPJ').AsString;
-      FfrmCadEmpresa.edinscricao_estadual.Text := ZMT_Registro.FieldByName('INSCRICAO_ESTADUAL').AsString;
-      FfrmCadEmpresa.edinscricao_municipal.Text := ZMT_Registro.FieldByName('INSCRICAO_MUNICIPAL').AsString;
-      FfrmCadEmpresa.cbativo.ItemIndex := ZMT_Registro.FieldByName('ATIVO').AsInteger;
-      FfrmCadEmpresa.edrazao_social.Text := ZMT_Registro.FieldByName('RAZAO_SOCIAL').AsString;
-      FfrmCadEmpresa.ednome_fantasia.Text := ZMT_Registro.FieldByName('NOME_FANTASIA').AsString;
-      FfrmCadEmpresa.cbregime_tributario.ItemIndex := FfrmCadEmpresa.cbregime_tributario.Items.IndexOf(ZMT_Registro.FieldByName('REGIME_TRIBUTARIO').AsString);
-      FfrmCadEmpresa.edcrt.Text := ZMT_Registro.FieldByName('CRT').AsString;
-      FfrmCadEmpresa.edtelefone.Text := ZMT_Registro.FieldByName('TELEFONE').AsString;
-      FfrmCadEmpresa.edcelular.Text := ZMT_Registro.FieldByName('CELULAR').AsString;
-      FfrmCadEmpresa.edemail.Text := ZMT_Registro.FieldByName('EMAIL').AsString;
-      FfrmCadEmpresa.edsite.Text := ZMT_Registro.FieldByName('SITE').AsString;
+      FfrmCadEmpresa.edid_empresa.Text := ZQRegistros.FieldByName('id_empresa').AsString;
+      FfrmCadEmpresa.edcnpj.Text := ZQRegistros.FieldByName('cnpj').AsString;
+      FfrmCadEmpresa.edinscricao_estadual.Text := ZQRegistros.FieldByName('inscricao_estadual').AsString;
+      FfrmCadEmpresa.edinscricao_municipal.Text := ZQRegistros.FieldByName('inscricao_municipal').AsString;
+      FfrmCadEmpresa.cbativo.ItemIndex := ZQRegistros.FieldByName('ativo').AsInteger;
+      FfrmCadEmpresa.edrazao_social.Text := ZQRegistros.FieldByName('razao_social').AsString;
+      FfrmCadEmpresa.ednome_fantasia.Text := ZQRegistros.FieldByName('nome_fantasia').AsString;
+      FfrmCadEmpresa.cbregime_tributario.ItemIndex := FfrmCadEmpresa.cbregime_tributario.Items.IndexOf(ZQRegistros.FieldByName('regime_tributario').AsString);
+      FfrmCadEmpresa.edcrt.Text := ZQRegistros.FieldByName('crt').AsString;
+      FfrmCadEmpresa.edtelefone.Text := ZQRegistros.FieldByName('telefone').AsString;
+      FfrmCadEmpresa.edcelular.Text := ZQRegistros.FieldByName('celular').AsString;
+      FfrmCadEmpresa.edemail.Text := ZQRegistros.FieldByName('email').AsString;
+      FfrmCadEmpresa.edsite.Text := ZQRegistros.FieldByName('site').AsString;
 
-      if not ZMT_Registro.IsEmpty then
+      if not ZQRegistros.IsEmpty then
       begin
+        FfrmCadEmpresa.pcPrincipal.ActivePageIndex := 0;
 
-        FfrmCadEmpresa.Create_DataSet;
+        //Listando endereços...
+        FfrmCadEmpresa.Listar_Endereco(ZQRegistros.FieldByName('id_empresa').AsString);
 
-        //Endereço...
-        FfrmCadEmpresa.memD_Endereco.DisableControls;
-
-        memD_Endereco.Filter := 'idEmpresa = ' + ZQRegistro.FieldByName('idEmpresa').AsString;
-        memD_Endereco.Filtered := True;
-        memD_Endereco.First;
-	while not memD_Endereco.EOF do
-        begin
-          //Adicionando dados da empresa...
-            FfrmCadEmpresa.memD_Endereco.Append;
-            FfrmCadEmpresa.memD_Endereco.FieldByName('idEndereco').AsInteger := memD_Endereco.FieldByName('idEndereco').AsInteger;
-            FfrmCadEmpresa.memD_Endereco.FieldByName('idEmpresa').AsInteger := memD_Endereco.FieldByName('idEmpresa').AsInteger;
-            FfrmCadEmpresa.memD_Endereco.FieldByName('logradouro').AsString := memD_Endereco.FieldByName('logradouro').AsString;
-            FfrmCadEmpresa.memD_Endereco.FieldByName('numero').AsString := memD_Endereco.FieldByName('numero').AsString;
-            FfrmCadEmpresa.memD_Endereco.FieldByName('complemento').AsString := memD_Endereco.FieldByName('complemento').AsString;
-            FfrmCadEmpresa.memD_Endereco.FieldByName('bairro').AsString := memD_Endereco.FieldByName('bairro').AsString;
-            FfrmCadEmpresa.memD_Endereco.FieldByName('municipio').AsString := memD_Endereco.FieldByName('municipio').AsString;
-            FfrmCadEmpresa.memD_Endereco.FieldByName('codigoMunicipioIbge').AsString := memD_Endereco.FieldByName('codigoMunicipioIbge').AsString;
-            FfrmCadEmpresa.memD_Endereco.FieldByName('uf').AsString := memD_Endereco.FieldByName('uf').AsString;
-            FfrmCadEmpresa.memD_Endereco.FieldByName('cep').AsString := memD_Endereco.FieldByName('cep').AsString;
-            FfrmCadEmpresa.memD_Endereco.FieldByName('pais').AsString := memD_Endereco.FieldByName('pais').AsString;
-            FfrmCadEmpresa.memD_Endereco.FieldByName('codigoPaisIbge').AsString := memD_Endereco.FieldByName('codigoPaisIbge').AsString;
-            FfrmCadEmpresa.memD_Endereco.FieldByName('tipoEndereco').AsInteger := memD_Endereco.FieldByName('tipoEndereco').AsInteger;
-            FfrmCadEmpresa.memD_Endereco.FieldByName('tipoEnderecoDesc').AsString := memD_Endereco.FieldByName('tipoEnderecoDesc').AsString;
-            FfrmCadEmpresa.memD_Endereco.Post;
-
-            memD_Endereco.Next;
-        end;
-        FfrmCadEmpresa.memD_Endereco.EnableControls;
-        {
-        //Contas bancárias...
-        FfrmCadEmpresa.memD_CBanco.DisableControls;
-        memD_CBanco.Filter := 'idEmpresa = ' + ZQRegistro.FieldByName('idEmpresa').AsString;
-        memD_CBanco.Filtered := True;
-        memD_CBanco.First;
-        while not memD_CBanco.EOF do
-        begin
-          FfrmCadEmpresa.memD_CBanco.Append;
-          FfrmCadEmpresa.memD_CBanco.FieldByName('idBanco').AsInteger := memD_CBanco.FieldByName('idBanco').AsInteger;
-          FfrmCadEmpresa.memD_CBanco.FieldByName('idEmpresa').AsInteger := memD_CBanco.FieldByName('idEmpresa').AsInteger;
-          FfrmCadEmpresa.memD_CBanco.FieldByName('banco').AsString := memD_CBanco.FieldByName('banco').AsString;
-          FfrmCadEmpresa.memD_CBanco.FieldByName('agencia').AsString := memD_CBanco.FieldByName('agencia').AsString;
-          FfrmCadEmpresa.memD_CBanco.FieldByName('conta').AsString := memD_CBanco.FieldByName('conta').AsString;
-          FfrmCadEmpresa.memD_CBanco.FieldByName('tipoConta').AsInteger := memD_CBanco.FieldByName('tipoConta').AsInteger;
-          FfrmCadEmpresa.memD_CBanco.FieldByName('tipoContaDesc').AsString := memD_CBanco.FieldByName('tipoContaDesc').AsString;
-          FfrmCadEmpresa.memD_CBanco.Post;
-          memD_CBanco.Next;
-        end;
-        FfrmCadEmpresa.memD_CBanco.EnableControls;
+        //Listando dados do banco...
+        FfrmCadEmpresa.Listar_DadosBancarios(ZQRegistros.FieldByName('id_empresa').AsString);
 
         //Certificado digital...
-        FfrmCadEmpresa.edid_certificado.Text := memD_Certificado.FieldByName('idCertificado').AsString;
-        FfrmCadEmpresa.cbtipo.ItemIndex := memD_Certificado.FieldByName('tipo').AsInteger;
-        FfrmCadEmpresa.edvalidade.Date := memD_Certificado.FieldByName('validade').AsDateTime;
-        FfrmCadEmpresa.edcaminho_arquivo.Text := memD_Certificado.FieldByName('caminhoArquivo').AsString;
-        FfrmCadEmpresa.edsenha.Text := memD_Certificado.FieldByName('senha').AsString;;
-        }
-      end;
+        fQuery.SQL.Add('select ');
+        fQuery.SQL.Add('  cd.* ');
+        fQuery.SQL.Add('from public.certificado_digital cd ');
+        fQuery.SQL.Add('where cd.id_empresa = ' + ZQRegistros.FieldByName('id_empresa').AsString);
+        fQuery.SQL.Add('order by ');
+        fQuery.SQL.Add('  cd.id_certificado; ');
+        fQuery.Open;
+        if not fQuery.IsEmpty then
+        begin
+          FfrmCadEmpresa.edid_certificado.Text := fQuery.FieldByName('id_certificado').AsString;
+          FfrmCadEmpresa.cbtipo.ItemIndex := fQuery.FieldByName('tipo').AsInteger;
+          FfrmCadEmpresa.edvalidade.Date := fQuery.FieldByName('validade').AsDateTime;
+          FfrmCadEmpresa.edcaminho_arquivo.Text := fQuery.FieldByName('caminho_arquivo').AsString;
+          FfrmCadEmpresa.edsenha.Text := fQuery.FieldByName('senha').AsString;
+        end;
 
-      FfrmCadEmpresa.pcPrincipal.ActivePageIndex := 0;
-      ShowPopupModal('Popup' + FfrmCadEmpresa.Name);
+        FfrmCadEmpresa.tsEndereco.Enabled := True;
+        FfrmCadEmpresa.tsDadosBancarios.Enabled := True;
+        FfrmCadEmpresa.tsCertificadoDigital.Enabled := True;
+        ShowPopupModal('Popup' + FfrmCadEmpresa.Name);
 
-      //Informações atualizadas pelos registros da tela de cadastro...
-      Pesquisar;
-      *)
+        Pesquisar;
+      end
+      else
+        raise Exception.Create('Empresa não localizada');
     except
       on E :Exception do
       begin
@@ -485,8 +454,8 @@ begin
       end;
     end;
   finally
-    //memD_Endereco.Filtered := False;
-    //memD_CBanco.Filtered := False;
+    if Assigned(fQuery) then
+      FreeAndNil(fQuery);
   end;
 end;
 

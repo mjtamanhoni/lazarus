@@ -166,7 +166,8 @@ inherited frmEmpresa: TfrmEmpresa
         item
           Title.Alignment = taCenter
           Title.Caption = 'Ativo'
-          Width = 65
+          Width = 0
+          Visible = False
           FieldName = 'ativo'
         end      
         item
@@ -182,6 +183,7 @@ inherited frmEmpresa: TfrmEmpresa
           FieldName = 'crt_desc'
         end      
         item
+          Alignment = taCenter
           Title.Alignment = taCenter
           Title.Caption = 'Ativo'
           Width = 100
@@ -211,7 +213,7 @@ inherited frmEmpresa: TfrmEmpresa
   end
   object dsRegistro: TDataSource[4]
     DataSet = ZQRegistros
-    Left = 80
+    Left = 88
     Top = 240
   end
   object pmPesquisar: TPopupMenu[5]
@@ -237,28 +239,7 @@ inherited frmEmpresa: TfrmEmpresa
       OnClick = miRazaoSocialClick
     end
   end
-  object ZMT_Registro: TZMemTable[6]
-    ControlsCodePage = cDynamic
-    Left = 280
-    Top = 184
-  end
-  object ZMT_Endereco: TZMemTable[7]
-    ControlsCodePage = cDynamic
-    Left = 280
-    Top = 240
-  end
-  object ZMT_ContaBancaria: TZMemTable[8]
-    ControlsCodePage = cDynamic
-    Left = 280
-    Top = 296
-  end
-  object ZMT_Certificado: TZMemTable[9]
-    ControlsCodePage = cDynamic
-    Left = 280
-    Top = 352
-  end
-  object ZQRegistros: TZQuery[10]
-    Connection = DM.ZConnection
+  object ZQRegistros: TZQuery[6]
     SQL.Strings = (
       'SELECT '
       '  e.* '

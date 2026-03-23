@@ -6,9 +6,12 @@ interface
 
 uses
   Classes, SysUtils, Math, DB, memds, fpjson, jsonparser, Variants, DateUtils,
-  FileInfo, winpeimagereader;
+  FileInfo, winpeimagereader, Forms;
 
-{$Region 'Funçoes'}
+type
+  TTipoMensagem = (tnSucesso, tnAtencao, tnErro, tnSimNao, tnCancelarConfirmar);
+
+
 function EndPath:String;
 function NameEXE(aSemExtensao:Boolean=True):String;
 function ConfigFile:String;
@@ -25,17 +28,14 @@ procedure PreencherDataSetDeJSONArray(
   const IgnorarCampos: array of string); // campos opcionais para ignorar
 procedure PopularMemDataDoJSON(FDados: TJSONArray; mdRegistro: TMemDataset);
 function StrISOToDateTime(const DataStr: string): TDateTime;
-
-{$EndRegion}
-
-{$Region 'Procedures'}
 procedure SaveLog(
   const aMessage: String;
   const ADataHora:Boolean=True);
 function GetVersionValue(const AKey: string): string;
 procedure GravarLogJSON_(const AForm,ADesc,AUnit: string; const E: Exception);
+function GetExceptionDescription(E: Exception): string;
 procedure GravarLogJSON(const AForm, ADesc, AUnit: string; const E: Exception);
-{$EndRegion}
+function MostrarMensagem(Tipo: TTipoMensagem; Titulo, Texto: string): Integer;
 
 implementation
 
@@ -510,6 +510,7 @@ begin
       ObjetoErro.Add('caption_name', ADesc);
       ObjetoErro.Add('unit', AUnit);
       ObjetoErro.Add('exception_class', E.ClassName);
+      ObjetoErro.Add('exception_description', GetExceptionDescription(E));
       ObjetoErro.Add('message', E.Message);
 
       // 5. Adicionar o erro ao array do dia
@@ -527,7 +528,47 @@ begin
   end;
 end;
 
+function MostrarMensagem(Tipo: TTipoMensagem; Titulo, Texto: string): Integer;
+begin
+  case Tipo of
+    tnSucesso: Result := Application.MessageBox(PChar(Texto), PChar(Titulo), MB_OK + MB_ICONINFORMATION);
+    tnAtencao: Result := Application.MessageBox(PChar(Texto), PChar(Titulo), MB_OK + MB_ICONWARNING);
+    tnErro: Result := Application.MessageBox(PChar(Texto), PChar(Titulo), MB_OK + MB_ICONERROR);
+    tnSimNao: Result := Application.MessageBox(PChar(Texto), PChar(Titulo), MB_YESNO + MB_ICONQUESTION);
+    tnCancelarConfirmar: Result := Application.MessageBox(PChar(Texto), PChar(Titulo), MB_OKCANCEL + MB_ICONQUESTION);
+  else
+    Result := -1; // Tipo inválido
+  end;
 
+  {
+  - O retorno é um inteiro (IDYES, IDNO, IDOK, IDCANCEL), que você pode usar em If...Then...Else ou Case...Of.
+  }
+end;
+
+function GetExceptionDescription(E: Exception): string;
+begin
+  if E is EAccessViolation then
+    Result := 'Violação de Acesso: O sistema tentou ler ou gravar em uma memória inválida (Objeto NIL ou já liberado).'
+  else if E is EConvertError then
+    Result := 'Erro de Conversão: Falha ao converter tipos de dados (ex: Texto para Número).'
+  else if E is EDatabaseError then
+    Result := 'Erro de Banco de Dados: Falha em operação de dataset, campo não encontrado ou erro SQL.'
+  else if E is EDivByZero then
+    Result := 'Divisão por Zero: Tentativa de realizar uma operação matemática proibida.'
+  else if E is ERangeError then
+    Result := 'Erro de Faixa: Valor atribuído está fora do limite permitido para o tipo da variável.'
+  else if E is EInvalidCast then
+    Result := 'Moldagem Inválida: Tentativa de converter um objeto para uma classe incompatível.'
+
+  // Exceção específica do Lazarus/FPC
+  {$IFDEF FPC}
+  else if E.ClassNameIs('EObjectCheck') then
+    Result := 'Checagem de Objeto: Tentativa de acesso a um objeto não inicializado (NIL).'
+  {$ENDIF}
+
+  else
+    Result := 'Exceção Genérica: Erro não classificado especificamente pelo mapeador de log.';
+end;
 
 
 end.

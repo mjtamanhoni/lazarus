@@ -145,8 +145,6 @@ begin
     try
       Result := 0;
 
-      if aId_Empresa = 0 then
-        raise Exception.Create('O id da Empresa é obrigatório');
       if Trim(aTabela) = '' then
         raise Exception.Create('O nome da Tabela é obrigatório');
 
@@ -227,7 +225,6 @@ begin
       fQuery.SQL.Add('  join public.perfis p on p.id_perfil = u.id_perfil ');
       fQuery.SQL.Add('where u.login = ' + QuotedStr(aLogin));
       fQuery.SQL.Add('  and u.id_empresa = ' + aIdEmpresa.ToString);
-      SaveLog(fQuery.SQL.Text);
       fQuery.Open;
       if fQuery.IsEmpty then
         raise Exception.Create('Usuário ou Empresa não encontrados. Verifique suas credenciais e tente novamente.');

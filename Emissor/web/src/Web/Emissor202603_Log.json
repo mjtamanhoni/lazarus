@@ -552,5 +552,256 @@
         "message" : "Validando usuário: \r\nSenha inválida. Verifica suas credenciais e tente novamente."
       }
     ]
+  },
+  {
+    "date" : "2026-03-19",
+    "company_name" : "MJT Systems",
+    "description" : "Servidor Horse para emissão de Documentos Fiscais",
+    "copyright" : "Marcos Tamanhoni",
+    "product_name" : "HorseFiscal",
+    "version" : "1.0.0.7",
+    "usuario_pc" : "Marcos Tamanhoni",
+    "logs" : [
+      {
+        "time" : "06:31:25",
+        "form_name" : "frmEmpresa",
+        "caption_name" : "Empresas",
+        "unit" : "Pesquisar",
+        "exception_class" : "Exception",
+        "exception_description" : "Exceção Genérica: Erro não classificado especificamente pelo mapeador de log.",
+        "message" : "Para realizar o filtro usando o ID,  não pode haver letras no texto da pesquisa"
+      },
+      {
+        "time" : "17:57:06",
+        "form_name" : "frmCadEmpresa_1",
+        "caption_name" : "Cadastro de Empresa",
+        "unit" : "Gravar",
+        "exception_class" : "EAccessViolation",
+        "exception_description" : "Violação de Acesso: O sistema tentou ler ou gravar em uma memória inválida (Objeto NIL ou já liberado).",
+        "message" : "Access violation"
+      },
+      {
+        "time" : "17:57:12",
+        "form_name" : "frmCadEmpresa_1",
+        "caption_name" : "Cadastro de Empresa",
+        "unit" : "Gravar",
+        "exception_class" : "EAccessViolation",
+        "exception_description" : "Violação de Acesso: O sistema tentou ler ou gravar em uma memória inválida (Objeto NIL ou já liberado).",
+        "message" : "Access violation"
+      },
+      {
+        "time" : "18:07:24",
+        "form_name" : "frmCadEmpresa_1",
+        "caption_name" : "Cadastro de Empresa",
+        "unit" : "Gravar",
+        "exception_class" : "EAccessViolation",
+        "exception_description" : "Violação de Acesso: O sistema tentou ler ou gravar em uma memória inválida (Objeto NIL ou já liberado).",
+        "message" : "Access violation"
+      }
+    ]
+  },
+  {
+    "date" : "2026-03-20",
+    "company_name" : "MJT Systems",
+    "description" : "Servidor Horse para emissão de Documentos Fiscais",
+    "copyright" : "Marcos Tamanhoni",
+    "product_name" : "HorseFiscal",
+    "version" : "1.0.0.7",
+    "usuario_pc" : "Marcos Tamanhoni",
+    "logs" : [
+      {
+        "time" : "06:39:17",
+        "form_name" : "frmCadEmpresa_1",
+        "caption_name" : "Cadastro de Empresa",
+        "unit" : "Gravar",
+        "exception_class" : "EZSQLException",
+        "exception_description" : "Erro de Banco de Dados: Falha em operação de dataset, campo não encontrado ou erro SQL.",
+        "message" : "SQL Error: ERRO:  faltando entrada para tabela \"exclude\" na cláusula FROM\nLINE 1: ...ONFLICT (id_empresa) DO UPDATE SET razao_social = EXCLUDE.ra...\n                                                             ^\nERRO 42P01\r\nfaltando entrada para tabela \"exclude\" na cláusula FROM\r\nposition: 322 \r\nCode: 7 SQL: INSERT INTO public.empresa ( id_empresa ,razao_social ,nome_fantasia ,cnpj ,inscricao_estadual ,inscricao_municipal ,regime_tributario ,crt ,email ,telefone ,site ,data_cadastro ,ativo ,celular ) VALUES ( $1 ,$2 ,$3 ,$4 ,$5 ,$6 ,$7 ,$8 ,$9 ,$10 ,$11 ,$12 ,$13 ,$14 ) ON CONFLICT (id_empresa) DO UPDATE SET razao_social = EXCLUDE.razao_social ,nome_fantasia = EXCLUDE.nome_fantasia ,cnpj = EXCLUDE.cnpj ,inscricao_estadual = EXCLUDE.inscricao_estadual ,inscricao_municipal = EXCLUDE.inscricao_municipal ,regime_tributario = EXCLUDE.regime_tributario ,crt = EXCLUDE.crt ,email = EXCLUDE.email ,telefone = EXCLUDE.telefone ,site = EXCLUDE.site ,data_cadastro = EXCLUDE.data_cadastro ,ativo = EXCLUDE.ativo ,celular = EXCLUDE.celular;"
+      },
+      {
+        "time" : "08:45:41",
+        "form_name" : "frmCadEmpresa_1",
+        "caption_name" : "Cadastro de Empresa",
+        "unit" : "Gravar",
+        "exception_class" : "EZSQLException",
+        "exception_description" : "Erro de Banco de Dados: Falha em operação de dataset, campo não encontrado ou erro SQL.",
+        "message" : "SQL Error: ERRO:  faltando entrada para tabela \"exclude\" na cláusula FROM\nLINE 1: ...ONFLICT (id_empresa) DO UPDATE SET razao_social = EXCLUDE.ra...\n                                                             ^\nERRO 42P01\r\nfaltando entrada para tabela \"exclude\" na cláusula FROM\r\nposition: 322 \r\nCode: 7 SQL: INSERT INTO public.empresa ( id_empresa ,razao_social ,nome_fantasia ,cnpj ,inscricao_estadual ,inscricao_municipal ,regime_tributario ,crt ,email ,telefone ,site ,data_cadastro ,ativo ,celular ) VALUES ( $1 ,$2 ,$3 ,$4 ,$5 ,$6 ,$7 ,$8 ,$9 ,$10 ,$11 ,$12 ,$13 ,$14 ) ON CONFLICT (id_empresa) DO UPDATE SET razao_social = EXCLUDE.razao_social ,nome_fantasia = $3 ,cnpj = $4 ,inscricao_estadual = $5 ,inscricao_municipal = $6 ,regime_tributario = $7 ,crt = $8 ,email = $9 ,telefone = $10 ,site = $11 ,data_cadastro = $12 ,ativo = $13 ,celular = $14;"
+      }
+    ]
+  },
+  {
+    "date" : "2026-03-21",
+    "company_name" : "MJT Systems",
+    "description" : "Servidor Horse para emissão de Documentos Fiscais",
+    "copyright" : "Marcos Tamanhoni",
+    "product_name" : "HorseFiscal",
+    "version" : "1.0.0.7",
+    "usuario_pc" : "Marcos Tamanhoni",
+    "logs" : [
+      {
+        "time" : "08:50:35",
+        "form_name" : "Form_Login",
+        "caption_name" : "Form Login",
+        "unit" : "Button_LoginClick",
+        "exception_class" : "Exception",
+        "exception_description" : "Exceção Genérica: Erro não classificado especificamente pelo mapeador de log.",
+        "message" : "Validando usuário: \r\nSenha inválida. Verifica suas credenciais e tente novamente."
+      },
+      {
+        "time" : "09:10:37",
+        "form_name" : "Form_Login",
+        "caption_name" : "Form Login",
+        "unit" : "Confere_Doc_Existe",
+        "exception_class" : "Exception",
+        "exception_description" : "Exceção Genérica: Erro não classificado especificamente pelo mapeador de log.",
+        "message" : "Documento inválido"
+      },
+      {
+        "time" : "09:10:48",
+        "form_name" : "Form_Login",
+        "caption_name" : "Form Login",
+        "unit" : "Confere_Doc_Existe",
+        "exception_class" : "Exception",
+        "exception_description" : "Exceção Genérica: Erro não classificado especificamente pelo mapeador de log.",
+        "message" : "Documento inválido"
+      }
+    ]
+  },
+  {
+    "date" : "2026-03-23",
+    "company_name" : "MJT Systems",
+    "description" : "Servidor Horse para emissão de Documentos Fiscais",
+    "copyright" : "Marcos Tamanhoni",
+    "product_name" : "HorseFiscal",
+    "version" : "1.0.0.7",
+    "usuario_pc" : "Marcos Tamanhoni",
+    "logs" : [
+      {
+        "time" : "11:24:43",
+        "form_name" : "frmCad_Empresa_Endereco_1",
+        "caption_name" : "Cadastro de Endereço da Empresa",
+        "unit" : "btConfirmarClick",
+        "exception_class" : "EZSQLException",
+        "exception_description" : "Erro de Banco de Dados: Falha em operação de dataset, campo não encontrado ou erro SQL.",
+        "message" : "SQL Error: ERRO:  erro de sintaxe em ou próximo a \"ON\"\nLINE 1: ...,uf ,cep ,pais ,codigo_pais_ibge ,tipo_endereco ) ON CONFLIC...\n                                                             ^\nERRO 42601\r\nerro de sintaxe em ou próximo a \"ON\"\r\nposition: 188 \r\nCode: 7 SQL: INSERT INTO public.endereco_empresa ( id_endereco ,id_empresa ,logradouro ,numero ,complemento ,bairro ,municipio ,codigo_municipio_ibge ,uf ,cep ,pais ,codigo_pais_ibge ,tipo_endereco ) ON CONFLICT (id_empresa,id_endereco) DO UPDATE SET logradouro = $1 ,numero = $2 ,complemento = $3 ,bairro = $4 ,municipio = $5 ,codigo_municipio_ibge = $6 ,uf = $7 ,cep = $8 ,pais = $9 ,codigo_pais_ibge = $10 ,tipo_endereco = $11;"
+      },
+      {
+        "time" : "11:36:55",
+        "form_name" : "frmCad_Empresa_Endereco_1",
+        "caption_name" : "Cadastro de Endereço da Empresa",
+        "unit" : "btConfirmarClick",
+        "exception_class" : "EZDatabaseError",
+        "exception_description" : "Erro de Banco de Dados: Falha em operação de dataset, campo não encontrado ou erro SQL.",
+        "message" : "Parameter \"id_endereco\" not found"
+      },
+      {
+        "time" : "13:37:27",
+        "form_name" : "Form_Login",
+        "caption_name" : "Form Login",
+        "unit" : "Confere_Doc_Existe",
+        "exception_class" : "Exception",
+        "exception_description" : "Exceção Genérica: Erro não classificado especificamente pelo mapeador de log.",
+        "message" : "Documento inválido"
+      },
+      {
+        "time" : "13:38:29",
+        "form_name" : "frmCad_Empresa_Endereco_1",
+        "caption_name" : "Cadastro de Endereço da Empresa",
+        "unit" : "btConfirmarClick",
+        "exception_class" : "EZSQLException",
+        "exception_description" : "Erro de Banco de Dados: Falha em operação de dataset, campo não encontrado ou erro SQL.",
+        "message" : "SQL Error: ERRO:  erro de sintaxe em ou próximo a \"VALUES\"\nLINE 1: ...e ,uf ,cep ,pais ,codigo_pais_ibge ,tipo_endereco VALUES ( $...\n                                                             ^\nERRO 42601\r\nerro de sintaxe em ou próximo a \"VALUES\"\r\nposition: 186 \r\nCode: 7 SQL: INSERT INTO public.endereco_empresa ( id_endereco ,id_empresa ,logradouro ,numero ,complemento ,bairro ,municipio ,codigo_municipio_ibge ,uf ,cep ,pais ,codigo_pais_ibge ,tipo_endereco VALUES ( $1 ,$2 ,$3 ,$4 ,$5 ,$6 ,$7 ,$8 ,$9 ,$10 ,$11 ,$12 ,$13 ) ON CONFLICT (id_empresa,id_endereco) DO UPDATE SET logradouro = $3 ,numero = $4 ,complemento = $5 ,bairro = $6 ,municipio = $7 ,codigo_municipio_ibge = $8 ,uf = $9 ,cep = $10 ,pais = $11 ,codigo_pais_ibge = $12 ,tipo_endereco = $13;"
+      },
+      {
+        "time" : "13:44:44",
+        "form_name" : "frmCad_Empresa_Endereco_1",
+        "caption_name" : "Cadastro de Endereço da Empresa",
+        "unit" : "btConfirmarClick",
+        "exception_class" : "EZSQLException",
+        "exception_description" : "Erro de Banco de Dados: Falha em operação de dataset, campo não encontrado ou erro SQL.",
+        "message" : "SQL Error: ERRO:  valor é muito longo para tipo character(8)\nERRO 22001\r\nvalor é muito longo para tipo character(8) \r\nCode: 7 SQL: INSERT INTO public.endereco_empresa ( id_endereco ,id_empresa ,logradouro ,numero ,complemento ,bairro ,municipio ,codigo_municipio_ibge ,uf ,cep ,pais ,codigo_pais_ibge ,tipo_endereco ) VALUES ( $1 ,$2 ,$3 ,$4 ,$5 ,$6 ,$7 ,$8 ,$9 ,$10 ,$11 ,$12 ,$13 ) ON CONFLICT (id_endereco,id_empresa) DO UPDATE SET logradouro = $3 ,numero = $4 ,complemento = $5 ,bairro = $6 ,municipio = $7 ,codigo_municipio_ibge = $8 ,uf = $9 ,cep = $10 ,pais = $11 ,codigo_pais_ibge = $12 ,tipo_endereco = $13;"
+      },
+      {
+        "time" : "13:45:52",
+        "form_name" : "frmCad_Empresa_Endereco_1",
+        "caption_name" : "Cadastro de Endereço da Empresa",
+        "unit" : "btConfirmarClick",
+        "exception_class" : "EZSQLException",
+        "exception_description" : "Erro de Banco de Dados: Falha em operação de dataset, campo não encontrado ou erro SQL.",
+        "message" : "SQL Error: ERRO:  valor é muito longo para tipo character(8)\nERRO 22001\r\nvalor é muito longo para tipo character(8) \r\nCode: 7 SQL: INSERT INTO public.endereco_empresa ( id_endereco ,id_empresa ,logradouro ,numero ,complemento ,bairro ,municipio ,codigo_municipio_ibge ,uf ,cep ,pais ,codigo_pais_ibge ,tipo_endereco ) VALUES ( $1 ,$2 ,$3 ,$4 ,$5 ,$6 ,$7 ,$8 ,$9 ,$10 ,$11 ,$12 ,$13 ) ON CONFLICT (id_endereco,id_empresa) DO UPDATE SET logradouro = $3 ,numero = $4 ,complemento = $5 ,bairro = $6 ,municipio = $7 ,codigo_municipio_ibge = $8 ,uf = $9 ,cep = $10 ,pais = $11 ,codigo_pais_ibge = $12 ,tipo_endereco = $13;"
+      },
+      {
+        "time" : "13:48:21",
+        "form_name" : "frmCad_Empresa_Endereco_1",
+        "caption_name" : "Cadastro de Endereço da Empresa",
+        "unit" : "btConfirmarClick",
+        "exception_class" : "EZSQLException",
+        "exception_description" : "Erro de Banco de Dados: Falha em operação de dataset, campo não encontrado ou erro SQL.",
+        "message" : "SQL Error: ERRO:  valor é muito longo para tipo character(8)\nERRO 22001\r\nvalor é muito longo para tipo character(8) \r\nCode: 7 SQL: INSERT INTO public.endereco_empresa ( id_endereco ,id_empresa ,logradouro ,numero ,complemento ,bairro ,municipio ,codigo_municipio_ibge ,uf ,cep ,pais ,codigo_pais_ibge ,tipo_endereco ) VALUES ( $1 ,$2 ,$3 ,$4 ,$5 ,$6 ,$7 ,$8 ,$9 ,$10 ,$11 ,$12 ,$13 ) ON CONFLICT (id_endereco,id_empresa) DO UPDATE SET logradouro = $3 ,numero = $4 ,complemento = $5 ,bairro = $6 ,municipio = $7 ,codigo_municipio_ibge = $8 ,uf = $9 ,cep = $10 ,pais = $11 ,codigo_pais_ibge = $12 ,tipo_endereco = $13;"
+      },
+      {
+        "time" : "14:01:36",
+        "form_name" : "frmCad_Empresa_Endereco_1",
+        "caption_name" : "Cadastro de Endereço da Empresa",
+        "unit" : "btConfirmarClick",
+        "exception_class" : "EAccessViolation",
+        "exception_description" : "Violação de Acesso: O sistema tentou ler ou gravar em uma memória inválida (Objeto NIL ou já liberado).",
+        "message" : "Access violation"
+      },
+      {
+        "time" : "14:01:39",
+        "form_name" : "frmCad_Empresa_Endereco_1",
+        "caption_name" : "Cadastro de Endereço da Empresa",
+        "unit" : "btConfirmarClick",
+        "exception_class" : "EAccessViolation",
+        "exception_description" : "Violação de Acesso: O sistema tentou ler ou gravar em uma memória inválida (Objeto NIL ou já liberado).",
+        "message" : "Access violation"
+      },
+      {
+        "time" : "14:01:56",
+        "form_name" : "frmCad_Empresa_Endereco_1",
+        "caption_name" : "Cadastro de Endereço da Empresa",
+        "unit" : "btConfirmarClick",
+        "exception_class" : "EAccessViolation",
+        "exception_description" : "Violação de Acesso: O sistema tentou ler ou gravar em uma memória inválida (Objeto NIL ou já liberado).",
+        "message" : "Access violation"
+      },
+      {
+        "time" : "14:10:40",
+        "form_name" : "frmEmpresa",
+        "caption_name" : "Empresas",
+        "unit" : "OnClick_Edit",
+        "exception_class" : "Exception",
+        "exception_description" : "Exceção Genérica: Erro não classificado especificamente pelo mapeador de log.",
+        "message" : "Listar endereço:\r\nDatabase connection component is not assigned"
+      },
+      {
+        "time" : "14:10:46",
+        "form_name" : "frmEmpresa",
+        "caption_name" : "Empresas",
+        "unit" : "OnClick_Edit",
+        "exception_class" : "Exception",
+        "exception_description" : "Exceção Genérica: Erro não classificado especificamente pelo mapeador de log.",
+        "message" : "Listar endereço:\r\nDatabase connection component is not assigned"
+      },
+      {
+        "time" : "14:11:08",
+        "form_name" : "frmEmpresa",
+        "caption_name" : "Empresas",
+        "unit" : "OnClick_Edit",
+        "exception_class" : "Exception",
+        "exception_description" : "Exceção Genérica: Erro não classificado especificamente pelo mapeador de log.",
+        "message" : "Listar endereço:\r\nDatabase connection component is not assigned"
+      },
+      {
+        "time" : "15:36:44",
+        "form_name" : "frmCad_Empresa_DadosBancarios_1",
+        "caption_name" : "Cadastro de Dados Bancários da Empresa",
+        "unit" : "Gravar",
+        "exception_class" : "EZDatabaseError",
+        "exception_description" : "Erro de Banco de Dados: Falha em operação de dataset, campo não encontrado ou erro SQL.",
+        "message" : "Parameter \"id_banco\" not found"
+      }
+    ]
   }
 ]
