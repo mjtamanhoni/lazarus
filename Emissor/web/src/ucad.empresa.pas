@@ -122,9 +122,9 @@ type
     ZQEnderecotipo_endereco_desc: TZRawCLobField;
     ZQEnderecouf: TZRawStringField;
     ZQ_Endereco1: TZQuery;
+    procedure btConfirmarClick(Sender: TObject);
     procedure btFecharClick(Sender: TObject);
     procedure btCB_AddClick(Sender: TObject);
-    procedure btConfirmarClick(Sender: TObject);
     procedure btEnd_AddClick(Sender: TObject);
     procedure cbativoKeyPress(Sender: TObject; var Key: char);
     procedure cbregime_tributarioChange(Sender: TObject);
@@ -205,6 +205,13 @@ begin
   Close;
 end;
 
+procedure TfrmCadEmpresa.btConfirmarClick(Sender: TObject);
+begin
+
+  Gravar;
+
+end;
+
 procedure TfrmCadEmpresa.btCB_AddClick(Sender: TObject);
 begin
   try
@@ -219,12 +226,6 @@ begin
       MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
     end;
   end;
-end;
-
-procedure TfrmCadEmpresa.btConfirmarClick(Sender: TObject);
-begin
-  Gravar;
-  //Close;
 end;
 
 procedure TfrmCadEmpresa.Gravar;
@@ -984,14 +985,14 @@ begin
               with Row.Items.Add do
               begin
                 FormGroup(lbid_empresa.Caption,CSSClass.Col.colsize1).AddLCLObj(edid_empresa);
-                FormGroup(lbcnpj.Caption,CSSClass.Col.colsize3).AddLCLObj(edcnpj,'ValidationGravar',True);
+                FormGroup(lbcnpj.Caption,CSSClass.Col.colsize3).AddLCLObj(edcnpj,'ValidarCampos',True);
                 FormGroup(lbinscricao_estadual.Caption,CSSClass.Col.colsize3).AddLCLObj(edinscricao_estadual);
                 FormGroup(lbinscricao_municipal.Caption,CSSClass.Col.colsize3).AddLCLObj(edinscricao_municipal);
-                FormGroup(lbativo.Caption,CSSClass.Col.colsize2).AddLCLObj(cbativo,'ValidationGravar',True);
+                FormGroup(lbativo.Caption,CSSClass.Col.colsize2).AddLCLObj(cbativo,'ValidarCampos',True);
               end;
 
               with Row.Items.Add do
-                FormGroup(lbrazao_social.Caption,CSSClass.Col.colsize12).AddLCLObj(edrazao_social,'ValidationGravar',True);
+                FormGroup(lbrazao_social.Caption,CSSClass.Col.colsize12).AddLCLObj(edrazao_social,'ValidarCampos',True);
 
               with Row.Items.Add do
                 FormGroup(lbnome_fantasia.Caption,CSSClass.Col.colsize12).AddLCLObj(ednome_fantasia);
@@ -1063,7 +1064,8 @@ begin
 
     with Row(CSSClass.DivHtml.Align_Center).Items.Add do
     begin
-      VCLObj(btConfirmar, 'ValidationGravar',False, CSSClass.Button.save + CSSClass.Col.colsize2);
+      VCLObj(btConfirmar, 'ValidarCampos',False,CSSClass.Button.save + CSSClass.Col.colsize2);
+      //VCLObj(btConfirmar, CSSClass.Button.save + CSSClass.Col.colsize2);
       VCLObj(btFechar, CSSClass.Button.cancel + CSSClass.Col.colsize2);
     end;
 
@@ -1192,14 +1194,18 @@ begin
   //inherited CellButtonClick(APrismDBGrid, APrismCellButton, AColIndex, ARow);
   if APrismDBGrid.VCLComponent = DBGrid_End then
   begin
-    if APrismCellButton.Identify = TButtonModel.Edit.Identity then OnClick_Edit_End;
-    //if APrismCellButton.Identify = TButtonModel.Delete.Identity then OnClick_Delete_End(memD_Endereco.FieldByName('idendereco').AsInteger);
+    if APrismCellButton.Identify = TButtonModel.Edit.Identity then
+      OnClick_Edit_End;
+    if APrismCellButton.Identify = TButtonModel.Delete.Identity then
+      OnClick_Delete_End(ZQEnderecoid_empresa.AsInteger, ZQEnderecoid_endereco.AsInteger);
   end;
 
   if APrismDBGrid.VCLComponent = DBGrid_DB then
   begin
-    if APrismCellButton.Identify = TButtonModel.Edit.Identity then OnClick_Edit_CBanco;
-    //if APrismCellButton.Identify = TButtonModel.Delete.Identity then OnClick_Delete_CBanco(memD_CBanco.FieldByName('idbanco').AsInteger);
+    if APrismCellButton.Identify = TButtonModel.Edit.Identity then
+      OnClick_Edit_CBanco;
+    if APrismCellButton.Identify = TButtonModel.Delete.Identity then
+      OnClick_Delete_CBanco(ZQContaBancariaid_empresa.AsInteger,ZQContaBancariaid_banco.AsInteger);
   end;
 
 end;

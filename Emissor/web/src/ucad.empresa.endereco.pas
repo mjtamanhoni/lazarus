@@ -333,13 +333,13 @@ begin
         FormGroup(lbtipo_endereco.Caption,CSSClass.Col.colsize8).AddLCLObj(cbtipo_endereco);
         With FormGroup(lbcep.Caption,CSSClass.Col.colsize3).Items.Add do
         begin
-          LCLObj(edcep,'ValidationGravar',True);
+          LCLObj(edcep,'ValidarCampos_EmpEnd',True);
           LCLObj(btCep, PopupMenu, CSSClass.Button.search);
         end;
       end;
       with Row.Items.Add do
       begin
-        FormGroup(lblogradouro.Caption,CSSClass.Col.colsize10).AddLCLObj(edlogradouro,'ValidationGravar',True);
+        FormGroup(lblogradouro.Caption,CSSClass.Col.colsize10).AddLCLObj(edlogradouro,'ValidarCampos_EmpEnd',True);
         FormGroup(lbnumero.Caption,CSSClass.Col.colsize2).AddLCLObj(ednumero);
       end;
       with Row.Items.Add do
@@ -347,9 +347,9 @@ begin
       with Row.Items.Add do
       begin
         FormGroup(lbbairro.Caption,CSSClass.Col.colsize5).AddLCLObj(edbairro);
-        FormGroup(lbmunicipio.Caption,CSSClass.Col.colsize4).AddLCLObj(edmunicipio,'ValidationGravar',True);
+        FormGroup(lbmunicipio.Caption,CSSClass.Col.colsize4).AddLCLObj(edmunicipio,'ValidarCampos_EmpEnd',True);
         FormGroup(lbcodigo_municipio_ibge.Caption,CSSClass.Col.colsize2).AddLCLObj(edcodigo_municipio_ibge);
-        FormGroup(lbuf.Caption,CSSClass.Col.colsize1).AddLCLObj(eduf,'ValidationGravar',True);
+        FormGroup(lbuf.Caption,CSSClass.Col.colsize1).AddLCLObj(eduf,'ValidarCampos_EmpEnd',True);
       end;
       with Row.Items.Add do
       begin
@@ -360,7 +360,7 @@ begin
 
     with Row(CSSClass.DivHtml.Align_Center).Items.Add do
     begin
-      VCLObj(btConfirmar,'ValidationGravar',False, CSSClass.Button.save + CSSClass.Col.colsize2);
+      VCLObj(btConfirmar,'ValidarCampos_EmpEnd',False, CSSClass.Button.save + CSSClass.Col.colsize2);
       VCLObj(btCancelar, CSSClass.Button.cancel + CSSClass.Col.colsize2);
     end;
   end;

@@ -272,6 +272,13 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
       </Unit>
+      <Unit>
+        <Filename Value="uconfig.acbr.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="Form2"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="uConfig.ACBr"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

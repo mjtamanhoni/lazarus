@@ -184,19 +184,19 @@ begin
       with Row.Items.Add do
       begin
         FormGroup(lbid_banco.Caption,CSSClass.Col.colsize1).AddLCLObj(edid_banco);
-        FormGroup(lbtipo_conta.Caption,CSSClass.Col.colsize11).AddLCLObj(cbtipo_conta,'ValidationGravar',True);
+        FormGroup(lbtipo_conta.Caption,CSSClass.Col.colsize11).AddLCLObj(cbtipo_conta,'ValidarCampos_DB',True);
       end;
       with Row.Items.Add do
       begin
-        FormGroup(lbbanco.Caption,CSSClass.Col.colsize7).AddLCLObj(edbanco,'ValidationGravar',True);
-        FormGroup(lbagencia.Caption,CSSClass.Col.colsize2).AddLCLObj(edagencia,'ValidationGravar',True);
-        FormGroup(lbconta.Caption,CSSClass.Col.colsize3).AddLCLObj(edconta,'ValidationGravar',True);
+        FormGroup(lbbanco.Caption,CSSClass.Col.colsize7).AddLCLObj(edbanco,'ValidarCampos_DB',True);
+        FormGroup(lbagencia.Caption,CSSClass.Col.colsize2).AddLCLObj(edagencia,'ValidarCampos_DB',True);
+        FormGroup(lbconta.Caption,CSSClass.Col.colsize3).AddLCLObj(edconta,'ValidarCampos_DB',True);
       end;
     end;
 
     with Row(CSSClass.DivHtml.Align_Center).Items.Add do
     begin
-      VCLObj(btConfirmar,'ValidationGravar',False, CSSClass.Button.save + CSSClass.Col.colsize2);
+      VCLObj(btConfirmar,'ValidarCampos_DB',False, CSSClass.Button.save + CSSClass.Col.colsize2);
       VCLObj(btCancelar, CSSClass.Button.cancel + CSSClass.Col.colsize2);
     end;
   end;

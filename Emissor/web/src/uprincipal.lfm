@@ -46,6 +46,10 @@ object frmPrincipal: TfrmPrincipal
     end
     object mnuConfig: TMenuItem
       Caption = 'Configurações'
+      object mnuConfig_ACBr: TMenuItem
+        Caption = 'ACBr'
+        OnClick = mnuConfig_ACBrClick
+      end
     end
     object mnuDesconectar: TMenuItem
       Caption = 'Login'

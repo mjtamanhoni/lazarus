@@ -1,0 +1,416 @@
+object Form2: TForm2
+  Left = 300
+  Height = 442
+  Top = 250
+  Width = 753
+  Caption = 'Form2'
+  ClientHeight = 442
+  ClientWidth = 753
+  LCLVersion = '4.4.0.0'
+  object pnDetail: TPanel
+    Left = 0
+    Height = 401
+    Top = 0
+    Width = 753
+    Align = alClient
+    BevelOuter = bvNone
+    BorderWidth = 2
+    ClientHeight = 401
+    ClientWidth = 753
+    TabOrder = 0
+    object pcPrincipal: TPageControl
+      Left = 2
+      Height = 397
+      Top = 2
+      Width = 749
+      ActivePage = tsTab_CEP
+      Align = alClient
+      TabIndex = 0
+      TabOrder = 0
+      object tsTab_CEP: TTabSheet
+        Caption = 'CEP'
+        ClientHeight = 369
+        ClientWidth = 741
+        object pnCEP: TPanel
+          Left = 0
+          Height = 369
+          Top = 0
+          Width = 741
+          Align = alClient
+          BevelOuter = bvNone
+          ClientHeight = 369
+          ClientWidth = 741
+          TabOrder = 0
+          object pnCEP_WebService: TPanel
+            Left = 0
+            Height = 85
+            Top = 0
+            Width = 741
+            Align = alTop
+            BevelOuter = bvNone
+            BorderWidth = 5
+            ClientHeight = 85
+            ClientWidth = 741
+            TabOrder = 0
+            object gbCEP_WebService: TGroupBox
+              Left = 5
+              Height = 75
+              Top = 5
+              Width = 731
+              Align = alClient
+              Caption = 'WebService'
+              ClientHeight = 55
+              ClientWidth = 727
+              TabOrder = 0
+              object cbxWS: TComboBox
+                Left = 7
+                Height = 23
+                Top = 19
+                Width = 140
+                ItemHeight = 15
+                ItemIndex = 1
+                Items.Strings = (
+                  'Nenhum'
+                  'BuscarCEP'
+                  'CEPLivre'
+                  'RepublicaVirtual'
+                  'Bases4you'
+                  'RNSolucoes'
+                  'KingHost'
+                  'ByJG'
+                  'Correios'
+                  'DevMedia, '
+                  'ViaCep'
+                  'CorreiosSIGEP'
+                )
+                Style = csDropDownList
+                TabOrder = 0
+                Text = 'BuscarCEP'
+              end
+              object edChaveWS: TEdit
+                Left = 170
+                Height = 23
+                Top = 18
+                Width = 320
+                TabOrder = 1
+              end
+              object lbChaveWS: TLabel
+                Left = 170
+                Height = 15
+                Top = 3
+                Width = 36
+                Caption = 'Chave:'
+                ParentColor = False
+              end
+              object edPass: TEdit
+                Left = 615
+                Height = 23
+                Top = 19
+                Width = 105
+                TabOrder = 3
+              end
+              object edUser: TEdit
+                Left = 500
+                Height = 23
+                Top = 18
+                Width = 105
+                TabOrder = 2
+              end
+              object lbUser: TLabel
+                Left = 500
+                Height = 15
+                Top = 3
+                Width = 40
+                Caption = 'Usuário'
+                ParentColor = False
+              end
+              object lbPass: TLabel
+                Left = 615
+                Height = 15
+                Top = 4
+                Width = 32
+                Caption = 'Senha'
+                ParentColor = False
+              end
+              object lbWS: TLabel
+                Left = 7
+                Height = 15
+                Top = 0
+                Width = 61
+                Caption = 'WebService'
+                ParentColor = False
+              end
+            end
+          end
+          object pnCEP_Prox: TPanel
+            Left = 0
+            Height = 85
+            Top = 85
+            Width = 741
+            Align = alTop
+            BevelOuter = bvNone
+            BorderWidth = 5
+            ClientHeight = 85
+            ClientWidth = 741
+            TabOrder = 1
+            object gbProx: TGroupBox
+              Left = 5
+              Height = 75
+              Top = 5
+              Width = 731
+              Align = alClient
+              Caption = 'Proxy'
+              ClientHeight = 55
+              ClientWidth = 727
+              TabOrder = 0
+              object lbProxyHost: TLabel
+                Left = 15
+                Height = 15
+                Top = 5
+                Width = 25
+                Caption = 'Host'
+                ParentColor = False
+              end
+              object edProxyHost: TEdit
+                Left = 15
+                Height = 23
+                Top = 21
+                Width = 154
+                TabOrder = 0
+              end
+              object lbProxyPort: TLabel
+                Left = 184
+                Height = 15
+                Top = 5
+                Width = 28
+                Caption = 'Porta'
+                ParentColor = False
+              end
+              object edProxyPort: TEdit
+                Left = 184
+                Height = 23
+                Top = 21
+                Width = 56
+                TabOrder = 1
+              end
+              object lbProxyUser: TLabel
+                Left = 258
+                Height = 15
+                Top = 6
+                Width = 40
+                Caption = 'Usuário'
+                ParentColor = False
+              end
+              object edProxyUser: TEdit
+                Left = 258
+                Height = 23
+                Top = 21
+                Width = 105
+                TabOrder = 2
+              end
+              object lbProxyPass: TLabel
+                Left = 378
+                Height = 15
+                Top = 6
+                Width = 32
+                Caption = 'Senha'
+                ParentColor = False
+              end
+              object edProxyPass: TEdit
+                Left = 378
+                Height = 23
+                Top = 21
+                Width = 105
+                TabOrder = 3
+              end
+            end
+          end
+        end
+      end
+      object tsCNPJ: TTabSheet
+        Caption = 'CNPJ'
+        ClientHeight = 369
+        ClientWidth = 741
+        object pnCNPJ: TPanel
+          Left = 0
+          Height = 369
+          Top = 0
+          Width = 741
+          Align = alClient
+          BevelOuter = bvNone
+          ClientHeight = 369
+          ClientWidth = 741
+          TabOrder = 0
+          object pnCNPJ_Provedor: TPanel
+            Left = 0
+            Height = 42
+            Top = 0
+            Width = 741
+            Align = alTop
+            BevelOuter = bvNone
+            BorderWidth = 5
+            ClientHeight = 42
+            ClientWidth = 741
+            TabOrder = 0
+            object lbCNPJProvedor: TLabel
+              Left = 5
+              Height = 32
+              Top = 5
+              Width = 50
+              Align = alLeft
+              Caption = 'Provedor'
+              Font.Color = clWindowText
+              Font.Height = -13
+              Font.Name = 'Arial'
+              Layout = tlCenter
+              ParentColor = False
+              ParentFont = False
+            end
+            object cbbProvedor: TComboBox
+              Left = 66
+              Height = 23
+              Top = 12
+              Width = 666
+              ItemHeight = 15
+              TabOrder = 0
+              Text = 'cbbProvedor'
+            end
+          end
+          object pnCEP_Prox1: TPanel
+            Left = 0
+            Height = 85
+            Top = 42
+            Width = 741
+            Align = alTop
+            BevelOuter = bvNone
+            BorderWidth = 5
+            ClientHeight = 85
+            ClientWidth = 741
+            TabOrder = 1
+            object gbProx1: TGroupBox
+              Left = 5
+              Height = 75
+              Top = 5
+              Width = 731
+              Align = alClient
+              Caption = 'Proxy'
+              ClientHeight = 55
+              ClientWidth = 727
+              TabOrder = 0
+              object lbtHost: TLabel
+                Left = 15
+                Height = 15
+                Top = 5
+                Width = 25
+                Caption = 'Host'
+                ParentColor = False
+              end
+              object lbPort: TLabel
+                Left = 184
+                Height = 15
+                Top = 5
+                Width = 28
+                Caption = 'Porta'
+                ParentColor = False
+              end
+              object lbUsuario: TLabel
+                Left = 258
+                Height = 15
+                Top = 6
+                Width = 40
+                Caption = 'Usuário'
+                ParentColor = False
+              end
+              object lbSenha: TLabel
+                Left = 378
+                Height = 15
+                Top = 6
+                Width = 32
+                Caption = 'Senha'
+                ParentColor = False
+              end
+              object edtHost: TEdit
+                Left = 12
+                Height = 23
+                Top = 24
+                Width = 144
+                TabOrder = 0
+              end
+              object edtPort: TEdit
+                Left = 180
+                Height = 23
+                Top = 24
+                Width = 48
+                TabOrder = 1
+              end
+              object edtUsuario: TEdit
+                Left = 258
+                Height = 23
+                Top = 24
+                Width = 80
+                TabOrder = 2
+              end
+              object edtSenha: TEdit
+                Left = 378
+                Height = 23
+                Top = 24
+                Width = 80
+                TabOrder = 3
+              end
+            end
+          end
+        end
+      end
+    end
+  end
+  object pnFooter: TPanel
+    Left = 0
+    Height = 41
+    Top = 401
+    Width = 753
+    Align = alBottom
+    BevelOuter = bvNone
+    BorderWidth = 2
+    ClientHeight = 41
+    ClientWidth = 753
+    TabOrder = 1
+    object Button1: TButton
+      Left = 676
+      Height = 37
+      Top = 2
+      Width = 75
+      Align = alRight
+      Caption = 'Cancelar'
+      TabOrder = 0
+      OnClick = Button1Click
+    end
+    object Button2: TButton
+      Left = 601
+      Height = 37
+      Top = 2
+      Width = 75
+      Align = alRight
+      Caption = 'Confirmar'
+      TabOrder = 1
+      OnClick = Button2Click
+    end
+  end
+  object ACBrCEP: TACBrCEP
+    ProxyPort = '8080'
+    ContentsEncodingCompress = []
+    NivelLog = 0
+    PesquisarIBGE = True
+    Left = 275
+    Top = 300
+  end
+  object ACBrConsultaCNPJ: TACBrConsultaCNPJ
+    ContentsEncodingCompress = []
+    NivelLog = 0
+    PesquisarIBGE = False
+    IniServicos = 'C:\lazarus\ACBrConsultaCNPJServicos.ini'
+    Mei = False
+    Simples = False
+    Left = 425
+    Top = 325
+  end
+end

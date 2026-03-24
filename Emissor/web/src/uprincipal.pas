@@ -13,6 +13,7 @@ type
   { TfrmPrincipal }
 
   TfrmPrincipal = class(TD2BridgeForm)
+    mnuConfig_ACBr: TMenuItem;
     mnuCadUsu_Acao: TMenuItem;
     mnuCadUsu_Tela: TMenuItem;
     mnuDesconectar: TMenuItem;
@@ -27,6 +28,7 @@ type
     mnuCad_Usu_Usuario: TMenuItem;
     mnuCad_Usu_Perfil: TMenuItem;
     mnuCad_Usu_Permissoes: TMenuItem;
+    procedure mnuConfig_ACBrClick(Sender: TObject);
     procedure mnuCad_EmpresaClick(Sender: TObject);
     procedure mnuCad_Usu_UsuarioClick(Sender: TObject);
     procedure mnuDesconectarClick(Sender: TObject);
@@ -69,6 +71,11 @@ begin
   if frmEmpresa = nil then
     TfrmEmpresa.CreateInstance;
   frmEmpresa.Show;
+end;
+
+procedure TfrmPrincipal.mnuConfig_ACBrClick(Sender: TObject);
+begin
+  //
 end;
 
 procedure TfrmPrincipal.mnuCad_Usu_UsuarioClick(Sender: TObject);
@@ -126,6 +133,10 @@ begin
       {$Region 'Empresa'}
         PrismControl.AsSideMenu.MenuItemFromVCLComponent(mnuCad_Empresa).Icon := 'fa-solid fa-building';
       {$EndRegion 'Empresa'}
+
+      {$Region 'Configurações'}
+			  PrismControl.AsSideMenu.MenuItemFromVCLComponent(mnuConfig_ACBr).Icon := 'fa-solid fa-sliders';
+      {$EndRegion 'Configurações'}
 
     end;
   end;
