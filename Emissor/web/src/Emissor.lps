@@ -9,10 +9,13 @@
         <Filename Value="Emissor.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="D2BridgeWebAppLCL"/>
-        <EditorIndex Value="4"/>
-        <CursorPos X="5" Y="9"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="5"/>
+        <TopLine Value="2"/>
+        <CursorPos Y="39"/>
         <UsageCount Value="302"/>
         <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
         <Filename Value="unit1.pas"/>
@@ -106,12 +109,8 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uPrincipal"/>
         <EditorIndex Value="2"/>
-        <TopLine Value="59"/>
-        <CursorPos X="5" Y="78"/>
+        <CursorPos X="31" Y="16"/>
         <UsageCount Value="302"/>
-        <Bookmarks Count="1">
-          <Item0 X="5" Y="78" Left="1" Top="76" ID="1"/>
-        </Bookmarks>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
@@ -119,7 +118,8 @@
         <Filename Value="..\..\..\Global\ubase.functions.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uBase.Functions"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="4"/>
+        <TopLine Value="10"/>
         <CursorPos X="36" Y="9"/>
         <UsageCount Value="287"/>
         <Loaded Value="True"/>
@@ -149,9 +149,12 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="uDM.ACBr"/>
-        <EditorIndex Value="-1"/>
+        <EditorIndex Value="10"/>
         <CursorPos X="10" Y="18"/>
         <UsageCount Value="276"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
         <Filename Value="ucad.empresa.pas"/>
@@ -160,13 +163,13 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uCad.Empresa"/>
-        <EditorIndex Value="10"/>
-        <TopLine Value="974"/>
-        <CursorPos X="96" Y="988"/>
+        <EditorIndex Value="11"/>
+        <TopLine Value="615"/>
+        <CursorPos X="56" Y="632"/>
         <UsageCount Value="267"/>
         <Bookmarks Count="2">
-          <Item0 Y="1244" Left="1" Top="1179" ID="3"/>
-          <Item1 Y="698" Left="1" Top="667" ID="2"/>
+          <Item0 Y="1290" Left="1" Top="1225" ID="3"/>
+          <Item1 Y="744" Left="1" Top="713" ID="2"/>
         </Bookmarks>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -179,8 +182,7 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uEmpresa"/>
         <EditorIndex Value="9"/>
-        <TopLine Value="425"/>
-        <CursorPos X="55" Y="443"/>
+        <CursorPos X="68" Y="11"/>
         <UsageCount Value="267"/>
         <Bookmarks Count="1">
           <Item0 Y="172" Left="1" Top="172" ID="9"/>
@@ -195,7 +197,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uCad.Empresa.Endereco"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="13"/>
         <TopLine Value="333"/>
         <CursorPos X="13" Y="338"/>
         <UsageCount Value="240"/>
@@ -209,7 +211,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="ucad.empresa.DadosBancarios"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="12"/>
         <TopLine Value="168"/>
         <CursorPos Y="196"/>
         <UsageCount Value="239"/>
@@ -300,9 +302,26 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <EditorIndex Value="8"/>
-        <TopLine Value="197"/>
-        <CursorPos Y="228"/>
+        <TopLine Value="46"/>
+        <CursorPos X="45" Y="54"/>
         <UsageCount Value="223"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="uconfig.acbr.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmConfig_ACBr"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="uConfig.ACBr"/>
+        <EditorIndex Value="3"/>
+        <TopLine Value="126"/>
+        <CursorPos X="69" Y="150"/>
+        <UsageCount Value="24"/>
+        <Bookmarks Count="1">
+          <Item0 X="49" Y="185" Left="1" Top="169" ID="1"/>
+        </Bookmarks>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
@@ -330,142 +349,127 @@
         <UsageCount Value="7"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
-      <Unit>
-        <Filename Value="uconfig.acbr.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="Form2"/>
-        <ResourceBaseClass Value="Form"/>
-        <UnitName Value="uConfig.ACBr"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="3"/>
-        <TopLine Value="87"/>
-        <CursorPos X="9" Y="94"/>
-        <UsageCount Value="21"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit>
     </Units>
     <JumpHistory HistoryIndex="29">
       <Position>
-        <Filename Value="ucad.empresa.pas"/>
-        <Caret Line="170" Column="21" TopLine="140"/>
-      </Position>
-      <Position>
-        <Filename Value="ucad.empresa.pas"/>
-        <Caret Line="208" Column="37" TopLine="180"/>
-      </Position>
-      <Position>
-        <Filename Value="ucad.empresa.pas"/>
-        <Caret Line="21" Column="16" TopLine="2"/>
-      </Position>
-      <Position>
-        <Filename Value="ucad.empresa.pas"/>
-        <Caret Line="125" Column="26" TopLine="95"/>
-      </Position>
-      <Position>
-        <Filename Value="ucad.empresa.pas"/>
-        <Caret Line="208" Column="37" TopLine="177"/>
+        <Filename Value="uconfig.acbr.pas"/>
+        <Caret Line="64" Column="15" TopLine="46"/>
       </Position>
       <Position>
         <Filename Value="uempresa.pas"/>
-        <Caret Line="359" Column="62" TopLine="318"/>
-      </Position>
-      <Position>
-        <Filename Value="uempresa.pas"/>
-        <Caret Line="73" Column="22" TopLine="55"/>
-      </Position>
-      <Position>
-        <Filename Value="uempresa.pas"/>
-        <Caret Line="443" Column="69" TopLine="425"/>
-      </Position>
-      <Position>
-        <Filename Value="ucad.empresa.pas"/>
-        <Caret Line="1068" Column="25" TopLine="1049"/>
-      </Position>
-      <Position>
-        <Filename Value="ucad.empresa.pas"/>
-        <Caret Line="421" Column="56" TopLine="396"/>
-      </Position>
-      <Position>
-        <Filename Value="ucad.empresa.pas"/>
-        <Caret Line="182" Column="22" TopLine="152"/>
-      </Position>
-      <Position>
-        <Filename Value="ucad.empresa.pas"/>
-        <Caret Line="988" Column="96" TopLine="968"/>
-      </Position>
-      <Position>
-        <Filename Value="ucad.empresa.pas"/>
-        <Caret Line="991" Column="98" TopLine="968"/>
-      </Position>
-      <Position>
-        <Filename Value="ucad.empresa.pas"/>
-        <Caret Line="995" Column="113" TopLine="968"/>
-      </Position>
-      <Position>
-        <Filename Value="ucad.empresa.dadosbancarios.pas"/>
-        <Caret Line="187" Column="104" TopLine="160"/>
-      </Position>
-      <Position>
-        <Filename Value="ucad.empresa.dadosbancarios.pas"/>
-        <Caret Line="191" Column="93" TopLine="160"/>
-      </Position>
-      <Position>
-        <Filename Value="ucad.empresa.dadosbancarios.pas"/>
-        <Caret Line="192" Column="97" TopLine="161"/>
-      </Position>
-      <Position>
-        <Filename Value="ucad.empresa.dadosbancarios.pas"/>
-        <Caret Line="193" Column="93" TopLine="162"/>
-      </Position>
-      <Position>
-        <Filename Value="ucad.empresa.endereco.pas"/>
-        <Caret Line="112" Column="63" TopLine="104"/>
-      </Position>
-      <Position>
-        <Filename Value="ucad.empresa.endereco.pas"/>
-        <Caret Line="82" Column="16" TopLine="56"/>
-      </Position>
-      <Position>
-        <Filename Value="ucad.empresa.endereco.pas"/>
-        <Caret Line="342" Column="104" TopLine="314"/>
-      </Position>
-      <Position>
-        <Filename Value="ucad.empresa.endereco.pas"/>
-        <Caret Line="336" Column="45" TopLine="314"/>
-      </Position>
-      <Position>
-        <Filename Value="ucad.empresa.endereco.pas"/>
-        <Caret Line="342" Column="108" TopLine="314"/>
-      </Position>
-      <Position>
-        <Filename Value="ucad.empresa.endereco.pas"/>
-        <Caret Line="350" Column="105" TopLine="320"/>
-      </Position>
-      <Position>
-        <Filename Value="ucad.empresa.endereco.pas"/>
-        <Caret Line="352" Column="91" TopLine="322"/>
-      </Position>
-      <Position>
-        <Filename Value="uprincipal.pas"/>
-        <Caret Line="21" Column="39" TopLine="9"/>
-      </Position>
-      <Position>
-        <Filename Value="uprincipal.pas"/>
-        <Caret Line="22" Column="39" TopLine="9"/>
-      </Position>
-      <Position>
-        <Filename Value="uprincipal.pas"/>
-        <Caret Line="132" Column="37" TopLine="106"/>
+        <Caret Line="146" Column="62" TopLine="140"/>
       </Position>
       <Position>
         <Filename Value="uconfig.acbr.pas"/>
-        <Caret Line="11" Column="5"/>
+        <Caret Line="103" Column="3" TopLine="100"/>
       </Position>
       <Position>
         <Filename Value="uconfig.acbr.pas"/>
-        <Caret Line="89" Column="9" TopLine="87"/>
+        <Caret Line="102" Column="3" TopLine="99"/>
+      </Position>
+      <Position>
+        <Filename Value="uconfig.acbr.pas"/>
+        <Caret Line="101" Column="39" TopLine="98"/>
+      </Position>
+      <Position>
+        <Filename Value="uconfig.acbr.pas"/>
+        <Caret Line="9" Column="71"/>
+      </Position>
+      <Position>
+        <Filename Value="uconfig.acbr.pas"/>
+        <Caret Line="95" Column="3" TopLine="82"/>
+      </Position>
+      <Position>
+        <Filename Value="uconfig.acbr.pas"/>
+        <Caret Line="60" Column="24" TopLine="29"/>
+      </Position>
+      <Position>
+        <Filename Value="uconfig.acbr.pas"/>
+        <Caret Line="98" Column="3" TopLine="95"/>
+      </Position>
+      <Position>
+        <Filename Value="uconfig.acbr.pas"/>
+        <Caret Line="139" TopLine="110"/>
+      </Position>
+      <Position>
+        <Filename Value="uconfig.acbr.pas"/>
+        <Caret Line="120" Column="28" TopLine="98"/>
+      </Position>
+      <Position>
+        <Filename Value="uconfig.acbr.pas"/>
+        <Caret Line="73" Column="18" TopLine="65"/>
+      </Position>
+      <Position>
+        <Filename Value="udm.pas"/>
+        <Caret Line="215" Column="45" TopLine="158"/>
+      </Position>
+      <Position>
+        <Filename Value="udm.pas"/>
+        <Caret Line="26" Column="34" TopLine="10"/>
+      </Position>
+      <Position>
+        <Filename Value="uconfig.acbr.pas"/>
+        <Caret Line="62" Column="23" TopLine="56"/>
+      </Position>
+      <Position>
+        <Filename Value="uconfig.acbr.pas"/>
+        <Caret Line="120" Column="48" TopLine="98"/>
+      </Position>
+      <Position>
+        <Filename Value="uconfig.acbr.pas"/>
+        <Caret Line="133" Column="3" TopLine="107"/>
+      </Position>
+      <Position>
+        <Filename Value="ucad.empresa.pas"/>
+        <Caret Line="17" Column="70"/>
+      </Position>
+      <Position>
+        <Filename Value="ucad.empresa.pas"/>
+        <Caret Line="584" Column="11" TopLine="565"/>
+      </Position>
+      <Position>
+        <Filename Value="ucad.empresa.pas"/>
+        <Caret Line="148" Column="21" TopLine="147"/>
+      </Position>
+      <Position>
+        <Filename Value="ucad.empresa.pas"/>
+        <Caret Line="689" Column="3" TopLine="686"/>
+      </Position>
+      <Position>
+        <Filename Value="ucad.empresa.pas"/>
+        <Caret Line="148" Column="15" TopLine="130"/>
+      </Position>
+      <Position>
+        <Filename Value="ucad.empresa.pas"/>
+        <Caret Line="154" Column="7" TopLine="133"/>
+      </Position>
+      <Position>
+        <Filename Value="ucad.empresa.pas"/>
+        <Caret Line="575" Column="40" TopLine="556"/>
+      </Position>
+      <Position>
+        <Filename Value="ucad.empresa.pas"/>
+        <Caret Line="602" Column="16" TopLine="569"/>
+      </Position>
+      <Position>
+        <Filename Value="ucad.empresa.pas"/>
+        <Caret Line="574" Column="14" TopLine="557"/>
+      </Position>
+      <Position>
+        <Filename Value="ucad.empresa.pas"/>
+        <Caret Line="581" Column="29" TopLine="558"/>
+      </Position>
+      <Position>
+        <Filename Value="ucad.empresa.pas"/>
+        <Caret Line="14" Column="19"/>
+      </Position>
+      <Position>
+        <Filename Value="ucad.empresa.pas"/>
+        <Caret Line="632" Column="56" TopLine="615"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\..\Global\ubase.functions.pas"/>
+        <Caret Line="9" Column="36" TopLine="10"/>
       </Position>
     </JumpHistory>
     <RunParams>

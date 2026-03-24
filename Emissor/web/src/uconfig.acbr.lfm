@@ -1,12 +1,14 @@
-object Form2: TForm2
+object frmConfig_ACBr: TfrmConfig_ACBr
   Left = 300
   Height = 442
   Top = 250
   Width = 753
-  Caption = 'Form2'
+  Caption = 'Configurações do ACBr'
   ClientHeight = 442
   ClientWidth = 753
   LCLVersion = '4.4.0.0'
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
   object pnDetail: TPanel
     Left = 0
     Height = 401
@@ -374,7 +376,7 @@ object Form2: TForm2
     ClientHeight = 41
     ClientWidth = 753
     TabOrder = 1
-    object Button1: TButton
+    object btCancelar: TButton
       Left = 676
       Height = 37
       Top = 2
@@ -382,9 +384,9 @@ object Form2: TForm2
       Align = alRight
       Caption = 'Cancelar'
       TabOrder = 0
-      OnClick = Button1Click
+      OnClick = btCancelarClick
     end
-    object Button2: TButton
+    object btConfirmar: TButton
       Left = 601
       Height = 37
       Top = 2
@@ -392,25 +394,7 @@ object Form2: TForm2
       Align = alRight
       Caption = 'Confirmar'
       TabOrder = 1
-      OnClick = Button2Click
+      OnClick = btConfirmarClick
     end
-  end
-  object ACBrCEP: TACBrCEP
-    ProxyPort = '8080'
-    ContentsEncodingCompress = []
-    NivelLog = 0
-    PesquisarIBGE = True
-    Left = 275
-    Top = 300
-  end
-  object ACBrConsultaCNPJ: TACBrConsultaCNPJ
-    ContentsEncodingCompress = []
-    NivelLog = 0
-    PesquisarIBGE = False
-    IniServicos = 'C:\lazarus\ACBrConsultaCNPJServicos.ini'
-    Mei = False
-    Simples = False
-    Left = 425
-    Top = 325
   end
 end

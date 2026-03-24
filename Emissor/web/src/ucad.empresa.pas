@@ -10,7 +10,8 @@ uses
   D2Bridge.Forms, ACBrValidador, IniFiles, fpjson, DataSet.Serialize,
   RESTRequest4D, jsonparser, uCad.Empresa.Endereco, ucad.empresa.DadosBancarios,
   uDM.ACBr, uBase.Functions, uBase.DataSets, Forms, ZDataset,
-  ZAbstractRODataset, ubase.functions.objetos, udm, LCLType;
+  ZAbstractRODataset, ubase.functions.objetos, udm, LCLType,
+  ACBrConsultaCNPJ;
 
 type
 
@@ -160,6 +161,7 @@ type
     Fid_endereco: Integer;
     Flogradouro: String;
 
+    procedure Busca_Dados_CNPJ(const aCJPJ: String);
     procedure OnClick_Edit_End;
     procedure OnClick_Delete_End(const aId_Empresa,aId_Endereco: Integer);
     procedure OnClick_Edit_CBanco;
@@ -568,6 +570,46 @@ begin
   if Key = #13 then EnterAsTab(Self.edemail);
 end;
 
+procedure TfrmCadEmpresa.Busca_Dados_CNPJ(const aCJPJ:String);
+var
+  I: Integer;
+begin
+  try
+    fDM_ACBr.ACBrConsultaCNPJ.Provedor := TACBrCNPJProvedorWS(FIniFile.ReadInteger('ACBR.CNPJ','PROVEDOR',0));
+    fDM_ACBr.ACBrConsultaCNPJ.ProxyHost:= FIniFile.ReadString('ACBR.CNPJ','HOST','');
+    fDM_ACBr.ACBrConsultaCNPJ.ProxyPort:= FIniFile.ReadString('ACBR.CNPJ','PORTA','');
+    fDM_ACBr.ACBrConsultaCNPJ.ProxyUser:= FIniFile.ReadString('ACBR.CNPJ','USUARIO','');
+    fDM_ACBr.ACBrConsultaCNPJ.ProxyPass:= FIniFile.ReadString('ACBR.CNPJ','SENHA','');
+    if fDM_ACBr.ACBrConsultaCNPJ.Provedor = cwsNenhum then
+       raise EACBrConsultaCNPJException.Create('Nenhum provedor Selecionado!');
+
+    if fDM_ACBr.ACBrConsultaCNPJ.Consulta(aCJPJ) then
+    begin
+      //EditTipo.Text        := fDM_ACBr.ACBrConsultaCNPJ.EmpresaTipo;
+      edrazao_social.Text := fDM_ACBr.ACBrConsultaCNPJ.RazaoSocial;
+      //EditPorte.Text       := fDM_ACBr.ACBrConsultaCNPJ.Porte;
+      //EditAbertura.Text    := DateToStr( fDM_ACBr.ACBrConsultaCNPJ.Abertura );
+      ednome_fantasia.Text    := fDM_ACBr.ACBrConsultaCNPJ.Fantasia;
+      //EditEndereco.Text    := fDM_ACBr.ACBrConsultaCNPJ.Endereco;
+      //EditNumero.Text      := fDM_ACBr.ACBrConsultaCNPJ.Numero;
+      //EditComplemento.Text := fDM_ACBr.ACBrConsultaCNPJ.Complemento;
+      //EditBairro.Text      := fDM_ACBr.ACBrConsultaCNPJ.Bairro;
+      //EditComplemento.Text := fDM_ACBr.ACBrConsultaCNPJ.Complemento;
+      //EditCidade.Text      := fDM_ACBr.ACBrConsultaCNPJ.Cidade;
+      //EditUF.Text          := fDM_ACBr.ACBrConsultaCNPJ.UF;
+      //EditCEP.Text         := fDM_ACBr.ACBrConsultaCNPJ.CEP;
+      //EditSituacao.Text    := fDM_ACBr.ACBrConsultaCNPJ.Situacao;
+      //EditCNAE1.Text       := fDM_ACBr.ACBrConsultaCNPJ.CNAE1;
+      edemail.Text       := fDM_ACBr.ACBrConsultaCNPJ.EndEletronico;
+      edcelular.Text    := fDM_ACBr.ACBrConsultaCNPJ.Telefone;
+
+    end;
+  except
+    On E:Exception do
+      raise Exception.Create('Buscando dados do CNPJ.' + sLineBreak + E.Message);
+  end;
+end;
+
 procedure TfrmCadEmpresa.edcnpjExit(Sender: TObject);
 begin
   try
@@ -586,7 +628,11 @@ begin
 
       fDM_ACBr.ACBrValidador.Documento := RemoverMascara(edcnpj.Text);
       if fDM_ACBr.ACBrValidador.Validar then
-        edcnpj.Text := fDM_ACBr.ACBrValidador.Formatar
+      begin
+        edcnpj.Text := fDM_ACBr.ACBrValidador.Formatar;
+        if Length(RemoverMascara(edcnpj.Text)) = 14 then
+           Busca_Dados_CNPJ(RemoverMascara(edcnpj.Text));
+      end
       else
         raise Exception.Create('Documento inválido');
 

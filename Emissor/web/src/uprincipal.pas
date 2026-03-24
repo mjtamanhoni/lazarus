@@ -6,7 +6,8 @@ interface
 
 uses
   Classes, SysUtils, Controls, Graphics, Dialogs, StdCtrls, Menus,  
-  D2Bridge.Forms;
+  D2Bridge.Forms,
+  uConfig.ACBr;
 
 type
 
@@ -34,6 +35,7 @@ type
     procedure mnuDesconectarClick(Sender: TObject);
   private
     { Private declarations }
+    FfrmConfig_ACBr :TfrmConfig_ACBr;
   public
     { Public declarations }
   protected
@@ -75,7 +77,7 @@ end;
 
 procedure TfrmPrincipal.mnuConfig_ACBrClick(Sender: TObject);
 begin
-  //
+  ShowPopupModal('Popup' + FfrmConfig_ACBr.Name);
 end;
 
 procedure TfrmPrincipal.mnuCad_Usu_UsuarioClick(Sender: TObject);
@@ -95,10 +97,17 @@ begin
   D2Bridge.FrameworkExportType.TemplateMasterHTMLFile := '';
   D2Bridge.FrameworkExportType.TemplatePageHTMLFile := '';
 
+  //Formulário Configurações....
+  FfrmConfig_ACBr := TfrmConfig_ACBr.Create(Self);
+  D2Bridge.AddNested(FfrmConfig_ACBr);
+
   with D2Bridge.Items.add do
   begin
     {Yours Controls}
     SideMenu(mmPrincipal);
+
+    with Popup('Popup' + FfrmConfig_ACBr.Name,'Configurações do ACBr',True,CSSClass.Popup.ExtraLarge).Items.Add do
+      Nested(FfrmConfig_ACBr);
   end;
 
 end;

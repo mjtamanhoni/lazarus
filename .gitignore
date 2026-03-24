@@ -21,3 +21,4 @@ emissor/Temp/
 Server/emissor/Lib/Server.Emissor24022026_Log.json
 emissor/web/src/Web/Emissor24022026_Log.json
 *.yaml
+*.dll
