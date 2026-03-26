@@ -5,9 +5,9 @@ unit udm;
 interface
 
 uses
-  Classes, SysUtils, Controls, Graphics, Dialogs, StdCtrls, ZConnection, DateUtils,
-  ZDataset, IniFiles, Variants, uBase.Functions,
-  fpjson, DataSet.Serialize, RESTRequest4D, jsonparser, uCripto_Descrito;
+  Classes, SysUtils, Controls, Graphics, Dialogs, StdCtrls, ZConnection,
+  DateUtils, ZDataset, IniFiles, Variants, uBase.Functions, fpjson,
+  DataSet.Serialize, RESTRequest4D, jsonparser, uCripto_Descrito, LR_Class;
 
 type
 

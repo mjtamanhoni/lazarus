@@ -21,54 +21,32 @@ inherited frmEmpresa: TfrmEmpresa
       Left = 0
       Height = 30
       Top = 0
-      Width = 704
+      Width = 800
       Align = alClient
       BevelOuter = bvNone
       BorderWidth = 2
       ClientHeight = 30
-      ClientWidth = 704
+      ClientWidth = 800
       TabOrder = 0
       object edPesquisar: TEdit
         Tag = 1
         Left = 2
         Height = 26
         Top = 2
-        Width = 662
+        Width = 758
         Align = alClient
         TabOrder = 0
         TextHint = 'Pesquisar pela Razão Social da Empresa'
         OnKeyPress = edPesquisarKeyPress
       end
       object btSelPesquisa: TButton
-        Left = 664
+        Left = 760
         Height = 26
         Top = 2
         Width = 38
         Align = alRight
         PopupMenu = pmPesquisar
         TabOrder = 1
-      end
-    end
-    object pnTipoFiltro2: TPanel
-      Left = 704
-      Height = 30
-      Top = 0
-      Width = 96
-      Align = alRight
-      BevelOuter = bvNone
-      BorderWidth = 2
-      ClientHeight = 30
-      ClientWidth = 96
-      TabOrder = 1
-      object btNovo: TButton
-        Left = 32
-        Height = 26
-        Top = 2
-        Width = 62
-        Align = alRight
-        Caption = 'Novo'
-        TabOrder = 0
-        OnClick = btNovoClick
       end
     end
   end
@@ -207,9 +185,52 @@ inherited frmEmpresa: TfrmEmpresa
     Width = 800
     Align = alBottom
     BevelOuter = bvNone
+    ClientHeight = 50
+    ClientWidth = 800
     TabOrder = 2
+    object pnTipoFiltro2: TPanel
+      Left = 590
+      Height = 50
+      Top = 0
+      Width = 210
+      Align = alRight
+      BevelOuter = bvNone
+      BorderWidth = 2
+      ClientHeight = 50
+      ClientWidth = 210
+      TabOrder = 0
+      object btNovo: TButton
+        Left = 8
+        Height = 46
+        Top = 2
+        Width = 100
+        Align = alRight
+        Caption = 'Novo'
+        TabOrder = 0
+        OnClick = btNovoClick
+      end
+      object btGerarPDF: TButton
+        Left = 108
+        Height = 46
+        Top = 2
+        Width = 100
+        Align = alRight
+        Caption = 'Gerar PDF'
+        TabOrder = 1
+        OnClick = btGerarPDFClick
+      end
+    end
   end
   inherited mmPrincipal: TMainMenu[3]
+    inherited mnuCadastro: TMenuItem
+      inherited mnuCadUsuario: TMenuItem
+        inherited mnuCad_Usu_Usuario: TMenuItem[0]
+        end
+        inherited mnuCad_Usu_Perfil: TMenuItem[1]
+          OnClick = nil
+        end
+      end
+    end
   end
   object dsRegistro: TDataSource[4]
     DataSet = ZQRegistros
@@ -429,5 +450,20 @@ inherited frmEmpresa: TfrmEmpresa
       ReadOnly = True
       Required = False
     end
+  end
+  object frDBDS_Registros: TfrDBDataSet[7]
+    DataSet = ZQRegistros
+    Left = 615
+    Top = 135
+  end
+  object frReport_Registros: TfrReport[8]
+    Dataset = frDBDS_Registros
+    InitialZoom = pzDefault
+    Options = []
+    PreviewButtons = [pbZoom, pbLoad, pbSave, pbPrint, pbFind, pbHelp, pbExit, pbSettings, pbPageSetup]
+    DataType = dtDataSet
+    Title = 'uRel_Empresas.lrf'
+    Left = 615
+    Top = 185
   end
 end

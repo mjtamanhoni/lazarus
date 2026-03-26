@@ -7,6 +7,8 @@ object frmCad_Empresa_Endereco: TfrmCad_Empresa_Endereco
   ClientHeight = 303
   ClientWidth = 710
   LCLVersion = '4.4.0.0'
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
   object pnFooter: TPanel
     Left = 0
     Height = 38
@@ -158,6 +160,7 @@ object frmCad_Empresa_Endereco: TfrmCad_Empresa_Endereco
           Width = 104
           Align = alClient
           TabOrder = 0
+          OnExit = edcepExit
           OnKeyPress = edcepKeyPress
         end
         object btCep: TButton

@@ -8,8 +8,9 @@ uses
   Classes, SysUtils, DB, memds, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls,
   DateUtils, DBGrids, EditBtn, Menus, ZDataset, ZAbstractRODataset,
   D2Bridge.Forms, Forms, IniFiles, BufDataset, fpjson, DataSet.Serialize,
-  RESTRequest4D, jsonparser, uBase.Functions, uDM.ACBr, uPrincipal,
-  uCad.Empresa, uBase.DataSets, uDM;
+  RESTRequest4D, jsonparser, uBase.Functions, fpwebdata, extjsxml, LR_DBSet,
+  LR_Class, lrPDFExport, lr_e_pdf, RLReport, uDM.ACBr, uPrincipal, uCad.Empresa,
+  uBase.DataSets, uDM, LCLIntf, LCLType, LazHelpHTML, PReport;
 
 type
 
@@ -18,9 +19,12 @@ type
   TfrmEmpresa = class(TfrmPrincipal)
     btNovo: TButton;
     btSelPesquisa: TButton;
+    btGerarPDF: TButton;
     dsRegistro: TDataSource;
     DBGrid_Empresa: TDBGrid;
     edPesquisar: TEdit;
+    frDBDS_Registros: TfrDBDataSet;
+    frReport_Registros: TfrReport;
     miID: TMenuItem;
     miRazaoSocial: TMenuItem;
     miFantasia: TMenuItem;
@@ -49,6 +53,7 @@ type
     ZQRegistrosregime_tributario: TZRawStringField;
     ZQRegistrossite: TZRawStringField;
     ZQRegistrostelefone: TZRawStringField;
+    procedure btGerarPDFClick(Sender: TObject);
     procedure btNovoClick(Sender: TObject);
     procedure edPesquisarKeyPress(Sender: TObject; var Key: char);
     procedure FormCreate(Sender: TObject);
@@ -73,6 +78,7 @@ type
     procedure OnClick_Edit(const AId: Integer; const ANome:String);
     procedure OnClick_Delete(const AId: Integer; const ANome:String);
     procedure OnClick_Print(const AId: Integer; const ANome:String);
+
   public
     { Public declarations }
   protected
@@ -156,6 +162,36 @@ begin
   end;
 
   Pesquisar;
+end;
+
+procedure TfrmEmpresa.btGerarPDFClick(Sender: TObject);
+var
+  fArquivo :String;
+  fs: TFileStream;
+begin
+  try
+    try
+      fArquivo := '';
+      fArquivo := EndPDF + 'Empresas.PDF';
+      frReport_Registros.LoadFromFile(EndReport + frReport_Registros.Title);
+      frReport_Registros.PrepareReport;
+
+      fs := TFileStream.Create(fArquivo,fmCreate);
+
+      if frReport_Registros.ExportTo(TfrTNPDFExportFilter,fs,True) then
+        MessageDlg('Arquivo PDF gerado com suecesso:' + sLineBreak + fArquivo,TMsgDlgType.mtInformation,[mbOK],0);
+
+    except
+      On E:Exception do
+      begin
+        MessageDlg(E.Message, TMsgDlgType.mtError, [mbok], 0);
+        GravarLogJSON(Self.Name,Self.Caption,'btGerarPDFClick',E);
+      end;
+    end;
+  finally
+    if Assigned(fs) then
+      FreeAndNil(fs);
+  end;
 end;
 
 procedure TfrmEmpresa.miRazaoSocialClick(Sender: TObject);
@@ -324,8 +360,19 @@ begin
 end;
 
 procedure TfrmEmpresa.OnClick_Print(const AId: Integer; const ANome:String);
+var
+  fArquivo :String;
+  fs: TFileStream;
 begin
-  MessageDlg('Imprimindo: ' + AId.ToString + ' - ' + ANome,TMsgDlgType.mtInformation,[mbOK],0);
+  fArquivo := '';
+  fArquivo := EndReport + 'Empresas.PDF';
+  frReport_Registros.LoadFromFile(EndReport + frReport_Registros.Title);
+  frReport_Registros.PrepareReport;
+
+  fs := TFileStream.Create(fArquivo,fmCreate);
+
+	if frReport_Registros.ExportTo(TfrTNPDFExportFilter,fs,True) then
+    MessageDlg('PDF Gerado com Sucesso.',TMsgDlgType.mtInformation,[mbOK],0);
 end;
 
 procedure TfrmEmpresa.ExportD2Bridge;
@@ -346,24 +393,17 @@ begin
   begin
     with Row.Items.Add do
     begin
-      with HTMLDIV(CSSClass.Col.colsize10).Items.Add do
+      with HTMLDIV(CSSClass.Col.colsize12).Items.Add do
       begin
         with Row(CSSClass.Space.margim_bottom3).Items.Add do
         begin
           With FormGroup('',CSSClass.Col.colsize12).Items.Add do
           begin
-            LCLObj(edPesquisar);
             LCLObj(btSelPesquisa, PopupMenu, CSSClass.Button.search);
-          end;
-        end;
-      end;
-
-      with HTMLDIV(CSSClass.Col.colsize2).Items.Add do
-      begin
-        with Row(CSSClass.Space.margim_bottom3 + ' ' + CSSClass.Space.margim_top1).Items.Add do
-        begin
-          with HTMLDIV(CSSClass.Text.Align.right).Items.Add do
+            LCLObj(edPesquisar);
             LCLObj(btNovo, CSSClass.Button.add);
+            LCLObj(btGerarPDF, CSSClass.Button.filePDF);
+          end;
         end;
       end;
     end;
@@ -469,9 +509,7 @@ begin
         PrismControl.AsDBGrid.RecordsPerPage := 10;
         with Columns.ColumnByDataField('ATIVO_DESC') do
         begin
-	  HTML := '<span class="badge ${value === ''Ativo'' ? ''bg-success'' : ''bg-danger''} rounded-pill p-2" style="width: 5em;">${value}</span>';
-	  //HTML := '<span class="badge ${value === 1 ? ''fa-solid fa-diagram-successor text-success fa-2x'' : ''bg-danger''} rounded-pill p-2" style="width: 7em;">${value}</span>';
-	  //HTML := '<span class="badge ${value === 1 ? ''fa-solid fa-circle-check text-success fa-1x'' : ''fa-sharp fa-solid fa-circle-xmark text-danger fa-1x''} rounded-pill p-2" style="width: 7em;">${value}</span>';
+	        HTML := '<span class="badge ${value === ''Ativo'' ? ''bg-success'' : ''bg-danger''} rounded-pill p-2" style="width: 5em;">${value}</span>';
         end;
 
         with Columns.Add do
@@ -499,10 +537,12 @@ begin
             end;
 
             //Print
+            {
             with Add do
             begin
-              ButtonModel:= TButtonModel.Print;
+              ButtonModel:= TButtonModel.FilePDF;
             end;
+            }
           end;
         end;
       end;

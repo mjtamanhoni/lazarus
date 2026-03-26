@@ -13,6 +13,8 @@ type
 
 
 function EndPath:String;
+function EndReport:String;
+function EndPDF:String;
 function NameEXE(aSemExtensao:Boolean=True):String;
 function ConfigFile:String;
 function LogFile:String;
@@ -60,6 +62,23 @@ end;
 function EndPath: String;
 begin
   Result := ExtractFilePath(ParamStr(0));
+end;
+
+function EndReport: String;
+begin
+  if not DirectoryExists(EndPath + 'Relatorios') then
+    ForceDirectories(EndPath + 'Relatorios');
+
+  Result := EndPath + 'Relatorios\';
+end;
+
+function EndPDF: String;
+begin
+  if not DirectoryExists(EndPath + 'Relatorios\PDF') then
+    ForceDirectories(EndPath + 'Relatorios\PDF');
+
+  Result := EndPath + 'Relatorios\PDF\';
+
 end;
 
 function NameEXE(aSemExtensao:Boolean=True): String;

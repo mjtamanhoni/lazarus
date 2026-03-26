@@ -1,0 +1,217 @@
+inherited frmUsuario_Perfil: TfrmUsuario_Perfil
+  Left = 300
+  Height = 544
+  Width = 855
+  Caption = 'Cadastro de Peril de Usuário'
+  ClientHeight = 544
+  ClientWidth = 855
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  OnShow = FormShow
+  object pnHeader: TPanel[0]
+    Left = 0
+    Height = 30
+    Top = 0
+    Width = 855
+    Align = alTop
+    BevelOuter = bvNone
+    ClientHeight = 30
+    ClientWidth = 855
+    TabOrder = 0
+    object pnFiltro: TPanel
+      Left = 0
+      Height = 30
+      Top = 0
+      Width = 759
+      Align = alClient
+      BevelOuter = bvNone
+      BorderWidth = 2
+      ClientHeight = 30
+      ClientWidth = 759
+      TabOrder = 0
+      object edPesquisar: TEdit
+        Tag = 1
+        Left = 2
+        Height = 26
+        Top = 2
+        Width = 717
+        Align = alClient
+        TabOrder = 0
+        TextHint = 'Pesquisar pela Nome do Perfil'
+        OnKeyPress = edPesquisarKeyPress
+      end
+      object btSelPesquisa: TButton
+        Left = 719
+        Height = 26
+        Top = 2
+        Width = 38
+        Align = alRight
+        PopupMenu = pmPesquisar
+        TabOrder = 1
+      end
+    end
+    object pnTipoFiltro2: TPanel
+      Left = 759
+      Height = 30
+      Top = 0
+      Width = 96
+      Align = alRight
+      BevelOuter = bvNone
+      BorderWidth = 2
+      ClientHeight = 30
+      ClientWidth = 96
+      TabOrder = 1
+      object btNovo: TButton
+        Left = 32
+        Height = 26
+        Top = 2
+        Width = 62
+        Align = alRight
+        Caption = 'Novo'
+        TabOrder = 0
+      end
+    end
+  end
+  object pnDetail: TPanel[1]
+    Left = 0
+    Height = 464
+    Top = 30
+    Width = 855
+    Align = alClient
+    BevelOuter = bvNone
+    BorderWidth = 2
+    TabOrder = 1
+  end
+  object pnFooter: TPanel[2]
+    Left = 0
+    Height = 50
+    Top = 494
+    Width = 855
+    Align = alBottom
+    BevelOuter = bvNone
+    TabOrder = 2
+  end
+  object DBGrid_Principal: TDBGrid[3]
+    Left = 0
+    Height = 464
+    Top = 30
+    Width = 855
+    Align = alClient
+    Color = clWindow
+    Columns = <    
+      item
+        Alignment = taRightJustify
+        Title.Alignment = taCenter
+        Title.Caption = 'Id'
+        Width = 65
+        FieldName = 'id_perfil'
+      end    
+      item
+        Title.Alignment = taCenter
+        Title.Caption = 'Nome'
+        Width = 250
+        FieldName = 'nome_perfil'
+      end    
+      item
+        Title.Alignment = taCenter
+        Title.Caption = 'Descrição'
+        Width = 500
+        FieldName = 'descricao'
+      end>
+    DataSource = dsRegistro
+    Options = [dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit]
+    TabOrder = 3
+  end
+  inherited mmPrincipal: TMainMenu[4]
+    inherited mnuCadastro: TMenuItem
+      inherited mnuCadUsuario: TMenuItem
+        inherited mnuCad_Usu_Perfil: TMenuItem
+          OnClick = nil
+        end
+      end
+    end
+  end
+  object ZQRegistros: TZQuery[5]
+    SQL.Strings = (
+      'select '
+      '  p.*'
+      'from public.perfis p '
+      'where 1=1'
+      'order by'
+      '  p.id_perfil;'
+    )
+    Params = <>
+    Left = 116
+    Top = 212
+    object ZQRegistrosid_perfil: TZIntegerField
+      FieldKind = fkData
+      FieldName = 'id_perfil'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object ZQRegistrosnome_perfil: TZRawStringField
+      FieldKind = fkData
+      FieldName = 'nome_perfil'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      Size = 50
+    end
+    object ZQRegistrosdescricao: TZRawStringField
+      FieldKind = fkData
+      FieldName = 'descricao'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 1000
+    end
+  end
+  object dsRegistro: TDataSource[6]
+    DataSet = ZQRegistros
+    Left = 116
+    Top = 268
+  end
+  object pmPesquisar: TPopupMenu[7]
+    Left = 436
+    Top = 172
+    object miID: TMenuItem
+      Caption = 'ID'
+      OnClick = miNomeClick
+    end
+    object miNome: TMenuItem
+      Tag = 1
+      Caption = 'Nome'
+      OnClick = miNomeClick
+    end
+  end
+  object frReport1: TfrReport[8]
+    Dataset = frDBDataSet1
+    InitialZoom = pzDefault
+    Options = []
+    PreviewButtons = [pbZoom, pbLoad, pbSave, pbPrint, pbFind, pbHelp, pbExit, pbSettings, pbPageSetup]
+    DataType = dtDataSource
+    Left = 595
+    Top = 310
+  end
+  object lrPDFExport1: TlrPDFExport[9]
+    Left = 690
+    Top = 305
+  end
+  object frDBDataSet1: TfrDBDataSet[10]
+    DataSet = ZQRegistros
+    DataSource = dsRegistro
+    Left = 510
+    Top = 300
+  end
+  object frUserDataset1: TfrUserDataset[11]
+    Left = 275
+    Top = 260
+  end
+end

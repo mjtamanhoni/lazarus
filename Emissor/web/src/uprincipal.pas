@@ -29,6 +29,7 @@ type
     mnuCad_Usu_Usuario: TMenuItem;
     mnuCad_Usu_Perfil: TMenuItem;
     mnuCad_Usu_Permissoes: TMenuItem;
+    procedure mnuCad_Usu_PerfilClick(Sender: TObject);
     procedure mnuConfig_ACBrClick(Sender: TObject);
     procedure mnuCad_EmpresaClick(Sender: TObject);
     procedure mnuCad_Usu_UsuarioClick(Sender: TObject);
@@ -41,8 +42,7 @@ type
   protected
     procedure ExportD2Bridge; override;
     procedure InitControlsD2Bridge(const PrismControl: TPrismControl); override;
-    procedure RenderD2Bridge(const PrismControl: TPrismControl; 
-      var HTMLControl: string); override;
+    procedure RenderD2Bridge(const PrismControl: TPrismControl; var HTMLControl: string); override;
   end;
 
 function frmPrincipal: TfrmPrincipal;
@@ -50,7 +50,7 @@ function frmPrincipal: TfrmPrincipal;
 implementation
 
 uses
-  EmissorWebApp, uEmpresa, uUsuario;
+  EmissorWebApp, uEmpresa, uUsuario, uUsuario.Perfil;
 
 {$R *.lfm}
 
@@ -78,6 +78,13 @@ end;
 procedure TfrmPrincipal.mnuConfig_ACBrClick(Sender: TObject);
 begin
   ShowPopupModal('Popup' + FfrmConfig_ACBr.Name);
+end;
+
+procedure TfrmPrincipal.mnuCad_Usu_PerfilClick(Sender: TObject);
+begin
+  if frmUsuario_Perfil = nil then
+    TfrmUsuario_Perfil.CreateInstance;
+  frmUsuario_Perfil.Show;
 end;
 
 procedure TfrmPrincipal.mnuCad_Usu_UsuarioClick(Sender: TObject);

@@ -17,12 +17,13 @@ object frmPrincipal: TfrmPrincipal
       end
       object mnuCadUsuario: TMenuItem
         Caption = 'Usuário'
+        object mnuCad_Usu_Perfil: TMenuItem
+          Caption = 'Perfil'
+          OnClick = mnuCad_Usu_PerfilClick
+        end
         object mnuCad_Usu_Usuario: TMenuItem
           Caption = 'Usuário'
           OnClick = mnuCad_Usu_UsuarioClick
-        end
-        object mnuCad_Usu_Perfil: TMenuItem
-          Caption = 'Perfil'
         end
         object mnuCad_Usu_Permissoes: TMenuItem
           Caption = 'Permissões'

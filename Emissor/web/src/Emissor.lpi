@@ -16,7 +16,7 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="1"/>
-      <BuildNr Value="7"/>
+      <BuildNr Value="8"/>
       <StringTable CompanyName="MJT Systems" FileDescription="Servidor Horse para emissão de Documentos Fiscais" LegalCopyright="Marcos Tamanhoni" ProductName="HorseFiscal"/>
     </VersionInfo>
     <BuildModes>
@@ -72,6 +72,24 @@
       <FormatVersion Value="2"/>
     </RunParams>
     <RequiredPackages>
+      <Item>
+        <PackageName Value="pack_powerpdf"/>
+      </Item>
+      <Item>
+        <PackageName Value="weblaz"/>
+      </Item>
+      <Item>
+        <PackageName Value="lazreportpdfexport"/>
+      </Item>
+      <Item>
+        <PackageName Value="frce"/>
+      </Item>
+      <Item>
+        <PackageName Value="lr_pdfexport"/>
+      </Item>
+      <Item>
+        <PackageName Value="lazreport"/>
+      </Item>
       <Item>
         <PackageName Value="ACBrTCP"/>
       </Item>
@@ -181,14 +199,6 @@
         <UnitName Value="uBase.Validation"/>
       </Unit>
       <Unit>
-        <Filename Value="udm.acbr.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="DM_Acbr"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="DataModule"/>
-        <UnitName Value="uDM.ACBr"/>
-      </Unit>
-      <Unit>
         <Filename Value="ucad.empresa.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmCadEmpresa"/>
@@ -279,6 +289,22 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uConfig.ACBr"/>
+      </Unit>
+      <Unit>
+        <Filename Value="udm.acbr.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="DM_ACBr"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="uDm.ACBR"/>
+      </Unit>
+      <Unit>
+        <Filename Value="uusuario.perfil.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmUsuario_Perfil"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="uUsuario.Perfil"/>
       </Unit>
     </Units>
   </ProjectOptions>

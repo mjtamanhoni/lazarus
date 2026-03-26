@@ -803,5 +803,126 @@
         "message" : "Parameter \"id_banco\" not found"
       }
     ]
+  },
+  {
+    "date" : "2026-03-25",
+    "company_name" : "MJT Systems",
+    "description" : "Servidor Horse para emissão de Documentos Fiscais",
+    "copyright" : "Marcos Tamanhoni",
+    "product_name" : "HorseFiscal",
+    "version" : "1.0.0.7",
+    "usuario_pc" : "Marcos Tamanhoni",
+    "logs" : [
+      {
+        "time" : "07:11:53",
+        "form_name" : "frmCadEmpresa_1",
+        "caption_name" : "Cadastro de Empresa",
+        "unit" : "edcnpjExit",
+        "exception_class" : "Exception",
+        "exception_description" : "Exceção Genérica: Erro não classificado especificamente pelo mapeador de log.",
+        "message" : "Buscando dados do CNPJ.\r\nAccess violation"
+      },
+      {
+        "time" : "07:16:58",
+        "form_name" : "frmCadEmpresa_1",
+        "caption_name" : "Cadastro de Empresa",
+        "unit" : "edcnpjExit",
+        "exception_class" : "Exception",
+        "exception_description" : "Exceção Genérica: Erro não classificado especificamente pelo mapeador de log.",
+        "message" : "Buscando dados do CNPJ.\r\nAccess violation"
+      },
+      {
+        "time" : "07:57:52",
+        "form_name" : "frmCadEmpresa_1",
+        "caption_name" : "Cadastro de Empresa",
+        "unit" : "edcnpjExit",
+        "exception_class" : "Exception",
+        "exception_description" : "Exceção Genérica: Erro não classificado especificamente pelo mapeador de log.",
+        "message" : "Buscando dados do CNPJ.\r\nAccess violation"
+      },
+      {
+        "time" : "10:21:39",
+        "form_name" : "frmUsuario",
+        "caption_name" : "Usuários",
+        "unit" : "Pesquisar",
+        "exception_class" : "ESocketError",
+        "exception_description" : "Exceção Genérica: Erro não classificado especificamente pelo mapeador de log.",
+        "message" : "Connection to localhost:9095 timed out."
+      },
+      {
+        "time" : "11:41:23",
+        "form_name" : "frmUsuario_Perfil",
+        "caption_name" : "Cadastro de Peril de Usuário",
+        "unit" : "Pesquisar",
+        "exception_class" : "EZSQLException",
+        "exception_description" : "Erro de Banco de Dados: Falha em operação de dataset, campo não encontrado ou erro SQL.",
+        "message" : "SQL Error: ERRO:  coluna p.nome não existe\nLINE 5:   and p.nome like '%%'\n              ^\nERRO 42703\r\ncoluna p.nome não existe\r\nposition: 59 \r\nCode: 7 SQL: select \r\n  p.* \r\nfrom public.perfis p \r\nwhere 1=1 \r\n  and p.nome like '%%'\r\norder by p.id_perfil \r\n"
+      },
+      {
+        "time" : "11:41:29",
+        "form_name" : "frmUsuario_Perfil",
+        "caption_name" : "Cadastro de Peril de Usuário",
+        "unit" : "Pesquisar",
+        "exception_class" : "EZSQLException",
+        "exception_description" : "Erro de Banco de Dados: Falha em operação de dataset, campo não encontrado ou erro SQL.",
+        "message" : "SQL Error: ERRO:  transação atual foi interrompida, comandos ignorados até o fim do bloco de transação\nERRO 25P02\r\ntransação atual foi interrompida, comandos ignorados até o fim do bloco de transação \r\nCode: 7 SQL: select \r\n  p.* \r\nfrom public.perfis p \r\nwhere 1=1 \r\n  and p.nome like '%%'\r\norder by p.id_perfil \r\n"
+      },
+      {
+        "time" : "11:41:34",
+        "form_name" : "frmUsuario_Perfil",
+        "caption_name" : "Cadastro de Peril de Usuário",
+        "unit" : "Pesquisar",
+        "exception_class" : "EZSQLException",
+        "exception_description" : "Erro de Banco de Dados: Falha em operação de dataset, campo não encontrado ou erro SQL.",
+        "message" : "SQL Error: ERRO:  transação atual foi interrompida, comandos ignorados até o fim do bloco de transação\nERRO 25P02\r\ntransação atual foi interrompida, comandos ignorados até o fim do bloco de transação \r\nCode: 7 SQL: select \r\n  p.* \r\nfrom public.perfis p \r\nwhere 1=1 \r\n  and p.nome like '%%'\r\norder by p.id_perfil \r\n"
+      },
+      {
+        "time" : "11:45:03",
+        "form_name" : "frmUsuario_Perfil",
+        "caption_name" : "Cadastro de Peril de Usuário",
+        "unit" : "Pesquisar",
+        "exception_class" : "EZSQLException",
+        "exception_description" : "Erro de Banco de Dados: Falha em operação de dataset, campo não encontrado ou erro SQL.",
+        "message" : "SQL Error: ERRO:  coluna p.nome não existe\nLINE 5:   and p.nome like '%%'\n              ^\nERRO 42703\r\ncoluna p.nome não existe\r\nposition: 59 \r\nCode: 7 SQL: select \r\n  p.* \r\nfrom public.perfis p \r\nwhere 1=1 \r\n  and p.nome like '%%'\r\norder by p.id_perfil \r\n"
+      }
+    ]
+  },
+  {
+    "date" : "2026-03-26",
+    "company_name" : "MJT Systems",
+    "description" : "Servidor Horse para emissão de Documentos Fiscais",
+    "copyright" : "Marcos Tamanhoni",
+    "product_name" : "HorseFiscal",
+    "version" : "1.0.0.7",
+    "usuario_pc" : "Marcos Tamanhoni",
+    "logs" : [
+      {
+        "time" : "09:53:45",
+        "form_name" : "frmEmpresa",
+        "caption_name" : "Empresas",
+        "unit" : "Pesquisar",
+        "exception_class" : "Exception",
+        "exception_description" : "Exceção Genérica: Erro não classificado especificamente pelo mapeador de log.",
+        "message" : "Para realizar o filtro usando o ID,  não pode haver letras no texto da pesquisa"
+      },
+      {
+        "time" : "09:54:22",
+        "form_name" : "frmEmpresa",
+        "caption_name" : "Empresas",
+        "unit" : "Pesquisar",
+        "exception_class" : "Exception",
+        "exception_description" : "Exceção Genérica: Erro não classificado especificamente pelo mapeador de log.",
+        "message" : "Para realizar o filtro usando o ID,  não pode haver letras no texto da pesquisa"
+      },
+      {
+        "time" : "16:07:25",
+        "form_name" : "frmUsuario",
+        "caption_name" : "Usuários",
+        "unit" : "Pesquisar",
+        "exception_class" : "ESocketError",
+        "exception_description" : "Exceção Genérica: Erro não classificado especificamente pelo mapeador de log.",
+        "message" : "Connection to localhost:9095 timed out."
+      }
+    ]
   }
 ]

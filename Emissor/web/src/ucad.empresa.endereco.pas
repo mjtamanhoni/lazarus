@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls, ZDataset,
   D2Bridge.Forms, uType_Field_Table, DataSet.Serialize, uBase.Validation,
-  uBase.Functions, ubase.functions.objetos, udm, Forms;
+  uBase.Functions, ubase.functions.objetos, udm, udm.ACBR, Forms;
 
 type
 
@@ -64,6 +64,7 @@ type
     procedure btConfirmarClick(Sender: TObject);
     procedure cbtipo_enderecoKeyPress(Sender: TObject; var Key: char);
     procedure edbairroKeyPress(Sender: TObject; var Key: char);
+    procedure edcepExit(Sender: TObject);
     procedure edcepKeyPress(Sender: TObject; var Key: char);
     procedure edcodigo_municipio_ibgeKeyPress(Sender: TObject; var Key: char);
     procedure edcomplementoKeyPress(Sender: TObject; var Key: char);
@@ -73,8 +74,11 @@ type
     procedure ednumeroKeyPress(Sender: TObject; var Key: char);
     procedure edpaisKeyPress(Sender: TObject; var Key: char);
     procedure edufKeyPress(Sender: TObject; var Key: char);
+    procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
   private
     { Private declarations }
+    fDm_ACBr :TDM_ACBr;
   public
     { Public declarations }
     procedure Clear_Fields;
@@ -243,6 +247,26 @@ begin
   if Key = #13 then EnterAsTab(Self.edmunicipio);
 end;
 
+procedure TfrmCad_Empresa_Endereco.edcepExit(Sender: TObject);
+begin
+  if Trim(edcep.Text) > '' then
+	begin
+    fDm_ACBr.Buscar_CEP(edcep.Text);
+    with Emissor.EmpEnd_Fields do
+    begin
+      if logradouro <> '' then
+      begin
+        edlogradouro.Text := logradouro;
+        edcomplemento.Text := complemento;
+        edbairro.Text := bairro;
+        edmunicipio.Text := municipio;
+        edcodigo_municipio_ibge.Text := codigo_municipio_ibge;
+        eduf.Text := uf;
+      end;
+    end;
+  end;
+end;
+
 procedure TfrmCad_Empresa_Endereco.edcepKeyPress(Sender: TObject; var Key: char
   );
 begin
@@ -294,6 +318,17 @@ end;
 procedure TfrmCad_Empresa_Endereco.edufKeyPress(Sender: TObject; var Key: char);
 begin
   if Key = #13 then EnterAsTab(Self.edpais);
+end;
+
+procedure TfrmCad_Empresa_Endereco.FormCreate(Sender: TObject);
+begin
+  fDm_ACBr := TDM_ACBr.Create(Self);
+end;
+
+procedure TfrmCad_Empresa_Endereco.FormDestroy(Sender: TObject);
+begin
+  if Assigned(fDm_ACBr) then
+    FreeAndNil(fDm_ACBr);
 end;
 
 procedure TfrmCad_Empresa_Endereco.Clear_Fields;

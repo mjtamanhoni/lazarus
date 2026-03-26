@@ -161,7 +161,7 @@ type
     Fid_endereco: Integer;
     Flogradouro: String;
 
-    procedure Busca_Dados_CNPJ(const aCJPJ: String);
+    procedure Dados_CNPJ(const aCJPJ: String);
     procedure OnClick_Edit_End;
     procedure OnClick_Delete_End(const aId_Empresa,aId_Endereco: Integer);
     procedure OnClick_Edit_CBanco;
@@ -501,7 +501,7 @@ end;
 
 procedure TfrmCadEmpresa.cbativoKeyPress(Sender: TObject; var Key: char);
 begin
-  if Key = #13 then EnterAsTab(Self.edrazao_social);
+  if Key = #13 then edrazao_social.SetFocus;
 end;
 
 procedure TfrmCadEmpresa.Clear_Parans(const AClear:Integer);
@@ -551,62 +551,46 @@ end;
 procedure TfrmCadEmpresa.cbregime_tributarioKeyPress(Sender: TObject;
   var Key: char);
 begin
-  if Key = #13 then EnterAsTab(Self.edcrt);
+  if Key = #13 then edcrt.SetFocus;
 end;
 
 procedure TfrmCadEmpresa.cbtipoKeyPress(Sender: TObject; var Key: char);
 begin
-  if Key = #13 then EnterAsTab(Self.edvalidade);
+  if Key = #13 then edvalidade.SetFocus;
 end;
 
 procedure TfrmCadEmpresa.edcaminho_arquivoKeyPress(Sender: TObject;
   var Key: char);
 begin
-  if Key = #13 then EnterAsTab(Self.edsenha);
+  if Key = #13 then edsenha.SetFocus;
 end;
 
 procedure TfrmCadEmpresa.edcelularKeyPress(Sender: TObject; var Key: char);
 begin
-  if Key = #13 then EnterAsTab(Self.edemail);
+  if Key = #13 then edemail.SetFocus;
 end;
 
-procedure TfrmCadEmpresa.Busca_Dados_CNPJ(const aCJPJ:String);
-var
-  I: Integer;
+procedure TfrmCadEmpresa.Dados_CNPJ(const aCJPJ:String);
 begin
   try
-    fDM_ACBr.ACBrConsultaCNPJ.Provedor := TACBrCNPJProvedorWS(FIniFile.ReadInteger('ACBR.CNPJ','PROVEDOR',0));
-    fDM_ACBr.ACBrConsultaCNPJ.ProxyHost:= FIniFile.ReadString('ACBR.CNPJ','HOST','');
-    fDM_ACBr.ACBrConsultaCNPJ.ProxyPort:= FIniFile.ReadString('ACBR.CNPJ','PORTA','');
-    fDM_ACBr.ACBrConsultaCNPJ.ProxyUser:= FIniFile.ReadString('ACBR.CNPJ','USUARIO','');
-    fDM_ACBr.ACBrConsultaCNPJ.ProxyPass:= FIniFile.ReadString('ACBR.CNPJ','SENHA','');
-    if fDM_ACBr.ACBrConsultaCNPJ.Provedor = cwsNenhum then
-       raise EACBrConsultaCNPJException.Create('Nenhum provedor Selecionado!');
+    try
+      fDM_ACBr := TDM_Acbr.Create(Nil);
 
-    if fDM_ACBr.ACBrConsultaCNPJ.Consulta(aCJPJ) then
-    begin
-      //EditTipo.Text        := fDM_ACBr.ACBrConsultaCNPJ.EmpresaTipo;
-      edrazao_social.Text := fDM_ACBr.ACBrConsultaCNPJ.RazaoSocial;
-      //EditPorte.Text       := fDM_ACBr.ACBrConsultaCNPJ.Porte;
-      //EditAbertura.Text    := DateToStr( fDM_ACBr.ACBrConsultaCNPJ.Abertura );
-      ednome_fantasia.Text    := fDM_ACBr.ACBrConsultaCNPJ.Fantasia;
-      //EditEndereco.Text    := fDM_ACBr.ACBrConsultaCNPJ.Endereco;
-      //EditNumero.Text      := fDM_ACBr.ACBrConsultaCNPJ.Numero;
-      //EditComplemento.Text := fDM_ACBr.ACBrConsultaCNPJ.Complemento;
-      //EditBairro.Text      := fDM_ACBr.ACBrConsultaCNPJ.Bairro;
-      //EditComplemento.Text := fDM_ACBr.ACBrConsultaCNPJ.Complemento;
-      //EditCidade.Text      := fDM_ACBr.ACBrConsultaCNPJ.Cidade;
-      //EditUF.Text          := fDM_ACBr.ACBrConsultaCNPJ.UF;
-      //EditCEP.Text         := fDM_ACBr.ACBrConsultaCNPJ.CEP;
-      //EditSituacao.Text    := fDM_ACBr.ACBrConsultaCNPJ.Situacao;
-      //EditCNAE1.Text       := fDM_ACBr.ACBrConsultaCNPJ.CNAE1;
-      edemail.Text       := fDM_ACBr.ACBrConsultaCNPJ.EndEletronico;
-      edcelular.Text    := fDM_ACBr.ACBrConsultaCNPJ.Telefone;
-
+      with fDM_ACBr.Busca_Dados_CNPJ(aCJPJ) do
+      begin
+        edrazao_social.Text := RazaoSocial;
+        ednome_fantasia.Text := Fantasia;
+        edemail.Text := EndEletronico;
+        edcelular.Text := Telefone;
+      end;
+    except
+      On E:Exception do
+        raise Exception.Create(E.Message);
     end;
-  except
-    On E:Exception do
-      raise Exception.Create('Buscando dados do CNPJ.' + sLineBreak + E.Message);
+
+  finally
+    if Assigned(fDM_ACBr) then
+      FreeAndNil(fDM_ACBr);
   end;
 end;
 
@@ -631,7 +615,7 @@ begin
       begin
         edcnpj.Text := fDM_ACBr.ACBrValidador.Formatar;
         if Length(RemoverMascara(edcnpj.Text)) = 14 then
-           Busca_Dados_CNPJ(RemoverMascara(edcnpj.Text));
+           Dados_CNPJ(RemoverMascara(edcnpj.Text));
       end
       else
         raise Exception.Create('Documento inválido');
@@ -650,61 +634,61 @@ end;
 
 procedure TfrmCadEmpresa.edcnpjKeyPress(Sender: TObject; var Key: char);
 begin
-  if Key = #13 then EnterAsTab(Self.edinscricao_estadual);
+  if Key = #13 then edinscricao_estadual.SetFocus;
 end;
 
 procedure TfrmCadEmpresa.edcrtKeyPress(Sender: TObject; var Key: char);
 begin
-  if Key = #13 then EnterAsTab(Self.edtelefone);
+  if Key = #13 then edtelefone.SetFocus;
 end;
 
 procedure TfrmCadEmpresa.edemailKeyPress(Sender: TObject; var Key: char);
 begin
-  if Key = #13 then EnterAsTab(Self.edsite);
+  if Key = #13 then edsite.SetFocus;
 end;
 
 procedure TfrmCadEmpresa.edid_certificadoKeyPress(Sender: TObject; var Key: char
   );
 begin
-  if Key = #13 then EnterAsTab(Self.cbtipo);
+  if Key = #13 then cbtipo.SetFocus;
 end;
 
 procedure TfrmCadEmpresa.edid_empresaKeyPress(Sender: TObject; var Key: char);
 begin
-  if Key = #13 then EnterAsTab(Self.edcnpj);
+  if Key = #13 then edcnpj.SetFocus;
 end;
 
 procedure TfrmCadEmpresa.edinscricao_estadualKeyPress(Sender: TObject;
   var Key: char);
 begin
-  if Key = #13 then EnterAsTab(Self.edinscricao_municipal);
+  if Key = #13 then edinscricao_municipal.SetFocus;
 end;
 
 procedure TfrmCadEmpresa.edinscricao_municipalKeyPress(Sender: TObject;
   var Key: char);
 begin
-  if Key = #13 then EnterAsTab(Self.cbativo);
+  if Key = #13 then cbativo.SetFocus;
 end;
 
 procedure TfrmCadEmpresa.ednome_fantasiaKeyPress(Sender: TObject; var Key: char
   );
 begin
-  if Key = #13 then EnterAsTab(Self.cbregime_tributario);
+  if Key = #13 then cbregime_tributario.SetFocus;
 end;
 
 procedure TfrmCadEmpresa.edrazao_socialKeyPress(Sender: TObject; var Key: char);
 begin
-  if Key = #13 then EnterAsTab(Self.ednome_fantasia);
+  if Key = #13 then ednome_fantasia.SetFocus;
 end;
 
 procedure TfrmCadEmpresa.edtelefoneKeyPress(Sender: TObject; var Key: char);
 begin
-  if Key = #13 then EnterAsTab(Self.edcelular);
+  if Key = #13 then edcelular.SetFocus;
 end;
 
 procedure TfrmCadEmpresa.edvalidadeKeyPress(Sender: TObject; var Key: char);
 begin
-  if Key = #13 then EnterAsTab(Self.edcaminho_arquivo);
+  if Key = #13 then edcaminho_arquivo.SetFocus;
 end;
 
 procedure TfrmCadEmpresa.FormClose(Sender: TObject; var CloseAction: TCloseAction);

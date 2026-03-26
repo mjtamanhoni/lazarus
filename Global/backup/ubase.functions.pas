@@ -6,13 +6,14 @@ interface
 
 uses
   Classes, SysUtils, Math, DB, memds, fpjson, jsonparser, Variants, DateUtils,
-  FileInfo, winpeimagereader, Forms;
+  FileInfo, winpeimagereader, Forms, LCLType;
 
 type
   TTipoMensagem = (tnSucesso, tnAtencao, tnErro, tnSimNao, tnCancelarConfirmar);
 
 
 function EndPath:String;
+function EndReport:String;
 function NameEXE(aSemExtensao:Boolean=True):String;
 function ConfigFile:String;
 function LogFile:String;
@@ -60,6 +61,11 @@ end;
 function EndPath: String;
 begin
   Result := ExtractFilePath(ParamStr(0));
+end;
+
+function EndReport: String;
+begin
+  Result := EndPath + 'Relatorios\';
 end;
 
 function NameEXE(aSemExtensao:Boolean=True): String;
