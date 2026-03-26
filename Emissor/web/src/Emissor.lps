@@ -107,7 +107,6 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uPrincipal"/>
         <EditorIndex Value="2"/>
-        <TopLine Value="4"/>
         <CursorPos X="36" Y="13"/>
         <UsageCount Value="302"/>
         <Loaded Value="True"/>
@@ -167,8 +166,7 @@
         <UnitName Value="uEmpresa"/>
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
-        <TopLine Value="10"/>
-        <CursorPos X="29" Y="15"/>
+        <CursorPos X="3" Y="4"/>
         <UsageCount Value="267"/>
         <Bookmarks Count="2">
           <Item0 Y="208" Left="1" Top="208" ID="9"/>
@@ -305,7 +303,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="126"/>
         <CursorPos Y="143"/>
-        <UsageCount Value="89"/>
+        <UsageCount Value="90"/>
       </Unit>
       <Unit>
         <Filename Value="udm.acbr.pas"/>
@@ -317,7 +315,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="116"/>
         <CursorPos X="37" Y="140"/>
-        <UsageCount Value="83"/>
+        <UsageCount Value="84"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
@@ -330,7 +328,7 @@
         <EditorIndex Value="7"/>
         <TopLine Value="13"/>
         <CursorPos X="62" Y="15"/>
-        <UsageCount Value="76"/>
+        <UsageCount Value="77"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
@@ -359,7 +357,7 @@
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
     </Units>
-    <JumpHistory HistoryIndex="6">
+    <JumpHistory HistoryIndex="11">
       <Position>
         <Filename Value="..\..\..\Global\ubase.functions.pas"/>
         <Caret Line="188" Column="39" TopLine="168"/>
@@ -386,6 +384,24 @@
       <Position>
         <Filename Value="ucad.usuario.pas"/>
         <Caret Line="250" Column="86" TopLine="245"/>
+      </Position>
+      <Position>
+        <Filename Value="uempresa.pas"/>
+        <Caret Line="26" Column="36" TopLine="112"/>
+      </Position>
+      <Position>
+        <Filename Value="uempresa.pas"/>
+      </Position>
+      <Position>
+        <Filename Value="uempresa.pas"/>
+        <Caret Line="16" Column="35" TopLine="4"/>
+      </Position>
+      <Position>
+        <Filename Value="uempresa.pas"/>
+      </Position>
+      <Position>
+        <Filename Value="uempresa.pas"/>
+        <Caret Line="5" Column="3"/>
       </Position>
     </JumpHistory>
     <RunParams>

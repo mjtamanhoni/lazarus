@@ -922,6 +922,15 @@
         "exception_class" : "ESocketError",
         "exception_description" : "Exceção Genérica: Erro não classificado especificamente pelo mapeador de log.",
         "message" : "Connection to localhost:9095 timed out."
+      },
+      {
+        "time" : "16:47:31",
+        "form_name" : "frmUsuario",
+        "caption_name" : "Usuários",
+        "unit" : "Pesquisar",
+        "exception_class" : "ESocketError",
+        "exception_description" : "Exceção Genérica: Erro não classificado especificamente pelo mapeador de log.",
+        "message" : "Connection to localhost:9095 timed out."
       }
     ]
   }
