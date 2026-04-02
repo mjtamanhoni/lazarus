@@ -45,6 +45,7 @@ inherited frmUsuario: TfrmUsuario
         Top = 2
         Width = 38
         Align = alRight
+        PopupMenu = pmPesquisar
         TabOrder = 1
       end
     end
@@ -89,7 +90,86 @@ inherited frmUsuario: TfrmUsuario
       Width = 796
       Align = alClient
       Color = clWindow
-      Columns = <>
+      Columns = <      
+        item
+          Alignment = taRightJustify
+          Title.Alignment = taCenter
+          Title.Caption = 'Id'
+          Width = 65
+          FieldName = 'id_usuario'
+        end      
+        item
+          Title.Alignment = taCenter
+          Title.Caption = 'Nome'
+          Width = 300
+          FieldName = 'nome'
+        end      
+        item
+          Title.Alignment = taCenter
+          Title.Caption = 'Perfil'
+          Width = 150
+          FieldName = 'nome_perfil'
+        end      
+        item
+          Title.Alignment = taCenter
+          Title.Caption = 'Login'
+          Width = 300
+          FieldName = 'login'
+        end      
+        item
+          Title.Alignment = taCenter
+          Title.Caption = 'E-Mail'
+          Width = 300
+          FieldName = 'email'
+        end      
+        item
+          Title.Caption = 'id_perfil'
+          Visible = False
+          FieldName = 'id_perfil'
+        end      
+        item
+          Title.Caption = 'senha'
+          Visible = False
+          FieldName = 'senha'
+        end      
+        item
+          Title.Alignment = taCenter
+          Title.Caption = 'Ativo'
+          Width = 50
+          FieldName = 'ativo_desc'
+        end      
+        item
+          Title.Caption = 'ativo'
+          Visible = False
+          FieldName = 'ativo'
+        end      
+        item
+          Title.Alignment = taCenter
+          Title.Caption = 'Data Cadastro'
+          Width = 100
+          FieldName = 'data_cadastro'
+        end      
+        item
+          Title.Caption = 'ultimo_acesso'
+          Visible = False
+          FieldName = 'ultimo_acesso'
+        end      
+        item
+          Title.Caption = 'nome_fantasia'
+          Visible = False
+          FieldName = 'nome_fantasia'
+        end      
+        item
+          Title.Caption = 'id_empresa'
+          Visible = False
+          FieldName = 'id_empresa'
+        end      
+        item
+          Title.Caption = 'razao_social'
+          Visible = False
+          FieldName = 'razao_social'
+        end>
+      DataSource = dsRegistro
       Options = [dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit]
       TabOrder = 0
     end
@@ -101,7 +181,19 @@ inherited frmUsuario: TfrmUsuario
     Width = 800
     Align = alBottom
     BevelOuter = bvNone
+    ClientHeight = 50
+    ClientWidth = 800
     TabOrder = 2
+    object btGerarPDF: TButton
+      Left = 700
+      Height = 50
+      Top = 0
+      Width = 100
+      Align = alRight
+      Caption = 'Gerar PDF'
+      TabOrder = 0
+      OnClick = btGerarPDFClick
+    end
   end
   inherited mmPrincipal: TMainMenu[3]
     inherited mnuCadastro: TMenuItem
@@ -113,8 +205,9 @@ inherited frmUsuario: TfrmUsuario
     end
   end
   object dsRegistro: TDataSource[4]
-    Left = 308
-    Top = 148
+    DataSet = ZQRegistros
+    Left = 165
+    Top = 185
   end
   object pmPesquisar: TPopupMenu[5]
     Left = 528
@@ -133,5 +226,182 @@ inherited frmUsuario: TfrmUsuario
       Caption = 'Nome'
       OnClick = miIDClick
     end
+    object miEmail: TMenuItem
+      Tag = 3
+      Caption = 'E-Mail'
+      OnClick = miIDClick
+    end
+  end
+  object ZQRegistros: TZQuery[6]
+    SQL.Strings = (
+      'SELECT '
+      '  u.*'
+      '  ,case u.ativo '
+      '    when 0 then ''INATIVO'''
+      '    when 1 then ''ATIVO'''
+      '  end ativo_desc'
+      '  ,p.nome_perfil '
+      '  ,e.nome_fantasia '
+      '  ,e.razao_social '
+      'FROM public.usuarios u'
+      '  join public.perfis p on p.id_perfil = u.id_perfil '
+      '  join public.empresa e on e.id_empresa = u.id_empresa '
+      'where 1=1'
+      'order by '
+      '  u.id_usuario;'
+    )
+    Params = <>
+    Left = 165
+    Top = 245
+    object ZQRegistrosid_empresa: TZIntegerField
+      FieldKind = fkData
+      FieldName = 'id_empresa'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object ZQRegistrosid_usuario: TZIntegerField
+      FieldKind = fkData
+      FieldName = 'id_usuario'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object ZQRegistrosid_perfil: TZIntegerField
+      FieldKind = fkData
+      FieldName = 'id_perfil'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object ZQRegistroslogin: TZRawStringField
+      FieldKind = fkData
+      FieldName = 'login'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      Size = 50
+    end
+    object ZQRegistrossenha: TZRawStringField
+      FieldKind = fkData
+      FieldName = 'senha'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      Size = 255
+    end
+    object ZQRegistrosnome: TZRawStringField
+      FieldKind = fkData
+      FieldName = 'nome'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      Size = 100
+    end
+    object ZQRegistrosemail: TZRawStringField
+      FieldKind = fkData
+      FieldName = 'email'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 100
+    end
+    object ZQRegistrosativo: TZSmallIntField
+      FieldKind = fkData
+      FieldName = 'ativo'
+      Index = 7
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object ZQRegistrosdata_cadastro: TZDateTimeField
+      FieldKind = fkData
+      FieldName = 'data_cadastro'
+      Index = 8
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object ZQRegistrosultimo_acesso: TZDateTimeField
+      FieldKind = fkData
+      FieldName = 'ultimo_acesso'
+      Index = 9
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object ZQRegistrosativo_desc: TZRawCLobField
+      FieldKind = fkData
+      FieldName = 'ativo_desc'
+      Index = 10
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = True
+      Required = False
+      BlobType = ftMemo
+      Transliterate = False
+    end
+    object ZQRegistrosnome_perfil: TZRawStringField
+      FieldKind = fkData
+      FieldName = 'nome_perfil'
+      Index = 11
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      Size = 50
+    end
+    object ZQRegistrosnome_fantasia: TZRawStringField
+      FieldKind = fkData
+      FieldName = 'nome_fantasia'
+      Index = 12
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object ZQRegistrosrazao_social: TZRawStringField
+      FieldKind = fkData
+      FieldName = 'razao_social'
+      Index = 13
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+      Size = 255
+    end
+  end
+  object frDBDS_Registros: TfrDBDataSet[7]
+    DataSet = ZQRegistros
+    Left = 643
+    Top = 163
+  end
+  object frReport_Registros: TfrReport[8]
+    Dataset = frDBDS_Registros
+    InitialZoom = pzDefault
+    Options = []
+    PreviewButtons = [pbZoom, pbLoad, pbSave, pbPrint, pbFind, pbHelp, pbExit, pbSettings, pbPageSetup]
+    DataType = dtDataSet
+    Title = 'uRel_Usuarios.lrf'
+    Left = 643
+    Top = 213
   end
 end

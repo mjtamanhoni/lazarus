@@ -172,7 +172,7 @@ begin
   try
     try
       fArquivo := '';
-      fArquivo := EndPDF + 'Empresas.PDF';
+      fArquivo := EndPDF + Self.Name + '.PDF';
       frReport_Registros.LoadFromFile(EndReport + frReport_Registros.Title);
       frReport_Registros.PrepareReport;
 
@@ -220,6 +220,7 @@ var
 begin
   try
     try
+      ZQRegistros.DisableControls;
       ZQRegistros.Close;
       ZQRegistros.SQL.Clear;
       ZQRegistros.SQL.Add('SELECT ');
@@ -242,15 +243,18 @@ begin
       ZQRegistros.SQL.Add('             from public.usuarios u ');
       ZQRegistros.SQL.Add('             group by 1) u on u.id_empresa = e.id_empresa ');
       ZQRegistros.SQL.Add('where 1=1 ');
-      case edPesquisar.Tag of
-        0:begin
-          if not ApenasNumeros(edPesquisar.Text) then
-            raise Exception.Create('Para realizar o filtro usando o ID,  não pode haver letras no texto da pesquisa');
-          ZQRegistros.SQL.Add('  and e.id_empresa = ' + edPesquisar.Text);
+      if Trim(edPesquisar.Text) <> '' then
+      begin
+        case edPesquisar.Tag of
+          0:begin
+            if not ApenasNumeros(edPesquisar.Text) then
+              raise Exception.Create('Para realizar o filtro usando o ID,  não pode haver letras no texto da pesquisa');
+            ZQRegistros.SQL.Add('  and e.id_empresa = ' + edPesquisar.Text);
+          end;
+          1:ZQRegistros.SQL.Add('  and e.razao_social like ' + QuotedStr('%'+edPesquisar.Text+'%'));
+          2:ZQRegistros.SQL.Add('  and e.nome_fantasia like ' + QuotedStr('%'+edPesquisar.Text+'%'));
+          3:ZQRegistros.SQL.Add('  and e.cnpj = ' + edPesquisar.Text);
         end;
-        1:ZQRegistros.SQL.Add('  and e.razao_social like ' + QuotedStr('%'+edPesquisar.Text+'%'));
-        2:ZQRegistros.SQL.Add('  and e.nome_fantasia like ' + QuotedStr('%'+edPesquisar.Text+'%'));
-        3:ZQRegistros.SQL.Add('  and e.cnpj = ' + edPesquisar.Text);
       end;
       ZQRegistros.SQL.Add('order by e.id_empresa ');
       ZQRegistros.Open;
@@ -320,42 +324,57 @@ begin
       end;
     end;
   finally
+    ZQRegistros.EnableControls;
   end;
 end;
 
 procedure TfrmEmpresa.OnClick_Delete(const AId: Integer; const ANome:String);
 var
+  {
   fResp :IResponse;
   fRet :String;
   fBody :TJSONObject;
+  }
+  fQuery :TZQuery;
 begin
   try
-    if MessageDlg('Deseja excluir a Empresa selecionada?',TMsgDlgType.mtConfirmation,[mbYes,mbNo],0) = mrYes then
-    begin
-      fResp := TRequest.New.BaseURL(FHost)
-      	       .AddParam('id',ZQRegistros.FieldByName('idEmpresa').AsString)
-               .Resource('empresa')
-               .Accept('application/json')
-               .Delete;
-
-      fRet := '';
-      fRet := fResp.Content;
-      fBody := TJSONObject(GetJSON(fRet));
-      if fBody['success'].AsBoolean = False then
-        raise Exception.Create(fBody['message'].AsString)
-      else
+    try
+      if MessageDlg('Deseja excluir a Empresa selecionada?',TMsgDlgType.mtConfirmation,[mbYes,mbNo],0) = mrYes then
       begin
-        MessageDlg(fBody['message'].AsString,TMsgDlgType.mtInformation,[mbOK],0);
+        fQuery := FDM.GetQuery;
+        fQuery.Sql.Add('DELETE FROM public.empresa WHERE id_empresa = :id_empresa;');
+        fQuery.ParamByName('id_empresa').AsInteger := ZQRegistrosid_empresa.AsInteger;
+				fQuery.ExecSql;
         Pesquisar;
-      end;
+        {
+        fResp := TRequest.New.BaseURL(FHost)
+      	         .AddParam('id',ZQRegistros.FieldByName('idEmpresa').AsString)
+                 .Resource('empresa')
+                 .Accept('application/json')
+                 .Delete;
 
+        fRet := '';
+        fRet := fResp.Content;
+        fBody := TJSONObject(GetJSON(fRet));
+        if fBody['success'].AsBoolean = False then
+          raise Exception.Create(fBody['message'].AsString)
+        else
+        begin
+          MessageDlg(fBody['message'].AsString,TMsgDlgType.mtInformation,[mbOK],0);
+          Pesquisar;
+        end;
+        }
+      end;
+    except
+      on E :Exception do
+      begin
+        GravarLogJSON(Self.Name,Self.Caption,'OnClick_Delete',E);
+        MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
+      end;
     end;
-  except
-    on E :Exception do
-    begin
-      GravarLogJSON(Self.Name,Self.Caption,'OnClick_Delete',E);
-      MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
-    end;
+  finally
+    if Assigned(fQuery) then
+      FreeAndNil(fQuery);
   end;
 end;
 

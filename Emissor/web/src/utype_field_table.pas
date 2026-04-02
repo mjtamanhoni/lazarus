@@ -158,6 +158,19 @@ type
     class property senha :String read Fsenha write FSenha;
   end;
 
+  { TPerfil_Fields }
+
+  TPerfil_Fields = class
+  private
+    class var Fdescricao: String;
+    class var Fid_perfil: Integer;
+    class var Fnome_perfil: String;
+  public
+    class property id_perfil :Integer read Fid_perfil write Fid_perfil;
+    class property nome_perfil :String read Fnome_perfil write Fnome_perfil;
+    class property descricao :String read Fdescricao write Fdescricao;
+  end;
+
 implementation
 
 end.

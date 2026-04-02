@@ -933,5 +933,166 @@
         "message" : "Connection to localhost:9095 timed out."
       }
     ]
+  },
+  {
+    "date" : "2026-03-27",
+    "company_name" : "MJT Systems",
+    "description" : "Servidor Horse para emissão de Documentos Fiscais",
+    "copyright" : "Marcos Tamanhoni",
+    "product_name" : "HorseFiscal",
+    "version" : "1.0.0.8",
+    "usuario_pc" : "Marcos Tamanhoni",
+    "logs" : [
+      {
+        "time" : "06:21:26",
+        "form_name" : "frmUsuario",
+        "caption_name" : "Usuários",
+        "unit" : "Pesquisar",
+        "exception_class" : "ESocketError",
+        "exception_description" : "Exceção Genérica: Erro não classificado especificamente pelo mapeador de log.",
+        "message" : "Connection to localhost:9095 timed out."
+      },
+      {
+        "time" : "08:22:26",
+        "form_name" : "frmUsuario_Perfil",
+        "caption_name" : "Cadastro de Peril de Usuário",
+        "unit" : "CellButtonClick",
+        "exception_class" : "EDatabaseError",
+        "exception_description" : "Erro de Banco de Dados: Falha em operação de dataset, campo não encontrado ou erro SQL.",
+        "message" : "ZQRegistros : Field not found : \"RAZAO_SOCIAL\""
+      }
+    ]
+  },
+  {
+    "date" : "2026-03-28",
+    "company_name" : "MJT Systems",
+    "description" : "Servidor Horse para emissão de Documentos Fiscais",
+    "copyright" : "Marcos Tamanhoni",
+    "product_name" : "HorseFiscal",
+    "version" : "1.0.0.10",
+    "usuario_pc" : "Marcos Tamanhoni",
+    "logs" : [
+      {
+        "time" : "12:41:48",
+        "form_name" : "frmUsuarioPerfil_Cad",
+        "caption_name" : "Cadastro de Perfil de Usuário",
+        "unit" : "Gravar",
+        "exception_class" : "Exception",
+        "exception_description" : "Exceção Genérica: Erro não classificado especificamente pelo mapeador de log.",
+        "message" : "Gera sequencial.\r\nSQL Error: ERRO:  função obter_sequencial(unknown) não existe\nLINE 1: SELECT obter_sequencial($1)\n               ^\nHINT:  Nenhuma função corresponde com o nome e os tipos de argumentos informados. Você precisa adicionar conversões de tipo explícitas.\nERRO 42883\r\nfunção obter_sequencial(unknown) não existeNenhuma função corresponde com o nome e os tipos de argumentos informados. Você precisa adicionar conversões de tipo explícitas.\r\nposition: 8 \r\nCode: 7 SQL: SELECT obter_sequencial($1)"
+      },
+      {
+        "time" : "12:43:28",
+        "form_name" : "frmUsuarioPerfil_Cad",
+        "caption_name" : "Cadastro de Perfil de Usuário",
+        "unit" : "Gravar",
+        "exception_class" : "Exception",
+        "exception_description" : "Exceção Genérica: Erro não classificado especificamente pelo mapeador de log.",
+        "message" : "Gera sequencial.\r\nSQL Error: ERRO:  função obter_sequencial(unknown) não existe\nLINE 1: SELECT obter_sequencial($1)\n               ^\nHINT:  Nenhuma função corresponde com o nome e os tipos de argumentos informados. Você precisa adicionar conversões de tipo explícitas.\nERRO 42883\r\nfunção obter_sequencial(unknown) não existeNenhuma função corresponde com o nome e os tipos de argumentos informados. Você precisa adicionar conversões de tipo explícitas.\r\nposition: 8 \r\nCode: 7 SQL: SELECT obter_sequencial($1)"
+      },
+      {
+        "time" : "13:01:21",
+        "form_name" : "frmUsuario",
+        "caption_name" : "Usuários",
+        "unit" : "Pesquisar",
+        "exception_class" : "ESocketError",
+        "exception_description" : "Exceção Genérica: Erro não classificado especificamente pelo mapeador de log.",
+        "message" : "Connection to localhost:9095 timed out."
+      },
+      {
+        "time" : "14:06:10",
+        "form_name" : "frmUsuario",
+        "caption_name" : "Usuários",
+        "unit" : "Pesquisar",
+        "exception_class" : "EDatabaseError",
+        "exception_description" : "Erro de Banco de Dados: Falha em operação de dataset, campo não encontrado ou erro SQL.",
+        "message" : "ZQRegistros : Field not found : \"nome_perfil\""
+      },
+      {
+        "time" : "14:20:41",
+        "form_name" : "frmUsuario",
+        "caption_name" : "Usuários",
+        "unit" : "Pesquisar",
+        "exception_class" : "EDatabaseError",
+        "exception_description" : "Erro de Banco de Dados: Falha em operação de dataset, campo não encontrado ou erro SQL.",
+        "message" : "ZQRegistros : Field not found : \"nome_perfil\""
+      }
+    ]
+  },
+  {
+    "date" : "2026-03-30",
+    "company_name" : "MJT Systems",
+    "description" : "Servidor Horse para emissão de Documentos Fiscais",
+    "copyright" : "Marcos Tamanhoni",
+    "product_name" : "HorseFiscal",
+    "version" : "1.0.0.10",
+    "usuario_pc" : "Marcos Tamanhoni",
+    "logs" : [
+      {
+        "time" : "07:52:14",
+        "form_name" : "frmUsuario",
+        "caption_name" : "Usuários",
+        "unit" : "btGerarPDFClick",
+        "exception_class" : "EParserError",
+        "exception_description" : "Exceção Genérica: Erro não classificado especificamente pelo mapeador de log.",
+        "message" : "Object : memDesenvolvido\rBand : MasterData1\rPage : Page1\rUndefined symbol: MJT"
+      },
+      {
+        "time" : "07:52:38",
+        "form_name" : "frmUsuario",
+        "caption_name" : "Usuários",
+        "unit" : "btGerarPDFClick",
+        "exception_class" : "EParserError",
+        "exception_description" : "Exceção Genérica: Erro não classificado especificamente pelo mapeador de log.",
+        "message" : "Object : memDesenvolvido\rBand : MasterData1\rPage : Page1\rUndefined symbol: MJT"
+      },
+      {
+        "time" : "07:53:15",
+        "form_name" : "frmUsuario",
+        "caption_name" : "Usuários",
+        "unit" : "btGerarPDFClick",
+        "exception_class" : "EParserError",
+        "exception_description" : "Exceção Genérica: Erro não classificado especificamente pelo mapeador de log.",
+        "message" : "Object : memDesenvolvido\rBand : MasterData1\rPage : Page1\rUndefined symbol: MJT"
+      },
+      {
+        "time" : "07:55:53",
+        "form_name" : "frmUsuario",
+        "caption_name" : "Usuários",
+        "unit" : "btGerarPDFClick",
+        "exception_class" : "EParserError",
+        "exception_description" : "Exceção Genérica: Erro não classificado especificamente pelo mapeador de log.",
+        "message" : "Object : memDesenvolvido\rBand : MasterData1\rPage : Page1\rUndefined symbol: MJT"
+      }
+    ]
+  },
+  {
+    "date" : "2026-03-31",
+    "company_name" : "MJT Systems",
+    "description" : "Servidor Horse para emissão de Documentos Fiscais",
+    "copyright" : "Marcos Tamanhoni",
+    "product_name" : "HorseFiscal",
+    "version" : "1.0.0.11",
+    "usuario_pc" : "Marcos Tamanhoni",
+    "logs" : [
+      {
+        "time" : "07:43:25",
+        "form_name" : "frmCad_Usuario_1",
+        "caption_name" : "Cadastro de Usuário",
+        "unit" : "Gravar",
+        "exception_class" : "EZSQLException",
+        "exception_description" : "Erro de Banco de Dados: Falha em operação de dataset, campo não encontrado ou erro SQL.",
+        "message" : "SQL Error: ERRO:  duplicar valor da chave viola a restrição de unicidade \"usuarios_login_key\"\nDETAIL:  Chave (login)=(sltamanhoni@gmail.com) já existe.\nERRO 23505\r\nduplicar valor da chave viola a restrição de unicidade \"usuarios_login_key\"\r\ndetail: Chave (login)=(sltamanhoni@gmail.com) já existe. \r\nCode: 7 SQL: INSERT INTO public.usuarios ( id_empresa ,id_usuario ,id_perfil ,login ,senha ,nome ,email ,ativo ,data_cadastro ,ultimo_acesso ) VALUES( $1 ,$2 ,$3 ,$4 ,$5 ,$6 ,$7 ,$8 ,$9 ,$10 ) ON CONFLICT (id_empresa, id_usuario) DO UPDATE SET id_perfil = $3 ,login = $4 ,senha = $5 ,nome = $6 ,email = $7 ,ativo = $8 ,data_cadastro = $9 ,ultimo_acesso = $10;"
+      },
+      {
+        "time" : "07:52:20",
+        "form_name" : "frmCad_Usuario_1",
+        "caption_name" : "Cadastro de Usuário",
+        "unit" : "Gravar",
+        "exception_class" : "EZSQLException",
+        "exception_description" : "Erro de Banco de Dados: Falha em operação de dataset, campo não encontrado ou erro SQL.",
+        "message" : "SQL Error: ERRO:  duplicar valor da chave viola a restrição de unicidade \"usuarios_login_key\"\nDETAIL:  Chave (login)=(sltamanhoni@gmail.com) já existe.\nERRO 23505\r\nduplicar valor da chave viola a restrição de unicidade \"usuarios_login_key\"\r\ndetail: Chave (login)=(sltamanhoni@gmail.com) já existe. \r\nCode: 7 SQL: INSERT INTO public.usuarios ( id_empresa ,id_usuario ,id_perfil ,login ,senha ,nome ,email ,ativo ,data_cadastro ,ultimo_acesso ) VALUES( $1 ,$2 ,$3 ,$4 ,$5 ,$6 ,$7 ,$8 ,$9 ,$10 ) ON CONFLICT (id_empresa, id_usuario) DO UPDATE SET id_perfil = $3 ,login = $4 ,senha = $5 ,nome = $6 ,email = $7 ,ativo = $8 ,data_cadastro = $9 ,ultimo_acesso = $10;"
+      }
+    ]
   }
 ]

@@ -21,6 +21,7 @@ type
     fID_Usuario: Integer;
     fLogin_Usuario: String;
     fNome_Usuario: String;
+    FPerfil_Usuario: TPerfil_Fields;
     fToken_Server: String;
     fUsuario_Ativo: Integer;
     FUsuario_Fields: TUsuario_Fields;
@@ -46,6 +47,10 @@ type
      property EmpCB_Fields :TEmpCB_Fields read FEmpCB_Fields write FEmpCB_Fields;
      property EmpCD_Fields :TEmpCD_Fields read FEmpCD_Fields write FEmpCD_Fields;
    {$EndRegion 'Empresa - Endereço'}
+
+   {$Region 'Perfil de usuários'}
+     property Perfil_Usuario :TPerfil_Fields read FPerfil_Usuario write FPerfil_Usuario;
+   {$EndRegion 'Perfil de usuários'}
 
   end;
 

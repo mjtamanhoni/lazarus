@@ -1,0 +1,145 @@
+object frmUsuarioPerfil_Cad: TfrmUsuarioPerfil_Cad
+  Left = 300
+  Height = 368
+  Top = 250
+  Width = 763
+  Caption = 'Cadastro de Perfil de Usuário'
+  ClientHeight = 368
+  ClientWidth = 763
+  LCLVersion = '4.4.0.0'
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  object pnRow001: TPanel
+    Left = 0
+    Height = 43
+    Top = 0
+    Width = 763
+    Align = alTop
+    BevelOuter = bvNone
+    ClientHeight = 43
+    ClientWidth = 763
+    TabOrder = 0
+    object pnidUsuario: TPanel
+      Left = 0
+      Height = 43
+      Top = 0
+      Width = 80
+      Align = alLeft
+      BevelOuter = bvNone
+      BorderWidth = 3
+      ClientHeight = 43
+      ClientWidth = 80
+      TabOrder = 0
+      object lbid_perfil: TLabel
+        Left = 3
+        Height = 15
+        Top = 3
+        Width = 74
+        Align = alTop
+        Caption = 'Id'
+      end
+      object edid_perfil: TEdit
+        Left = 3
+        Height = 22
+        Top = 18
+        Width = 74
+        Align = alClient
+        Alignment = taRightJustify
+        NumbersOnly = True
+        ReadOnly = True
+        TabOrder = 0
+        TextHint = 'Id'
+      end
+    end
+    object pnlogin: TPanel
+      Left = 80
+      Height = 43
+      Top = 0
+      Width = 683
+      Align = alClient
+      BevelOuter = bvNone
+      BorderWidth = 3
+      ClientHeight = 43
+      ClientWidth = 683
+      TabOrder = 1
+      object lbnome_perfil: TLabel
+        Left = 3
+        Height = 15
+        Top = 3
+        Width = 677
+        Align = alTop
+        Caption = 'Nome'
+      end
+      object ednome_perfil: TEdit
+        Left = 3
+        Height = 22
+        Top = 18
+        Width = 677
+        Align = alClient
+        TabOrder = 0
+        TextHint = 'Nome do Perfil'
+      end
+    end
+  end
+  object pnRow002: TPanel
+    Left = 0
+    Height = 143
+    Top = 43
+    Width = 763
+    Align = alTop
+    BevelOuter = bvNone
+    ClientHeight = 143
+    ClientWidth = 763
+    TabOrder = 1
+    object lbdescricao: TLabel
+      Left = 0
+      Height = 15
+      Top = 0
+      Width = 763
+      Align = alTop
+      Caption = 'Descrição'
+    end
+    object memdescricao: TMemo
+      Left = 0
+      Height = 128
+      Top = 15
+      Width = 763
+      Align = alClient
+      ScrollBars = ssVertical
+      TabOrder = 0
+    end
+  end
+  object pnFooter: TPanel
+    Left = 0
+    Height = 38
+    Top = 330
+    Width = 763
+    Align = alBottom
+    BevelOuter = bvNone
+    ClientHeight = 38
+    ClientWidth = 763
+    TabOrder = 2
+    object btCancelar: TButton
+      Cursor = crHandPoint
+      Left = 688
+      Height = 38
+      Top = 0
+      Width = 75
+      Align = alRight
+      Caption = 'Cancelar'
+      TabOrder = 0
+      OnClick = btCancelarClick
+    end
+    object btConfirmar: TButton
+      Cursor = crHandPoint
+      Left = 613
+      Height = 38
+      Top = 0
+      Width = 75
+      Align = alRight
+      Caption = 'Confirmar'
+      TabOrder = 1
+      OnClick = btConfirmarClick
+    end
+  end
+end

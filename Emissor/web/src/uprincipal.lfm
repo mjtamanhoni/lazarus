@@ -15,12 +15,25 @@ object frmPrincipal: TfrmPrincipal
         Caption = 'Empresa'
         OnClick = mnuCad_EmpresaClick
       end
+      object mnuSistema: TMenuItem
+        Caption = 'Sistema'
+        object mnuSis_Form: TMenuItem
+          Caption = 'Formulários'
+          OnClick = mnuSis_FormClick
+        end
+        object mnuSeg_Permissoes: TMenuItem
+          Caption = 'Permissões'
+        end
+        object mnuSeg_Acoes: TMenuItem
+          Caption = 'Ações'
+        end
+        object mnuSeg_Perfis: TMenuItem
+          Caption = 'Perfis'
+          OnClick = mnuSeg_PerfisClick
+        end
+      end
       object mnuCadUsuario: TMenuItem
         Caption = 'Usuário'
-        object mnuCad_Usu_Perfil: TMenuItem
-          Caption = 'Perfil'
-          OnClick = mnuCad_Usu_PerfilClick
-        end
         object mnuCad_Usu_Usuario: TMenuItem
           Caption = 'Usuário'
           OnClick = mnuCad_Usu_UsuarioClick

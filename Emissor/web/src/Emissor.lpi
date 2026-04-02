@@ -16,7 +16,7 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="1"/>
-      <BuildNr Value="8"/>
+      <BuildNr Value="14"/>
       <StringTable CompanyName="MJT Systems" FileDescription="Servidor Horse para emissão de Documentos Fiscais" LegalCopyright="Marcos Tamanhoni" ProductName="HorseFiscal"/>
     </VersionInfo>
     <BuildModes>
@@ -305,6 +305,36 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uUsuario.Perfil"/>
+      </Unit>
+      <Unit>
+        <Filename Value="uusuario.perfil.cad.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmUsuarioPerfil_Cad"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="uusuario.perfil.Cad"/>
+      </Unit>
+      <Unit>
+        <Filename Value="uusuario.perfil.loc.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmUsuario_Perfil_Loc"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="uUsuario.Perfil.Loc"/>
+      </Unit>
+      <Unit>
+        <Filename Value="uformularios.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmFormularios"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="uFormularios"/>
+      </Unit>
+      <Unit>
+        <Filename Value="uformularios.cad.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmFormularios_Cad"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="uformularios.Cad"/>
       </Unit>
     </Units>
   </ProjectOptions>

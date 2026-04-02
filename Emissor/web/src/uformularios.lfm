@@ -1,47 +1,49 @@
-inherited frmUsuario_Perfil: TfrmUsuario_Perfil
-  Left = 300
-  Height = 544
-  Width = 855
-  Caption = 'Cadastro de Peril de Usuário'
-  ClientHeight = 544
-  ClientWidth = 855
+object frmFormularios: TfrmFormularios
+  Left = 298
+  Height = 567
+  Top = 250
+  Width = 860
+  Caption = 'Formulários'
+  ClientHeight = 567
+  ClientWidth = 860
+  LCLVersion = '4.4.0.0'
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnShow = FormShow
-  object pnHeader: TPanel[0]
+  object pnHeader: TPanel
     Left = 0
     Height = 30
     Top = 0
-    Width = 855
+    Width = 860
     Align = alTop
     BevelOuter = bvNone
     ClientHeight = 30
-    ClientWidth = 855
+    ClientWidth = 860
     TabOrder = 0
     object pnFiltro: TPanel
       Left = 0
       Height = 30
       Top = 0
-      Width = 759
+      Width = 764
       Align = alClient
       BevelOuter = bvNone
       BorderWidth = 2
       ClientHeight = 30
-      ClientWidth = 759
+      ClientWidth = 764
       TabOrder = 0
       object edPesquisar: TEdit
         Tag = 1
         Left = 2
         Height = 26
         Top = 2
-        Width = 717
+        Width = 722
         Align = alClient
         TabOrder = 0
-        TextHint = 'Pesquisar pela Nome do Perfil'
+        TextHint = 'Pesquisar pela Nome do Formulário'
         OnKeyPress = edPesquisarKeyPress
       end
       object btSelPesquisa: TButton
-        Left = 719
+        Left = 724
         Height = 26
         Top = 2
         Width = 38
@@ -51,7 +53,7 @@ inherited frmUsuario_Perfil: TfrmUsuario_Perfil
       end
     end
     object pnTipoFiltro2: TPanel
-      Left = 759
+      Left = 764
       Height = 30
       Top = 0
       Width = 96
@@ -61,22 +63,22 @@ inherited frmUsuario_Perfil: TfrmUsuario_Perfil
       TabOrder = 1
     end
   end
-  object pnDetail: TPanel[1]
+  object pnDetail: TPanel
     Left = 0
-    Height = 464
+    Height = 487
     Top = 30
-    Width = 855
+    Width = 860
     Align = alClient
     BevelOuter = bvNone
     BorderWidth = 2
-    ClientHeight = 464
-    ClientWidth = 855
+    ClientHeight = 487
+    ClientWidth = 860
     TabOrder = 1
     object DBGrid_Principal: TDBGrid
       Left = 2
-      Height = 460
+      Height = 483
       Top = 2
-      Width = 851
+      Width = 856
       Align = alClient
       Color = clWindow
       Columns = <      
@@ -85,37 +87,48 @@ inherited frmUsuario_Perfil: TfrmUsuario_Perfil
           Title.Alignment = taCenter
           Title.Caption = 'Id'
           Width = 65
-          FieldName = 'id_perfil'
+          FieldName = 'id_form'
         end      
         item
           Title.Alignment = taCenter
           Title.Caption = 'Nome'
-          Width = 250
-          FieldName = 'nome_perfil'
+          Width = 300
+          FieldName = 'nome'
         end      
         item
           Title.Alignment = taCenter
           Title.Caption = 'Descrição'
           Width = 500
           FieldName = 'descricao'
+        end      
+        item
+          Title.Caption = 'status'
+          Visible = False
+          FieldName = 'status'
+        end      
+        item
+          Title.Alignment = taCenter
+          Title.Caption = 'Status'
+          Width = 80
+          FieldName = 'status_desc'
         end>
       DataSource = dsRegistro
       Options = [dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit]
       TabOrder = 0
     end
   end
-  object pnFooter: TPanel[2]
+  object pnFooter: TPanel
     Left = 0
     Height = 50
-    Top = 494
-    Width = 855
+    Top = 517
+    Width = 860
     Align = alBottom
     BevelOuter = bvNone
     ClientHeight = 50
-    ClientWidth = 855
+    ClientWidth = 860
     TabOrder = 2
     object btNovo: TButton
-      Left = 655
+      Left = 660
       Height = 50
       Top = 0
       Width = 100
@@ -125,7 +138,7 @@ inherited frmUsuario_Perfil: TfrmUsuario_Perfil
       OnClick = btNovoClick
     end
     object btGerarPDF: TButton
-      Left = 755
+      Left = 760
       Height = 50
       Top = 0
       Width = 100
@@ -135,40 +148,42 @@ inherited frmUsuario_Perfil: TfrmUsuario_Perfil
       OnClick = btGerarPDFClick
     end
   end
-  inherited mmPrincipal: TMainMenu[3]
-  end
-  object ZQRegistros: TZQuery[4]
+  object ZQRegistros: TZQuery
     SQL.Strings = (
       'select '
-      '  p.*'
-      'from public.perfis p '
+      '  f.*'
+      '  ,case f.status '
+      '    when 0 then ''Inativo'''
+      '    when 1 then ''Ativo'''
+      '  end status_desc'
+      'from public.formularios f '
       'where 1=1'
-      'order by'
-      '  p.id_perfil;'
+      'order by '
+      '  f.id_form; '
     )
     Params = <>
-    Left = 116
-    Top = 212
-    object ZQRegistrosid_perfil: TZIntegerField
+    Left = 90
+    Top = 205
+    object ZQRegistrosid_form: TZIntegerField
       FieldKind = fkData
-      FieldName = 'id_perfil'
+      FieldName = 'id_form'
       Index = 0
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
-      Required = False
+      Required = True
     end
-    object ZQRegistrosnome_perfil: TZRawStringField
+    object ZQRegistrosnome: TZRawStringField
       FieldKind = fkData
-      FieldName = 'nome_perfil'
+      FieldName = 'nome'
       Index = 1
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = True
-      Size = 50
+      Size = 100
     end
-    object ZQRegistrosdescricao: TZRawStringField
+    object ZQRegistrosdescricao: TZRawCLobField
       FieldKind = fkData
       FieldName = 'descricao'
       Index = 2
@@ -176,17 +191,38 @@ inherited frmUsuario_Perfil: TfrmUsuario_Perfil
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
-      Size = 1000
+      BlobType = ftMemo
+      Transliterate = False
+    end
+    object ZQRegistrosstatus: TZIntegerField
+      FieldKind = fkData
+      FieldName = 'status'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object ZQRegistrosstatus_desc: TZRawCLobField
+      FieldKind = fkData
+      FieldName = 'status_desc'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = True
+      Required = False
+      BlobType = ftMemo
+      Transliterate = False
     end
   end
-  object dsRegistro: TDataSource[5]
+  object dsRegistro: TDataSource
     DataSet = ZQRegistros
-    Left = 116
-    Top = 268
+    Left = 85
+    Top = 265
   end
-  object pmPesquisar: TPopupMenu[6]
-    Left = 436
-    Top = 172
+  object pmPesquisar: TPopupMenu
+    Left = 180
+    Top = 135
     object miID: TMenuItem
       Caption = 'ID'
       OnClick = miNomeClick
@@ -197,23 +233,19 @@ inherited frmUsuario_Perfil: TfrmUsuario_Perfil
       OnClick = miNomeClick
     end
   end
-  object frReport_Registros: TfrReport[7]
+  object frDBDS_Registros: TfrDBDataSet
+    DataSet = ZQRegistros
+    Left = 250
+    Top = 205
+  end
+  object frReport_Registros: TfrReport
     Dataset = frDBDS_Registros
     InitialZoom = pzDefault
     Options = []
     PreviewButtons = [pbZoom, pbLoad, pbSave, pbPrint, pbFind, pbHelp, pbExit, pbSettings, pbPageSetup]
     DataType = dtDataSource
-    Title = 'uRel_Perfil.lrf'
-    Left = 643
-    Top = 212
-  end
-  object frUserDataset1: TfrUserDataset[8]
-    Left = 275
-    Top = 260
-  end
-  object frDBDS_Registros: TfrDBDataSet[9]
-    DataSet = ZQRegistros
-    Left = 645
-    Top = 145
+    Title = 'uRel_Formulario.lrf'
+    Left = 245
+    Top = 265
   end
 end

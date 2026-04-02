@@ -222,15 +222,6 @@ inherited frmEmpresa: TfrmEmpresa
     end
   end
   inherited mmPrincipal: TMainMenu[3]
-    inherited mnuCadastro: TMenuItem
-      inherited mnuCadUsuario: TMenuItem
-        inherited mnuCad_Usu_Usuario: TMenuItem[0]
-        end
-        inherited mnuCad_Usu_Perfil: TMenuItem[1]
-          OnClick = nil
-        end
-      end
-    end
   end
   object dsRegistro: TDataSource[4]
     DataSet = ZQRegistros

@@ -8,6 +8,7 @@ object frmCad_Usuario: TfrmCad_Usuario
   ClientWidth = 1006
   Position = poScreenCenter
   LCLVersion = '4.4.0.0'
+  OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnShow = FormShow
@@ -325,26 +326,10 @@ object frmCad_Usuario: TfrmCad_Usuario
               Left = 99
               Height = 22
               Top = 18
-              Width = 749
+              Width = 896
               Align = alClient
               CharCase = ecUppercase
               TabOrder = 2
-            end
-            object ComboBox1: TComboBox
-              Left = 848
-              Height = 23
-              Top = 18
-              Width = 147
-              Align = alRight
-              ItemHeight = 15
-              ItemIndex = 0
-              Items.Strings = (
-                'ADMINISTRADOR'
-                'GERENTE'
-                'NORMAL'
-              )
-              TabOrder = 3
-              Text = 'ADMINISTRADOR'
             end
           end
         end
@@ -445,5 +430,11 @@ object frmCad_Usuario: TfrmCad_Usuario
   object dsRegistro: TDataSource
     Left = 208
     Top = 216
+  end
+  object ZQPermissoes: TZQuery
+    Connection = DM.ZConnection
+    Params = <>
+    Left = 205
+    Top = 160
   end
 end

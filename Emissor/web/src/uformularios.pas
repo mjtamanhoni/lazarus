@@ -1,31 +1,30 @@
-unit uUsuario.Perfil;
+unit uFormularios;
 
 { Copyright 2026 / 2027 D2Bridge Framework by Talis Jonatas Gomes }
 
 interface
 
 uses
-  Classes, SysUtils, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls, DBGrids,
-  Menus, ZDataset, ZAbstractRODataset, D2Bridge.Forms, uPrincipal, DB, udm,
+  Classes, SysUtils, Controls, Graphics, Dialogs, StdCtrls, Menus, ExtCtrls,
+  DBGrids, ZDataset, ZAbstractRODataset, D2Bridge.Forms, uPrincipal, DB, udm,
   uBase.Functions, LR_Class, LR_Desgn, LR_PGrid, LR_DBSet, LR_DSet, lrPDFExport,
   lr_e_pdf, IniFiles, PReport,
 
-  uusuario.perfil.Cad;
+  uformularios.Cad;
 
 type
 
-  { TfrmUsuario_Perfil }
+  { TfrmFormularios }
 
-  TfrmUsuario_Perfil = class(TfrmPrincipal)
+  TfrmFormularios = class(TfrmPrincipal)
     btGerarPDF: TButton;
     btNovo: TButton;
     btSelPesquisa: TButton;
     DBGrid_Principal: TDBGrid;
     dsRegistro: TDataSource;
     edPesquisar: TEdit;
-    frmUsuario_Perfil: TfrDBDataSet;
+    frDBDS_Registros: TfrDBDataSet;
     frReport_Registros: TfrReport;
-    frUserDataset1: TfrUserDataset;
     miID: TMenuItem;
     miNome: TMenuItem;
     pmPesquisar: TPopupMenu;
@@ -35,9 +34,11 @@ type
     pnHeader: TPanel;
     pnTipoFiltro2: TPanel;
     ZQRegistros: TZQuery;
-    ZQRegistrosdescricao: TZRawStringField;
-    ZQRegistrosid_perfil: TZIntegerField;
-    ZQRegistrosnome_perfil: TZRawStringField;
+    ZQRegistrosdescricao: TZRawCLobField;
+    ZQRegistrosid_form: TZIntegerField;
+    ZQRegistrosnome: TZRawStringField;
+    ZQRegistrosstatus: TZIntegerField;
+    ZQRegistrosstatus_desc: TZRawCLobField;
     procedure btGerarPDFClick(Sender: TObject);
     procedure btNovoClick(Sender: TObject);
     procedure edPesquisarKeyPress(Sender: TObject; var Key: char);
@@ -50,12 +51,11 @@ type
     FDM :TDM;
     FIniFile :TIniFile;
 
-    FfrmUsuarioPerfil_Cad :TfrmUsuarioPerfil_Cad;
+    FfrmFormularios_Cad :TfrmFormularios_Cad;
 
     procedure Pesquisar;
     procedure OnClick_Edit;
-    procedure OnClick_Delete(const AId: Integer; const ANome:String);
-
+    procedure OnClick_Delete;
   public
     { Public declarations }
   protected
@@ -65,7 +65,7 @@ type
     procedure CellButtonClick(APrismDBGrid: TPrismDBGrid; APrismCellButton: TPrismDBGridColumnButton; AColIndex: Integer; ARow: Integer); overload; override;
   end;
 
-function frmUsuario_Perfil: TfrmUsuario_Perfil;
+function frmFormularios: TfrmFormularios;
 
 implementation
 
@@ -74,37 +74,42 @@ uses
 
 {$R *.lfm}
 
-function frmUsuario_Perfil: TfrmUsuario_Perfil;
+function frmFormularios: TfrmFormularios;
 begin
-  result := (TfrmUsuario_Perfil.GetInstance as TfrmUsuario_Perfil);
+  result := (TfrmFormularios.GetInstance as TfrmFormularios);
 end;
 
-procedure TfrmUsuario_Perfil.FormShow(Sender: TObject);
+procedure TfrmFormularios.FormShow(Sender: TObject);
 begin
   Pesquisar;
 end;
 
-procedure TfrmUsuario_Perfil.miNomeClick(Sender: TObject);
-begin
-  edPesquisar.Tag := TMenuItem(Sender).Tag;
-  case TMenuItem(Sender).Tag of
-    0:edPesquisar.TextHint := 'Pesquisar pelo ID do Perfil';
-    1:edPesquisar.TextHint := 'Pesquisar pela Nome do Perfil';
-  end;
-  Pesquisar;
-end;
-
-procedure TfrmUsuario_Perfil.edPesquisarKeyPress(Sender: TObject; var Key: char );
+procedure TfrmFormularios.edPesquisarKeyPress(Sender: TObject; var Key: char);
 begin
   if Key = #13 then
     Pesquisar;
 end;
 
-procedure TfrmUsuario_Perfil.btNovoClick(Sender: TObject);
+procedure TfrmFormularios.FormCreate(Sender: TObject);
+begin
+  FIniFile := TIniFile.Create(ConfigFile);
+  FDM := TDM.Create(Self);
+  ZQRegistros.Connection := FDM.ZConnection;
+end;
+
+procedure TfrmFormularios.FormDestroy(Sender: TObject);
+begin
+  if Assigned(FDM) then
+    FreeAndNil(FDM);
+  if Assigned(FIniFile) then
+    FreeAndNil(FIniFile);
+end;
+
+procedure TfrmFormularios.btNovoClick(Sender: TObject);
 begin
   try
-    FfrmUsuarioPerfil_Cad.Clear_Fields;
-    ShowPopupModal('Popup' + FfrmUsuarioPerfil_Cad.Name);
+    FfrmFormularios_Cad.Clear_Fields;
+    ShowPopupModal('Popup' + FfrmFormularios_Cad.Name);
   except
     On E:Exception do
     begin
@@ -116,7 +121,7 @@ begin
   Pesquisar;
 end;
 
-procedure TfrmUsuario_Perfil.btGerarPDFClick(Sender: TObject);
+procedure TfrmFormularios.btGerarPDFClick(Sender: TObject);
 var
   fArquivo :String;
   fs: TFileStream;
@@ -146,22 +151,17 @@ begin
   end;
 end;
 
-procedure TfrmUsuario_Perfil.FormCreate(Sender: TObject);
+procedure TfrmFormularios.miNomeClick(Sender: TObject);
 begin
-  FIniFile := TIniFile.Create(ConfigFile);
-  FDM := TDM.Create(Self);
-  ZQRegistros.Connection := FDM.ZConnection;
+  edPesquisar.Tag := TMenuItem(Sender).Tag;
+  case TMenuItem(Sender).Tag of
+    0:edPesquisar.TextHint := 'Pesquisar pelo ID do Formulário';
+    1:edPesquisar.TextHint := 'Pesquisar pela Nome do Formulário';
+  end;
+  Pesquisar;
 end;
 
-procedure TfrmUsuario_Perfil.FormDestroy(Sender: TObject);
-begin
-  if Assigned(FDM) then
-    FreeAndNil(FDM);
-  if Assigned(FIniFile) then
-    FreeAndNil(FIniFile);
-end;
-
-procedure TfrmUsuario_Perfil.Pesquisar;
+procedure TfrmFormularios.Pesquisar;
 begin
   try
     try
@@ -170,8 +170,12 @@ begin
       ZQRegistros.Close;
       ZQRegistros.SQL.Clear;
       ZQRegistros.SQL.Add('select ');
-      ZQRegistros.SQL.Add('  p.* ');
-      ZQRegistros.SQL.Add('from public.perfis p ');
+      ZQRegistros.SQL.Add('  f.* ');
+      ZQRegistros.SQL.Add('  ,case f.status ');
+      ZQRegistros.SQL.Add('    when 0 then ''Inativo'' ');
+      ZQRegistros.SQL.Add('    when 1 then ''Ativo'' ');
+      ZQRegistros.SQL.Add('  end status_descv ');
+      ZQRegistros.SQL.Add('from public.formularios f ');
       ZQRegistros.SQL.Add('where 1=1 ');
       if Trim(edPesquisar.Text) <> '' then
       begin
@@ -179,12 +183,12 @@ begin
           0:begin
             if not ApenasNumeros(edPesquisar.Text) then
               raise Exception.Create('Para realizar o filtro usando o ID,  não pode haver letras no texto da pesquisa');
-            ZQRegistros.SQL.Add('  and p.id_perfil = ' + edPesquisar.Text);
+            ZQRegistros.SQL.Add('  and f.id_form = ' + edPesquisar.Text);
           end;
-          1:ZQRegistros.SQL.Add('  and p.nome_perfil like ' + QuotedStr('%'+edPesquisar.Text+'%'));
+          1:ZQRegistros.SQL.Add('  and f.nome like ' + QuotedStr('%'+edPesquisar.Text+'%'));
         end;
       end;
-      ZQRegistros.SQL.Add('order by p.id_perfil ');
+      ZQRegistros.SQL.Add('order by f.id_form; ');
       ZQRegistros.Open;
     except
       on E: Exception do
@@ -198,22 +202,22 @@ begin
   end;
 end;
 
-procedure TfrmUsuario_Perfil.OnClick_Edit;
+procedure TfrmFormularios.OnClick_Edit;
 begin
   try
     try
       //Atualizando dados principais...
-      FfrmUsuarioPerfil_Cad.Clear_Fields;
-      FfrmUsuarioPerfil_Cad.edid_perfil.Text := ZQRegistrosid_perfil.AsString;
-      FfrmUsuarioPerfil_Cad.ednome_perfil.Text := ZQRegistrosnome_perfil.AsString;
-      FfrmUsuarioPerfil_Cad.memdescricao.Text := ZQRegistrosdescricao.AsString;
+      FfrmFormularios_Cad.Clear_Fields;
       if not ZQRegistros.IsEmpty then
       begin
-        ShowPopupModal('Popup' + FfrmUsuarioPerfil_Cad.Name);
+        //FfrmUsuarioPerfil_Cad.edid_perfil.Text := ZQRegistrosid_perfil.AsString;
+        //FfrmUsuarioPerfil_Cad.ednome_perfil.Text := ZQRegistrosnome_perfil.AsString;
+        //FfrmUsuarioPerfil_Cad.memdescricao.Text := ZQRegistrosdescricao.AsString;
+        ShowPopupModal('Popup' + FfrmFormularios_Cad.Name);
         Pesquisar;
       end
       else
-        raise Exception.Create('Perfil não localizado');
+        raise Exception.Create('Formulário não localizado');
     except
       on E :Exception do
       begin
@@ -225,17 +229,17 @@ begin
   end;
 end;
 
-procedure TfrmUsuario_Perfil.OnClick_Delete(const AId: Integer; const ANome: String);
+procedure TfrmFormularios.OnClick_Delete;
 var
   fQuery :TZQuery;
 begin
   try
     try
-      if MessageDlg('Deseja excluir o Perfil selecionada?',TMsgDlgType.mtConfirmation,[mbYes,mbNo],0) = mrYes then
+      if MessageDlg('Deseja excluir o Formulário selecionado?',TMsgDlgType.mtConfirmation,[mbYes,mbNo],0) = mrYes then
       begin
         fQuery := FDM.GetQuery;
-        fQuery.Sql.Add('DELETE FROM public.perfis WHERE id_perfil = :id_perfil);');
-        fQuery.ParamByName('id_perfil').AsInteger := ZQRegistrosid_perfil.AsInteger;
+        fQuery.Sql.Add('DELETE FROM public.formularios WHERE id_form = :id_form);');
+        fQuery.ParamByName('id_perfil').AsInteger := ZQRegistrosid_form.AsInteger;
 				fQuery.ExecSql;
         Pesquisar;
       end;
@@ -252,7 +256,7 @@ begin
   end;
 end;
 
-procedure TfrmUsuario_Perfil.ExportD2Bridge;
+procedure TfrmFormularios.ExportD2Bridge;
 begin
   inherited;
 
@@ -263,8 +267,8 @@ begin
   D2Bridge.FrameworkExportType.TemplatePageHTMLFile := '';
 
   //Formulário de cadastro....
-  FfrmUsuarioPerfil_Cad := TfrmUsuarioPerfil_Cad.Create(Self);
-  D2Bridge.AddNested(FfrmUsuarioPerfil_Cad);
+  FfrmFormularios_Cad := TfrmFormularios_Cad.Create(Self);
+  D2Bridge.AddNested(FfrmFormularios_Cad);
 
   with D2Bridge.Items.add do
   begin
@@ -298,13 +302,13 @@ begin
       end;
     end;
 
-    with Popup('Popup' + FfrmUsuarioPerfil_Cad.Name,'Cadastro de Perfil de Usuários',True,CSSClass.Popup.ExtraLarge).Items.Add do
-      Nested(FfrmUsuarioPerfil_Cad);
+    with Popup('Popup' + FfrmFormularios_Cad.Name,'Cadastro de Formulários',True,CSSClass.Popup.ExtraLarge).Items.Add do
+      Nested(FfrmFormularios_Cad);
   end;
 
 end;
 
-procedure TfrmUsuario_Perfil.InitControlsD2Bridge(const PrismControl: TPrismControl);
+procedure TfrmFormularios.InitControlsD2Bridge(const PrismControl: TPrismControl);
 begin
   inherited;
   if PrismControl.VCLComponent = DBGrid_Principal then
@@ -354,7 +358,7 @@ begin
   }
 end;
 
-procedure TfrmUsuario_Perfil.RenderD2Bridge(const PrismControl: TPrismControl;
+procedure TfrmFormularios.RenderD2Bridge(const PrismControl: TPrismControl;
   var HTMLControl: string);
 begin
   inherited;
@@ -368,7 +372,7 @@ begin
   }
 end;
 
-procedure TfrmUsuario_Perfil.CellButtonClick(APrismDBGrid: TPrismDBGrid;
+procedure TfrmFormularios.CellButtonClick(APrismDBGrid: TPrismDBGrid;
   APrismCellButton: TPrismDBGridColumnButton; AColIndex: Integer; ARow: Integer
   );
 begin
@@ -380,8 +384,7 @@ begin
         OnClick_Edit;
 
       if APrismCellButton.Identify = TButtonModel.Delete.Identity then
-        OnClick_Delete(APrismDBGrid.DataSource.DataSet.FieldByName('ID_EMPRESA').AsInteger,
-                       APrismDBGrid.DataSource.DataSet.FieldByName('RAZAO_SOCIAL').AsString);
+        OnClick_Delete;
     end;
   except
     On E:Exception do

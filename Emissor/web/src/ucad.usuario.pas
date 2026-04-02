@@ -9,7 +9,8 @@ uses
   D2Bridge.Forms, IniFiles, fpjson, DataSet.Serialize, RESTRequest4D,
   jsonparser, uDM.ACBr, uBase.Functions, uBase.DataSets, uCripto_Descrito,
   Forms, Menus, ComCtrls, ComboEx, Grids, DBGrids, ZDataset,
-  ubase.functions.objetos, DB, BufDataset, memds, uPermissoes.Lista, udm;
+  ubase.functions.objetos, DB, BufDataset, memds, uPermissoes.Lista, udm,
+  uUsuario.Perfil.Loc;
 
 type
 
@@ -22,7 +23,6 @@ type
     btPermissao_Editar: TButton;
     btPermissao_Salvar: TButton;
     cbativo: TComboBox;
-    ComboBox1: TComboBox;
     dsRegistro: TDataSource;
     DBGrid_Permissoes: TDBGrid;
     edemail: TEdit;
@@ -59,6 +59,7 @@ type
     pnidPerfil: TPanel;
     tsCadastro: TTabSheet;
     tsPermissoes: TTabSheet;
+    ZQPermissoes: TZQuery;
     procedure btCancelarClick(Sender: TObject);
     procedure btConfirmarClick(Sender: TObject);
     procedure btidPerfilClick(Sender: TObject);
@@ -68,6 +69,7 @@ type
     procedure edloginKeyPress(Sender: TObject; var Key: char);
     procedure ednomeKeyPress(Sender: TObject; var Key: char);
     procedure edsenhaKeyPress(Sender: TObject; var Key: char);
+    procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -75,6 +77,8 @@ type
     { Private declarations }
     FHost :String;
     FIniFile :TIniFile;
+
+    FfrmUsuario_Perfil_Loc :TfrmUsuario_Perfil_Loc;
 
     memD_Permissoes :TBufDataset;
 
@@ -113,7 +117,7 @@ end;
 procedure TfrmCad_Usuario.btCancelarClick(Sender: TObject);
 begin
   try
-    Return_Fields(0);
+    //Return_Fields(0);
     Close;
   except
     on E: Exception do
@@ -128,7 +132,6 @@ procedure TfrmCad_Usuario.btConfirmarClick(Sender: TObject);
 begin
   try
     Gravar;
-    Return_Fields(1);
     Close;
   except
     on E: Exception do
@@ -141,37 +144,53 @@ end;
 
 procedure TfrmCad_Usuario.btidPerfilClick(Sender: TObject);
 begin
-  //
+  ShowPopupModal('Popup' + FfrmUsuario_Perfil_Loc.Name);
+  edidPerfil.Text := Emissor.Perfil_Usuario.id_perfil.ToString;
+  edidPerfil_Desc.Text := Emissor.Perfil_Usuario.nome_perfil;
 end;
 
 procedure TfrmCad_Usuario.cbativoKeyPress(Sender: TObject; var Key: char);
 begin
-  if Key = #13 then EnterAsTab(Self.edlogin);
+  if Key = #13 then edlogin.SetFocus;
 end;
 
 procedure TfrmCad_Usuario.edemailKeyPress(Sender: TObject; var Key: char);
 begin
-  if Key = #13 then EnterAsTab(Self.edidPerfil);
+  if Key = #13 then edidPerfil.SetFocus;
 end;
 
 procedure TfrmCad_Usuario.edidUsuarioKeyPress(Sender: TObject; var Key: char);
 begin
-  if Key = #13 then EnterAsTab(Self.cbativo);
+  if Key = #13 then cbativo.SetFocus;
 end;
 
 procedure TfrmCad_Usuario.edloginKeyPress(Sender: TObject; var Key: char);
 begin
-  if Key = #13 then EnterAsTab(Self.edsenha);
+  if Key = #13 then edsenha.SetFocus;
 end;
 
 procedure TfrmCad_Usuario.ednomeKeyPress(Sender: TObject; var Key: char);
 begin
-  if Key = #13 then EnterAsTab(Self.edemail);
+  if Key = #13 then edemail.SetFocus;
 end;
 
 procedure TfrmCad_Usuario.edsenhaKeyPress(Sender: TObject; var Key: char);
 begin
-  if Key = #13 then EnterAsTab(Self.ednome);
+  if Key = #13 then ednome.SetFocus;
+end;
+
+procedure TfrmCad_Usuario.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+begin
+  try
+	  //Retornando dados do perfil...
+  except
+    On E:Exception do
+    begin
+      MessageDlg(E.Message, TMsgDlgType.mtError, [mbok], 0);
+      GravarLogJSON(Self.Name,Self.Caption,'FormCloseQuery',E);
+      Abort;
+    end;
+  end;
 end;
 
 procedure TfrmCad_Usuario.FormCreate(Sender: TObject);
@@ -231,7 +250,10 @@ begin
     try
 
       fIdUsuario := 0;
-      fIdUsuario := FDm.Sequencial('public.usuarios',Emissor.Empresa_Fields.id_empresa);
+      if Trim(edidUsuario.Text) <> '' then
+        fIdUsuario := StrToIntDef(edidUsuario.Text,0)
+      else
+        fIdUsuario := FDm.Sequencial('public.usuarios',Emissor.Empresa_Fields.id_empresa);
 
       fQuery := FDm.GetQuery;
       fQuery.SQL.Add('INSERT INTO public.usuarios ( ');
@@ -256,8 +278,8 @@ begin
       fQuery.SQL.Add('  ,:ativo ');
       fQuery.SQL.Add('  ,:data_cadastro ');
       fQuery.SQL.Add('  ,:ultimo_acesso ');
-      fQuery.SQL.Add(') ON CONFLICT (id_empresa, id_usuario) ');
-      fQuery.SQL.Add('DO UPDATE SET ');
+      fQuery.SQL.Add(') ON CONFLICT (id_empresa, id_usuario) DO');
+      fQuery.SQL.Add('UPDATE SET ');
       fQuery.SQL.Add('  id_perfil = :id_perfil ');
       fQuery.SQL.Add('  ,login = :login ');
       fQuery.SQL.Add('  ,senha = :senha ');
@@ -276,6 +298,19 @@ begin
       fQuery.ParamByName('ativo').AsInteger := cbativo.ItemIndex;
       fQuery.ParamByName('data_cadastro').AsDateTime := Now;
       fQuery.ParamByName('ultimo_acesso').AsDateTime := Now;
+
+      {
+      SaveLog(fQuery.ParamByName('id_empresa').AsString + sLineBreak +
+              fQuery.ParamByName('id_usuario').AsString + sLineBreak +
+              fQuery.ParamByName('id_perfil').AsString + sLineBreak +
+              fQuery.ParamByName('login').AsString + sLineBreak +
+              fQuery.ParamByName('senha').AsString + sLineBreak +
+              fQuery.ParamByName('nome').AsString + sLineBreak +
+              fQuery.ParamByName('email').AsString + sLineBreak +
+              fQuery.ParamByName('ativo').AsString + sLineBreak +
+              fQuery.ParamByName('data_cadastro').AsString + sLineBreak +
+              fQuery.ParamByName('ultimo_acesso').AsString);
+      }
       fQuery.ExecSQL;
 
 
@@ -335,6 +370,8 @@ begin
       end;
     end;
   finally
+    if Assigned(fQuery) then
+      FreeAndNil(fQuery);
   end;
 end;
 
@@ -476,6 +513,11 @@ begin
   D2Bridge.FrameworkExportType.TemplateMasterHTMLFile := '';
   D2Bridge.FrameworkExportType.TemplatePageHTMLFile := '';
 
+  //Formulário de cadastro de empresas....
+  FfrmUsuario_Perfil_Loc := TfrmUsuario_Perfil_Loc.Create(Self);
+  D2Bridge.AddNested(FfrmUsuario_Perfil_Loc);
+
+
   with D2Bridge.Items.add do
   begin
     with Row.Items.Add do
@@ -506,8 +548,7 @@ begin
                 LCLObj(edidPerfil,'ValidationGravar',True);
                 LCLObj(btidPerfil,CSSClass.Button.search);
               end;
-              FormGroup('',CSSClass.Col.colsize6).AddLCLObj(edidPerfil_Desc);
-              FormGroup('',CSSClass.Col.colsize3).AddLCLObj(ComboBox1);
+              FormGroup('',CSSClass.Col.colsize9).AddLCLObj(edidPerfil_Desc);
             end;
           end;
         end;
@@ -527,6 +568,10 @@ begin
       VCLObj(btConfirmar,'ValidationGravar',False, CSSClass.Button.save + CSSClass.Col.colsize2);
       VCLObj(btCancelar, CSSClass.Button.cancel + CSSClass.Col.colsize2);
     end;
+
+    with Popup('Popup' + FfrmUsuario_Perfil_Loc.Name,'Localia perfil de usuário',True,CSSClass.Popup.ExtraLarge).Items.Add do
+      Nested(FfrmUsuario_Perfil_Loc);
+
   end;
 
 end;

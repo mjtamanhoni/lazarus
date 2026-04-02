@@ -5,25 +5,27 @@ unit uUsuario;
 interface
 
 uses
-  Classes, SysUtils, DB, memds, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls, DateUtils,
-  DBGrids, EditBtn, Menus, ZDataset, D2Bridge.Forms, Forms, IniFiles, BufDataset,
-  fpjson,
-  DataSet.Serialize,
-  RESTRequest4D,
-  jsonparser,
-  uBase.Functions, uDM.ACBr,
-  uPrincipal, uCad.Usuario, uBase.DataSets,uCripto_Descrito;
+  Classes, SysUtils, DB, memds, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls,
+  DateUtils, DBGrids, EditBtn, Menus, ZDataset, ZAbstractRODataset,
+  D2Bridge.Forms, Forms, IniFiles, BufDataset, fpjson, DataSet.Serialize,
+  RESTRequest4D, jsonparser, uBase.Functions, uDM.ACBr, uPrincipal,
+  uCad.Usuario, uBase.DataSets, uCripto_Descrito, LR_DBSet, LR_Class, udm, LR_DSet,
+  LR_Desgn, LR_PGrid, lrPDFExport, lr_e_pdf, PReport;
 
 type
 
   { TfrmUsuario }
 
   TfrmUsuario = class(TfrmPrincipal)
+    btGerarPDF: TButton;
     btNovo: TButton;
     btSelPesquisa: TButton;
     DBGrid_Usuario: TDBGrid;
     dsRegistro: TDataSource;
     edPesquisar: TEdit;
+    frDBDS_Registros: TfrDBDataSet;
+    frReport_Registros: TfrReport;
+    miEmail: TMenuItem;
     miNome: TMenuItem;
     miID: TMenuItem;
     miLogin: TMenuItem;
@@ -33,6 +35,22 @@ type
     pnFooter: TPanel;
     pnHeader: TPanel;
     pnTipoFiltro2: TPanel;
+    ZQRegistros: TZQuery;
+    ZQRegistrosativo: TZSmallIntField;
+    ZQRegistrosativo_desc: TZRawCLobField;
+    ZQRegistrosdata_cadastro: TZDateTimeField;
+    ZQRegistrosemail: TZRawStringField;
+    ZQRegistrosid_empresa: TZIntegerField;
+    ZQRegistrosid_perfil: TZIntegerField;
+    ZQRegistrosid_usuario: TZIntegerField;
+    ZQRegistroslogin: TZRawStringField;
+    ZQRegistrosnome: TZRawStringField;
+    ZQRegistrosnome_fantasia: TZRawStringField;
+    ZQRegistrosnome_perfil: TZRawStringField;
+    ZQRegistrosrazao_social: TZRawStringField;
+    ZQRegistrossenha: TZRawStringField;
+    ZQRegistrosultimo_acesso: TZDateTimeField;
+    procedure btGerarPDFClick(Sender: TObject);
     procedure btNovoClick(Sender: TObject);
     procedure edPesquisarKeyPress(Sender: TObject; var Key: char);
     procedure FormCreate(Sender: TObject);
@@ -43,6 +61,8 @@ type
     { Private declarations }
     FfrmCad_Usuario :TfrmCad_Usuario;
 
+    fDM :TDM;
+
     FHost :String;
     FIniFile :TIniFile;
 
@@ -52,8 +72,8 @@ type
     procedure Adiciona_Dados(const AJSon_Usuario:TJSONArray);
 
     procedure Pesquisar;
-    procedure OnClick_Edit(const AId: Integer; const ANome:String);
-    procedure OnClick_Delete(const AId: Integer; const ANome:String);
+    procedure OnClick_Edit;
+    procedure OnClick_Delete;
     procedure OnClick_Print(const AId: Integer; const ANome:String);
   public
     { Public declarations }
@@ -82,15 +102,18 @@ procedure TfrmUsuario.FormCreate(Sender: TObject);
 begin
   try
     try
-    FHost := '';
-    FIniFile := TIniFile.Create(ConfigFile);
-    FHost := FIniFile.ReadString('SERVER','HOST','') + ':' + FIniFile.ReadString('SERVER','PORT','');
-    if Trim(FHost) = '' then
-      raise Exception.Create('Host de acesso ao servidor não informado.');
+      //FHost := '';
+      //FHost := FIniFile.ReadString('SERVER','HOST','') + ':' + FIniFile.ReadString('SERVER','PORT','');
+      //if Trim(FHost) = '' then
+      //  raise Exception.Create('Host de acesso ao servidor não informado.');
 
-    //CriaDataset_Empresa;
-    memD_Ususario := TBufDataset.Create(Self);
+      //CriaDataset_Empresa;
+      //memD_Ususario := TBufDataset.Create(Self);
 
+      FIniFile := TIniFile.Create(ConfigFile);
+
+      fDM := TDM.Create(Self);
+      ZQRegistros.Connection := fDM.ZConnection;
     except
       on E :Exception do
       begin
@@ -116,9 +139,67 @@ begin
   Pesquisar;
 end;
 
+procedure TfrmUsuario.btGerarPDFClick(Sender: TObject);
+var
+  fArquivo :String;
+  fs: TFileStream;
+  fmemEmpresa :TfrMemoView;
+  fmemDesenvolvido :TfrMemoView;
+  fmemTelefone :TfrMemoView;
+  fmemEmail :TfrMemoView;
+begin
+  try
+    try
+      fArquivo := '';
+      fArquivo := EndPDF + Self.Name + '.PDF';
+      frReport_Registros.LoadFromFile(EndReport + frReport_Registros.Title);
+
+      fmemEmpresa := TfrMemoView(frReport_Registros.FindObject('memEmpresa'));
+      if Assigned(fmemEmpresa) then
+        fmemEmpresa.Memo.Text := Emissor.Empresa_Fields.nome_fantasia + '.';
+
+      fmemDesenvolvido := TfrMemoView(frReport_Registros.FindObject('memDesenvolvido'));
+      if Assigned(fmemDesenvolvido) then
+      begin
+        fmemDesenvolvido.Memo.Clear;
+        fmemDesenvolvido.Memo.Text := 'Desenvolvido por ' + Emissor.Empresa_Fields.razao_social + ' [' +Emissor.Empresa_Fields.nome_fantasia+ '].';
+      end;
+
+
+      fmemEmail := TfrMemoView(frReport_Registros.FindObject('memEmail'));
+      if Assigned(fmemEmail) then
+        fmemEmail.Memo.Text := 'E-Mail: ' + Emissor.Empresa_Fields.email + '.';
+
+      fmemTelefone := TfrMemoView(frReport_Registros.FindObject('memTelefone'));
+      if Assigned(fmemTelefone) then
+        fmemTelefone.Memo.Text := 'Telefone: ' + Emissor.Empresa_Fields.telefone + ' - Celular: ' + Emissor.Empresa_Fields.celular;
+
+      frReport_Registros.PrepareReport;
+
+      fs := TFileStream.Create(fArquivo,fmCreate);
+
+      if frReport_Registros.ExportTo(TfrTNPDFExportFilter,fs,True) then
+        MessageDlg('Arquivo PDF gerado com suecesso:' + sLineBreak + fArquivo,TMsgDlgType.mtInformation,[mbOK],0);
+
+    except
+      On E:Exception do
+      begin
+        MessageDlg(E.Message, TMsgDlgType.mtError, [mbok], 0);
+        GravarLogJSON(Self.Name,Self.Caption,'btGerarPDFClick',E);
+      end;
+    end;
+  finally
+    if Assigned(fs) then
+      FreeAndNil(fs);
+  end;
+end;
+
 procedure TfrmUsuario.FormDestroy(Sender: TObject);
 begin
-  FreeAndNil(memD_Ususario);
+  if Assigned(fDM) then
+    FreeAndNil(fDM);
+
+  //FreeAndNil(memD_Ususario);
   FreeAndNil(FIniFile);
 end;
 
@@ -134,6 +215,7 @@ begin
     0:edPesquisar.TextHint := 'Pesquisar pelo ID do Usuário';
     1:edPesquisar.TextHint := 'Pesquisar peloa Login do Usuário';
     2:edPesquisar.TextHint := 'Pesquisar pelo Nome do Usuário';
+    3:edPesquisar.TextHint := 'Pesquisar pelo E-Mail do Usuário';
   end;
   Pesquisar;
 end;
@@ -214,7 +296,8 @@ begin
 end;
 
 procedure TfrmUsuario.Pesquisar;
-var
+//var
+  {
   FResp :IResponse;
   FRet :String;
   FBody :TJSONObject;
@@ -223,9 +306,40 @@ var
   x:Integer;
 
   FId :Integer;
+  }
 begin
   try
     try
+      ZQRegistros.DisableControls;
+      ZQRegistros.Close;
+      ZQRegistros.SQL.Clear;
+      ZQRegistros.SQL.Add('SELECT ');
+      ZQRegistros.SQL.Add('  u.* ');
+      ZQRegistros.SQL.Add('  ,case u.ativo ');
+      ZQRegistros.SQL.Add('    when 0 then ''Inativo'' ');
+      ZQRegistros.SQL.Add('    when 1 then ''Ativo'' ');
+      ZQRegistros.SQL.Add('  end ativo_desc ');
+      ZQRegistros.SQL.Add('  ,p.nome_perfil ');
+      ZQRegistros.SQL.Add('  ,e.nome_fantasia ');
+      ZQRegistros.SQL.Add('  ,e.razao_social ');
+      ZQRegistros.SQL.Add('FROM public.usuarios u ');
+      ZQRegistros.SQL.Add('  join public.perfis p on p.id_perfil = u.id_perfil ');
+      ZQRegistros.SQL.Add('  join public.empresa e on e.id_empresa = u.id_empresa ');
+      ZQRegistros.SQL.Add('where 1=1 ');
+      ZQRegistros.SQL.Add('  and u.id_empresa = ' + Emissor.Empresa_Fields.id_empresa.ToString);
+      if Trim(edPesquisar.Text) <> '' then
+      begin
+        case edPesquisar.Tag of
+          0:ZQRegistros.SQL.Add('  and u.id = ' + edPesquisar.Text);
+          1:ZQRegistros.SQL.Add('  and u.login = ' + QuotedStr(edPesquisar.Text));
+          2:ZQRegistros.SQL.Add('  and u.nome like ' + QuotedStr('%'+edPesquisar.Text+'%'));
+          3:ZQRegistros.SQL.Add('  and u.email = ' + QuotedStr(edPesquisar.Text));
+        end;
+      end;
+      ZQRegistros.SQL.Add('order by ');
+      ZQRegistros.SQL.Add('  u.id_usuario; ');
+			ZQRegistros.Open
+      {
       FTipoPesquisa := '';
       case edPesquisar.Tag of
         0:begin
@@ -266,7 +380,7 @@ begin
 
       //Inserindo informações...
       Adiciona_Dados(FJSon_Usuario);
-
+      }
     except
       on E: Exception do
       begin
@@ -275,25 +389,29 @@ begin
       end;
     end;
   finally
+    ZQRegistros.EnableControls;
   end;
 end;
 
-procedure TfrmUsuario.OnClick_Edit(const AId: Integer; const ANome: String);
+procedure TfrmUsuario.OnClick_Edit;
 begin
   try
     try
       //Atualizando dados principais...
-      FfrmCad_Usuario.Clear_Fields;
-      FfrmCad_Usuario.edidUsuario.Text := memD_Ususario.FieldByName('idUsuario').AsString;
-      FfrmCad_Usuario.edlogin.Text := memD_Ususario.FieldByName('login').AsString;
-      FfrmCad_Usuario.edsenha.Text := memD_Ususario.FieldByName('senha').AsString;
-      FfrmCad_Usuario.ednome.Text := memD_Ususario.FieldByName('nome').AsString;
-      FfrmCad_Usuario.cbativo.ItemIndex := memD_Ususario.FieldByName('ativo').AsInteger;
-      FfrmCad_Usuario.edemail.Text := memD_Ususario.FieldByName('email').AsString;
-      FfrmCad_Usuario.edidPerfil.Text := memD_Ususario.FieldByName('idPerfil').AsString;
-      FfrmCad_Usuario.edidPerfil_Desc.Text := memD_Ususario.FieldByName('nomePerfil').AsString;
-      ShowPopupModal('Popup' + FfrmCad_Usuario.Name);
+      if ZQRegistros.IsEmpty then
+        raise Exception.Create('Não há registros para serem editados');
 
+      FfrmCad_Usuario.Clear_Fields;
+      FfrmCad_Usuario.edidUsuario.Text := ZQRegistrosid_usuario.AsString;
+      FfrmCad_Usuario.edlogin.Text := ZQRegistroslogin.AsString;
+      FfrmCad_Usuario.edsenha.Text := Descriptografar(ZQRegistrossenha.AsString);
+      FfrmCad_Usuario.ednome.Text := ZQRegistrosnome.AsString;
+      FfrmCad_Usuario.cbativo.ItemIndex := ZQRegistrosativo.AsInteger;
+      FfrmCad_Usuario.edemail.Text := ZQRegistrosemail.AsString;
+      FfrmCad_Usuario.edidPerfil.Text := ZQRegistrosid_perfil.AsString;
+      FfrmCad_Usuario.edidPerfil_Desc.Text := ZQRegistrosnome_perfil.AsString;
+
+      ShowPopupModal('Popup' + FfrmCad_Usuario.Name);
       Pesquisar;
 
     except
@@ -307,40 +425,59 @@ begin
   end;
 end;
 
-procedure TfrmUsuario.OnClick_Delete(const AId: Integer; const ANome: String);
+procedure TfrmUsuario.OnClick_Delete;
 var
+  {
   fResp :IResponse;
   fRet :String;
   fBody :TJSONObject;
+  }
+  fQuery :TZQuery;
 begin
   try
-    if MessageDlg('Deseja excluir o usuário selecionada?',TMsgDlgType.mtConfirmation,[mbYes,mbNo],0) = mrYes then
-    begin
-      fResp := TRequest.New.BaseURL(FHost)
-               .AddParam('idEmpresa',memD_Ususario.FieldByName('idEmpresa').AsString)
-      	       .AddParam('idUsuario',memD_Ususario.FieldByName('idUsuario').AsString)
-               .Resource('usuario')
-               .Accept('application/json')
-               .Delete;
+    try
+		  fQuery := fDM.GetQuery;
 
-      fRet := '';
-      fRet := fResp.Content;
-      fBody := TJSONObject(GetJSON(fRet));
-      if fBody['success'].AsBoolean = False then
-        raise Exception.Create(fBody['message'].AsString)
-      else
+      if MessageDlg('Deseja excluir o usuário selecionada?',TMsgDlgType.mtConfirmation,[mbYes,mbNo],0) = mrYes then
       begin
-        MessageDlg(fBody['message'].AsString,TMsgDlgType.mtInformation,[mbOK],0);
+        {
+        fResp := TRequest.New.BaseURL(FHost)
+                 .AddParam('idEmpresa',memD_Ususario.FieldByName('idEmpresa').AsString)
+      	         .AddParam('idUsuario',memD_Ususario.FieldByName('idUsuario').AsString)
+                 .Resource('usuario')
+                 .Accept('application/json')
+                 .Delete;
+
+        fRet := '';
+        fRet := fResp.Content;
+        fBody := TJSONObject(GetJSON(fRet));
+        if fBody['success'].AsBoolean = False then
+          raise Exception.Create(fBody['message'].AsString)
+        else
+        begin
+          MessageDlg(fBody['message'].AsString,TMsgDlgType.mtInformation,[mbOK],0);
+          Pesquisar;
+        end;
+        }
+        fQuery.SQL.Add('DELETE FROM public.usuarios ');
+        fQuery.SQL.Add('WHERE id_empresa = :id_empresa ');
+        fQuery.SQL.Add('  AND id_usuario = :id_usuario; ');
+        fQuery.ParamByName('id_empresa').AsInteger := Emissor.Empresa_Fields.id_empresa;
+        fQuery.ParamByName('id_usuario').AsInteger := ZQRegistrosid_usuario.AsInteger;
+        fQuery.ExecSQL;
+
         Pesquisar;
       end;
-
+    except
+      on E :Exception do
+      begin
+        GravarLogJSON(Self.Name,Self.Caption,'OnClick_Delete',E);
+        MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
+      end;
     end;
-  except
-    on E :Exception do
-    begin
-      GravarLogJSON(Self.Name,Self.Caption,'OnClick_Delete',E);
-      MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
-    end;
+  finally
+    if Assigned(fQuery) then
+      FreeAndNil(fQuery);
   end;
 end;
 
@@ -367,24 +504,17 @@ begin
   begin
     with Row.Items.Add do
     begin
-      with HTMLDIV(CSSClass.Col.colsize10).Items.Add do
+      with HTMLDIV(CSSClass.Col.colsize12).Items.Add do
       begin
         with Row(CSSClass.Space.margim_bottom3).Items.Add do
         begin
           With FormGroup('',CSSClass.Col.colsize12).Items.Add do
           begin
-            LCLObj(edPesquisar);
             LCLObj(btSelPesquisa, PopupMenu, CSSClass.Button.search);
-          end;
-        end;
-      end;
-
-      with HTMLDIV(CSSClass.Col.colsize2).Items.Add do
-      begin
-        with Row(CSSClass.Space.margim_bottom3 + ' ' + CSSClass.Space.margim_top1).Items.Add do
-        begin
-          with HTMLDIV(CSSClass.Text.Align.right).Items.Add do
+            LCLObj(edPesquisar);
             LCLObj(btNovo, CSSClass.Button.add);
+            LCLObj(btGerarPDF, CSSClass.Button.filePDF);
+          end;
         end;
       end;
     end;
@@ -415,6 +545,13 @@ begin
     with PrismControl.AsDBGrid do
     begin
       PrismControl.AsDBGrid.RecordsPerPage := 10;
+      PrismControl.AsDBGrid.RecordsPerPage := 10;
+
+      with Columns.ColumnByDataField('ATIVO_DESC') do
+      begin
+        HTML := '<span class="badge ${value === ''Ativo'' ? ''bg-success'' : ''bg-danger''} rounded-pill p-2" style="width: 5em;">${value}</span>';
+      end;
+
       with Columns.Add do
       begin
         ColumnIndex := 0;
@@ -440,10 +577,12 @@ begin
           end;
 
           //Print
+          {
           with Add do
           begin
             ButtonModel:= TButtonModel.Print;
           end;
+          }
         end;
       end;
     end;
@@ -484,16 +623,15 @@ begin
   if APrismDBGrid.VCLComponent = DBGrid_Usuario then
   begin
     if APrismCellButton.Identify = TButtonModel.Edit.Identity then
-      OnClick_Edit(APrismDBGrid.DataSource.DataSet.FieldByName('idusuario').AsInteger,
-                   APrismDBGrid.DataSource.DataSet.FieldByName('nome').AsString);
+      OnClick_Edit;
 
     if APrismCellButton.Identify = TButtonModel.Delete.Identity then
-      OnClick_Delete(APrismDBGrid.DataSource.DataSet.FieldByName('idUsuario').AsInteger,
-                     APrismDBGrid.DataSource.DataSet.FieldByName('nome').AsString);
-
+      OnClick_Delete;
+    {
     if APrismCellButton.Identify = TButtonModel.Print.Identity then
       OnClick_Print(APrismDBGrid.DataSource.DataSet.FieldByName('idUsuario').AsInteger,
                     APrismDBGrid.DataSource.DataSet.FieldByName('nome').AsString);
+                    }
   end;
 
 end;

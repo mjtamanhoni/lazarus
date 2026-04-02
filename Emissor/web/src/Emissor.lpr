@@ -27,7 +27,8 @@ Unit_D2Bridge_Server_Console in 'Unit_D2Bridge_Server_Console.pas',
   uCad.Empresa.Endereco, ucad.empresa.DadosBancarios, uType_Field_Table,
   uBase.DataSets, uUsuario, uCad.Usuario, uPermissoes.Lista,
   uEstrutura.Database, lazreportpdfexport, udm, uConfig.ACBr, uDm.ACBR,
-  uUsuario.Perfil;
+  uUsuario.Perfil, uusuario.perfil.Cad, uUsuario.Perfil.Loc, uFormularios,
+  uformularios.Cad;
 
 {$R *.res}
 

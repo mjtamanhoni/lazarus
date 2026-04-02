@@ -14,6 +14,11 @@ type
   { TfrmPrincipal }
 
   TfrmPrincipal = class(TD2BridgeForm)
+    mnuSis_Form: TMenuItem;
+    mnuSeg_Perfis: TMenuItem;
+    mnuSeg_Acoes: TMenuItem;
+    mnuSeg_Permissoes: TMenuItem;
+    mnuSistema: TMenuItem;
     mnuConfig_ACBr: TMenuItem;
     mnuCadUsu_Acao: TMenuItem;
     mnuCadUsu_Tela: TMenuItem;
@@ -27,13 +32,13 @@ type
     mnuCad_Empresa: TMenuItem;
     mnuCadUsuario: TMenuItem;
     mnuCad_Usu_Usuario: TMenuItem;
-    mnuCad_Usu_Perfil: TMenuItem;
     mnuCad_Usu_Permissoes: TMenuItem;
-    procedure mnuCad_Usu_PerfilClick(Sender: TObject);
     procedure mnuConfig_ACBrClick(Sender: TObject);
     procedure mnuCad_EmpresaClick(Sender: TObject);
     procedure mnuCad_Usu_UsuarioClick(Sender: TObject);
     procedure mnuDesconectarClick(Sender: TObject);
+    procedure mnuSeg_PerfisClick(Sender: TObject);
+    procedure mnuSis_FormClick(Sender: TObject);
   private
     { Private declarations }
     FfrmConfig_ACBr :TfrmConfig_ACBr;
@@ -50,7 +55,7 @@ function frmPrincipal: TfrmPrincipal;
 implementation
 
 uses
-  EmissorWebApp, uEmpresa, uUsuario, uUsuario.Perfil;
+  EmissorWebApp, uEmpresa, uUsuario, uUsuario.Perfil, uFormularios;
 
 {$R *.lfm}
 
@@ -68,6 +73,20 @@ begin
   end;
 end;
 
+procedure TfrmPrincipal.mnuSeg_PerfisClick(Sender: TObject);
+begin
+  if frmUsuario_Perfil = nil then
+    TfrmUsuario_Perfil.CreateInstance;
+  frmUsuario_Perfil.Show;
+end;
+
+procedure TfrmPrincipal.mnuSis_FormClick(Sender: TObject);
+begin
+  if frmFormularios = nil then
+    TfrmFormularios.CreateInstance;
+  frmFormularios.Show;
+end;
+
 procedure TfrmPrincipal.mnuCad_EmpresaClick(Sender: TObject);
 begin
   if frmEmpresa = nil then
@@ -78,13 +97,6 @@ end;
 procedure TfrmPrincipal.mnuConfig_ACBrClick(Sender: TObject);
 begin
   ShowPopupModal('Popup' + FfrmConfig_ACBr.Name);
-end;
-
-procedure TfrmPrincipal.mnuCad_Usu_PerfilClick(Sender: TObject);
-begin
-  if frmUsuario_Perfil = nil then
-    TfrmUsuario_Perfil.CreateInstance;
-  frmUsuario_Perfil.Show;
 end;
 
 procedure TfrmPrincipal.mnuCad_Usu_UsuarioClick(Sender: TObject);
@@ -137,10 +149,17 @@ begin
       PrismControl.AsSideMenu.MenuItemFromVCLComponent(mnuDesconectar).Icon := 'fa-solid fa-arrow-right-from-bracket';
       {$EndRegion 'Principal'}
 
+      {$Region 'Sistemas'}
+        PrismControl.AsSideMenu.MenuItemFromVCLComponent(mnuSistema).Icon := 'fa-solid fa-cogs';
+        PrismControl.AsSideMenu.MenuItemFromVCLComponent(mnuSis_Form).Icon := 'fa-solid fa-file-lines';
+        PrismControl.AsSideMenu.MenuItemFromVCLComponent(mnuSeg_Permissoes).Icon := 'fa-solid fa-key';
+        PrismControl.AsSideMenu.MenuItemFromVCLComponent(mnuSeg_Acoes).Icon := 'fa-solid fa-bolt';
+        PrismControl.AsSideMenu.MenuItemFromVCLComponent(mnuSeg_Perfis).Icon := 'fa-solid fa-id-badge';
+      {$EndRegion 'Sistemas'}
+
       {$Region 'Usuarios'}
         PrismControl.AsSideMenu.MenuItemFromVCLComponent(mnuCadUsuario).Icon := 'fa-solid fa-users';
         PrismControl.AsSideMenu.MenuItemFromVCLComponent(mnuCad_Usu_Usuario).Icon := 'fa-solid fa-users';
-        PrismControl.AsSideMenu.MenuItemFromVCLComponent(mnuCad_Usu_Perfil).Icon := 'fa-solid fa-address-card';
         PrismControl.AsSideMenu.MenuItemFromVCLComponent(mnuCad_Usu_Permissoes).Icon := 'fa-solid fa-lock-open'; //<i class="fa-solid fa-lock-open"></i>
         PrismControl.AsSideMenu.MenuItemFromVCLComponent(mnuCadUsu_Tela).Icon := 'fa-solid fa-laptop-file';
         PrismControl.AsSideMenu.MenuItemFromVCLComponent(mnuCadUsu_Acao).Icon := 'fa-solid fa-list';

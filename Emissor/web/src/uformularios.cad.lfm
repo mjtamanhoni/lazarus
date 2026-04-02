@@ -1,0 +1,8 @@
+object frmFormularios_Cad: TfrmFormularios_Cad
+  Left = 298
+  Height = 240
+  Top = 250
+  Width = 320
+  Caption = 'Cadastro de Formulários'
+  LCLVersion = '4.4.0.0'
+end
