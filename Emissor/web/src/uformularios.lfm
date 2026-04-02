@@ -1,16 +1,14 @@
-object frmFormularios: TfrmFormularios
+inherited frmFormularios: TfrmFormularios
   Left = 298
   Height = 567
-  Top = 250
   Width = 860
   Caption = 'Formulários'
   ClientHeight = 567
   ClientWidth = 860
-  LCLVersion = '4.4.0.0'
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnShow = FormShow
-  object pnHeader: TPanel
+  object pnHeader: TPanel[0]
     Left = 0
     Height = 30
     Top = 0
@@ -63,7 +61,7 @@ object frmFormularios: TfrmFormularios
       TabOrder = 1
     end
   end
-  object pnDetail: TPanel
+  object pnDetail: TPanel[1]
     Left = 0
     Height = 487
     Top = 30
@@ -92,7 +90,7 @@ object frmFormularios: TfrmFormularios
         item
           Title.Alignment = taCenter
           Title.Caption = 'Nome'
-          Width = 300
+          Width = 250
           FieldName = 'nome'
         end      
         item
@@ -107,6 +105,7 @@ object frmFormularios: TfrmFormularios
           FieldName = 'status'
         end      
         item
+          Alignment = taCenter
           Title.Alignment = taCenter
           Title.Caption = 'Status'
           Width = 80
@@ -117,7 +116,7 @@ object frmFormularios: TfrmFormularios
       TabOrder = 0
     end
   end
-  object pnFooter: TPanel
+  object pnFooter: TPanel[2]
     Left = 0
     Height = 50
     Top = 517
@@ -148,7 +147,9 @@ object frmFormularios: TfrmFormularios
       OnClick = btGerarPDFClick
     end
   end
-  object ZQRegistros: TZQuery
+  inherited mmPrincipal: TMainMenu[3]
+  end
+  object ZQRegistros: TZQuery[4]
     SQL.Strings = (
       'select '
       '  f.*'
@@ -215,12 +216,12 @@ object frmFormularios: TfrmFormularios
       Transliterate = False
     end
   end
-  object dsRegistro: TDataSource
+  object dsRegistro: TDataSource[5]
     DataSet = ZQRegistros
     Left = 85
     Top = 265
   end
-  object pmPesquisar: TPopupMenu
+  object pmPesquisar: TPopupMenu[6]
     Left = 180
     Top = 135
     object miID: TMenuItem
@@ -233,12 +234,12 @@ object frmFormularios: TfrmFormularios
       OnClick = miNomeClick
     end
   end
-  object frDBDS_Registros: TfrDBDataSet
+  object frDBDS_Registros: TfrDBDataSet[7]
     DataSet = ZQRegistros
     Left = 250
     Top = 205
   end
-  object frReport_Registros: TfrReport
+  object frReport_Registros: TfrReport[8]
     Dataset = frDBDS_Registros
     InitialZoom = pzDefault
     Options = []

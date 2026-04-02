@@ -326,6 +326,7 @@
         <Filename Value="uformularios.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmFormularios"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uFormularios"/>
       </Unit>
@@ -333,6 +334,7 @@
         <Filename Value="uformularios.cad.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmFormularios_Cad"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uformularios.Cad"/>
       </Unit>

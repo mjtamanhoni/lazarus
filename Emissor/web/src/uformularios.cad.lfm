@@ -1,8 +1,178 @@
 object frmFormularios_Cad: TfrmFormularios_Cad
   Left = 298
-  Height = 240
+  Height = 337
   Top = 250
-  Width = 320
+  Width = 806
   Caption = 'Cadastro de Formulários'
+  ClientHeight = 337
+  ClientWidth = 806
   LCLVersion = '4.4.0.0'
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  object pnRow001: TPanel
+    Left = 0
+    Height = 43
+    Top = 0
+    Width = 806
+    Align = alTop
+    BevelOuter = bvNone
+    ClientHeight = 43
+    ClientWidth = 806
+    TabOrder = 0
+    object pnidUsuario: TPanel
+      Left = 0
+      Height = 43
+      Top = 0
+      Width = 80
+      Align = alLeft
+      BevelOuter = bvNone
+      BorderWidth = 3
+      ClientHeight = 43
+      ClientWidth = 80
+      TabOrder = 0
+      object lbid_form: TLabel
+        Left = 3
+        Height = 15
+        Top = 3
+        Width = 74
+        Align = alTop
+        Caption = 'Id'
+      end
+      object edid_form: TEdit
+        Left = 3
+        Height = 22
+        Top = 18
+        Width = 74
+        Align = alClient
+        Alignment = taRightJustify
+        NumbersOnly = True
+        ReadOnly = True
+        TabOrder = 0
+        TextHint = 'Id'
+      end
+    end
+    object pnlogin: TPanel
+      Left = 80
+      Height = 43
+      Top = 0
+      Width = 602
+      Align = alClient
+      BevelOuter = bvNone
+      BorderWidth = 3
+      ClientHeight = 43
+      ClientWidth = 602
+      TabOrder = 1
+      object lbnome: TLabel
+        Left = 3
+        Height = 15
+        Top = 3
+        Width = 596
+        Align = alTop
+        Caption = 'Nome'
+      end
+      object ednome: TEdit
+        Left = 3
+        Height = 22
+        Top = 18
+        Width = 596
+        Align = alClient
+        TabOrder = 0
+        TextHint = 'Nome do Formulário'
+      end
+    end
+    object pnativo: TPanel
+      Left = 682
+      Height = 43
+      Top = 0
+      Width = 124
+      Align = alRight
+      BevelOuter = bvNone
+      BorderWidth = 3
+      ClientHeight = 43
+      ClientWidth = 124
+      TabOrder = 2
+      object lbstatus: TLabel
+        Left = 3
+        Height = 15
+        Top = 3
+        Width = 118
+        Align = alTop
+        Caption = 'Status'
+      end
+      object cbstatus: TComboBox
+        Left = 3
+        Height = 23
+        Top = 18
+        Width = 118
+        Align = alClient
+        ItemHeight = 15
+        Items.Strings = (
+          'INATIVO'
+          'ATIVO'
+        )
+        TabOrder = 0
+      end
+    end
+  end
+  object pnRow002: TPanel
+    Left = 0
+    Height = 143
+    Top = 43
+    Width = 806
+    Align = alTop
+    BevelOuter = bvNone
+    ClientHeight = 143
+    ClientWidth = 806
+    TabOrder = 1
+    object lbdescricao: TLabel
+      Left = 0
+      Height = 15
+      Top = 0
+      Width = 806
+      Align = alTop
+      Caption = 'Descrição'
+    end
+    object memdescricao: TMemo
+      Left = 0
+      Height = 128
+      Top = 15
+      Width = 806
+      Align = alClient
+      ScrollBars = ssVertical
+      TabOrder = 0
+    end
+  end
+  object pnFooter: TPanel
+    Left = 0
+    Height = 38
+    Top = 299
+    Width = 806
+    Align = alBottom
+    BevelOuter = bvNone
+    ClientHeight = 38
+    ClientWidth = 806
+    TabOrder = 2
+    object btCancelar: TButton
+      Cursor = crHandPoint
+      Left = 731
+      Height = 38
+      Top = 0
+      Width = 75
+      Align = alRight
+      Caption = 'Cancelar'
+      TabOrder = 0
+      OnClick = btCancelarClick
+    end
+    object btConfirmar: TButton
+      Cursor = crHandPoint
+      Left = 656
+      Height = 38
+      Top = 0
+      Width = 75
+      Align = alRight
+      Caption = 'Confirmar'
+      TabOrder = 1
+      OnClick = btConfirmarClick
+    end
+  end
 end

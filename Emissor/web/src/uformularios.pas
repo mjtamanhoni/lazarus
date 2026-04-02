@@ -110,6 +110,7 @@ begin
   try
     FfrmFormularios_Cad.Clear_Fields;
     ShowPopupModal('Popup' + FfrmFormularios_Cad.Name);
+    Pesquisar;
   except
     On E:Exception do
     begin
@@ -117,8 +118,6 @@ begin
       GravarLogJSON(Self.Name,Self.Caption,'btNovoClick',E);
     end;
   end;
-
-  Pesquisar;
 end;
 
 procedure TfrmFormularios.btGerarPDFClick(Sender: TObject);
@@ -174,7 +173,7 @@ begin
       ZQRegistros.SQL.Add('  ,case f.status ');
       ZQRegistros.SQL.Add('    when 0 then ''Inativo'' ');
       ZQRegistros.SQL.Add('    when 1 then ''Ativo'' ');
-      ZQRegistros.SQL.Add('  end status_descv ');
+      ZQRegistros.SQL.Add('  end status_desc ');
       ZQRegistros.SQL.Add('from public.formularios f ');
       ZQRegistros.SQL.Add('where 1=1 ');
       if Trim(edPesquisar.Text) <> '' then
@@ -210,9 +209,10 @@ begin
       FfrmFormularios_Cad.Clear_Fields;
       if not ZQRegistros.IsEmpty then
       begin
-        //FfrmUsuarioPerfil_Cad.edid_perfil.Text := ZQRegistrosid_perfil.AsString;
-        //FfrmUsuarioPerfil_Cad.ednome_perfil.Text := ZQRegistrosnome_perfil.AsString;
-        //FfrmUsuarioPerfil_Cad.memdescricao.Text := ZQRegistrosdescricao.AsString;
+        FfrmFormularios_Cad.edid_form.Text := ZQRegistrosid_form.AsString;
+        FfrmFormularios_Cad.ednome.Text := ZQRegistrosnome.AsString;
+        FfrmFormularios_Cad.memdescricao.Text := ZQRegistrosdescricao.AsString;
+        FfrmFormularios_Cad.cbstatus.ItemIndex := ZQRegistrosstatus.AsInteger;
         ShowPopupModal('Popup' + FfrmFormularios_Cad.Name);
         Pesquisar;
       end
@@ -316,6 +316,10 @@ begin
     with PrismControl.AsDBGrid do
     begin
       PrismControl.AsDBGrid.RecordsPerPage := 10;
+      with Columns.ColumnByDataField('STATUS_DESC') do
+      begin
+        HTML := '<span class="badge ${value === ''Ativo'' ? ''bg-success'' : ''bg-danger''} rounded-pill p-2" style="width: 5em;">${value}</span>';
+      end;
 
       with Columns.Add do
       begin

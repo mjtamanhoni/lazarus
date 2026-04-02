@@ -85,13 +85,12 @@ begin
 	  FIniFile := TIniFile.Create(ConfigFile);
   	FDm := TDM.Create(Nil);
 	except
-  on E :Exception do
-  begin
-    GravarLogJSON(Self.Name,Self.Caption,'FormCreate',E);
-    MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
+    on E :Exception do
+    begin
+      GravarLogJSON(Self.Name,Self.Caption,'FormCreate',E);
+      MessageDlg(E.Message,TMsgDlgType.mtError,[mbOK],0);
+    end;
   end;
-end;
-
 end;
 
 procedure TfrmUsuarioPerfil_Cad.FormDestroy(Sender: TObject);
