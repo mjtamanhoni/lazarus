@@ -117,5 +117,79 @@
         "message" : "ZQRegistros : Field not found : \"status_desc\""
       }
     ]
+  },
+  {
+    "date" : "2026-04-03",
+    "company_name" : "MJT Systems",
+    "description" : "Servidor Horse para emissão de Documentos Fiscais",
+    "copyright" : "Marcos Tamanhoni",
+    "product_name" : "HorseFiscal",
+    "version" : "1.0.0.14",
+    "usuario_pc" : "Marcos Tamanhoni",
+    "logs" : [
+      {
+        "time" : "14:14:35",
+        "form_name" : "frmFormularios",
+        "caption_name" : "Formulários",
+        "unit" : "btGerarPDFClick",
+        "exception_class" : "EParserError",
+        "exception_description" : "Exceção Genérica: Erro não classificado especificamente pelo mapeador de log.",
+        "message" : "Object : Memo2\rBand : MasterData1\rPage : Page1\rUndefined symbol: dsRegistro.\"id_perfil\""
+      },
+      {
+        "time" : "14:16:31",
+        "form_name" : "frmFormularios_1",
+        "caption_name" : "Formulários",
+        "unit" : "btGerarPDFClick",
+        "exception_class" : "EParserError",
+        "exception_description" : "Exceção Genérica: Erro não classificado especificamente pelo mapeador de log.",
+        "message" : "Object : Memo2\rBand : MasterData1\rPage : Page1\rUndefined symbol: dsRegistro.\"id_perfil\""
+      },
+      {
+        "time" : "14:16:34",
+        "form_name" : "frmFormularios_1",
+        "caption_name" : "Formulários",
+        "unit" : "btGerarPDFClick",
+        "exception_class" : "EParserError",
+        "exception_description" : "Exceção Genérica: Erro não classificado especificamente pelo mapeador de log.",
+        "message" : "Object : Memo2\rBand : MasterData1\rPage : Page1\rUndefined symbol: dsRegistro.\"id_perfil\""
+      },
+      {
+        "time" : "14:16:44",
+        "form_name" : "frmFormularios_1",
+        "caption_name" : "Formulários",
+        "unit" : "btGerarPDFClick",
+        "exception_class" : "EParserError",
+        "exception_description" : "Exceção Genérica: Erro não classificado especificamente pelo mapeador de log.",
+        "message" : "Object : Memo2\rBand : MasterData1\rPage : Page1\rUndefined symbol: dsRegistro.\"id_perfil\""
+      },
+      {
+        "time" : "14:16:54",
+        "form_name" : "frmFormularios_1",
+        "caption_name" : "Formulários",
+        "unit" : "btGerarPDFClick",
+        "exception_class" : "EParserError",
+        "exception_description" : "Exceção Genérica: Erro não classificado especificamente pelo mapeador de log.",
+        "message" : "Object : Memo2\rBand : MasterData1\rPage : Page1\rUndefined symbol: dsRegistro.\"id_perfil\""
+      },
+      {
+        "time" : "14:49:03",
+        "form_name" : "frmFormularios",
+        "caption_name" : "Formulários",
+        "unit" : "btGerarPDFClick",
+        "exception_class" : "EParserError",
+        "exception_description" : "Exceção Genérica: Erro não classificado especificamente pelo mapeador de log.",
+        "message" : "Object : Memo2\rBand : MasterData1\rPage : Page1\rUndefined symbol: dsRegistro.\"id_perfil\""
+      },
+      {
+        "time" : "14:50:58",
+        "form_name" : "Form_Login",
+        "caption_name" : "Form Login",
+        "unit" : "Button_LoginClick",
+        "exception_class" : "Exception",
+        "exception_description" : "Exceção Genérica: Erro não classificado especificamente pelo mapeador de log.",
+        "message" : "Validando usuário: \r\nSenha inválida. Verifica suas credenciais e tente novamente."
+      }
+    ]
   }
 ]

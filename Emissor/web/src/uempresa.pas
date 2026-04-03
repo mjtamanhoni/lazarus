@@ -10,7 +10,7 @@ uses
   D2Bridge.Forms, Forms, IniFiles, BufDataset, fpjson, DataSet.Serialize,
   RESTRequest4D, jsonparser, uBase.Functions, fpwebdata, extjsxml, LR_DBSet,
   LR_Class, lrPDFExport, lr_e_pdf, RLReport, uDM.ACBr, uPrincipal, uCad.Empresa,
-  uBase.DataSets, uDM, LCLIntf, LCLType, LazHelpHTML, PReport;
+  uBase.DataSets, uDM, LCLIntf, LCLType, LazHelpHTML, PReport, RLPDFFilter;
 
 type
 
@@ -168,6 +168,7 @@ procedure TfrmEmpresa.btGerarPDFClick(Sender: TObject);
 var
   fArquivo :String;
   fs: TFileStream;
+
 begin
   try
     try
@@ -530,7 +531,17 @@ begin
         begin
 	        HTML := '<span class="badge ${value === ''Ativo'' ? ''bg-success'' : ''bg-danger''} rounded-pill p-2" style="width: 5em;">${value}</span>';
         end;
-
+        (*
+        with Columns.ColumnByDataField('CNPJ') do
+        begin
+          HTML :=
+            '${value.length === 11 ? ' +
+              '''${value.substring(0,3)}.${value.substring(3,6)}.${value.substring(6,9)}-${value.substring(9,11)}''' +
+            ' : ' +
+              '''${value.substring(0,2)}.${value.substring(2,5)}.${value.substring(5,8)}/${value.substring(8,12)}-${value.substring(12,14)}''' +
+            '}';
+        end;
+        *)
         with Columns.Add do
         begin
           ColumnIndex := 0;

@@ -245,7 +245,7 @@ inherited frmFormularios: TfrmFormularios
     Options = []
     PreviewButtons = [pbZoom, pbLoad, pbSave, pbPrint, pbFind, pbHelp, pbExit, pbSettings, pbPageSetup]
     DataType = dtDataSource
-    Title = 'uRel_Formulario.lrf'
+    Title = 'uRel_Formularios.lrf'
     Left = 245
     Top = 265
   end

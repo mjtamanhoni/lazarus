@@ -222,6 +222,8 @@ inherited frmEmpresa: TfrmEmpresa
     end
   end
   inherited mmPrincipal: TMainMenu[3]
+    Left = 380
+    Top = 130
   end
   object dsRegistro: TDataSource[4]
     DataSet = ZQRegistros
@@ -453,7 +455,7 @@ inherited frmEmpresa: TfrmEmpresa
     Options = []
     PreviewButtons = [pbZoom, pbLoad, pbSave, pbPrint, pbFind, pbHelp, pbExit, pbSettings, pbPageSetup]
     DataType = dtDataSet
-    Title = 'uRel_Empresas.lrf'
+    Title = 'uRel_Perfil.lrf'
     Left = 615
     Top = 185
   end
